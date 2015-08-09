@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace TrainingPlanner
 {
@@ -45,9 +47,21 @@ namespace TrainingPlanner
 
     #region Main Methods
 
-    public static Workout Parse(string data)
+    public static Workout ParseJsonFile(string path)
     {
-      return null;
+      var serializer = new DataContractJsonSerializer(typeof(Workout));
+      return (Workout) serializer.ReadObject(new FileStream(path, FileMode.Open, FileAccess.Read));
+    }
+
+    public string ToJson()
+    {
+      var stream = new MemoryStream();
+      var serializer = new DataContractJsonSerializer(typeof(Workout));
+      serializer.WriteObject(stream, this);
+      stream.Position = 0;
+      var reader = new StreamReader(stream);
+
+      return reader.ReadToEnd();
     }
 
     public override string ToString()

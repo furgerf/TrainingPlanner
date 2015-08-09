@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace TrainingPlanner
@@ -29,7 +30,7 @@ namespace TrainingPlanner
     {
       labWorkoutName.Text = Workout.Name;
       txtDuration.Text = Workout.Duration.ToString();
-      txtDistance.Text = Workout.Distance.ToString(CultureInfo.InvariantCulture);
+      txtDistance.Text = Math.Round(Workout.Distance, 2) + " km";
       txtDescription.Text = Workout.Description;
     }
 
