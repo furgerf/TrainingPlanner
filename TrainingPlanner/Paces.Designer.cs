@@ -23,15 +23,12 @@ namespace TrainingPlanner {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("00:05:15")]
         public global::System.TimeSpan Easy {
             get {
                 return ((global::System.TimeSpan)(this["Easy"]));
-            }
-            set {
-                this["Easy"] = value;
             }
         }
         

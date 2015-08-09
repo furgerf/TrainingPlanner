@@ -28,13 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+      this.weekControl1 = new TrainingPlanner.WeekControl();
       this.SuspendLayout();
+      // 
+      // weekControl1
+      // 
+      this.weekControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+      this.weekControl1.Location = new System.Drawing.Point(12, 12);
+      this.weekControl1.Name = "weekControl1";
+      this.weekControl1.Size = new System.Drawing.Size(1307, 338);
+      this.weekControl1.TabIndex = 0;
+      this.weekControl1.Workouts = null;
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(833, 434);
+      this.ClientSize = new System.Drawing.Size(1387, 487);
+      this.Controls.Add(this.weekControl1);
       this.Name = "MainForm";
       this.Text = "Training Planner";
       this.ResumeLayout(false);
@@ -42,6 +53,8 @@
         }
 
         #endregion
+
+        private WeekControl weekControl1;
 
     }
 }

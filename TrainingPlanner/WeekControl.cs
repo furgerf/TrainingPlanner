@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace TrainingPlanner
@@ -16,6 +15,11 @@ namespace TrainingPlanner
       get { return _workouts; }
       set
       {
+        if (value == null)
+        {
+          return;
+        }
+
         if (value.Length != MaxWeeklyWorkouts)
         {
           throw new ArgumentException("Must provide exactly " + MaxWeeklyWorkouts + " workouts");
@@ -38,7 +42,7 @@ namespace TrainingPlanner
 
       _workoutControls = new[]
       {
-        wrkMondayMorning, wrkMondayEvening, wrkTuesdayMorning, wrkThursdayEvening, wrkWednesdayMorning,
+        wrkMondayMorning, wrkMondayEvening, wrkTuesdayMorning, wrkTuesdayEvening, wrkWednesdayMorning,
         wrkWednesdayEvening, wrkThursdayMorning, wrkThursdayEvening, wrkFridayMorning, wrkFridayEvening,
         wrkSaturdayMorning, wrkSaturdayEvening, wrkSundayMorning, wrkSundayEvening
       };

@@ -82,7 +82,6 @@
       this.wrkMondayEvening.Size = new System.Drawing.Size(142, 148);
       this.wrkMondayEvening.TabIndex = 1;
       this.wrkMondayEvening.Visible = false;
-      this.wrkMondayEvening.Workout = null;
       // 
       // wrkMondayMorning
       // 
@@ -92,7 +91,6 @@
       this.wrkMondayMorning.Size = new System.Drawing.Size(142, 148);
       this.wrkMondayMorning.TabIndex = 0;
       this.wrkMondayMorning.Visible = false;
-      this.wrkMondayMorning.Workout = null;
       // 
       // grpTuesday
       // 
@@ -113,7 +111,6 @@
       this.wrkTuesdayEvening.Size = new System.Drawing.Size(142, 148);
       this.wrkTuesdayEvening.TabIndex = 1;
       this.wrkTuesdayEvening.Visible = false;
-      this.wrkTuesdayEvening.Workout = null;
       // 
       // wrkTuesdayMorning
       // 
@@ -123,7 +120,6 @@
       this.wrkTuesdayMorning.Size = new System.Drawing.Size(142, 148);
       this.wrkTuesdayMorning.TabIndex = 0;
       this.wrkTuesdayMorning.Visible = false;
-      this.wrkTuesdayMorning.Workout = null;
       // 
       // grpWednesday
       // 
@@ -144,7 +140,6 @@
       this.wrkWednesdayEvening.Size = new System.Drawing.Size(142, 148);
       this.wrkWednesdayEvening.TabIndex = 1;
       this.wrkWednesdayEvening.Visible = false;
-      this.wrkWednesdayEvening.Workout = null;
       // 
       // wrkWednesdayMorning
       // 
@@ -154,7 +149,6 @@
       this.wrkWednesdayMorning.Size = new System.Drawing.Size(142, 148);
       this.wrkWednesdayMorning.TabIndex = 0;
       this.wrkWednesdayMorning.Visible = false;
-      this.wrkWednesdayMorning.Workout = null;
       // 
       // grpThursday
       // 
@@ -175,7 +169,6 @@
       this.wrkThursdayEvening.Size = new System.Drawing.Size(142, 148);
       this.wrkThursdayEvening.TabIndex = 1;
       this.wrkThursdayEvening.Visible = false;
-      this.wrkThursdayEvening.Workout = null;
       // 
       // wrkThursdayMorning
       // 
@@ -185,7 +178,6 @@
       this.wrkThursdayMorning.Size = new System.Drawing.Size(142, 148);
       this.wrkThursdayMorning.TabIndex = 0;
       this.wrkThursdayMorning.Visible = false;
-      this.wrkThursdayMorning.Workout = null;
       // 
       // grpFriday
       // 
@@ -206,7 +198,6 @@
       this.wrkFridayEvening.Size = new System.Drawing.Size(142, 148);
       this.wrkFridayEvening.TabIndex = 1;
       this.wrkFridayEvening.Visible = false;
-      this.wrkFridayEvening.Workout = null;
       // 
       // wrkFridayMorning
       // 
@@ -216,7 +207,6 @@
       this.wrkFridayMorning.Size = new System.Drawing.Size(142, 148);
       this.wrkFridayMorning.TabIndex = 0;
       this.wrkFridayMorning.Visible = false;
-      this.wrkFridayMorning.Workout = null;
       // 
       // grpSaturday
       // 
@@ -237,7 +227,6 @@
       this.wrkSaturdayEvening.Size = new System.Drawing.Size(142, 148);
       this.wrkSaturdayEvening.TabIndex = 1;
       this.wrkSaturdayEvening.Visible = false;
-      this.wrkSaturdayEvening.Workout = null;
       // 
       // wrkSaturdayMorning
       // 
@@ -247,7 +236,6 @@
       this.wrkSaturdayMorning.Size = new System.Drawing.Size(142, 148);
       this.wrkSaturdayMorning.TabIndex = 0;
       this.wrkSaturdayMorning.Visible = false;
-      this.wrkSaturdayMorning.Workout = null;
       // 
       // grpSunday
       // 
@@ -268,7 +256,6 @@
       this.wrkSundayEvening.Size = new System.Drawing.Size(142, 148);
       this.wrkSundayEvening.TabIndex = 1;
       this.wrkSundayEvening.Visible = false;
-      this.wrkSundayEvening.Workout = null;
       // 
       // wrkSundayMorning
       // 
@@ -278,7 +265,6 @@
       this.wrkSundayMorning.Size = new System.Drawing.Size(142, 148);
       this.wrkSundayMorning.TabIndex = 0;
       this.wrkSundayMorning.Visible = false;
-      this.wrkSundayMorning.Workout = null;
       // 
       // grpSummary
       // 
