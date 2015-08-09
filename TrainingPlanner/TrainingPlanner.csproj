@@ -58,7 +58,22 @@
       <DependentUpon>Paces.settings</DependentUpon>
     </Compile>
     <Compile Include="Step.cs" />
+    <Compile Include="WeekControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WeekControl.Designer.cs">
+      <DependentUpon>WeekControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Workout.cs" />
+    <Compile Include="WorkoutControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkoutControl.Designer.cs">
+      <DependentUpon>WorkoutControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -68,6 +83,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WeekControl.resx">
+      <DependentUpon>WeekControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkoutControl.resx">
+      <DependentUpon>WorkoutControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

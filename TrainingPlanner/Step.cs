@@ -16,6 +16,10 @@ namespace TrainingPlanner
 
     public readonly int Repetitions;
 
+    public static Step Warmup { get { return new Step("Warmup", new TimeSpan(0, 10, 0), new TimeSpan(0, 5, 15));} }
+
+    public static Step Cooldown { get { return new Step("Cooldown", new TimeSpan(0, 5, 0), new TimeSpan(0, 5, 30));} }
+
     private Step(string name, TimeSpan duration, TimeSpan pace, double distance, TimeSpan? rest = null, int repetitions = 1) : this()
     {
       Name = name;
@@ -39,6 +43,23 @@ namespace TrainingPlanner
     public Step(string name, double distance, TimeSpan pace, TimeSpan? rest = null, int repetitions = 1)
       : this(name, TimeSpan.FromSeconds(distance/pace.TotalSeconds), pace, distance, rest, repetitions)
     {
+    }
+
+    public override string ToString()
+    {
+      var result = string.Format("{0} at {1}", Duration, Pace);
+
+      if (Rest != TimeSpan.Zero)
+      {
+        result += string.Format(" with {0} rest", Rest);
+      }
+
+      if (Repetitions > 1)
+      {
+        result = string.Format("({0}) x {1}", result, Repetitions);
+      }
+
+      return result;
     }
   }
 }

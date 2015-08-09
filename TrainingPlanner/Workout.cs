@@ -17,6 +17,16 @@ namespace TrainingPlanner
 
     public TimeSpan AveragePace { get { return TimeSpan.FromSeconds(Steps.Sum(s => s.Duration.TotalSeconds) / Steps.Length); }}
 
+    public string Description
+    {
+      get
+      {
+          var result = Steps.Aggregate("", (current, s) => current + (Environment.NewLine + s));
+
+          return result.Substring(1);
+      }
+    }
+
     #endregion
 
     #region Constructor
