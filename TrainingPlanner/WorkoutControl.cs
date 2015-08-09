@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TrainingPlanner
@@ -11,6 +11,16 @@ namespace TrainingPlanner
     public event OnWorkoutChanged WorkoutChanged;
 
     private Workout _workout;
+
+    private readonly Control[] _emptyWorkoutControls;
+
+    private readonly Control[] _nonemptyWorkoutControls;
+
+    private bool HasWorkout { get { return _workout != null; } }
+
+    //private Control[] CurrentlyVisibleControls { get { return HasWorkout ? _nonemptyWorkoutControls : _emptyWorkoutControls; } }
+
+    private Control[] AllControls { get { return _emptyWorkoutControls.Concat(_nonemptyWorkoutControls).ToArray(); } }
 
     public Workout Workout
     {
@@ -28,24 +38,48 @@ namespace TrainingPlanner
 
     private void UpdateWorkoutData()
     {
-      labWorkoutName.Text = Workout.Name;
-      txtDuration.Text = Workout.Duration.ToString();
-      txtDistance.Text = Math.Round(Workout.Distance, 2) + " km";
-      txtDescription.Text = Workout.Description;
+      if (HasWorkout)
+      {
+        labWorkoutName.Text = Workout.Name;
+        txtDuration.Text = Workout.Duration.ToString();
+        txtDistance.Text = Math.Round(Workout.Distance, 2) + " km";
+        txtDescription.Text = Workout.Description;
+      }
+      else
+      {
+        labWorkoutName.Text = "";
+        txtDuration.Text = "";
+        txtDistance.Text = "";
+        txtDescription.Text = "";
+      }
+
+      foreach (var c in _emptyWorkoutControls)
+      {
+        c.Visible = !HasWorkout;
+      }
+      foreach (var c in _nonemptyWorkoutControls)
+      {
+        c.Visible = HasWorkout;
+      }
     }
 
     public WorkoutControl()
     {
       InitializeComponent();
 
-      WorkoutChanged += workout =>
-      {
-        UpdateWorkoutData();
+      _emptyWorkoutControls = new Control[] { labSelectWorkout, comWorkouts };
+      _nonemptyWorkoutControls = new Control[] { labWorkoutName, txtDescription, txtDistance, txtDuration, butRemove };
 
-        Visible = workout != null;
-      };
+      WorkoutChanged += workout => UpdateWorkoutData();
 
-      Visible = false;
+      UpdateWorkoutData();
+
+      // TODO: Fill combobox
+    }
+
+    private void butRemove_Click(object sender, EventArgs e)
+    {
+      Workout = null;
     }
   }
 }

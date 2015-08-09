@@ -28,7 +28,7 @@ namespace TrainingPlanner
 
       var foobar = Workout.ParseJsonFile("foo.txt");
 
-      weekControl1.Workouts = new[] {foobar, foo, foo, foo, foo, foo, foo, foo, foo, foo, foo, foo, foo, foo};
+      weekControl1.Workouts = new[] {foobar, foo, null, foo, foo, foo, foo, foo, foo, foo, foo, foo, foo, foo};
     }
   }
 }
