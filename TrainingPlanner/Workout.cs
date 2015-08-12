@@ -33,6 +33,20 @@ namespace TrainingPlanner
       }
     }
 
+    public string Json
+    {
+      get
+      {
+        var stream = new MemoryStream();
+        var serializer = new DataContractJsonSerializer(typeof (Workout));
+        serializer.WriteObject(stream, this);
+        stream.Position = 0;
+        var reader = new StreamReader(stream);
+
+        return reader.ReadToEnd();
+      }
+    }
+
     #endregion
 
     #region Constructor
@@ -51,17 +65,6 @@ namespace TrainingPlanner
     {
       var serializer = new DataContractJsonSerializer(typeof(Workout));
       return (Workout) serializer.ReadObject(new FileStream(path, FileMode.Open, FileAccess.Read));
-    }
-
-    public string ToJson()
-    {
-      var stream = new MemoryStream();
-      var serializer = new DataContractJsonSerializer(typeof(Workout));
-      serializer.WriteObject(stream, this);
-      stream.Position = 0;
-      var reader = new StreamReader(stream);
-
-      return reader.ReadToEnd();
     }
 
     public override string ToString()

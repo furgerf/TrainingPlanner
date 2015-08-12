@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
       this.weekControl1 = new TrainingPlanner.WeekControl();
+      this.butAddWorkout = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // weekControl1
@@ -40,11 +41,22 @@
       this.weekControl1.TabIndex = 0;
       this.weekControl1.Workouts = null;
       // 
+      // butAddWorkout
+      // 
+      this.butAddWorkout.Location = new System.Drawing.Point(12, 356);
+      this.butAddWorkout.Name = "butAddWorkout";
+      this.butAddWorkout.Size = new System.Drawing.Size(96, 23);
+      this.butAddWorkout.TabIndex = 1;
+      this.butAddWorkout.Text = "Add Workout";
+      this.butAddWorkout.UseVisualStyleBackColor = true;
+      this.butAddWorkout.Click += new System.EventHandler(this.butAddWorkout_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1387, 487);
+      this.Controls.Add(this.butAddWorkout);
       this.Controls.Add(this.weekControl1);
       this.Name = "MainForm";
       this.Text = "Training Planner";
@@ -55,6 +67,7 @@
         #endregion
 
         private WeekControl weekControl1;
+        private System.Windows.Forms.Button butAddWorkout;
 
 
     }

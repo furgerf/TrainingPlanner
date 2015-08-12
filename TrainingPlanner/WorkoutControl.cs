@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace TrainingPlanner
@@ -20,7 +19,7 @@ namespace TrainingPlanner
 
     //private Control[] CurrentlyVisibleControls { get { return HasWorkout ? _nonemptyWorkoutControls : _emptyWorkoutControls; } }
 
-    private Control[] AllControls { get { return _emptyWorkoutControls.Concat(_nonemptyWorkoutControls).ToArray(); } }
+    //private Control[] AllControls { get { return _emptyWorkoutControls.Concat(_nonemptyWorkoutControls).ToArray(); } }
 
     public Workout Workout
     {
@@ -61,6 +60,16 @@ namespace TrainingPlanner
       {
         c.Visible = HasWorkout;
       }
+
+      if (comWorkouts.Items.Count != 0 || Program.Workouts == null)
+      {
+        return;
+      }
+
+      foreach (var w in Program.Workouts)
+      {
+        comWorkouts.Items.Add(w.Name);
+      }
     }
 
     public WorkoutControl()
@@ -73,8 +82,6 @@ namespace TrainingPlanner
       WorkoutChanged += workout => UpdateWorkoutData();
 
       UpdateWorkoutData();
-
-      // TODO: Fill combobox
     }
 
     private void butRemove_Click(object sender, EventArgs e)
