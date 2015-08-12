@@ -61,10 +61,16 @@ namespace TrainingPlanner
     {
       var steps = new Step[_stepControls.Count];
 
+      for (var i = 0; i < _stepControls.Count; i++)
+      {
+        steps[i] = _stepControls[i].Step;
+      }
 
       var workout = new Workout(txtName.Text, steps);
 
-      File.WriteAllText(Program.WorkoutsDirectory + Path.PathSeparator + txtName.Text.ToLower().Replace(' ', '-'), workout.Json);
+      File.WriteAllText(Program.WorkoutsDirectory + Path.DirectorySeparatorChar + txtName.Text.ToLower().Replace(' ', '-') + ".json", workout.Json);
+
+      Close();
     }
   }
 }

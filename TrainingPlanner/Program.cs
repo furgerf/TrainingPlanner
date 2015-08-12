@@ -31,6 +31,8 @@ namespace TrainingPlanner
     {
       Workouts = Directory.GetFiles(WorkoutsDirectory, ".json").Select(Workout.ParseJsonFile).ToArray();
 
+      var foo = Workout.ParseJsonFile("workouts;progression-1");
+
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
       Application.Run(new MainForm());

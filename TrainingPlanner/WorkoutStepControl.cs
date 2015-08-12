@@ -12,13 +12,23 @@ namespace TrainingPlanner
 
     public bool IsValid
     {
-      get { return (Duration != null || Distance != null) && comName.Text != null; }
+      get { return (Duration.HasValue || Distance.HasValue) && comName.Text != null; }
     }
 
-    //public Step Step
-    //{
-    //  get { return new Step(); }
-    //}
+    public Step Step
+    {
+      get
+      {
+        if (!IsValid)
+        {
+          return Step.Empty;
+        }
+
+        return _distanceRecentlyCalculated
+          ? new Step(comName.Text, Duration.Value, Pace, Rest, (int) numRepetitions.Value)
+          : new Step(comName.Text, Distance.Value, Pace, Rest, (int) numRepetitions.Value);
+      }
+    }
 
     private double? Distance
     {
@@ -123,6 +133,19 @@ namespace TrainingPlanner
       {
         txtDuration_TextChanged(sender, e);
       }
+    }
+
+    private void comName_TextChanged(object sender, EventArgs e)
+    {
+      if (!comName.Text.Equals("Warmup") && !comName.Text.Equals("Cooldown"))
+      {
+        return;
+      }
+
+      comPace.Text = "Easy";
+      txtRest.Text = "";
+      txtDuration.Text = new TimeSpan(0, 10, 0).ToString();
+      numRepetitions.Value = 1;
     }
   }
 }

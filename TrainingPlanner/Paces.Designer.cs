@@ -58,7 +58,7 @@ namespace TrainingPlanner {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:03:45")]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:03:40")]
         public global::System.TimeSpan Threshold {
             get {
                 return ((global::System.TimeSpan)(this["Threshold"]));

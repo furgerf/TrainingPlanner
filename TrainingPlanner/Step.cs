@@ -36,6 +36,10 @@ namespace TrainingPlanner
 
     public static Step Cooldown { get { return new Step("Cooldown", new TimeSpan(0, 5, 0), new TimeSpan(0, 5, 30));} }
 
+    public static Step Empty { get { return new Step(); } }
+
+    public bool IsEmpty { get { return Equals(Empty); } }
+
     private Step(string name, TimeSpan duration, TimeSpan pace, double distance, bool durationCalculated, bool distanceCalculated, TimeSpan? rest = null, int repetitions = 1) : this()
     {
       if (! durationCalculated ^ distanceCalculated)

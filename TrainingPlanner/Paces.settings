@@ -12,7 +12,7 @@
       <Value Profile="(Default)">00:03:55</Value>
     </Setting>
     <Setting Name="Threshold" Type="System.TimeSpan" Scope="User">
-      <Value Profile="(Default)">00:03:45</Value>
+      <Value Profile="(Default)">00:03:40</Value>
     </Setting>
     <Setting Name="Halfmarathon" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:03:37</Value>

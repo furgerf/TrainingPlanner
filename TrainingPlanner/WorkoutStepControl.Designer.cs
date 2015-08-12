@@ -135,6 +135,7 @@
       this.comName.Name = "comName";
       this.comName.Size = new System.Drawing.Size(130, 21);
       this.comName.TabIndex = 12;
+      this.comName.TextChanged += new System.EventHandler(this.comName_TextChanged);
       // 
       // label6
       // 
