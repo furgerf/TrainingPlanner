@@ -12,6 +12,9 @@ namespace TrainingPlanner
 
     private int _stepControlWidth;
 
+    private bool _dontAskToSave;
+    private bool _cancelClosing;
+
     public EditWorkoutForm()
     {
       InitializeComponent();
@@ -35,6 +38,8 @@ namespace TrainingPlanner
 
       butAddStep.Left += _stepControlWidth;
       butRemoveStep.Left += _stepControlWidth;
+
+      wsc.Focus();
     }
 
     private void butRemoveStep_Click(object sender, EventArgs e)
@@ -51,9 +56,18 @@ namespace TrainingPlanner
 
     private void EditWorkoutForm_FormClosing(object sender, FormClosingEventArgs e)
     {
+      if (_dontAskToSave)
+      {
+        return;
+      }
+
       if (MessageBox.Show("Do you want to save the workout?", "Save?", MessageBoxButtons.YesNo) == DialogResult.Yes)
       {
         butSave_Click();
+        if (_cancelClosing)
+        {
+          e.Cancel = true;
+        }
       }
     }
 
@@ -63,12 +77,24 @@ namespace TrainingPlanner
 
       for (var i = 0; i < _stepControls.Count; i++)
       {
+        if (!_stepControls[i].IsValid)
+        {
+          MessageBox.Show(string.Format("Step {0} isn't valid, please fix...", i + 1));
+          _cancelClosing = true;
+          return;
+        }
+
         steps[i] = _stepControls[i].Step;
       }
 
       var workout = new Workout(txtName.Text, steps);
 
       File.WriteAllText(Program.WorkoutsDirectory + Path.DirectorySeparatorChar + txtName.Text.ToLower().Replace(' ', '-') + ".json", workout.Json);
+
+      _dontAskToSave = true;
+
+      Program.Workouts.Add(workout);
+      Program.Workouts.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
 
       Close();
     }

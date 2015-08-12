@@ -12,7 +12,9 @@ namespace TrainingPlanner
 
     private void butAddWorkout_Click(object sender, EventArgs e)
     {
-      new EditWorkoutForm().Show();
+      var ewf = new EditWorkoutForm();
+      ewf.Closed += (s, ee) => weekControl1.ReloadWorkouts();
+      ewf.Show();
     }
   }
 }

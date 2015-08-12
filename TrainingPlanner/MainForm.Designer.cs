@@ -39,7 +39,6 @@
       this.weekControl1.Name = "weekControl1";
       this.weekControl1.Size = new System.Drawing.Size(1307, 338);
       this.weekControl1.TabIndex = 0;
-      this.weekControl1.Workouts = null;
       // 
       // butAddWorkout
       // 

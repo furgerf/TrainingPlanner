@@ -64,7 +64,10 @@ namespace TrainingPlanner
     public static Workout ParseJsonFile(string path)
     {
       var serializer = new DataContractJsonSerializer(typeof(Workout));
-      return (Workout) serializer.ReadObject(new FileStream(path, FileMode.Open, FileAccess.Read));
+      using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+      {
+        return (Workout)serializer.ReadObject(fs);
+      }
     }
 
     public override string ToString()

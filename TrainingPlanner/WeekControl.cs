@@ -8,31 +8,7 @@ namespace TrainingPlanner
   {
     private const int MaxWeeklyWorkouts = 14;
 
-    private Workout[] _workouts;
-
-    public Workout[] Workouts
-    {
-      get { return _workouts; }
-      set
-      {
-        if (value == null)
-        {
-          return;
-        }
-
-        if (value.Length != MaxWeeklyWorkouts)
-        {
-          throw new ArgumentException("Must provide exactly " + MaxWeeklyWorkouts + " workouts");
-        }
-
-        _workouts = value;
-
-        for (var i = 0; i < MaxWeeklyWorkouts; i++)
-        {
-          _workoutControls[i].Workout = _workouts[i];
-        }
-      }
-    }
+    private readonly Workout[] _workouts = new Workout[MaxWeeklyWorkouts];
 
     private readonly WorkoutControl[] _workoutControls;
 
@@ -52,9 +28,22 @@ namespace TrainingPlanner
         throw new Exception("Must have exactly " + MaxWeeklyWorkouts + " workout contorls");
       }
 
+      for (var i = 0; i < _workoutControls.Length; i++)
+      {
+        var i1 = i;
+        _workoutControls[i].WorkoutChanged += workout =>
+        {
+          _workouts[i1] = workout;
+          UpdateStatistics();
+        };
+      }
+    }
+
+    public void ReloadWorkouts()
+    {
       foreach (var wc in _workoutControls)
       {
-        wc.WorkoutChanged += workout => UpdateStatistics();
+        wc.UpdateWorkouts();
       }
     }
 

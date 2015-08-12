@@ -84,6 +84,7 @@
       this.comWorkouts.Name = "comWorkouts";
       this.comWorkouts.Size = new System.Drawing.Size(132, 21);
       this.comWorkouts.TabIndex = 5;
+      this.comWorkouts.SelectedIndexChanged += new System.EventHandler(this.comWorkouts_SelectedIndexChanged);
       // 
       // butRemove
       // 

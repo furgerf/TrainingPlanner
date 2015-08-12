@@ -49,7 +49,7 @@
       this.label1.Location = new System.Drawing.Point(3, 6);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(35, 13);
-      this.label1.TabIndex = 0;
+      this.label1.TabIndex = 99;
       this.label1.Text = "Name";
       // 
       // label2
@@ -58,7 +58,7 @@
       this.label2.Location = new System.Drawing.Point(3, 32);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(47, 13);
-      this.label2.TabIndex = 1;
+      this.label2.TabIndex = 100;
       this.label2.Text = "Duration";
       // 
       // label3
@@ -76,7 +76,7 @@
       this.txtDuration.Mask = "##:##:##";
       this.txtDuration.Name = "txtDuration";
       this.txtDuration.Size = new System.Drawing.Size(52, 20);
-      this.txtDuration.TabIndex = 6;
+      this.txtDuration.TabIndex = 1;
       this.txtDuration.TextChanged += new System.EventHandler(this.txtDuration_TextChanged);
       // 
       // txtRest
@@ -85,7 +85,7 @@
       this.txtRest.Mask = "##:##";
       this.txtRest.Name = "txtRest";
       this.txtRest.Size = new System.Drawing.Size(37, 20);
-      this.txtRest.TabIndex = 7;
+      this.txtRest.TabIndex = 6;
       // 
       // label4
       // 
@@ -111,7 +111,7 @@
             0});
       this.numRepetitions.Name = "numRepetitions";
       this.numRepetitions.Size = new System.Drawing.Size(49, 20);
-      this.numRepetitions.TabIndex = 10;
+      this.numRepetitions.TabIndex = 7;
       this.numRepetitions.Value = new decimal(new int[] {
             1,
             0,
@@ -130,11 +130,12 @@
       // comName
       // 
       this.comName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+      this.comName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
       this.comName.FormattingEnabled = true;
       this.comName.Location = new System.Drawing.Point(62, 2);
       this.comName.Name = "comName";
       this.comName.Size = new System.Drawing.Size(130, 21);
-      this.comName.TabIndex = 12;
+      this.comName.TabIndex = 0;
       this.comName.TextChanged += new System.EventHandler(this.comName_TextChanged);
       // 
       // label6
@@ -151,7 +152,7 @@
       this.txtDistance.Location = new System.Drawing.Point(62, 81);
       this.txtDistance.Name = "txtDistance";
       this.txtDistance.Size = new System.Drawing.Size(37, 20);
-      this.txtDistance.TabIndex = 14;
+      this.txtDistance.TabIndex = 5;
       this.txtDistance.TextChanged += new System.EventHandler(this.txtDistance_TextChanged);
       // 
       // comPace
@@ -161,7 +162,7 @@
       this.comPace.Location = new System.Drawing.Point(62, 55);
       this.comPace.Name = "comPace";
       this.comPace.Size = new System.Drawing.Size(130, 21);
-      this.comPace.TabIndex = 15;
+      this.comPace.TabIndex = 3;
       this.comPace.SelectedIndexChanged += new System.EventHandler(this.comPace_SelectedIndexChanged);
       // 
       // WorkoutStepControl

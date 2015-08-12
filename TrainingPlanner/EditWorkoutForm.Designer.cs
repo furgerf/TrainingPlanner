@@ -56,7 +56,7 @@
       this.butAddStep.Location = new System.Drawing.Point(15, 38);
       this.butAddStep.Name = "butAddStep";
       this.butAddStep.Size = new System.Drawing.Size(82, 23);
-      this.butAddStep.TabIndex = 5;
+      this.butAddStep.TabIndex = 97;
       this.butAddStep.Text = "Add Step";
       this.butAddStep.UseVisualStyleBackColor = true;
       this.butAddStep.Click += new System.EventHandler(this.butAddStep_Click);
@@ -66,7 +66,7 @@
       this.butRemoveStep.Location = new System.Drawing.Point(15, 67);
       this.butRemoveStep.Name = "butRemoveStep";
       this.butRemoveStep.Size = new System.Drawing.Size(82, 23);
-      this.butRemoveStep.TabIndex = 6;
+      this.butRemoveStep.TabIndex = 98;
       this.butRemoveStep.Text = "Remove Step";
       this.butRemoveStep.UseVisualStyleBackColor = true;
       this.butRemoveStep.Click += new System.EventHandler(this.butRemoveStep_Click);
@@ -76,7 +76,7 @@
       this.butSave.Location = new System.Drawing.Point(273, 9);
       this.butSave.Name = "butSave";
       this.butSave.Size = new System.Drawing.Size(97, 23);
-      this.butSave.TabIndex = 7;
+      this.butSave.TabIndex = 96;
       this.butSave.Text = "Save Workout";
       this.butSave.UseVisualStyleBackColor = true;
       this.butSave.Click += new System.EventHandler(this.butSave_Click);
@@ -85,7 +85,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(550, 368);
+      this.ClientSize = new System.Drawing.Size(1573, 368);
       this.Controls.Add(this.butSave);
       this.Controls.Add(this.butRemoveStep);
       this.Controls.Add(this.butAddStep);

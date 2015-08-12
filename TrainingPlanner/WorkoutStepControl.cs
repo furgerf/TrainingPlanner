@@ -25,8 +25,8 @@ namespace TrainingPlanner
         }
 
         return _distanceRecentlyCalculated
-          ? new Step(comName.Text, Duration.Value, Pace, Rest, (int) numRepetitions.Value)
-          : new Step(comName.Text, Distance.Value, Pace, Rest, (int) numRepetitions.Value);
+          ? new Step(comName.Text, Distance.Value, Pace, Rest, (int) numRepetitions.Value)
+          : new Step(comName.Text, Duration.Value, Pace, Rest, (int) numRepetitions.Value);
       }
     }
 

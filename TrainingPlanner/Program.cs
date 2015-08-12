@@ -8,7 +8,7 @@ namespace TrainingPlanner
 {
   internal static class Program
   {
-    public static Workout[] Workouts;
+    public static List<Workout>  Workouts;
 
     public const string WorkoutsDirectory = "workouts";
 
@@ -29,9 +29,7 @@ namespace TrainingPlanner
     [STAThread]
     private static void Main()
     {
-      Workouts = Directory.GetFiles(WorkoutsDirectory, ".json").Select(Workout.ParseJsonFile).ToArray();
-
-      var foo = Workout.ParseJsonFile("workouts;progression-1");
+      Workouts = Directory.GetFiles(WorkoutsDirectory, "*.json").Select(Workout.ParseJsonFile).ToList();
 
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);

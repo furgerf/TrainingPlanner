@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TrainingPlanner
@@ -16,10 +17,6 @@ namespace TrainingPlanner
     private readonly Control[] _nonemptyWorkoutControls;
 
     private bool HasWorkout { get { return _workout != null; } }
-
-    //private Control[] CurrentlyVisibleControls { get { return HasWorkout ? _nonemptyWorkoutControls : _emptyWorkoutControls; } }
-
-    //private Control[] AllControls { get { return _emptyWorkoutControls.Concat(_nonemptyWorkoutControls).ToArray(); } }
 
     public Workout Workout
     {
@@ -60,16 +57,6 @@ namespace TrainingPlanner
       {
         c.Visible = HasWorkout;
       }
-
-      if (comWorkouts.Items.Count != 0 || Program.Workouts == null)
-      {
-        return;
-      }
-
-      foreach (var w in Program.Workouts)
-      {
-        comWorkouts.Items.Add(w.Name);
-      }
     }
 
     public WorkoutControl()
@@ -82,11 +69,35 @@ namespace TrainingPlanner
       WorkoutChanged += workout => UpdateWorkoutData();
 
       UpdateWorkoutData();
+      UpdateWorkouts();
+    }
+
+    public void UpdateWorkouts()
+    {
+      comWorkouts.Items.Clear();
+
+      comWorkouts.Items.Add("");
+      foreach (var w in Program.Workouts)
+      {
+        comWorkouts.Items.Add(w.Name);
+      }
+      comWorkouts.SelectedIndex = 0;
     }
 
     private void butRemove_Click(object sender, EventArgs e)
     {
       Workout = null;
+      comWorkouts.SelectedIndex = 0;
+    }
+
+    private void comWorkouts_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if (string.IsNullOrEmpty(comWorkouts.Text))
+      {
+        return;
+      }
+
+      Workout = Program.Workouts.First(w => w.Name.Equals(comWorkouts.Text));
     }
   }
 }
