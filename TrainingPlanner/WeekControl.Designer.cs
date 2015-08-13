@@ -39,6 +39,12 @@
       this.txtTotalDistance = new System.Windows.Forms.TextBox();
       this.txtTotalDuration = new System.Windows.Forms.TextBox();
       this.txtWorkoutCount = new System.Windows.Forms.TextBox();
+      this.grpData = new System.Windows.Forms.GroupBox();
+      this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+      this.wrkSundayEvening = new TrainingPlanner.WorkoutControl();
+      this.wrkSundayMorning = new TrainingPlanner.WorkoutControl();
+      this.wrkSaturdayEvening = new TrainingPlanner.WorkoutControl();
+      this.wrkSaturdayMorning = new TrainingPlanner.WorkoutControl();
       this.wrkFridayEvening = new TrainingPlanner.WorkoutControl();
       this.wrkFridayMorning = new TrainingPlanner.WorkoutControl();
       this.wrkThursdayEvening = new TrainingPlanner.WorkoutControl();
@@ -49,10 +55,6 @@
       this.wrkTuesdayMorning = new TrainingPlanner.WorkoutControl();
       this.wrkMondayEvening = new TrainingPlanner.WorkoutControl();
       this.wrkMondayMorning = new TrainingPlanner.WorkoutControl();
-      this.wrkSaturdayMorning = new TrainingPlanner.WorkoutControl();
-      this.wrkSaturdayEvening = new TrainingPlanner.WorkoutControl();
-      this.wrkSundayMorning = new TrainingPlanner.WorkoutControl();
-      this.wrkSundayEvening = new TrainingPlanner.WorkoutControl();
       this.grpMonday.SuspendLayout();
       this.grpTuesday.SuspendLayout();
       this.grpWednesday.SuspendLayout();
@@ -61,6 +63,7 @@
       this.grpSaturday.SuspendLayout();
       this.grpSunday.SuspendLayout();
       this.grpSummary.SuspendLayout();
+      this.grpData.SuspendLayout();
       this.SuspendLayout();
       // 
       // grpMonday
@@ -145,9 +148,9 @@
       this.grpSummary.Controls.Add(this.txtTotalDistance);
       this.grpSummary.Controls.Add(this.txtTotalDuration);
       this.grpSummary.Controls.Add(this.txtWorkoutCount);
-      this.grpSummary.Location = new System.Drawing.Point(1144, 3);
+      this.grpSummary.Location = new System.Drawing.Point(1144, 211);
       this.grpSummary.Name = "grpSummary";
-      this.grpSummary.Size = new System.Drawing.Size(157, 329);
+      this.grpSummary.Size = new System.Drawing.Size(190, 121);
       this.grpSummary.TabIndex = 4;
       this.grpSummary.TabStop = false;
       this.grpSummary.Text = "Summary";
@@ -156,22 +159,76 @@
       // 
       this.txtTotalDistance.Location = new System.Drawing.Point(6, 71);
       this.txtTotalDistance.Name = "txtTotalDistance";
-      this.txtTotalDistance.Size = new System.Drawing.Size(145, 20);
+      this.txtTotalDistance.Size = new System.Drawing.Size(178, 20);
       this.txtTotalDistance.TabIndex = 2;
       // 
       // txtTotalDuration
       // 
       this.txtTotalDuration.Location = new System.Drawing.Point(6, 45);
       this.txtTotalDuration.Name = "txtTotalDuration";
-      this.txtTotalDuration.Size = new System.Drawing.Size(145, 20);
+      this.txtTotalDuration.Size = new System.Drawing.Size(178, 20);
       this.txtTotalDuration.TabIndex = 1;
       // 
       // txtWorkoutCount
       // 
       this.txtWorkoutCount.Location = new System.Drawing.Point(6, 19);
       this.txtWorkoutCount.Name = "txtWorkoutCount";
-      this.txtWorkoutCount.Size = new System.Drawing.Size(145, 20);
+      this.txtWorkoutCount.Size = new System.Drawing.Size(178, 20);
       this.txtWorkoutCount.TabIndex = 0;
+      // 
+      // grpData
+      // 
+      this.grpData.Controls.Add(this.monthCalendar1);
+      this.grpData.Location = new System.Drawing.Point(1144, 3);
+      this.grpData.Name = "grpData";
+      this.grpData.Size = new System.Drawing.Size(190, 202);
+      this.grpData.TabIndex = 5;
+      this.grpData.TabStop = false;
+      this.grpData.Text = "Data";
+      // 
+      // monthCalendar1
+      // 
+      this.monthCalendar1.Location = new System.Drawing.Point(12, 25);
+      this.monthCalendar1.Name = "monthCalendar1";
+      this.monthCalendar1.ShowToday = false;
+      this.monthCalendar1.TabIndex = 1;
+      this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+      // 
+      // wrkSundayEvening
+      // 
+      this.wrkSundayEvening.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.wrkSundayEvening.Location = new System.Drawing.Point(6, 173);
+      this.wrkSundayEvening.Name = "wrkSundayEvening";
+      this.wrkSundayEvening.Size = new System.Drawing.Size(142, 148);
+      this.wrkSundayEvening.TabIndex = 1;
+      this.wrkSundayEvening.Workout = null;
+      // 
+      // wrkSundayMorning
+      // 
+      this.wrkSundayMorning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.wrkSundayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkSundayMorning.Name = "wrkSundayMorning";
+      this.wrkSundayMorning.Size = new System.Drawing.Size(142, 148);
+      this.wrkSundayMorning.TabIndex = 0;
+      this.wrkSundayMorning.Workout = null;
+      // 
+      // wrkSaturdayEvening
+      // 
+      this.wrkSaturdayEvening.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.wrkSaturdayEvening.Location = new System.Drawing.Point(6, 173);
+      this.wrkSaturdayEvening.Name = "wrkSaturdayEvening";
+      this.wrkSaturdayEvening.Size = new System.Drawing.Size(142, 148);
+      this.wrkSaturdayEvening.TabIndex = 1;
+      this.wrkSaturdayEvening.Workout = null;
+      // 
+      // wrkSaturdayMorning
+      // 
+      this.wrkSaturdayMorning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.wrkSaturdayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkSaturdayMorning.Name = "wrkSaturdayMorning";
+      this.wrkSaturdayMorning.Size = new System.Drawing.Size(142, 148);
+      this.wrkSaturdayMorning.TabIndex = 0;
+      this.wrkSaturdayMorning.Workout = null;
       // 
       // wrkFridayEvening
       // 
@@ -263,47 +320,12 @@
       this.wrkMondayMorning.TabIndex = 2;
       this.wrkMondayMorning.Workout = null;
       // 
-      // wrkSaturdayMorning
-      // 
-      this.wrkSaturdayMorning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.wrkSaturdayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkSaturdayMorning.Name = "wrkSaturdayMorning";
-      this.wrkSaturdayMorning.Size = new System.Drawing.Size(142, 148);
-      this.wrkSaturdayMorning.TabIndex = 0;
-      this.wrkSaturdayMorning.Workout = null;
-      // 
-      // wrkSaturdayEvening
-      // 
-      this.wrkSaturdayEvening.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.wrkSaturdayEvening.Location = new System.Drawing.Point(6, 173);
-      this.wrkSaturdayEvening.Name = "wrkSaturdayEvening";
-      this.wrkSaturdayEvening.Size = new System.Drawing.Size(142, 148);
-      this.wrkSaturdayEvening.TabIndex = 1;
-      this.wrkSaturdayEvening.Workout = null;
-      // 
-      // wrkSundayMorning
-      // 
-      this.wrkSundayMorning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.wrkSundayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkSundayMorning.Name = "wrkSundayMorning";
-      this.wrkSundayMorning.Size = new System.Drawing.Size(142, 148);
-      this.wrkSundayMorning.TabIndex = 0;
-      this.wrkSundayMorning.Workout = null;
-      // 
-      // wrkSundayEvening
-      // 
-      this.wrkSundayEvening.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.wrkSundayEvening.Location = new System.Drawing.Point(6, 173);
-      this.wrkSundayEvening.Name = "wrkSundayEvening";
-      this.wrkSundayEvening.Size = new System.Drawing.Size(142, 148);
-      this.wrkSundayEvening.TabIndex = 1;
-      this.wrkSundayEvening.Workout = null;
-      // 
       // WeekControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+      this.Controls.Add(this.grpData);
       this.Controls.Add(this.grpSummary);
       this.Controls.Add(this.grpSunday);
       this.Controls.Add(this.grpSaturday);
@@ -313,7 +335,7 @@
       this.Controls.Add(this.grpTuesday);
       this.Controls.Add(this.grpMonday);
       this.Name = "WeekControl";
-      this.Size = new System.Drawing.Size(1307, 338);
+      this.Size = new System.Drawing.Size(1340, 338);
       this.grpMonday.ResumeLayout(false);
       this.grpTuesday.ResumeLayout(false);
       this.grpWednesday.ResumeLayout(false);
@@ -323,6 +345,7 @@
       this.grpSunday.ResumeLayout(false);
       this.grpSummary.ResumeLayout(false);
       this.grpSummary.PerformLayout();
+      this.grpData.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -354,5 +377,7 @@
     private WorkoutControl wrkSaturdayMorning;
     private WorkoutControl wrkSundayEvening;
     private WorkoutControl wrkSundayMorning;
+    private System.Windows.Forms.GroupBox grpData;
+    private System.Windows.Forms.MonthCalendar monthCalendar1;
   }
 }

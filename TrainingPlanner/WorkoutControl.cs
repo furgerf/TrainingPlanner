@@ -77,9 +77,12 @@ namespace TrainingPlanner
       comWorkouts.Items.Clear();
 
       comWorkouts.Items.Add("");
-      foreach (var w in Program.Workouts)
+      if (Program.Workouts != null)
       {
-        comWorkouts.Items.Add(w.Name);
+        foreach (var w in Program.Workouts)
+        {
+          comWorkouts.Items.Add(w.Name);
+        }
       }
       comWorkouts.SelectedIndex = 0;
     }

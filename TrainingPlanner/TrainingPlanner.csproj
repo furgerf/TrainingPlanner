@@ -71,6 +71,7 @@
     <Compile Include="WeekControl.Designer.cs">
       <DependentUpon>WeekControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="WeeklyPlan.cs" />
     <Compile Include="Workout.cs" />
     <Compile Include="WorkoutControl.cs">
       <SubType>UserControl</SubType>
