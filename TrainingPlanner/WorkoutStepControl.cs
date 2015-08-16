@@ -75,7 +75,7 @@ namespace TrainingPlanner
       get
       {
         TimeSpan rest;
-        var success = TimeSpan.TryParse(txtRest.Text, out rest);
+        var success = TimeSpan.TryParse("00:" + txtRest.Text, out rest);
 
         if (success)
         {
@@ -103,7 +103,7 @@ namespace TrainingPlanner
       }
 
       _dontRecalculate = true;
-      txtDistance.Text = string.Format("{0}", Duration.Value.TotalMinutes/Pace.TotalMinutes);
+      txtDistance.Text = string.Format("{0}", Math.Round(Duration.Value.TotalMinutes/Pace.TotalMinutes, 2));
       _dontRecalculate = false;
 
       _distanceRecentlyCalculated = false;

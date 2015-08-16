@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
       this.butAddWorkout = new System.Windows.Forms.Button();
-      this.panel1 = new System.Windows.Forms.Panel();
+      this.backgroundPanel = new System.Windows.Forms.Panel();
+      this.foregroundPanel = new System.Windows.Forms.Panel();
       this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+      this.backgroundPanel.SuspendLayout();
       this.SuspendLayout();
       // 
       // butAddWorkout
@@ -43,13 +45,21 @@
       this.butAddWorkout.UseVisualStyleBackColor = true;
       this.butAddWorkout.Click += new System.EventHandler(this.butAddWorkout_Click);
       // 
-      // panel1
+      // backgroundPanel
       // 
-      this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
-      this.panel1.Location = new System.Drawing.Point(12, 12);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(1366, 584);
-      this.panel1.TabIndex = 3;
+      this.backgroundPanel.BackColor = System.Drawing.SystemColors.Control;
+      this.backgroundPanel.Controls.Add(this.foregroundPanel);
+      this.backgroundPanel.Location = new System.Drawing.Point(12, 12);
+      this.backgroundPanel.Name = "backgroundPanel";
+      this.backgroundPanel.Size = new System.Drawing.Size(1366, 584);
+      this.backgroundPanel.TabIndex = 3;
+      // 
+      // foregroundPanel
+      // 
+      this.foregroundPanel.Location = new System.Drawing.Point(0, 0);
+      this.foregroundPanel.Name = "foregroundPanel";
+      this.foregroundPanel.Size = new System.Drawing.Size(1366, 100);
+      this.foregroundPanel.TabIndex = 5;
       // 
       // vScrollBar1
       // 
@@ -64,10 +74,12 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1500, 812);
       this.Controls.Add(this.vScrollBar1);
-      this.Controls.Add(this.panel1);
+      this.Controls.Add(this.backgroundPanel);
       this.Controls.Add(this.butAddWorkout);
       this.Name = "MainForm";
       this.Text = "Training Planner";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+      this.backgroundPanel.ResumeLayout(false);
       this.ResumeLayout(false);
 
         }
@@ -75,8 +87,9 @@
         #endregion
 
         private System.Windows.Forms.Button butAddWorkout;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel backgroundPanel;
         private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.Panel foregroundPanel;
 
 
     }

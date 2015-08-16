@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TrainingPlanner
@@ -18,6 +19,11 @@ namespace TrainingPlanner
     public EditWorkoutForm()
     {
       InitializeComponent();
+
+      txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+      txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+      //txtName.AutoCompleteCustomSource = new AutoCompleteStringCollection();
+      txtName.AutoCompleteCustomSource.AddRange(Program.Workouts.Select(w => w.Name).ToArray());
 
       butAddStep_Click();
     }

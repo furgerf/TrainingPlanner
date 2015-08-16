@@ -25,6 +25,17 @@ namespace TrainingPlanner
         }
         return new WeeklyPlan {WeekStart = monthCalendar1.SelectionStart, Workouts = workouts};
       }
+      set
+      {
+        for (var i = 0; i < MaxWeeklyWorkouts; i++)
+        {
+          if (value.Workouts[i] != null)
+          {
+            _workoutControls[i].Workout = Program.WorkoutFromName(value.Workouts[i]);
+          }
+        }
+        WeekStart = value.WeekStart;
+      }
     }
 
     public DateTime WeekStart
@@ -73,7 +84,7 @@ namespace TrainingPlanner
       txtWorkoutCount.Text = string.Format("{0} workouts", _workouts.Count(w => w != null));
       txtTotalDuration.Text = string.Format("Total duration: {0}",
         TimeSpan.FromSeconds(_workouts.Where(w => w != null).Sum(w => w.Duration.TotalSeconds)));
-      txtTotalDistance.Text = string.Format("Total distance: {0}", _workouts.Where(w => w != null).Sum(w => w.Distance));
+      txtTotalDistance.Text = string.Format("Total distance: {0}", Math.Round(_workouts.Where(w => w != null).Sum(w => w.Distance), 1));
     }
 
     private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -85,15 +96,13 @@ namespace TrainingPlanner
 
       _updateDateRange = false;
 
-      if (e.Start.DayOfWeek != DayOfWeek.Monday)
+      var diff = e.Start.DayOfWeek - DayOfWeek.Sunday;
+      if (diff < 0)
       {
-        monthCalendar1.SelectionStart = e.Start.Subtract(new TimeSpan((int)e.Start.DayOfWeek, 0, 0, 0));
+        diff += 7;
       }
-
-      if (e.End.DayOfWeek != DayOfWeek.Sunday)
-      {
-        monthCalendar1.SelectionEnd = WeekStart.AddDays(7);
-      }
+      monthCalendar1.SelectionStart = e.Start.AddDays(-1 * diff).Date;
+      monthCalendar1.SelectionEnd = monthCalendar1.SelectionStart.AddDays(7);
 
       _updateDateRange = true;
     }

@@ -10,6 +10,11 @@ namespace TrainingPlanner
   {
     public static List<Workout>  Workouts;
 
+    public static Workout WorkoutFromName(string workoutName)
+    {
+      return Workouts.First(w => w.Name == workoutName);
+    }
+
     public const string WorkoutsDirectory = "workouts";
 
     public static readonly Dictionary<string, TimeSpan> Paces = new Dictionary<string, TimeSpan>
