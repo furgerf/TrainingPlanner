@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
+using TrainingPlanner.Model;
 
-namespace TrainingPlanner
+namespace TrainingPlanner.View
 {
   public partial class WorkoutControl : UserControl
   {
@@ -36,10 +36,10 @@ namespace TrainingPlanner
     {
       if (HasWorkout)
       {
-        labWorkoutName.Text = Workout.Name;
-        txtDuration.Text = Workout.Duration.ToString();
-        txtDistance.Text = Math.Round(Workout.Distance, 2) + " km";
-        txtDescription.Text = Workout.Description;
+        labWorkoutName.Text = Model.Workout.Name;
+        txtDuration.Text = Model.Workout.Duration.ToString();
+        txtDistance.Text = Math.Round(Model.Workout.Distance, 2) + " km";
+        txtDescription.Text = Model.Workout.Description;
       }
       else
       {
@@ -89,7 +89,7 @@ namespace TrainingPlanner
 
     private void butRemove_Click(object sender, EventArgs e)
     {
-      Workout = null;
+      Model.Workout = null;
       comWorkouts.SelectedIndex = 0;
     }
 
@@ -100,7 +100,7 @@ namespace TrainingPlanner
         return;
       }
 
-      Workout = Program.Workouts.First(w => w.Name.Equals(comWorkouts.Text));
+      Model.Workout = Program.Workouts.First(w => w.Name.Equals(comWorkouts.Text));
     }
   }
 }

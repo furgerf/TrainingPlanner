@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
+using TrainingPlanner.Model;
 
-namespace TrainingPlanner
+namespace TrainingPlanner.View
 {
   public partial class EditWorkoutForm : Form
   {

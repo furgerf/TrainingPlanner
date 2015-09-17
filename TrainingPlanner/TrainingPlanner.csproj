@@ -35,26 +35,21 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditWorkoutForm.cs">
+    <Compile Include="View\EditWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditWorkoutForm.Designer.cs">
+    <Compile Include="View\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -64,31 +59,31 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Paces.settings</DependentUpon>
     </Compile>
-    <Compile Include="Step.cs" />
-    <Compile Include="WeekControl.cs">
+    <Compile Include="Model\Step.cs" />
+    <Compile Include="View\WeekControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WeekControl.Designer.cs">
+    <Compile Include="View\WeekControl.Designer.cs">
       <DependentUpon>WeekControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeeklyPlan.cs" />
-    <Compile Include="Workout.cs" />
-    <Compile Include="WorkoutControl.cs">
+    <Compile Include="Model\WeeklyPlan.cs" />
+    <Compile Include="Model\Workout.cs" />
+    <Compile Include="View\WorkoutControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkoutControl.Designer.cs">
+    <Compile Include="View\WorkoutControl.Designer.cs">
       <DependentUpon>WorkoutControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkoutStepControl.cs">
+    <Compile Include="View\WorkoutStepControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkoutStepControl.Designer.cs">
+    <Compile Include="View\WorkoutStepControl.Designer.cs">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="EditWorkoutForm.resx">
+    <EmbeddedResource Include="View\EditWorkoutForm.resx">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -100,13 +95,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="WeekControl.resx">
+    <EmbeddedResource Include="View\WeekControl.resx">
       <DependentUpon>WeekControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkoutControl.resx">
+    <EmbeddedResource Include="View\WorkoutControl.resx">
       <DependentUpon>WorkoutControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkoutStepControl.resx">
+    <EmbeddedResource Include="View\WorkoutStepControl.resx">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

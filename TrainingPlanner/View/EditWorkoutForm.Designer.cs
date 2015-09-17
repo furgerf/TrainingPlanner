@@ -1,4 +1,4 @@
-﻿namespace TrainingPlanner
+﻿namespace TrainingPlanner.View
 {
   partial class EditWorkoutForm
   {

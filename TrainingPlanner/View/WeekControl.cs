@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using TrainingPlanner.Model;
 
-namespace TrainingPlanner
+namespace TrainingPlanner.View
 {
   public partial class WeekControl : UserControl
   {

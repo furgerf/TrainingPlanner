@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace TrainingPlanner
+namespace TrainingPlanner.Model
 {
   [DataContract]
   public struct Step
