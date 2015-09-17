@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 
@@ -36,10 +37,10 @@ namespace TrainingPlanner.View
     {
       if (HasWorkout)
       {
-        labWorkoutName.Text = Model.Workout.Name;
-        txtDuration.Text = Model.Workout.Duration.ToString();
-        txtDistance.Text = Math.Round(Model.Workout.Distance, 2) + " km";
-        txtDescription.Text = Model.Workout.Description;
+        labWorkoutName.Text = Workout.Name;
+        txtDuration.Text = Workout.Duration.ToString();
+        txtDistance.Text = Math.Round(Workout.Distance, 2) + " km";
+        txtDescription.Text = Workout.Description;
       }
       else
       {
@@ -89,7 +90,7 @@ namespace TrainingPlanner.View
 
     private void butRemove_Click(object sender, EventArgs e)
     {
-      Model.Workout = null;
+      Workout = null;
       comWorkouts.SelectedIndex = 0;
     }
 
@@ -100,7 +101,7 @@ namespace TrainingPlanner.View
         return;
       }
 
-      Model.Workout = Program.Workouts.First(w => w.Name.Equals(comWorkouts.Text));
+      Workout = Program.Workouts.First(w => w.Name.Equals(comWorkouts.Text));
     }
   }
 }
