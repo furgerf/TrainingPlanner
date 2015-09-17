@@ -37,7 +37,7 @@
       // 
       // butAddWorkout
       // 
-      this.butAddWorkout.Location = new System.Drawing.Point(1400, 12);
+      this.butAddWorkout.Location = new System.Drawing.Point(1568, 12);
       this.butAddWorkout.Name = "butAddWorkout";
       this.butAddWorkout.Size = new System.Drawing.Size(96, 23);
       this.butAddWorkout.TabIndex = 1;
@@ -51,19 +51,19 @@
       this.backgroundPanel.Controls.Add(this.foregroundPanel);
       this.backgroundPanel.Location = new System.Drawing.Point(12, 12);
       this.backgroundPanel.Name = "backgroundPanel";
-      this.backgroundPanel.Size = new System.Drawing.Size(1366, 584);
+      this.backgroundPanel.Size = new System.Drawing.Size(1538, 584);
       this.backgroundPanel.TabIndex = 3;
       // 
       // foregroundPanel
       // 
       this.foregroundPanel.Location = new System.Drawing.Point(0, 0);
       this.foregroundPanel.Name = "foregroundPanel";
-      this.foregroundPanel.Size = new System.Drawing.Size(1366, 100);
+      this.foregroundPanel.Size = new System.Drawing.Size(1538, 100);
       this.foregroundPanel.TabIndex = 5;
       // 
       // vScrollBar1
       // 
-      this.vScrollBar1.Location = new System.Drawing.Point(1381, 12);
+      this.vScrollBar1.Location = new System.Drawing.Point(1549, 12);
       this.vScrollBar1.Name = "vScrollBar1";
       this.vScrollBar1.Size = new System.Drawing.Size(16, 80);
       this.vScrollBar1.TabIndex = 4;
@@ -72,7 +72,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1500, 812);
+      this.ClientSize = new System.Drawing.Size(1742, 812);
       this.Controls.Add(this.vScrollBar1);
       this.Controls.Add(this.backgroundPanel);
       this.Controls.Add(this.butAddWorkout);

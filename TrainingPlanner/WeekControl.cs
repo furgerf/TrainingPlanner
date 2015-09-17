@@ -23,7 +23,7 @@ namespace TrainingPlanner
         {
           workouts[i] = _workouts[i] == null ? null : _workouts[i].Name;
         }
-        return new WeeklyPlan {WeekStart = monthCalendar1.SelectionStart, Workouts = workouts};
+        return new WeeklyPlan {WeekStart = monthCalendar1.SelectionStart, Workouts = workouts, Notes = txtNotes.Text};
       }
       set
       {
@@ -34,6 +34,7 @@ namespace TrainingPlanner
             _workoutControls[i].Workout = Program.WorkoutFromName(value.Workouts[i]);
           }
         }
+        txtNotes.Text = value.Notes;
         WeekStart = value.WeekStart;
       }
     }

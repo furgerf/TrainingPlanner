@@ -14,6 +14,9 @@ namespace TrainingPlanner
     [DataMember]
     public DateTime WeekStart { get; set; }
 
+    [DataMember]
+    public string Notes { get; set; }
+
     public string[] Workouts
     {
       get { return _workouts; }
