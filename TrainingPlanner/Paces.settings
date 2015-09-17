@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TrainingPlanner" GeneratedClassName="Paces">
   <Profiles />
   <Settings>
-    <Setting Name="Easy" Type="System.TimeSpan" Scope="Application">
+    <Setting Name="Easy" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:05:15</Value>
     </Setting>
     <Setting Name="Long" Type="System.TimeSpan" Scope="User">

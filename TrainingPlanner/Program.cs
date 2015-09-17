@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
+using TrainingPlanner.Presenter;
 using TrainingPlanner.View;
 
 namespace TrainingPlanner
@@ -37,10 +38,15 @@ namespace TrainingPlanner
     private static void Main()
     {
       Workouts = Directory.GetFiles(WorkoutsDirectory, "*.json").Select(Workout.ParseJsonFile).ToList();
-
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run(new MainForm());
+      Application.EnableVisualStyles();
+      Application.SetCompatibleTextRenderingDefault(false);
+
+      var view = new MainForm();
+      var presenter = new MainFormPresenter(view);
+
+      Application.Run(view);
     }
   }
 }

@@ -1,23 +1,21 @@
 ﻿using System;
-using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 
 namespace TrainingPlanner.View
 {
-  public partial class MainForm : Form
+  public partial class MainForm : Form, IMainForm
   {
-    private const int TrainingWeeks = 11;
-
     private const int WeeklyControlHeight = 338;
 
-    private readonly WeekControl[] _weekControls = new WeekControl[11];
-
-    private const string TrainingPlanFile = "plan.json";
+    private readonly WeekControl[] _weekControls;
 
     public MainForm()
     {
       InitializeComponent();
+
+      _weekControls = new WeekControl[TrainingWeeks];
 
       WindowState = FormWindowState.Maximized;
 
@@ -33,15 +31,31 @@ namespace TrainingPlanner.View
       for (var i = 0; i < _weekControls.Length; i++)
       {
         _weekControls[i] = new WeekControl {Top = i*WeeklyControlHeight, Parent = foregroundPanel};
+        _weekControls[i].WeeklyPlanChanged += (sender, workout) =>
+        {
+          if (WeeklyPlansChanged != null)
+          {
+            WeeklyPlansChanged(this, new EventArgs<WeeklyPlan[]>(_weekControls.Select(wc => wc.WeeklyPlan).ToArray()));
+          }
+        };
       }
 
       backgroundPanel.Width = _weekControls[0].Width;
       foregroundPanel.Width = _weekControls[0].Width;
 
-      LoadTrainingPlan();
+      FormClosing += (s, e) => MainFormClosing(this, null);
+      this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, null);
     }
 
-    private void butAddWorkout_Click(object sender, EventArgs e)
+    public int TrainingWeeks { get { return 11; } }
+
+    public event EventHandler AddWorkoutButtonClick;
+
+    public event EventHandler MainFormClosing;
+
+    public event EventHandler<EventArgs<WeeklyPlan[]>> WeeklyPlansChanged;
+
+    public void ShowEditWorkoutForm()
     {
       var ewf = new EditWorkoutForm();
       foreach (var wc in _weekControls)
@@ -52,32 +66,15 @@ namespace TrainingPlanner.View
       ewf.Show();
     }
 
-    private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+    public void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans)
     {
-      SaveTrainingPlan();
-    }
-
-    private void SaveTrainingPlan()
-    {
-      var data = new string[TrainingWeeks];
-      for (var i = 0; i < TrainingWeeks; i++)
+      if (weeklyPlans.Length != this._weekControls.Length)
       {
-        data[i] = _weekControls[i].WeeklyPlan.Json;
+        throw new ArgumentException("Array size mismatch");
       }
-      File.WriteAllLines(TrainingPlanFile, data);
-    }
-    
-    private void LoadTrainingPlan()
-    {
-      if (!File.Exists(TrainingPlanFile))
+      for (var i = 0; i < weeklyPlans.Length; i++)
       {
-        return;
-      }
-
-      var data = File.ReadAllLines(TrainingPlanFile);
-      for (var i = 0; i < TrainingWeeks; i++)
-      {
-        _weekControls[i].WeeklyPlan = WeeklyPlan.FromJson(data[i]);
+        _weekControls[i].WeeklyPlan = weeklyPlans[i];
       }
     }
   }

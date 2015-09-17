@@ -15,6 +15,8 @@ namespace TrainingPlanner.View
 
     private bool _updateDateRange = true;
 
+    public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
+
     public WeeklyPlan WeeklyPlan
     {
       get
@@ -69,6 +71,11 @@ namespace TrainingPlanner.View
         {
           _workouts[i1] = workout;
           UpdateStatistics();
+
+          if (WeeklyPlanChanged != null)
+          {
+            WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
+          }
         };
       }
     }

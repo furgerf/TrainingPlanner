@@ -43,7 +43,6 @@
       this.butAddWorkout.TabIndex = 1;
       this.butAddWorkout.Text = "Add Workout";
       this.butAddWorkout.UseVisualStyleBackColor = true;
-      this.butAddWorkout.Click += new System.EventHandler(this.butAddWorkout_Click);
       // 
       // backgroundPanel
       // 
@@ -78,7 +77,6 @@
       this.Controls.Add(this.butAddWorkout);
       this.Name = "MainForm";
       this.Text = "Training Planner";
-      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
       this.backgroundPanel.ResumeLayout(false);
       this.ResumeLayout(false);
 

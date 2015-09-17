@@ -34,20 +34,22 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="Presenter\IMainFormPresenter.cs" />
+    <Compile Include="Presenter\MainFormPresenter.cs" />
     <Compile Include="View\EditWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\IMainForm.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
