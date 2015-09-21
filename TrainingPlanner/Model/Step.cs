@@ -32,9 +32,9 @@ namespace TrainingPlanner.Model
 
     private const string PaceFormat = @"mm\:ss";
 
-    public static Step Warmup { get { return new Step("Warmup", new TimeSpan(0, 10, 0), new TimeSpan(0, 5, 15));} }
+    public static Step Warmup { get { return new Step("Warmup", new TimeSpan(0, 10, 0), Paces.Default.Warmup); } }
 
-    public static Step Cooldown { get { return new Step("Cooldown", new TimeSpan(0, 5, 0), new TimeSpan(0, 5, 30));} }
+    public static Step Cooldown { get { return new Step("Cooldown", new TimeSpan(0, 5, 0), Paces.Default.Cooldown);} }
 
     public static Step Empty { get { return new Step(); } }
 
@@ -61,11 +61,6 @@ namespace TrainingPlanner.Model
       : this(name, duration, pace, duration.TotalSeconds/pace.TotalSeconds, false, true, rest, repetitions)
     {
     }
-
-    //public Step(string name, TimeSpan duration, double distance, TimeSpan? rest = null, int repetitions = 1, bool durationCalculated, bool distanceCalculated)
-    //  : this(name, duration, TimeSpan.FromSeconds(distance/duration.TotalSeconds), distance, rest, repetitions, durationCalculated, distanceCalculated)
-    //{
-    //}
 
     public Step(string name, double distance, TimeSpan pace, TimeSpan? rest = null, int repetitions = 1)
       : this(name, TimeSpan.FromSeconds(distance/pace.TotalSeconds), pace, distance, true, false, rest, repetitions)

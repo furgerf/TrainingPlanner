@@ -23,5 +23,11 @@
     <Setting Name="FiveK" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:03:22</Value>
     </Setting>
+    <Setting Name="Warmup" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:05:15</Value>
+    </Setting>
+    <Setting Name="Cooldown" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:05:30</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

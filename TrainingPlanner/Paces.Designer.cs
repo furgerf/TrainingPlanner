@@ -106,5 +106,29 @@ namespace TrainingPlanner {
                 this["FiveK"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:05:15")]
+        public global::System.TimeSpan Warmup {
+            get {
+                return ((global::System.TimeSpan)(this["Warmup"]));
+            }
+            set {
+                this["Warmup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:05:30")]
+        public global::System.TimeSpan Cooldown {
+            get {
+                return ((global::System.TimeSpan)(this["Cooldown"]));
+            }
+            set {
+                this["Cooldown"] = value;
+            }
+        }
     }
 }
