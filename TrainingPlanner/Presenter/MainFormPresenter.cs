@@ -20,7 +20,7 @@ namespace TrainingPlanner.Presenter
       {
         var form = this._view.GetEditWorkoutForm();
         var presenter = new EditWorkoutFormPresenter(form, this._data);
-        this._view.ShowEditWorkoutForm(form);
+        form.Show();
       };
       this._view.WeeklyPlansChanged += (s, e) =>
       {

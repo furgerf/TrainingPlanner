@@ -31,6 +31,8 @@ namespace TrainingPlanner.Model
       this._categories= new List<WorkoutCategory>(categories);
     }
 
+    public event EventHandler WorkoutsChanged;
+
     public WorkoutCategory[] Categories
     {
       get { return _categories.ToArray(); }
@@ -62,7 +64,12 @@ namespace TrainingPlanner.Model
     public void AddWorkout(Workout workout)
     {
       this._workouts.Add(workout);
-      this._workouts.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
+      this._workouts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
+
+      if (WorkoutsChanged != null)
+      {
+        WorkoutsChanged(this, EventArgs.Empty);
+      }
     }
   }
 }

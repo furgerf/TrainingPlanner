@@ -30,11 +30,6 @@ namespace TrainingPlanner.View
     void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans);
 
     /// <summary>
-    /// Lets the main form show the EditWorkoutForm.
-    /// </summary>
-    void ShowEditWorkoutForm(EditWorkoutForm form);
-
-    /// <summary>
     /// Gets a new EditWorkoutForm.
     /// </summary>
     EditWorkoutForm GetEditWorkoutForm();

@@ -17,7 +17,7 @@ namespace TrainingPlanner.View
 
     public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
-    private Data _data;
+    private readonly Data _data;
 
     public WeeklyPlan WeeklyPlan
     {
@@ -50,9 +50,11 @@ namespace TrainingPlanner.View
       set { monthCalendar1.SelectionStart = value; }
     }
 
-    public WeekControl()
+    public WeekControl(Data data)
     {
       InitializeComponent();
+
+      this._data = data;
 
       _workoutControls = new[]
       {
@@ -69,6 +71,7 @@ namespace TrainingPlanner.View
       for (var i = 0; i < _workoutControls.Length; i++)
       {
         var i1 = i;
+        _workoutControls[i].SetData(this._data);
         _workoutControls[i].WorkoutChanged += workout =>
         {
           _workouts[i1] = workout;
@@ -79,23 +82,6 @@ namespace TrainingPlanner.View
             WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
           }
         };
-      }
-    }
-
-    public void SetData(Data data)
-    {
-      this._data = data;
-      foreach (var wc in this._workoutControls)
-      {
-        wc.SetData(this._data);
-      }
-    }
-
-    public void ReloadWorkouts()
-    {
-      foreach (var wc in _workoutControls)
-      {
-        wc.UpdateWorkouts();
       }
     }
 

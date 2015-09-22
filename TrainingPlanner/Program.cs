@@ -9,6 +9,7 @@ namespace TrainingPlanner
 {
   internal static class Program
   {
+    #region Directories
     private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
     private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
     private const string TrainingPlanFileName = "plan.json";
@@ -24,6 +25,7 @@ namespace TrainingPlanner
     public static string WorkoutsDirectory { get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + WorkoutsDirectoryName; } }
     public static string WorkoutCategoriesDirectory { get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + WorkoutCategoriesDirectoryName; } }
     public static string TrainingPlanFile { get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + TrainingPlanFileName; } }
+    #endregion
 
     /// <summary>
     /// The main entry point for the application.
@@ -34,7 +36,10 @@ namespace TrainingPlanner
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
+      // create data model
       var data = Data.Load(WorkoutCategoriesDirectory, WorkoutsDirectory, TrainingPlanFile);
+
+      // create main form and its presenter
       var view = new MainForm(data);
       var presenter = new MainFormPresenter(view, data);
 

@@ -34,7 +34,7 @@ namespace TrainingPlanner.View
       }
     }
 
-    private void UpdateWorkoutData()
+    private void DisplayCurrentWorkout()
     {
       if (HasWorkout)
       {
@@ -68,13 +68,12 @@ namespace TrainingPlanner.View
       _emptyWorkoutControls = new Control[] { labSelectWorkout, comWorkouts };
       _nonemptyWorkoutControls = new Control[] { labWorkoutName, txtDescription, txtDistance, txtDuration, butRemove };
 
-      WorkoutChanged += workout => UpdateWorkoutData();
+      WorkoutChanged += workout => DisplayCurrentWorkout();
 
-      UpdateWorkoutData();
-      UpdateWorkouts();
+      DisplayCurrentWorkout();
     }
 
-    public void UpdateWorkouts()
+    private void UpdateComboboxEntries()
     {
       if (this._data == null)
       {
@@ -108,7 +107,9 @@ namespace TrainingPlanner.View
     {
       this._data = data;
 
-      //UpdateWorkouts();
+      this._data.WorkoutsChanged += (s, e) => UpdateComboboxEntries();
+
+      UpdateComboboxEntries();
     }
   }
 }
