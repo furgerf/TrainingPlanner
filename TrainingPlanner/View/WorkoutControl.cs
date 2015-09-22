@@ -38,17 +38,15 @@ namespace TrainingPlanner.View
     {
       if (HasWorkout)
       {
-        labWorkoutName.Text = Workout.Name;
-        txtDuration.Text = Workout.Duration.ToString();
-        txtDistance.Text = Math.Round(Workout.Distance, 2) + " km";
+        labWorkoutName.Text = Workout.ShortName ?? Workout.Name;
         txtDescription.Text = Workout.Description;
+        BackColor = this.Workout.CategoryName == null ? Data.DefaultBackgroundColor : this._data.WorkoutCategoryFromName(this.Workout.CategoryName).CategoryColor;
       }
       else
       {
         labWorkoutName.Text = "";
-        txtDuration.Text = "";
-        txtDistance.Text = "";
         txtDescription.Text = "";
+        BackColor = Data.DefaultBackgroundColor;
       }
 
       foreach (var c in _emptyWorkoutControls)
@@ -65,51 +63,84 @@ namespace TrainingPlanner.View
     {
       InitializeComponent();
 
-      _emptyWorkoutControls = new Control[] { labSelectWorkout, comWorkouts };
-      _nonemptyWorkoutControls = new Control[] { labWorkoutName, txtDescription, txtDistance, txtDuration, butRemove };
+      _emptyWorkoutControls = new Control[] { labSelectWorkout };
+      _nonemptyWorkoutControls = new Control[] { labWorkoutName, txtDescription, butRemove, labRemove };
 
       WorkoutChanged += workout => DisplayCurrentWorkout();
 
       DisplayCurrentWorkout();
+
+      this.ContextMenu = new ContextMenu();
     }
 
-    private void UpdateComboboxEntries()
+    private void CreateContextMenu()
     {
       if (this._data == null)
       {
         return;
       }
 
-      comWorkouts.Items.Clear();
+      // clear previous entries
+      this.ContextMenu.MenuItems.Clear();
 
-      comWorkouts.Items.Add("");
-      comWorkouts.Items.AddRange(this._data.Workouts.Select(w => w.Name).ToArray());
-      comWorkouts.SelectedIndex = 0;
+      // add categories and their workouts
+      this.ContextMenu.MenuItems.AddRange(this._data.Categories.Select(c => new MenuItem(c.Name)).ToArray());
+      foreach (MenuItem mi in this.ContextMenu.MenuItems)
+      {
+        mi.MenuItems.AddRange(this._data.Workouts.Where(w => mi.Text.Equals(w.CategoryName)).Select(w => new MenuItem(w.Name)).ToArray());
+      }
+
+      // add uncategorized workouts
+      var uncategorizedMenu = new MenuItem("(uncategorized)");
+      uncategorizedMenu.MenuItems.AddRange(this._data.Workouts.Where(w => w.CategoryName == null).Select(w => new MenuItem(w.Name)).ToArray());
+      if (uncategorizedMenu.MenuItems.Count > 0)
+      {
+        this.ContextMenu.MenuItems.Add(uncategorizedMenu);
+      }
+
+      // add event listeners
+      foreach (MenuItem category in this.ContextMenu.MenuItems)
+      {
+        foreach (MenuItem workout in category.MenuItems)
+        {
+          var workout1 = workout;
+          workout.Click += (s, e) => WorkoutSelected(workout1.Text);
+        }
+      }
+    }
+
+    private void WorkoutSelected(string workoutName)
+    {
+      this.Workout = this._data.WorkoutFromName(workoutName);
     }
 
     private void butRemove_Click(object sender, EventArgs e)
     {
       Workout = null;
-      comWorkouts.SelectedIndex = 0;
-    }
-
-    private void comWorkouts_SelectedIndexChanged(object sender, EventArgs e)
-    {
-      if (string.IsNullOrEmpty(comWorkouts.Text))
-      {
-        return;
-      }
-
-      Workout = this._data.WorkoutFromName(comWorkouts.Text);
     }
 
     public void SetData(Data data)
     {
       this._data = data;
 
-      this._data.WorkoutsChanged += (s, e) => UpdateComboboxEntries();
+      this._data.WorkoutsChanged += (s, e) => CreateContextMenu();
 
-      UpdateComboboxEntries();
+      CreateContextMenu();
+    }
+
+    private void txtDescription_MouseClick(object sender, MouseEventArgs e)
+    {
+      butRemove_Click(sender, e);
+    }
+
+    private void SetActiveControl(object sender, EventArgs e)
+    {
+      ActiveControl = butRemove;
+    }
+
+    private void ShowContextMenu(object sender, MouseEventArgs e)
+    {
+      this.ContextMenu.Show((Control)sender, e.Location);
     }
   }
 }

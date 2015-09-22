@@ -7,7 +7,7 @@ namespace TrainingPlanner.View
 {
   public partial class MainForm : Form, IMainForm
   {
-    private const int WeeklyControlHeight = 338;
+    private const int WeeklyControlHeight = 218;
 
     private readonly WeekControl[] _weekControls;
 
@@ -20,6 +20,7 @@ namespace TrainingPlanner.View
       this._data = data;
 
       // prepare UI
+      //this.BackColor = Data.DefaultBackgroundColor;
       this.WindowState = FormWindowState.Maximized;
 
       this.backgroundPanel.Height = 1000;

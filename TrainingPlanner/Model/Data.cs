@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 
@@ -7,6 +8,8 @@ namespace TrainingPlanner.Model
 {
   public class Data
   {
+    public static readonly Color DefaultBackgroundColor = Color.Beige;
+
     public static readonly Dictionary<string, TimeSpan> Paces = new Dictionary<string, TimeSpan>
     {
       {"Easy", TrainingPlanner.Paces.Default.Easy},
@@ -59,6 +62,11 @@ namespace TrainingPlanner.Model
     public Workout WorkoutFromName(string workoutName)
     {
       return Workouts.First(w => w.Name == workoutName);
+    }
+
+    public WorkoutCategory WorkoutCategoryFromName(string categoryName)
+    {
+      return Categories.First(w => w.Name == categoryName);
     }
 
     public void AddWorkout(Workout workout)

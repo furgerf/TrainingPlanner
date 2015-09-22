@@ -15,6 +15,9 @@ namespace TrainingPlanner.Model
     public readonly string Name;
 
     [DataMember]
+    public readonly string ShortName;
+
+    [DataMember]
     public readonly string CategoryName;
 
     [DataMember]
@@ -57,6 +60,14 @@ namespace TrainingPlanner.Model
     public Workout(string name, WorkoutCategory category, Step[] steps)
     {
       this.Name = name;
+      this.CategoryName = category.Name;
+      this.Steps = steps;
+    }
+
+    public Workout(string name, string shortName, WorkoutCategory category, Step[] steps)
+    {
+      this.Name = name;
+      this.ShortName = shortName;
       this.CategoryName = category.Name;
       this.Steps = steps;
     }
