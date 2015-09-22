@@ -82,11 +82,12 @@
       // labSelectWorkout
       // 
       this.labSelectWorkout.AutoSize = true;
-      this.labSelectWorkout.Location = new System.Drawing.Point(33, 43);
+      this.labSelectWorkout.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+      this.labSelectWorkout.Location = new System.Drawing.Point(12, 37);
       this.labSelectWorkout.Name = "labSelectWorkout";
-      this.labSelectWorkout.Size = new System.Drawing.Size(78, 13);
+      this.labSelectWorkout.Size = new System.Drawing.Size(117, 13);
       this.labSelectWorkout.TabIndex = 12;
-      this.labSelectWorkout.Text = "Select workout";
+      this.labSelectWorkout.Text = "Click to select workout!";
       this.labSelectWorkout.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ShowContextMenu);
       // 
       // WorkoutControl
