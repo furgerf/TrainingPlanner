@@ -6,8 +6,6 @@ namespace TrainingPlanner.Presenter
 {
   public class MainFormPresenter : IMainFormPresenter
   {
-    private const string TrainingPlanFile = "plan.json";
-
     private readonly IMainForm _view;
 
     private readonly WeeklyPlan[] _weeklyPlans;
@@ -39,17 +37,17 @@ namespace TrainingPlanner.Presenter
       {
         data[i] = this._weeklyPlans[i].Json;
       }
-      File.WriteAllLines(TrainingPlanFile, data);
+      File.WriteAllLines(Program.TrainingPlanFile, data);
     }
 
     private void LoadTrainingPlan()
     {
-      if (!File.Exists(TrainingPlanFile))
+      if (!File.Exists(Program.TrainingPlanFile))
       {
         return;
       }
 
-      var data = File.ReadAllLines(TrainingPlanFile);
+      var data = File.ReadAllLines(Program.TrainingPlanFile);
       for (var i = 0; i < this._view.TrainingWeeks; i++)
       {
         this._weeklyPlans[i] = WeeklyPlan.FromJson(data[i]);

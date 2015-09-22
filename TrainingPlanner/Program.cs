@@ -18,7 +18,19 @@ namespace TrainingPlanner
       return Workouts.First(w => w.Name == workoutName);
     }
 
-    public const string WorkoutsDirectory = "workouts";
+    private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
+    private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
+    private const string TrainingPlanFileName = "plan.json";
+    private const string WorkoutsDirectoryName = "workouts";
+
+    private static readonly bool IsLinux = !Environment.OSVersion.Platform.ToString().ToLower().StartsWith("win");
+
+    private static readonly string ApplicationDataDirectory = IsLinux
+      ? ApplicationDataDirectoryLinux
+      : ApplicationDataDirectoryWindows;
+
+    public static string WorkoutsDirectory { get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + WorkoutsDirectoryName; } }
+    public static string TrainingPlanFile { get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + TrainingPlanFileName; } }
 
     public static readonly Dictionary<string, TimeSpan> Paces = new Dictionary<string, TimeSpan>
     {
