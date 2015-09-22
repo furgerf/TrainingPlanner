@@ -42,14 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventArgs.cs" />
+    <Compile Include="Presenter\IEditWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\IMainFormPresenter.cs" />
     <Compile Include="Presenter\MainFormPresenter.cs" />
+    <Compile Include="Presenter\EditWorkoutFormPresenter.cs" />
     <Compile Include="View\EditWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\IEditWorkoutForm.cs" />
     <Compile Include="View\IMainForm.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>

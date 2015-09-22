@@ -29,14 +29,19 @@ namespace TrainingPlanner.View
     event EventHandler<EventArgs<WeeklyPlan[]>> WeeklyPlansChanged;
 
     /// <summary>
-    /// Lets the main form show the EditWorkoutForm.
-    /// </summary>
-    void ShowEditWorkoutForm();
-
-    /// <summary>
     /// Updates the view with a new set of WeeklyPlans.
     /// </summary>
     /// <param name="weeklyPlans"></param>
     void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans);
+
+    /// <summary>
+    /// Lets the main form show the EditWorkoutForm.
+    /// </summary>
+    void ShowEditWorkoutForm(EditWorkoutForm form);
+
+    /// <summary>
+    /// Gets a new EditWorkoutForm.
+    /// </summary>
+    EditWorkoutForm GetEditWorkoutForm();
   }
 }

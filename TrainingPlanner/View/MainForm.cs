@@ -55,17 +55,6 @@ namespace TrainingPlanner.View
 
     public event EventHandler<EventArgs<WeeklyPlan[]>> WeeklyPlansChanged;
 
-    public void ShowEditWorkoutForm()
-    {
-      var ewf = new EditWorkoutForm();
-      foreach (var wc in _weekControls)
-      {
-        var wc1 = wc;
-        ewf.Closed += (s, ee) => wc1.ReloadWorkouts();
-      }
-      ewf.Show();
-    }
-
     public void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans)
     {
       if (weeklyPlans.Length != this._weekControls.Length)
@@ -76,6 +65,21 @@ namespace TrainingPlanner.View
       {
         _weekControls[i].WeeklyPlan = weeklyPlans[i];
       }
+    }
+
+    public void ShowEditWorkoutForm(EditWorkoutForm form)
+    {
+      foreach (var wc in _weekControls)
+      {
+        var wc1 = wc;
+        form.Closed += (s, ee) => wc1.ReloadWorkouts();
+      }
+      form.Show();
+    }
+
+    public EditWorkoutForm GetEditWorkoutForm()
+    {
+      return new EditWorkoutForm();
     }
   }
 }

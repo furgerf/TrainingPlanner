@@ -20,12 +20,17 @@ namespace TrainingPlanner.Presenter
       LoadTrainingPlan();
 
       this._view.MainFormClosing += (s, e) => SaveTrainingPlan();
-      this._view.AddWorkoutButtonClick += (s, e) => _view.ShowEditWorkoutForm();
+      this._view.AddWorkoutButtonClick += (s, e) =>
+      {
+        var form = this._view.GetEditWorkoutForm();
+        var presenter = new EditWorkoutFormPresenter(form);
+        this._view.ShowEditWorkoutForm(form);
+      };
       this._view.WeeklyPlansChanged += (s, e) =>
       {
-        for (var i = 0; i < _weeklyPlans.Length; i++)
+        for (var i = 0; i < this._weeklyPlans.Length; i++)
         {
-          _weeklyPlans[i] = e.Value[i];
+          this._weeklyPlans[i] = e.Value[i];
         }
       };
     }

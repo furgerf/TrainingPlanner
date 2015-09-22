@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 
 namespace TrainingPlanner.View
 {
-  public partial class EditWorkoutForm : Form
+  public partial class EditWorkoutForm : Form, IEditWorkoutForm
   {
-    private readonly List<WorkoutStepControl> _stepControls = new List<WorkoutStepControl>();
-
     private int _stepControlWidth;
 
-    private bool _dontAskToSave;
-    private bool _cancelClosing;
+    private readonly List<WorkoutStepControl> _stepControls = new List<WorkoutStepControl>();
 
     public EditWorkoutForm()
     {
@@ -23,13 +19,10 @@ namespace TrainingPlanner.View
 
       txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
       txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-      //txtName.AutoCompleteCustomSource = new AutoCompleteStringCollection();
       txtName.AutoCompleteCustomSource.AddRange(Program.Workouts.Select(w => w.Name).ToArray());
-
-      butAddStep_Click();
     }
 
-    private void butAddStep_Click(object sender = null, EventArgs e = null)
+    public void AddStep()
     {
       var wsc = new WorkoutStepControl();
 
@@ -49,7 +42,7 @@ namespace TrainingPlanner.View
       wsc.Focus();
     }
 
-    private void butRemoveStep_Click(object sender, EventArgs e)
+    public void RemoveStep()
     {
       var wsc = _stepControls[_stepControls.Count - 1];
       Controls.Remove(wsc);
@@ -60,50 +53,51 @@ namespace TrainingPlanner.View
       butRemoveStep.Left -= _stepControlWidth;
     }
 
-
-    private void EditWorkoutForm_FormClosing(object sender, FormClosingEventArgs e)
+    public Step[] Steps
     {
-      if (_dontAskToSave)
+      get
       {
-        return;
-      }
-
-      if (MessageBox.Show("Do you want to save the workout?", "Save?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-      {
-        butSave_Click();
-        if (_cancelClosing)
-        {
-          e.Cancel = true;
-        }
+        return _stepControls.Any(sc => !sc.IsValid) ? null :  _stepControls.Select(sc => sc.Step).ToArray();
       }
     }
 
-    private void butSave_Click(object sender = null, EventArgs e = null)
+    public string WorkoutName { get { return txtName.Text; } }
+
+    public event EventHandler AddStepButtonClick;
+    public event EventHandler RemoveStepButtonClick;
+    public event EventHandler SaveButtonClick;
+    public event EventHandler<FormClosingEventArgs> EditWorkoutFormClosing;
+
+    private void butSave_Click(object sender, EventArgs e)
     {
-      var steps = new Step[_stepControls.Count];
-
-      for (var i = 0; i < _stepControls.Count; i++)
+      if (SaveButtonClick != null)
       {
-        if (!_stepControls[i].IsValid)
-        {
-          MessageBox.Show(string.Format("Step {0} isn't valid, please fix...", i + 1));
-          _cancelClosing = true;
-          return;
-        }
-
-        steps[i] = _stepControls[i].Step;
+        SaveButtonClick(this, e);
       }
+    }
 
-      var workout = new Workout(txtName.Text, steps);
+    private void butAddStep_Click(object sender, EventArgs e)
+    {
+      if (AddStepButtonClick != null)
+      {
+        AddStepButtonClick(this, e);
+      }
+    }
 
-      File.WriteAllText(Program.WorkoutsDirectory + Path.DirectorySeparatorChar + txtName.Text.ToLower().Replace(' ', '-') + ".json", workout.Json);
+    private void butRemoveStep_Click(object sender, EventArgs e)
+    {
+      if (RemoveStepButtonClick != null)
+      {
+        RemoveStepButtonClick(this, e);
+      }
+    }
 
-      _dontAskToSave = true;
-
-      Program.Workouts.Add(workout);
-      Program.Workouts.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-
-      Close();
+    private void EditWorkoutForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      if (EditWorkoutFormClosing != null)
+      {
+        EditWorkoutFormClosing(this, e);
+      }
     }
   }
 }
