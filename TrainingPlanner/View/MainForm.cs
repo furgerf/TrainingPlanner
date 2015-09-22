@@ -11,17 +11,21 @@ namespace TrainingPlanner.View
 
     private readonly WeekControl[] _weekControls;
 
-    public MainForm()
+    private readonly Data _data;
+
+    public MainForm(Data data)
     {
       InitializeComponent();
 
-      _weekControls = new WeekControl[TrainingWeeks];
+      this._data = data;
+
+      _weekControls = new WeekControl[Data.TrainingWeeks];
 
       WindowState = FormWindowState.Maximized;
 
       backgroundPanel.Height = 1000;
       vScrollBar1.Height = 1000;
-      foregroundPanel.Height = TrainingWeeks*WeeklyControlHeight;
+      foregroundPanel.Height = Data.TrainingWeeks*WeeklyControlHeight;
 
       vScrollBar1.Maximum = foregroundPanel.Height;
       vScrollBar1.ValueChanged += (s, e) => foregroundPanel.Top = -vScrollBar1.Value;
@@ -31,6 +35,7 @@ namespace TrainingPlanner.View
       for (var i = 0; i < _weekControls.Length; i++)
       {
         _weekControls[i] = new WeekControl {Top = i*WeeklyControlHeight, Parent = foregroundPanel};
+        _weekControls[i].SetData(this._data);
         _weekControls[i].WeeklyPlanChanged += (sender, workout) =>
         {
           if (WeeklyPlansChanged != null)
@@ -46,8 +51,6 @@ namespace TrainingPlanner.View
       FormClosing += (s, e) => MainFormClosing(this, null);
       this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, null);
     }
-
-    public int TrainingWeeks { get { return 11; } }
 
     public event EventHandler AddWorkoutButtonClick;
 
@@ -79,7 +82,7 @@ namespace TrainingPlanner.View
 
     public EditWorkoutForm GetEditWorkoutForm()
     {
-      return new EditWorkoutForm();
+      return new EditWorkoutForm(this._data);
     }
   }
 }

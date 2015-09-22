@@ -9,12 +9,15 @@ namespace TrainingPlanner.Presenter
   {
     private readonly IEditWorkoutForm _view;
 
+    private readonly Data _data;
+
     private bool _dontAskToSave;
     private bool _cancelClosing;
 
-    public EditWorkoutFormPresenter(IEditWorkoutForm view)
+    public EditWorkoutFormPresenter(IEditWorkoutForm view, Data data)
     {
       this._view = view;
+      this._data = data;
 
       this._view.AddStepButtonClick += (s, e) => this._view.AddStep();
       this._view.RemoveStepButtonClick += (s, e) => this._view.RemoveStep();
@@ -63,12 +66,11 @@ namespace TrainingPlanner.Presenter
         Program.WorkoutsDirectory + Path.DirectorySeparatorChar + this._view.WorkoutName.ToLower().Replace(' ', '-') +
         ".json", workout.Json);
 
-      _dontAskToSave = true;
+      this._dontAskToSave = true;
 
-      Program.Workouts.Add(workout);
-      Program.Workouts.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
+      this._data.AddWorkout(workout);
 
-      _view.Close();
+      this._view.Close();
     }
   }
 }

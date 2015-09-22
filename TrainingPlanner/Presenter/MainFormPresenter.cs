@@ -8,57 +8,39 @@ namespace TrainingPlanner.Presenter
   {
     private readonly IMainForm _view;
 
-    private readonly WeeklyPlan[] _weeklyPlans;
+    private readonly Data _data;
 
-    public MainFormPresenter(IMainForm view)
+    public MainFormPresenter(IMainForm view, Data data)
     {
       this._view = view;
-
-      this._weeklyPlans = new WeeklyPlan[this._view.TrainingWeeks];
-
-      // load training plan before subscribing to the WeeklyPlansChanged event
-      LoadTrainingPlan();
+      this._data = data;
 
       this._view.MainFormClosing += (s, e) => SaveTrainingPlan();
       this._view.AddWorkoutButtonClick += (s, e) =>
       {
         var form = this._view.GetEditWorkoutForm();
-        var presenter = new EditWorkoutFormPresenter(form);
+        var presenter = new EditWorkoutFormPresenter(form, this._data);
         this._view.ShowEditWorkoutForm(form);
       };
       this._view.WeeklyPlansChanged += (s, e) =>
       {
-        for (var i = 0; i < this._weeklyPlans.Length; i++)
+        for (var i = 0; i < this._data.TrainingPlan.Length; i++)
         {
-          this._weeklyPlans[i] = e.Value[i];
+          this._data.TrainingPlan[i] = e.Value[i];
         }
       };
+
+      this._view.UpdateWeeklyPlan(this._data.TrainingPlan);
     }
 
     private void SaveTrainingPlan()
     {
-      var data = new string[this._view.TrainingWeeks];
-      for (var i = 0; i < this._view.TrainingWeeks; i++)
+      var data = new string[Data.TrainingWeeks];
+      for (var i = 0; i < Data.TrainingWeeks; i++)
       {
-        data[i] = this._weeklyPlans[i].Json;
+        data[i] = this._data.TrainingPlan[i].Json;
       }
       File.WriteAllLines(Program.TrainingPlanFile, data);
-    }
-
-    private void LoadTrainingPlan()
-    {
-      if (!File.Exists(Program.TrainingPlanFile))
-      {
-        return;
-      }
-
-      var data = File.ReadAllLines(Program.TrainingPlanFile);
-      for (var i = 0; i < this._view.TrainingWeeks; i++)
-      {
-        this._weeklyPlans[i] = WeeklyPlan.FromJson(data[i]);
-      }
-
-      this._view.UpdateWeeklyPlan(_weeklyPlans);
     }
   }
 }

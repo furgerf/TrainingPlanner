@@ -17,6 +17,8 @@ namespace TrainingPlanner.View
 
     public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
+    private Data _data;
+
     public WeeklyPlan WeeklyPlan
     {
       get
@@ -34,7 +36,7 @@ namespace TrainingPlanner.View
         {
           if (value.Workouts[i] != null)
           {
-            _workoutControls[i].Workout = Program.WorkoutFromName(value.Workouts[i]);
+            _workoutControls[i].Workout = this._data.WorkoutFromName(value.Workouts[i]);
           }
         }
         txtNotes.Text = value.Notes;
@@ -77,6 +79,15 @@ namespace TrainingPlanner.View
             WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
           }
         };
+      }
+    }
+
+    public void SetData(Data data)
+    {
+      this._data = data;
+      foreach (var wc in this._workoutControls)
+      {
+        wc.SetData(this._data);
       }
     }
 

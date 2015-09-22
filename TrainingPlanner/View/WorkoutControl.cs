@@ -16,6 +16,7 @@ namespace TrainingPlanner.View
     private readonly Control[] _emptyWorkoutControls;
 
     private readonly Control[] _nonemptyWorkoutControls;
+    private Data _data;
 
     private bool HasWorkout { get { return _workout != null; } }
 
@@ -75,16 +76,15 @@ namespace TrainingPlanner.View
 
     public void UpdateWorkouts()
     {
+      if (this._data == null)
+      {
+        return;
+      }
+
       comWorkouts.Items.Clear();
 
       comWorkouts.Items.Add("");
-      if (Program.Workouts != null)
-      {
-        foreach (var w in Program.Workouts)
-        {
-          comWorkouts.Items.Add(w.Name);
-        }
-      }
+      comWorkouts.Items.AddRange(this._data.Workouts.Select(w => w.Name).ToArray());
       comWorkouts.SelectedIndex = 0;
     }
 
@@ -101,7 +101,14 @@ namespace TrainingPlanner.View
         return;
       }
 
-      Workout = Program.Workouts.First(w => w.Name.Equals(comWorkouts.Text));
+      Workout = this._data.WorkoutFromName(comWorkouts.Text);
+    }
+
+    public void SetData(Data data)
+    {
+      this._data = data;
+
+      //UpdateWorkouts();
     }
   }
 }

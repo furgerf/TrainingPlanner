@@ -13,13 +13,17 @@ namespace TrainingPlanner.View
 
     private readonly List<WorkoutStepControl> _stepControls = new List<WorkoutStepControl>();
 
-    public EditWorkoutForm()
+    private readonly Data _data;
+
+    public EditWorkoutForm(Data data)
     {
+      this._data = data;
+
       InitializeComponent();
 
       txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
       txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-      txtName.AutoCompleteCustomSource.AddRange(Program.Workouts.Select(w => w.Name).ToArray());
+      txtName.AutoCompleteCustomSource.AddRange(this._data.Workouts.Select(w => w.Name).ToArray());
     }
 
     public void AddStep()

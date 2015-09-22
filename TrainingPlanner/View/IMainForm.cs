@@ -9,11 +9,6 @@ namespace TrainingPlanner.View
   public interface IMainForm
   {
     /// <summary>
-    /// The number of training weeks in the plan. NOTE: move this to the presenter.
-    /// </summary>
-    int TrainingWeeks { get; }
-
-    /// <summary>
     /// Triggered when the user requests to add new workouts.
     /// </summary>
     event EventHandler AddWorkoutButtonClick;
