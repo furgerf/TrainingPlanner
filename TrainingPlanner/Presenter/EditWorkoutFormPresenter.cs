@@ -60,7 +60,7 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      var workout = new Workout(this._view.WorkoutName, steps);
+      var workout = new Workout(this._view.WorkoutName, null, steps);
 
       File.WriteAllText(
         Program.WorkoutsDirectory + Path.DirectorySeparatorChar + this._view.WorkoutName.ToLower().Replace(' ', '-') +

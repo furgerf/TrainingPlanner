@@ -14,6 +14,12 @@ namespace TrainingPlanner.Model
     [DataMember]
     public readonly Color CategoryColor;
 
+    public WorkoutCategory(string name, Color categoryColor )
+    {
+      this.Name = name;
+      this.CategoryColor = categoryColor;
+    }
+
     public string Json
     {
       get

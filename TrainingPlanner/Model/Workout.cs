@@ -15,6 +15,9 @@ namespace TrainingPlanner.Model
     public readonly string Name;
 
     [DataMember]
+    public readonly string CategoryName;
+
+    [DataMember]
     public Step[] Steps { get; private set; }
 
     public TimeSpan Duration { get { return TimeSpan.FromSeconds(Steps.Sum(s => (s.Duration.TotalSeconds + s.Rest.TotalSeconds) * s.Repetitions)); }}
@@ -51,10 +54,11 @@ namespace TrainingPlanner.Model
 
     #region Constructor
 
-    public Workout(string name, Step[] steps)
+    public Workout(string name, WorkoutCategory category, Step[] steps)
     {
-      Name = name;
-      Steps = steps;
+      this.Name = name;
+      this.CategoryName = category.Name;
+      this.Steps = steps;
     }
 
     #endregion
