@@ -32,6 +32,11 @@ namespace TrainingPlanner.View
     string WorkoutName { get; }
 
     /// <summary>
+    /// The current name of the category.
+    /// </summary>
+    string CategoryName { get; }
+
+    /// <summary>
     /// Triggered when the user presses the "add step"-button.
     /// </summary>
     event EventHandler AddStepButtonClick;
@@ -50,5 +55,10 @@ namespace TrainingPlanner.View
     /// Triggered when the main form is closing.
     /// </summary>
     event EventHandler<FormClosingEventArgs> EditWorkoutFormClosing;
+
+    /// <summary>
+    /// Updates the list of workout categories.
+    /// </summary>
+    void SetCategories(string[] categories);
   }
 }

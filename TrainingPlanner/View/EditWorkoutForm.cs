@@ -13,17 +13,13 @@ namespace TrainingPlanner.View
 
     private readonly List<WorkoutStepControl> _stepControls = new List<WorkoutStepControl>();
 
-    private readonly Data _data;
-
     public EditWorkoutForm(Data data)
     {
-      this._data = data;
-
       InitializeComponent();
 
       txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
       txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-      txtName.AutoCompleteCustomSource.AddRange(this._data.Workouts.Select(w => w.Name).ToArray());
+      txtName.AutoCompleteCustomSource.AddRange(data.Workouts.Select(w => w.Name).ToArray());
     }
 
     public void AddStep()
@@ -66,11 +62,18 @@ namespace TrainingPlanner.View
     }
 
     public string WorkoutName { get { return txtName.Text; } }
+    public string CategoryName { get { return comCategory.Text; } }
 
     public event EventHandler AddStepButtonClick;
     public event EventHandler RemoveStepButtonClick;
     public event EventHandler SaveButtonClick;
     public event EventHandler<FormClosingEventArgs> EditWorkoutFormClosing;
+
+    public void SetCategories(string[] categories)
+    {
+      this.comCategory.Items.Clear();
+      this.comCategory.Items.AddRange(categories);
+    }
 
     private void butSave_Click(object sender, EventArgs e)
     {

@@ -33,6 +33,8 @@
       this.butAddStep = new System.Windows.Forms.Button();
       this.butRemoveStep = new System.Windows.Forms.Button();
       this.butSave = new System.Windows.Forms.Button();
+      this.label2 = new System.Windows.Forms.Label();
+      this.comCategory = new System.Windows.Forms.ComboBox();
       this.SuspendLayout();
       // 
       // label1
@@ -46,7 +48,7 @@
       // 
       // txtName
       // 
-      this.txtName.Location = new System.Drawing.Point(56, 12);
+      this.txtName.Location = new System.Drawing.Point(53, 12);
       this.txtName.Name = "txtName";
       this.txtName.Size = new System.Drawing.Size(211, 20);
       this.txtName.TabIndex = 3;
@@ -73,7 +75,7 @@
       // 
       // butSave
       // 
-      this.butSave.Location = new System.Drawing.Point(273, 9);
+      this.butSave.Location = new System.Drawing.Point(485, 9);
       this.butSave.Name = "butSave";
       this.butSave.Size = new System.Drawing.Size(97, 23);
       this.butSave.TabIndex = 96;
@@ -81,11 +83,31 @@
       this.butSave.UseVisualStyleBackColor = true;
       this.butSave.Click += new System.EventHandler(this.butSave_Click);
       // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(303, 15);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(49, 13);
+      this.label2.TabIndex = 99;
+      this.label2.Text = "Category";
+      // 
+      // comCategory
+      // 
+      this.comCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comCategory.FormattingEnabled = true;
+      this.comCategory.Location = new System.Drawing.Point(358, 12);
+      this.comCategory.Name = "comCategory";
+      this.comCategory.Size = new System.Drawing.Size(121, 21);
+      this.comCategory.TabIndex = 100;
+      // 
       // EditWorkoutForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1573, 368);
+      this.ClientSize = new System.Drawing.Size(599, 368);
+      this.Controls.Add(this.comCategory);
+      this.Controls.Add(this.label2);
       this.Controls.Add(this.butSave);
       this.Controls.Add(this.butRemoveStep);
       this.Controls.Add(this.butAddStep);
@@ -106,5 +128,7 @@
     private System.Windows.Forms.Button butAddStep;
     private System.Windows.Forms.Button butRemoveStep;
     private System.Windows.Forms.Button butSave;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.ComboBox comCategory;
   }
 }

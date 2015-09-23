@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.View;
@@ -18,12 +19,20 @@ namespace TrainingPlanner.Presenter
     {
       this._view = view;
       this._data = data;
+      
+      this._data.CategoriesChanged += (s, e) => SetCategories();
+      SetCategories();
 
       this._view.AddStepButtonClick += (s, e) => this._view.AddStep();
       this._view.RemoveStepButtonClick += (s, e) => this._view.RemoveStep();
       this._view.EditWorkoutFormClosing += OnEditWorkoutFormClosing;
       this._view.SaveButtonClick += (s, e) => SaveWorkout();
       this._view.AddStep();
+    }
+
+    private void SetCategories()
+    {
+      this._view.SetCategories(new []{""}.Concat(this._data.Categories.Select(c => c.Name)).ToArray());
     }
 
     private void OnEditWorkoutFormClosing(object sender, FormClosingEventArgs e)
@@ -60,7 +69,7 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      var workout = new Workout(this._view.WorkoutName, null, steps);
+      var workout = new Workout(this._view.WorkoutName, this._data.WorkoutCategoryFromName(this._view.CategoryName), steps);
 
       File.WriteAllText(
         Program.WorkoutsDirectory + Path.DirectorySeparatorChar + this._view.WorkoutName.ToLower().Replace(' ', '-') +
