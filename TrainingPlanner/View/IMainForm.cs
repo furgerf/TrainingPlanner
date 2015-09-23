@@ -14,6 +14,11 @@ namespace TrainingPlanner.View
     event EventHandler AddWorkoutButtonClick;
 
     /// <summary>
+    /// Triggered when the user requests to configure paces.
+    /// </summary>
+    event EventHandler ConfigurePacesButtonClick;
+
+    /// <summary>
     /// Triggered when the main form is closing.
     /// </summary>
     event EventHandler MainFormClosing;
@@ -33,5 +38,11 @@ namespace TrainingPlanner.View
     /// Gets a new EditWorkoutForm.
     /// </summary>
     EditWorkoutForm GetEditWorkoutForm();
+
+    /// <summary>
+    /// Gets a new PaceForm.
+    /// </summary>
+    /// <returns></returns>
+    PaceForm GetPaceForm();
   }
 }

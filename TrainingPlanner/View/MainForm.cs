@@ -50,6 +50,8 @@ namespace TrainingPlanner.View
 
       // some more own UI stuff
       this.foregroundPanel.Width = _weekControls[0].Width + 16;
+      this.butAddWorkout.Left = this.foregroundPanel.Right + 6;
+      this.butPaces.Left = this.foregroundPanel.Right + 6;
 
       // register to more events (to retrigger)
       this.FormClosing += (s, e) => MainFormClosing(this, e);
@@ -57,6 +59,7 @@ namespace TrainingPlanner.View
     }
 
     public event EventHandler AddWorkoutButtonClick;
+    public event EventHandler ConfigurePacesButtonClick;
 
     public event EventHandler MainFormClosing;
 
@@ -77,6 +80,19 @@ namespace TrainingPlanner.View
     public EditWorkoutForm GetEditWorkoutForm()
     {
       return new EditWorkoutForm(this._data);
+    }
+
+    public PaceForm GetPaceForm()
+    {
+      return new PaceForm();
+    }
+
+    private void butPaces_Click(object sender, EventArgs e)
+    {
+      if (ConfigurePacesButtonClick != null)
+      {
+        ConfigurePacesButtonClick(this, e);
+      }
     }
   }
 }

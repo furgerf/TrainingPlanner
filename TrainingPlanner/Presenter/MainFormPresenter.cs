@@ -22,6 +22,12 @@ namespace TrainingPlanner.Presenter
         var presenter = new EditWorkoutFormPresenter(form, this._data);
         form.Show();
       };
+      this._view.ConfigurePacesButtonClick += (s, e) =>
+      {
+        var form = this._view.GetPaceForm();
+        var presenter = new PaceFormPresenter(form, this._data);
+        form.Show();
+      };
       this._view.WeeklyPlansChanged += (s, e) =>
       {
         for (var i = 0; i < this._data.TrainingPlan.Length; i++)

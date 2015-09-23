@@ -40,7 +40,7 @@ namespace TrainingPlanner.Model
 
     public event EventHandler PacesChanged;
 
-    public Dictionary<string, TimeSpan> Paces { get { return PaceMap; } } 
+    public static Dictionary<string, TimeSpan> Paces { get { return PaceMap; } } 
 
     public WorkoutCategory[] Categories
     {
