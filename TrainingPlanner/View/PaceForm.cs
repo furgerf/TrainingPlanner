@@ -13,26 +13,30 @@ namespace TrainingPlanner.View
     private static readonly Color ValidPaceColor = SystemColors.Window;
     private static readonly Color InvalidPaceColor = Color.LightSalmon;
 
-    private readonly Dictionary<Pace, Tuple<Label, MaskedTextBox, TimeSpan>> _paceControls;
+    private readonly Dictionary<Pace, Tuple<Label, MaskedTextBox, TimeSpan, bool>> _paceControls;
+    private bool _validatePaces;
+
     public PaceForm()
     {
       InitializeComponent();
 
-      _paceControls = new Dictionary<Pace, Tuple<Label, MaskedTextBox, TimeSpan>>
+      _paceControls = new Dictionary<Pace, Tuple<Label, MaskedTextBox, TimeSpan, bool>>
       {
-        {Pace.Easy, new Tuple<Label, MaskedTextBox, TimeSpan>(label1, txtEasy, Data.Paces[Pace.Easy])},
-        {Pace.Long, new Tuple<Label, MaskedTextBox, TimeSpan>(label2, txtLong, Data.Paces[Pace.Long])},
-        {Pace.Marathon, new Tuple<Label, MaskedTextBox, TimeSpan>(label3, txtMarathon, Data.Paces[Pace.Marathon])},
-        {Pace.Halfmarathon, new Tuple<Label, MaskedTextBox, TimeSpan>(label4, txtHalfmarathon, Data.Paces[Pace.Halfmarathon])},
-        {Pace.Threshold, new Tuple<Label, MaskedTextBox, TimeSpan>(label5, txtThreshold, Data.Paces[Pace.Threshold])},
-        {Pace.Tenk, new Tuple<Label, MaskedTextBox, TimeSpan>(label6, txtTenk, Data.Paces[Pace.Tenk])},
-        {Pace.Fivek, new Tuple<Label, MaskedTextBox, TimeSpan>(label7, txtFivek, Data.Paces[Pace.Fivek])},
+        {Pace.Easy, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label1, txtEasy, Data.Paces[Pace.Easy], true)},
+        {Pace.Long, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label2, txtLong, Data.Paces[Pace.Long], true)},
+        {Pace.Marathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label3, txtMarathon, Data.Paces[Pace.Marathon], true)},
+        {Pace.Halfmarathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label4, txtHalfmarathon, Data.Paces[Pace.Halfmarathon], true)},
+        {Pace.Threshold, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label5, txtThreshold, Data.Paces[Pace.Threshold], true)},
+        {Pace.Tenk, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label6, txtTenk, Data.Paces[Pace.Tenk], true)},
+        {Pace.Fivek, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label7, txtFivek, Data.Paces[Pace.Fivek], true)},
       };
 
       foreach (var c in _paceControls.Values)
       {
         c.Item2.Text = c.Item3.ToString(PaceFormat);
       }
+
+      _validatePaces = true;
     }
 
     private void butSaveChanges_Click(object sender, EventArgs e)
@@ -53,9 +57,17 @@ namespace TrainingPlanner.View
 
     private void PaceValueChanged(object sender, EventArgs e)
     {
-      var data = _paceControls.Values.First(p => p.Item2 == sender);
+      if (!_validatePaces)
+      {
+        return;
+      }
+
+      var key = _paceControls.First(pc => pc.Value.Item2 == sender).Key;
+      var data = _paceControls[key];
       TimeSpan ts;
       var valid = TimeSpan.TryParse("00:" + data.Item2.Text, out ts) && ts.TotalMinutes > 2 && ts.TotalMinutes < 10;
+
+      _paceControls[key] = new Tuple<Label, MaskedTextBox, TimeSpan, bool>(data.Item1, data.Item2, data.Item3, valid);
 
       data.Item2.BackColor = valid ? ValidPaceColor : InvalidPaceColor;
 
@@ -67,6 +79,8 @@ namespace TrainingPlanner.View
       {
         data.Item1.Text = data.Item1.Text.Substring(0, data.Item1.Text.Length - 1);
       }
+
+      butSaveChanges.Enabled = _paceControls.Values.All(pc => pc.Item4);
     }
 
     public event EventHandler SaveChangesButtonClick;
