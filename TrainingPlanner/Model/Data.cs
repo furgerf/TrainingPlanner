@@ -10,15 +10,15 @@ namespace TrainingPlanner.Model
   {
     public static readonly Color DefaultBackgroundColor = Color.Beige;
 
-    private static readonly Dictionary<string, TimeSpan> PaceMap = new Dictionary<string, TimeSpan>
+    private static readonly Dictionary<Pace, TimeSpan> PaceMap = new Dictionary<Pace, TimeSpan>
     {
-      {"Easy", TrainingPlanner.Paces.Default.Easy},
-      {"Long", TrainingPlanner.Paces.Default.Long},
-      {"Marathon", TrainingPlanner.Paces.Default.Marathon},
-      {"Threshold", TrainingPlanner.Paces.Default.Threshold},
-      {"Halfmarathon", TrainingPlanner.Paces.Default.Halfmarathon},
-      {"TenK", TrainingPlanner.Paces.Default.TenK},
-      {"FiveK", TrainingPlanner.Paces.Default.FiveK}
+      {Pace.Easy, TrainingPlanner.Paces.Default.Easy},
+      {Pace.Long, TrainingPlanner.Paces.Default.Long},
+      {Pace.Marathon, TrainingPlanner.Paces.Default.Marathon},
+      {Pace.Threshold, TrainingPlanner.Paces.Default.Threshold},
+      {Pace.Halfmarathon, TrainingPlanner.Paces.Default.Halfmarathon},
+      {Pace.Tenk, TrainingPlanner.Paces.Default.TenK},
+      {Pace.Fivek, TrainingPlanner.Paces.Default.FiveK}
     };
 
     public const int TrainingWeeks = 11;
@@ -40,7 +40,7 @@ namespace TrainingPlanner.Model
 
     public event EventHandler PacesChanged;
 
-    public static Dictionary<string, TimeSpan> Paces { get { return PaceMap; } } 
+    public static Dictionary<Pace, TimeSpan> Paces { get { return PaceMap; } } 
 
     public WorkoutCategory[] Categories
     {
@@ -86,14 +86,14 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public void ChangePace(string paceName, TimeSpan pace)
+    public void ChangePace(Pace key, TimeSpan value)
     {
-      if (!PaceMap.ContainsKey(paceName))
+      if (!PaceMap.ContainsKey(key))
       {
-        throw new ArgumentException(string.Format("Unkown pace name ({0})!", paceName));
+        throw new ArgumentException(string.Format("Unkown pace name ({0})!", key));
       }
 
-      PaceMap[paceName] = pace;
+      PaceMap[key] = value;
 
       SavePacesToSettings();
 
@@ -105,13 +105,13 @@ namespace TrainingPlanner.Model
 
     private static void SavePacesToSettings()
     {
-      TrainingPlanner.Paces.Default.Easy = PaceMap["Easy"];
-      TrainingPlanner.Paces.Default.Long = PaceMap["Long"];
-      TrainingPlanner.Paces.Default.Marathon = PaceMap["Marathon"];
-      TrainingPlanner.Paces.Default.Threshold = PaceMap["Threshold"];
-      TrainingPlanner.Paces.Default.Halfmarathon = PaceMap["Halfmarathon"];
-      TrainingPlanner.Paces.Default.TenK = PaceMap["TenK"];
-      TrainingPlanner.Paces.Default.FiveK = PaceMap["FiveK"];
+      TrainingPlanner.Paces.Default.Easy = PaceMap[Pace.Easy];
+      TrainingPlanner.Paces.Default.Long = PaceMap[Pace.Long];
+      TrainingPlanner.Paces.Default.Marathon = PaceMap[Pace.Marathon];
+      TrainingPlanner.Paces.Default.Threshold = PaceMap[Pace.Threshold];
+      TrainingPlanner.Paces.Default.Halfmarathon = PaceMap[Pace.Halfmarathon];
+      TrainingPlanner.Paces.Default.TenK = PaceMap[Pace.Tenk];
+      TrainingPlanner.Paces.Default.FiveK = PaceMap[Pace.Fivek];
 
       TrainingPlanner.Paces.Default.Save();
     }

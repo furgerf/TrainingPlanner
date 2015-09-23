@@ -1,4 +1,5 @@
 ﻿using System;
+using TrainingPlanner.Model;
 
 namespace TrainingPlanner.View
 {
@@ -17,7 +18,7 @@ namespace TrainingPlanner.View
     /// <summary>
     /// Retrieve the paces that were modified by the user.
     /// </summary>
-    Tuple<string, TimeSpan>[] ChangedPaces { get; }
+    Tuple<Pace, TimeSpan>[] ChangedPaces { get; }
 
     /// <summary>
     /// Tells the form to close.

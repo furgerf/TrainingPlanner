@@ -67,7 +67,7 @@ namespace TrainingPlanner.View
     {
       get
       {
-        return Data.Paces[comPace.Text];
+        return Data.Paces[(Pace)Enum.Parse(typeof(Pace), comPace.Text)];
       }
     }
 
@@ -92,7 +92,7 @@ namespace TrainingPlanner.View
       InitializeComponent();
 
       comName.Items.AddRange(new object[] {"Warmup", "Cooldown"});
-      comPace.Items.AddRange(Data.Paces.Keys.ToArray());
+      comPace.Items.AddRange(Data.Paces.Keys.Select(p => p.ToString()).ToArray());
       comPace.SelectedIndex = 0;
     }
 

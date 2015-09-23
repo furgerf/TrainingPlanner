@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="EventArgs.cs" />
     <Compile Include="Model\Data.cs" />
+    <Compile Include="Model\Pace.cs" />
     <Compile Include="Model\WorkoutCategory.cs" />
     <Compile Include="Presenter\IEditWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\IMainFormPresenter.cs" />
