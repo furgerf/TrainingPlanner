@@ -42,7 +42,7 @@
       this.butRemove.Size = new System.Drawing.Size(143, 87);
       this.butRemove.TabIndex = 6;
       this.butRemove.UseVisualStyleBackColor = true;
-      this.butRemove.Click += new System.EventHandler(this.butRemove_Click);
+      this.butRemove.Click += new System.EventHandler(this.RemoveWorkout);
       // 
       // labWorkoutName
       // 
@@ -54,6 +54,7 @@
       this.labWorkoutName.TabIndex = 8;
       this.labWorkoutName.Text = "label1";
       this.labWorkoutName.Enter += new System.EventHandler(this.SetActiveControl);
+      this.labWorkoutName.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RemoveWorkout);
       // 
       // labRemove
       // 
@@ -66,6 +67,7 @@
       this.labRemove.TabIndex = 9;
       this.labRemove.Text = "X";
       this.labRemove.TextAlign = System.Drawing.ContentAlignment.TopRight;
+      this.labRemove.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RemoveWorkout);
       // 
       // txtDescription
       // 
@@ -76,7 +78,7 @@
       this.txtDescription.Name = "txtDescription";
       this.txtDescription.Size = new System.Drawing.Size(138, 67);
       this.txtDescription.TabIndex = 11;
-      this.txtDescription.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtDescription_MouseClick);
+      this.txtDescription.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RemoveWorkout);
       this.txtDescription.Enter += new System.EventHandler(this.SetActiveControl);
       // 
       // labSelectWorkout

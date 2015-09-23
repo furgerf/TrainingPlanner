@@ -60,7 +60,7 @@ namespace TrainingPlanner.Model
     public Workout(string name, WorkoutCategory category, Step[] steps)
     {
       this.Name = name;
-      this.CategoryName = category.Name;
+      this.CategoryName = category == null ? null : category.Name;
       this.Steps = steps;
     }
 

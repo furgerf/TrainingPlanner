@@ -114,7 +114,7 @@ namespace TrainingPlanner.View
       this.Workout = this._data.WorkoutFromName(workoutName);
     }
 
-    private void butRemove_Click(object sender, EventArgs e)
+    private void RemoveWorkout(object sender, EventArgs e)
     {
       Workout = null;
     }
@@ -126,11 +126,6 @@ namespace TrainingPlanner.View
       this._data.WorkoutsChanged += (s, e) => CreateContextMenu();
 
       CreateContextMenu();
-    }
-
-    private void txtDescription_MouseClick(object sender, MouseEventArgs e)
-    {
-      butRemove_Click(sender, e);
     }
 
     private void SetActiveControl(object sender, EventArgs e)

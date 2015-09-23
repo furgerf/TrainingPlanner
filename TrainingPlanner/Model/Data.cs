@@ -36,6 +36,8 @@ namespace TrainingPlanner.Model
 
     public event EventHandler WorkoutsChanged;
 
+    public event EventHandler CategoriesChanged;
+
     public WorkoutCategory[] Categories
     {
       get { return _categories.ToArray(); }

@@ -36,12 +36,12 @@
       this.grpSaturday = new System.Windows.Forms.GroupBox();
       this.grpSunday = new System.Windows.Forms.GroupBox();
       this.grpSummary = new System.Windows.Forms.GroupBox();
+      this.txtNotes = new System.Windows.Forms.TextBox();
       this.txtTotalDistance = new System.Windows.Forms.TextBox();
       this.txtTotalDuration = new System.Windows.Forms.TextBox();
       this.txtWorkoutCount = new System.Windows.Forms.TextBox();
       this.grpData = new System.Windows.Forms.GroupBox();
       this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-      this.txtNotes = new System.Windows.Forms.TextBox();
       this.wrkSundayEvening = new TrainingPlanner.View.WorkoutControl();
       this.wrkSundayMorning = new TrainingPlanner.View.WorkoutControl();
       this.wrkSaturdayEvening = new TrainingPlanner.View.WorkoutControl();
@@ -157,6 +157,14 @@
       this.grpSummary.TabStop = false;
       this.grpSummary.Text = "Summary";
       // 
+      // txtNotes
+      // 
+      this.txtNotes.Location = new System.Drawing.Point(6, 97);
+      this.txtNotes.Multiline = true;
+      this.txtNotes.Name = "txtNotes";
+      this.txtNotes.Size = new System.Drawing.Size(178, 94);
+      this.txtNotes.TabIndex = 3;
+      // 
       // txtTotalDistance
       // 
       this.txtTotalDistance.Location = new System.Drawing.Point(6, 71);
@@ -195,14 +203,6 @@
       this.monthCalendar1.ShowToday = false;
       this.monthCalendar1.TabIndex = 1;
       this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
-      // 
-      // txtNotes
-      // 
-      this.txtNotes.Location = new System.Drawing.Point(6, 97);
-      this.txtNotes.Multiline = true;
-      this.txtNotes.Name = "txtNotes";
-      this.txtNotes.Size = new System.Drawing.Size(178, 94);
-      this.txtNotes.TabIndex = 3;
       // 
       // wrkSundayEvening
       // 

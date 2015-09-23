@@ -9,7 +9,7 @@ namespace TrainingPlanner.View
 {
   public partial class EditWorkoutForm : Form, IEditWorkoutForm
   {
-    private int _stepControlWidth;
+    private const int Padding = 10;
 
     private readonly List<WorkoutStepControl> _stepControls = new List<WorkoutStepControl>();
 
@@ -20,24 +20,29 @@ namespace TrainingPlanner.View
       txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
       txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
       txtName.AutoCompleteCustomSource.AddRange(data.Workouts.Select(w => w.Name).ToArray());
+
+      UpdateWidth();
+    }
+
+    private void UpdateWidth()
+    {
+      Width = Math.Max(butSave.Right, butAddStep.Right) + 2*Padding;
     }
 
     public void AddStep()
     {
-      var wsc = new WorkoutStepControl();
-
-      if (_stepControlWidth == 0)
+      var wsc = new WorkoutStepControl
       {
-        _stepControlWidth = wsc.Width + 5;
-      }
-
-      wsc.Location = new Point(15 + _stepControlWidth * _stepControls.Count, butAddStep.Top);
+        Location = new Point(_stepControls.Count == 0 ? labName.Left : _stepControls.Last().Right + Padding, butAddStep.Top)
+      };
 
       Controls.Add(wsc);
       _stepControls.Add(wsc);
 
-      butAddStep.Left += _stepControlWidth;
-      butRemoveStep.Left += _stepControlWidth;
+      butAddStep.Left = _stepControls.Last().Right + Padding;
+      butRemoveStep.Left = _stepControls.Last().Right + Padding;
+
+      UpdateWidth();
 
       wsc.Focus();
     }
@@ -49,8 +54,10 @@ namespace TrainingPlanner.View
       _stepControls.Remove(wsc);
       wsc.Dispose();
 
-      butAddStep.Left -= _stepControlWidth;
-      butRemoveStep.Left -= _stepControlWidth;
+      butAddStep.Left = _stepControls.Count == 0 ? labName.Left : _stepControls.Last().Right + Padding;
+      butRemoveStep.Left = _stepControls.Count == 0 ? labName.Left : _stepControls.Last().Right + Padding;
+
+      UpdateWidth();
     }
 
     public Step[] Steps
