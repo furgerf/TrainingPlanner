@@ -53,6 +53,7 @@ namespace TrainingPlanner.View
       this.butAddWorkout.Left = this.foregroundPanel.Right + 6;
       this.butPaces.Left = this.foregroundPanel.Right + 6;
       this.butEditWorkout.Left = this.foregroundPanel.Right + 6;
+      this.butEditCategories.Left = this.foregroundPanel.Right + 6;
 
       // edit workout button menu
       this._data.WorkoutsChanged += (s, e) => CreateContextMenu();
@@ -88,6 +89,7 @@ namespace TrainingPlanner.View
     public event EventHandler AddWorkoutButtonClick;
     public event EventHandler ConfigurePacesButtonClick;
     public event EventHandler<string> EditWorkoutButtonClick;
+    public event EventHandler EditCategoriesButtonClick;
 
     public event EventHandler MainFormClosing;
 
@@ -116,6 +118,14 @@ namespace TrainingPlanner.View
     private void butEditWorkout_Click(object sender, EventArgs e)
     {
       this.butEditWorkout.ContextMenu.Show(this.butEditWorkout, ((MouseEventArgs)e).Location);
+    }
+
+    private void butEditCategories_Click(object sender, EventArgs e)
+    {
+      if (EditCategoriesButtonClick != null)
+      {
+        EditCategoriesButtonClick(this, e);
+      }
     }
   }
 }

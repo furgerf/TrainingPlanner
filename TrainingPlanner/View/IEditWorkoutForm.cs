@@ -7,11 +7,6 @@ namespace TrainingPlanner.View
   public interface IEditWorkoutForm
   {
     /// <summary>
-    /// Tells the form to close.
-    /// </summary>
-    void Close();
-
-    /// <summary>
     /// Tells the form to add a new step.
     /// </summary>
     void AddStep();

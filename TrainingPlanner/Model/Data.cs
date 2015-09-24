@@ -139,7 +139,7 @@ namespace TrainingPlanner.Model
     /// <returns>Workout.</returns>
     public Workout WorkoutFromName(string workoutName)
     {
-      return Workouts.First(w => w.Name == workoutName);
+      return Workouts.FirstOrDefault(w => w.Name == workoutName);
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ namespace TrainingPlanner.Model
     /// <returns>Workout category.</returns>
     public WorkoutCategory WorkoutCategoryFromName(string categoryName)
     {
-      return Categories.First(w => w.Name == categoryName);
+      return Categories.FirstOrDefault(w => w.Name == categoryName);
     }
 
     /// <summary>
@@ -168,12 +168,28 @@ namespace TrainingPlanner.Model
       }
     }
 
+    public void AddOrUpdateWorkout(Workout workout)
+    {
+      var existing = this._workouts.FirstOrDefault(c => c.Name == workout.Name);
+
+      if (existing != null)
+      {
+        this._workouts.Remove(existing);
+      }
+      AddWorkout(workout);
+    }
+
     /// <summary>
     /// Removes a workout from the data model.
     /// </summary>
     /// <param name="workout">Workout to remove.</param>
     public void RemoveWorkout(Workout workout)
     {
+      if (!this._workouts.Contains(workout))
+      {
+        return;
+      }
+
       this._workouts.Remove(workout);
 
       // (no need to sort)
@@ -219,6 +235,50 @@ namespace TrainingPlanner.Model
       TrainingPlanner.Paces.Default.FiveK = Paces[Pace.Fivek];
 
       TrainingPlanner.Paces.Default.Save();
+    }
+
+    /// <summary>
+    /// Removes a workout category from the data model.
+    /// </summary>
+    /// <param name="category">Category to remove.</param>
+    public void RemoveWorkoutCategory(WorkoutCategory category)
+    {
+      if (!this._categories.Contains(category))
+      {
+        return;
+      }
+
+      this._categories.Remove(category);
+
+      // (no need to sort)
+
+      if (CategoriesChanged != null)
+      {
+        CategoriesChanged(this, EventArgs.Empty);
+      }
+    }
+
+    public void AddOrUpdateWorkoutCategory(WorkoutCategory category)
+    {
+      var existing = this._categories.FirstOrDefault(c => c.Name == category.Name);
+
+      if (existing != null)
+      {
+        this._categories.Remove(existing);
+      }
+      AddWorkoutCategory(category);
+    }
+
+    public void AddWorkoutCategory(WorkoutCategory category)
+    {
+      // TODO: Change "add + sort" to "insert"
+      this._categories.Add(category);
+      this._categories.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
+
+      if (CategoriesChanged != null)
+      {
+        CategoriesChanged(this, EventArgs.Empty);
+      }
     }
   }
 }

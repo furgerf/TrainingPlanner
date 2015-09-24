@@ -8,14 +8,14 @@ namespace TrainingPlanner.Presenter
 {
   public class EditWorkoutFormPresenter : IEditWorkoutFormPresenter
   {
-    private readonly IEditWorkoutForm _view;
+    private readonly EditWorkoutForm _view;
 
     private readonly Data _data;
 
     private bool _dontAskToSave;
     private bool _cancelClosing;
 
-    public EditWorkoutFormPresenter(IEditWorkoutForm view, Data data)
+    public EditWorkoutFormPresenter(EditWorkoutForm view, Data data)
     {
       this._view = view;
       this._data = data;
@@ -84,7 +84,7 @@ namespace TrainingPlanner.Presenter
 
       this._dontAskToSave = true;
 
-      this._data.AddWorkout(workout);
+      this._data.AddOrUpdateWorkout(workout);
 
       this._view.Close();
     }

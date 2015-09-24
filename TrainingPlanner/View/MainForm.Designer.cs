@@ -32,6 +32,7 @@
       this.foregroundPanel = new System.Windows.Forms.Panel();
       this.butPaces = new System.Windows.Forms.Button();
       this.butEditWorkout = new System.Windows.Forms.Button();
+      this.butEditCategories = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // butAddWorkout
@@ -70,11 +71,22 @@
       this.butEditWorkout.UseVisualStyleBackColor = true;
       this.butEditWorkout.Click += new System.EventHandler(this.butEditWorkout_Click);
       // 
+      // butEditCategories
+      // 
+      this.butEditCategories.Location = new System.Drawing.Point(1568, 99);
+      this.butEditCategories.Name = "butEditCategories";
+      this.butEditCategories.Size = new System.Drawing.Size(96, 23);
+      this.butEditCategories.TabIndex = 9;
+      this.butEditCategories.Text = "Edit Categories";
+      this.butEditCategories.UseVisualStyleBackColor = true;
+      this.butEditCategories.Click += new System.EventHandler(this.butEditCategories_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1604, 812);
+      this.Controls.Add(this.butEditCategories);
       this.Controls.Add(this.butEditWorkout);
       this.Controls.Add(this.butPaces);
       this.Controls.Add(this.foregroundPanel);
@@ -91,6 +103,7 @@
         private System.Windows.Forms.Panel foregroundPanel;
         private System.Windows.Forms.Button butPaces;
         private System.Windows.Forms.Button butEditWorkout;
+        private System.Windows.Forms.Button butEditCategories;
 
 
     }

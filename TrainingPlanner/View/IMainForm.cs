@@ -24,6 +24,11 @@ namespace TrainingPlanner.View
     event EventHandler<string> EditWorkoutButtonClick;
 
     /// <summary>
+    /// Triggered when the user requests to edit a workout.
+    /// </summary>
+    event EventHandler EditCategoriesButtonClick;
+
+    /// <summary>
     /// Triggered when the main form is closing.
     /// </summary>
     event EventHandler MainFormClosing;

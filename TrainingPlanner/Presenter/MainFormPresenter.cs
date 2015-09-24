@@ -33,6 +33,12 @@ namespace TrainingPlanner.Presenter
         // the workout will be overwritten but if it gets a new name, a new workout is created?
         form.Show();
       };
+      view.EditCategoriesButtonClick += (s, e) =>
+      {
+        var form = new ManageWorkoutCategoriesForm();
+        var presenter = new ManageWorkoutCategoriesFormPresenter(form, this._data);
+        form.Show();
+      };
       view.WeeklyPlansChanged += (s, e) =>
       {
         for (var i = 0; i < this._data.TrainingPlan.Length; i++)

@@ -46,20 +46,32 @@
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\Pace.cs" />
     <Compile Include="Model\WorkoutCategory.cs" />
+    <Compile Include="Presenter\EditWorkoutCategoryFormPresenter.cs" />
+    <Compile Include="Presenter\IEditWorkoutCategoryFormPresenter.cs" />
     <Compile Include="Presenter\IEditWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\IMainFormPresenter.cs" />
+    <Compile Include="Presenter\IManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\IPaceFormPresenter.cs" />
     <Compile Include="Presenter\MainFormPresenter.cs" />
     <Compile Include="Presenter\EditWorkoutFormPresenter.cs" />
+    <Compile Include="Presenter\ManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\PaceFormPresenter.cs" />
+    <Compile Include="View\EditWorkoutCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\EditWorkoutCategoryForm.Designer.cs">
+      <DependentUpon>EditWorkoutCategoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EditWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\IEditWorkoutCategoryForm.cs" />
     <Compile Include="View\IEditWorkoutForm.cs" />
     <Compile Include="View\IMainForm.cs" />
+    <Compile Include="View\IManageWorkoutCategoriesForm.cs" />
     <Compile Include="View\IPaceForm.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
@@ -75,6 +87,12 @@
       <DependentUpon>Paces.settings</DependentUpon>
     </Compile>
     <Compile Include="Model\Step.cs" />
+    <Compile Include="View\ManageWorkoutCategoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ManageWorkoutCategoriesForm.Designer.cs">
+      <DependentUpon>ManageWorkoutCategoriesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\PaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +119,9 @@
     <Compile Include="View\WorkoutStepControl.Designer.cs">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\EditWorkoutCategoryForm.resx">
+      <DependentUpon>EditWorkoutCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\EditWorkoutForm.resx">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +137,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\ManageWorkoutCategoriesForm.resx">
+      <DependentUpon>ManageWorkoutCategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\PaceForm.resx">
       <DependentUpon>PaceForm.cs</DependentUpon>
     </EmbeddedResource>
