@@ -52,6 +52,11 @@ namespace TrainingPlanner.View
     event EventHandler SaveButtonClick;
 
     /// <summary>
+    /// Triggered when the user presses the "delete"-button.
+    /// </summary>
+    event EventHandler DeleteButtonClick;
+
+    /// <summary>
     /// Triggered when the main form is closing.
     /// </summary>
     event EventHandler<FormClosingEventArgs> EditWorkoutFormClosing;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 
@@ -80,23 +79,8 @@ namespace TrainingPlanner.View
         return;
       }
 
-      // clear previous entries
-      this.ContextMenu.MenuItems.Clear();
-
-      // add categories and their workouts
-      this.ContextMenu.MenuItems.AddRange(this._data.Categories.Select(c => new MenuItem(c.Name)).ToArray());
-      foreach (MenuItem mi in this.ContextMenu.MenuItems)
-      {
-        mi.MenuItems.AddRange(this._data.Workouts.Where(w => mi.Text.Equals(w.CategoryName)).Select(w => new MenuItem(w.Name)).ToArray());
-      }
-
-      // add uncategorized workouts
-      var uncategorizedMenu = new MenuItem("(uncategorized)");
-      uncategorizedMenu.MenuItems.AddRange(this._data.Workouts.Where(w => w.CategoryName == null).Select(w => new MenuItem(w.Name)).ToArray());
-      if (uncategorizedMenu.MenuItems.Count > 0)
-      {
-        this.ContextMenu.MenuItems.Add(uncategorizedMenu);
-      }
+      // retrieve menu
+      this.ContextMenu = this._data.WorkoutContextMenu;
 
       // add event listeners
       foreach (MenuItem category in this.ContextMenu.MenuItems)
@@ -123,7 +107,19 @@ namespace TrainingPlanner.View
     {
       this._data = data;
 
-      this._data.WorkoutsChanged += (s, e) => CreateContextMenu();
+      this._data.WorkoutsChanged += (s, e) =>
+      {
+        // update the context menu
+        CreateContextMenu();
+
+        // update the own workout:
+        // if this control has a workout...
+        if (this.Workout != null)
+        {
+          // ... it may have been modified so we load the up-to-date information from Data
+          this.Workout = this._data.WorkoutFromName(this.Workout.Name);
+        }
+      };
 
       CreateContextMenu();
     }

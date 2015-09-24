@@ -31,6 +31,7 @@
       this.butAddWorkout = new System.Windows.Forms.Button();
       this.foregroundPanel = new System.Windows.Forms.Panel();
       this.butPaces = new System.Windows.Forms.Button();
+      this.butEditWorkout = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // butAddWorkout
@@ -59,11 +60,22 @@
       this.butPaces.UseVisualStyleBackColor = true;
       this.butPaces.Click += new System.EventHandler(this.butPaces_Click);
       // 
+      // butEditWorkout
+      // 
+      this.butEditWorkout.Location = new System.Drawing.Point(1568, 70);
+      this.butEditWorkout.Name = "butEditWorkout";
+      this.butEditWorkout.Size = new System.Drawing.Size(96, 23);
+      this.butEditWorkout.TabIndex = 8;
+      this.butEditWorkout.Text = "Edit Workout";
+      this.butEditWorkout.UseVisualStyleBackColor = true;
+      this.butEditWorkout.Click += new System.EventHandler(this.butEditWorkout_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1604, 812);
+      this.Controls.Add(this.butEditWorkout);
       this.Controls.Add(this.butPaces);
       this.Controls.Add(this.foregroundPanel);
       this.Controls.Add(this.butAddWorkout);
@@ -78,6 +90,7 @@
         private System.Windows.Forms.Button butAddWorkout;
         private System.Windows.Forms.Panel foregroundPanel;
         private System.Windows.Forms.Button butPaces;
+        private System.Windows.Forms.Button butEditWorkout;
 
 
     }

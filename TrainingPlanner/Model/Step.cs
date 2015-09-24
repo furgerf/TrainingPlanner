@@ -25,10 +25,10 @@ namespace TrainingPlanner.Model
     public readonly int Repetitions;
 
     [DataMember]
-    private readonly bool _durationCalculated;
+    public readonly bool _durationCalculated;
 
     [DataMember]
-    private readonly bool _distanceCalculated;
+    public readonly bool _distanceCalculated;
 
     private const string PaceFormat = @"mm\:ss";
 

@@ -27,7 +27,14 @@ namespace TrainingPlanner.Presenter
       this._view.RemoveStepButtonClick += (s, e) => this._view.RemoveStep();
       this._view.EditWorkoutFormClosing += OnEditWorkoutFormClosing;
       this._view.SaveButtonClick += (s, e) => SaveWorkout();
-      this._view.AddStep();
+      this._view.DeleteButtonClick += (s, e) => DeleteWorkout();
+
+      // only add a step if there is none yet (there already are steps when editing
+      // but not when creating workouts)
+      if (this._view.Steps == null || this._view.Steps.Length == 0)
+      {
+        this._view.AddStep();
+      }
     }
 
     private void SetCategories()
@@ -79,6 +86,21 @@ namespace TrainingPlanner.Presenter
 
       this._data.AddWorkout(workout);
 
+      this._view.Close();
+    }
+
+    private void DeleteWorkout()
+    {
+      if (MessageBox.Show("Are you sure you want to delete the workout?", "Delete?", MessageBoxButtons.YesNo) !=
+          DialogResult.Yes)
+      {
+        return;
+      }
+
+      this._data.RemoveWorkout(this._data.WorkoutFromName(this._view.WorkoutName));
+      File.Delete(Program.WorkoutsDirectory + Path.DirectorySeparatorChar + this._view.WorkoutName.ToLower().Replace(' ', '-') + ".json");
+
+      this._dontAskToSave = true;
       this._view.Close();
     }
   }

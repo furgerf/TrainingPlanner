@@ -35,6 +35,7 @@
       this.butSave = new System.Windows.Forms.Button();
       this.labCategory = new System.Windows.Forms.Label();
       this.comCategory = new System.Windows.Forms.ComboBox();
+      this.butDelete = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // labName
@@ -101,11 +102,22 @@
       this.comCategory.Size = new System.Drawing.Size(121, 21);
       this.comCategory.TabIndex = 100;
       // 
+      // butDelete
+      // 
+      this.butDelete.Location = new System.Drawing.Point(588, 9);
+      this.butDelete.Name = "butDelete";
+      this.butDelete.Size = new System.Drawing.Size(97, 23);
+      this.butDelete.TabIndex = 101;
+      this.butDelete.Text = "Delete Workout";
+      this.butDelete.UseVisualStyleBackColor = true;
+      this.butDelete.Click += new System.EventHandler(this.butDelete_Click);
+      // 
       // EditWorkoutForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(594, 368);
+      this.ClientSize = new System.Drawing.Size(693, 368);
+      this.Controls.Add(this.butDelete);
       this.Controls.Add(this.comCategory);
       this.Controls.Add(this.labCategory);
       this.Controls.Add(this.butSave);
@@ -130,5 +142,6 @@
     private System.Windows.Forms.Button butSave;
     private System.Windows.Forms.Label labCategory;
     private System.Windows.Forms.ComboBox comCategory;
+    private System.Windows.Forms.Button butDelete;
   }
 }

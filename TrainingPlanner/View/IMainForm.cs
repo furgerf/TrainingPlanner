@@ -19,6 +19,11 @@ namespace TrainingPlanner.View
     event EventHandler ConfigurePacesButtonClick;
 
     /// <summary>
+    /// Triggered when the user requests to edit a workout.
+    /// </summary>
+    event EventHandler<string> EditWorkoutButtonClick;
+
+    /// <summary>
     /// Triggered when the main form is closing.
     /// </summary>
     event EventHandler MainFormClosing;
@@ -33,16 +38,5 @@ namespace TrainingPlanner.View
     /// </summary>
     /// <param name="weeklyPlans"></param>
     void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans);
-
-    /// <summary>
-    /// Gets a new EditWorkoutForm.
-    /// </summary>
-    EditWorkoutForm GetEditWorkoutForm();
-
-    /// <summary>
-    /// Gets a new PaceForm.
-    /// </summary>
-    /// <returns></returns>
-    PaceForm GetPaceForm();
   }
 }

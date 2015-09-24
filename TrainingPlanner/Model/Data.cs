@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace TrainingPlanner.Model
 {
@@ -57,6 +58,33 @@ namespace TrainingPlanner.Model
       get { return _trainingPlan.ToArray(); }
     }
 
+    public ContextMenu WorkoutContextMenu
+    {
+      get
+      {
+        var menu = new ContextMenu();
+
+        // add categories and their workouts
+        menu.MenuItems.AddRange(Categories.Select(c => new MenuItem(c.Name)).ToArray());
+        foreach (MenuItem mi in menu.MenuItems)
+        {
+          mi.MenuItems.AddRange(
+            Workouts.Where(w => mi.Text.Equals(w.CategoryName)).Select(w => new MenuItem(w.Name)).ToArray());
+        }
+
+        // add uncategorized workouts
+        var uncategorizedMenu = new MenuItem("(uncategorized)");
+        uncategorizedMenu.MenuItems.AddRange(
+          Workouts.Where(w => w.CategoryName == null).Select(w => new MenuItem(w.Name)).ToArray());
+        if (uncategorizedMenu.MenuItems.Count > 0)
+        {
+          menu.MenuItems.Add(uncategorizedMenu);
+        }
+
+        return menu;
+      }
+    }
+
     public static Data Load(string categoryDirectory, string workoutDirectory, string planFile)
     {
       return new Data(
@@ -79,6 +107,18 @@ namespace TrainingPlanner.Model
     {
       this._workouts.Add(workout);
       this._workouts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
+
+      if (WorkoutsChanged != null)
+      {
+        WorkoutsChanged(this, EventArgs.Empty);
+      }
+    }
+
+    public void RemoveWorkout(Workout workout)
+    {
+      this._workouts.Remove(workout);
+
+      // (no need to sort)
 
       if (WorkoutsChanged != null)
       {

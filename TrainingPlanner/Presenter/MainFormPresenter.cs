@@ -18,14 +18,22 @@ namespace TrainingPlanner.Presenter
       this._view.MainFormClosing += (s, e) => SaveTrainingPlan();
       this._view.AddWorkoutButtonClick += (s, e) =>
       {
-        var form = this._view.GetEditWorkoutForm();
+        var form = new EditWorkoutForm(this._data);
         var presenter = new EditWorkoutFormPresenter(form, this._data);
         form.Show();
       };
       this._view.ConfigurePacesButtonClick += (s, e) =>
       {
-        var form = this._view.GetPaceForm();
+        var form = new PaceForm();
         var presenter = new PaceFormPresenter(form, this._data);
+        form.Show();
+      };
+      this._view.EditWorkoutButtonClick += (s, e) =>
+      {
+        var form = new EditWorkoutForm(this._data, this._data.WorkoutFromName(e));
+        var presenter = new EditWorkoutFormPresenter(form, this._data);
+        // TODO: maybe notify the user that if he modifies the workout but leaves the name,
+        // the workout will be overwritten but if it gets a new name, a new workout is created?
         form.Show();
       };
       this._view.WeeklyPlansChanged += (s, e) =>

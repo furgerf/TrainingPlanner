@@ -52,14 +52,42 @@ namespace TrainingPlanner.View
       this.foregroundPanel.Width = _weekControls[0].Width + 16;
       this.butAddWorkout.Left = this.foregroundPanel.Right + 6;
       this.butPaces.Left = this.foregroundPanel.Right + 6;
+      this.butEditWorkout.Left = this.foregroundPanel.Right + 6;
+
+      // edit workout button menu
+      this._data.WorkoutsChanged += (s, e) => CreateContextMenu();
+      CreateContextMenu();
 
       // register to more events (to retrigger)
       this.FormClosing += (s, e) => MainFormClosing(this, e);
       this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, e);
     }
 
+    private void CreateContextMenu()
+    {
+      // retrieve menu
+      this.butEditWorkout.ContextMenu = this._data.WorkoutContextMenu;
+
+      // add event listeners
+      foreach (MenuItem category in this.butEditWorkout.ContextMenu.MenuItems)
+      {
+        foreach (MenuItem workout in category.MenuItems)
+        {
+          var workout1 = workout;
+          workout.Click += (s, e) =>
+          {
+            if (EditWorkoutButtonClick != null)
+            {
+              EditWorkoutButtonClick(this, workout1.Text);
+            }
+          };
+        }
+      }
+    }
+
     public event EventHandler AddWorkoutButtonClick;
     public event EventHandler ConfigurePacesButtonClick;
+    public event EventHandler<string> EditWorkoutButtonClick;
 
     public event EventHandler MainFormClosing;
 
@@ -77,22 +105,17 @@ namespace TrainingPlanner.View
       }
     }
 
-    public EditWorkoutForm GetEditWorkoutForm()
-    {
-      return new EditWorkoutForm(this._data);
-    }
-
-    public PaceForm GetPaceForm()
-    {
-      return new PaceForm();
-    }
-
     private void butPaces_Click(object sender, EventArgs e)
     {
       if (ConfigurePacesButtonClick != null)
       {
         ConfigurePacesButtonClick(this, e);
       }
+    }
+
+    private void butEditWorkout_Click(object sender, EventArgs e)
+    {
+      this.butEditWorkout.ContextMenu.Show(this.butEditWorkout, ((MouseEventArgs)e).Location);
     }
   }
 }

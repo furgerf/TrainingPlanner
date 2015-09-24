@@ -29,6 +29,25 @@ namespace TrainingPlanner.View
           ? new Step(comName.Text, Distance.Value, Pace, Rest, (int) numRepetitions.Value)
           : new Step(comName.Text, Duration.Value, Pace, Rest, (int) numRepetitions.Value);
       }
+      set
+      {
+        comName.Text = value.Name;
+        if (value._distanceCalculated)
+        {
+          txtDuration.Text = value.Duration.ToString("hh':'mm':'ss");
+        }
+        else
+        {
+          txtDistance.Text = value.Distance.ToString();
+        }
+        Pace = value.Pace;
+
+        if (value.Rest != TimeSpan.Zero)
+        {
+          txtRest.Text = value.Rest.ToString("mm':'ss");
+        }
+        numRepetitions.Value = value.Repetitions;
+      }
     }
 
     private double? Distance
@@ -69,6 +88,7 @@ namespace TrainingPlanner.View
       {
         return Data.Paces[(Pace)Enum.Parse(typeof(Pace), comPace.Text)];
       }
+      set { comPace.Text = Data.Paces.First(p => value.Equals(p.Value)).Key.ToString(); }
     }
 
     private TimeSpan? Rest
