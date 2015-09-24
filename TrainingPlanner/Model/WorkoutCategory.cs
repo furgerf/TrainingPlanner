@@ -5,12 +5,21 @@ using System.Runtime.Serialization.Json;
 
 namespace TrainingPlanner.Model
 {
+  /// <summary>
+  /// Describes a category of workouts.
+  /// </summary>
   [DataContract]
   public class WorkoutCategory
   {
+    /// <summary>
+    /// Name of the category.
+    /// </summary>
     [DataMember]
     public readonly string Name;
 
+    /// <summary>
+    /// Color with which to highlight the category.
+    /// </summary>
     [DataMember]
     public readonly Color CategoryColor;
 
@@ -20,6 +29,10 @@ namespace TrainingPlanner.Model
       this.CategoryColor = categoryColor;
     }
 
+    /// <summary>
+    /// Serializes the category to JSON.
+    /// TODO: Move to common class.
+    /// </summary>
     public string Json
     {
       get
@@ -34,6 +47,10 @@ namespace TrainingPlanner.Model
       }
     }
 
+    /// <summary>
+    /// Deserializes the workout category from file containing JSON.
+    /// TODO: Move to common class.
+    /// </summary>
     public static WorkoutCategory ParseJsonFile(string path)
     {
       var serializer = new DataContractJsonSerializer(typeof(WorkoutCategory));

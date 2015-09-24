@@ -9,9 +9,15 @@ namespace TrainingPlanner.Model
 {
   public class Data
   {
+    /// <summary>
+    /// Color to use for the background of controls that don't have a specific color.
+    /// </summary>
     public static readonly Color DefaultBackgroundColor = Color.Beige;
 
-    private static readonly Dictionary<Pace, TimeSpan> PaceMap = new Dictionary<Pace, TimeSpan>
+    /// <summary>
+    /// Maps entries in the Pace-enum to the timespans stored in the settings.
+    /// </summary>
+    public static readonly Dictionary<Pace, TimeSpan> Paces = new Dictionary<Pace, TimeSpan>
     {
       {Pace.Easy, TrainingPlanner.Paces.Default.Easy},
       {Pace.Long, TrainingPlanner.Paces.Default.Long},
@@ -22,8 +28,14 @@ namespace TrainingPlanner.Model
       {Pace.Fivek, TrainingPlanner.Paces.Default.FiveK}
     };
 
+    /// <summary>
+    /// Number of weeks of the training plan.
+    /// </summary>
     public const int TrainingWeeks = 11;
 
+    /// <summary>
+    /// Data.
+    /// </summary>
     private readonly List<WorkoutCategory> _categories;
     private readonly List<Workout> _workouts;
     private readonly List<WeeklyPlan> _trainingPlan;
@@ -31,33 +43,53 @@ namespace TrainingPlanner.Model
     private Data(IEnumerable<WorkoutCategory> categories, IEnumerable<Workout> workouts, IEnumerable<WeeklyPlan> trainingPlan)
     {
       this._trainingPlan = new List<WeeklyPlan>(trainingPlan);
-      this._workouts= new List<Workout>(workouts);
-      this._categories= new List<WorkoutCategory>(categories);
+      this._workouts = new List<Workout>(workouts);
+      this._categories = new List<WorkoutCategory>(categories);
     }
 
+    /// <summary>
+    /// Triggered whenever one of the workout changes or when one is added or removed.
+    /// </summary>
     public event EventHandler WorkoutsChanged;
 
+    /// <summary>
+    /// Triggered whenever one of the categories changes or when one is added or removed.
+    /// </summary>
     public event EventHandler CategoriesChanged;
 
+    /// <summary>
+    /// Triggered whenever the value of any of the paces changes.
+    /// TODO: figure out what to do with the existing workouts when a pace changes...
+    /// </summary>
     public event EventHandler PacesChanged;
 
-    public static Dictionary<Pace, TimeSpan> Paces { get { return PaceMap; } } 
-
+    /// <summary>
+    /// Gets the workout categories.
+    /// </summary>
     public WorkoutCategory[] Categories
     {
       get { return _categories.ToArray(); }
     }
 
+    /// <summary>
+    /// Gets the workouts.
+    /// </summary>
     public Workout[] Workouts
     {
       get { return _workouts.ToArray(); }
     }
 
+    /// <summary>
+    /// Gets the training plan.
+    /// </summary>
     public WeeklyPlan[] TrainingPlan
     {
       get { return _trainingPlan.ToArray(); }
     }
 
+    /// <summary>
+    /// Gets a context menu based on the current workoutouts and categories.
+    /// </summary>
     public ContextMenu WorkoutContextMenu
     {
       get
@@ -85,6 +117,13 @@ namespace TrainingPlanner.Model
       }
     }
 
+    /// <summary>
+    /// Creates a new instance, loading the data from the provided directories and files.
+    /// </summary>
+    /// <param name="categoryDirectory">Directory where workout categories are stored.</param>
+    /// <param name="workoutDirectory">Directory where workouts are stored.</param>
+    /// <param name="planFile">File where the training plan is stored.</param>
+    /// <returns>Data instance.</returns>
     public static Data Load(string categoryDirectory, string workoutDirectory, string planFile)
     {
       return new Data(
@@ -93,18 +132,33 @@ namespace TrainingPlanner.Model
         File.ReadAllLines(planFile).Select(WeeklyPlan.FromJson).ToArray());
     }
 
+    /// <summary>
+    /// Gets the workout from the workout's name.
+    /// </summary>
+    /// <param name="workoutName">Name of the workout.</param>
+    /// <returns>Workout.</returns>
     public Workout WorkoutFromName(string workoutName)
     {
       return Workouts.First(w => w.Name == workoutName);
     }
 
+    /// <summary>
+    /// Gets the workout category from the workout category's name.
+    /// </summary>
+    /// <param name="categoryName">Name of the workout category.</param>
+    /// <returns>Workout category.</returns>
     public WorkoutCategory WorkoutCategoryFromName(string categoryName)
     {
       return Categories.First(w => w.Name == categoryName);
     }
 
+    /// <summary>
+    /// Adds a new workout to the data model.
+    /// </summary>
+    /// <param name="workout">New workout.</param>
     public void AddWorkout(Workout workout)
     {
+      // TODO: Change "add + sort" to "insert"
       this._workouts.Add(workout);
       this._workouts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
 
@@ -114,6 +168,10 @@ namespace TrainingPlanner.Model
       }
     }
 
+    /// <summary>
+    /// Removes a workout from the data model.
+    /// </summary>
+    /// <param name="workout">Workout to remove.</param>
     public void RemoveWorkout(Workout workout)
     {
       this._workouts.Remove(workout);
@@ -126,15 +184,19 @@ namespace TrainingPlanner.Model
       }
     }
 
+    /// <summary>
+    /// Updates the value of a pace.
+    /// </summary>
+    /// <param name="key">Description of the pace.</param>
+    /// <param name="value">New value of the pace.</param>
     public void ChangePace(Pace key, TimeSpan value)
     {
-      if (!PaceMap.ContainsKey(key))
+      if (!Paces.ContainsKey(key))
       {
         throw new ArgumentException(string.Format("Unkown pace name ({0})!", key));
       }
 
-      PaceMap[key] = value;
-
+      Paces[key] = value;
       SavePacesToSettings();
 
       if (PacesChanged != null)
@@ -143,15 +205,18 @@ namespace TrainingPlanner.Model
       }
     }
 
+    /// <summary>
+    /// Stores the current values of the Dictionary in the settings.
+    /// </summary>
     private static void SavePacesToSettings()
     {
-      TrainingPlanner.Paces.Default.Easy = PaceMap[Pace.Easy];
-      TrainingPlanner.Paces.Default.Long = PaceMap[Pace.Long];
-      TrainingPlanner.Paces.Default.Marathon = PaceMap[Pace.Marathon];
-      TrainingPlanner.Paces.Default.Threshold = PaceMap[Pace.Threshold];
-      TrainingPlanner.Paces.Default.Halfmarathon = PaceMap[Pace.Halfmarathon];
-      TrainingPlanner.Paces.Default.TenK = PaceMap[Pace.Tenk];
-      TrainingPlanner.Paces.Default.FiveK = PaceMap[Pace.Fivek];
+      TrainingPlanner.Paces.Default.Easy = Paces[Pace.Easy];
+      TrainingPlanner.Paces.Default.Long = Paces[Pace.Long];
+      TrainingPlanner.Paces.Default.Marathon = Paces[Pace.Marathon];
+      TrainingPlanner.Paces.Default.Threshold = Paces[Pace.Threshold];
+      TrainingPlanner.Paces.Default.Halfmarathon = Paces[Pace.Halfmarathon];
+      TrainingPlanner.Paces.Default.TenK = Paces[Pace.Tenk];
+      TrainingPlanner.Paces.Default.FiveK = Paces[Pace.Fivek];
 
       TrainingPlanner.Paces.Default.Save();
     }

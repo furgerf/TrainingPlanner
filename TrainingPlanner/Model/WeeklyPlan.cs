@@ -5,18 +5,35 @@ using System.Runtime.Serialization.Json;
 
 namespace TrainingPlanner.Model
 {
+  /// <summary>
+  /// Describes a week's worth of training (up to 14 workouts).
+  /// </summary>
   [DataContract]
   public struct WeeklyPlan
   {
+    /// <summary>
+    /// The names of the workouts of the week.
+    /// TODO: Rename...
+    /// </summary>
     [DataMember]
     private string[] _workouts;
 
+    /// <summary>
+    /// Date of the start of the week (Monday).
+    /// </summary>
     [DataMember]
     public DateTime WeekStart { get; set; }
 
+    /// <summary>
+    /// Notes for the week.
+    /// </summary>
     [DataMember]
     public string Notes { get; set; }
 
+    /// <summary>
+    /// Wrapper around the backing field with the sole purpose to ensure that
+    /// arrays are assigned with the right dimension.
+    /// </summary>
     public string[] Workouts
     {
       get { return _workouts; }
@@ -30,6 +47,10 @@ namespace TrainingPlanner.Model
       }
     }
 
+    /// <summary>
+    /// Serializes the plan to JSON.
+    /// TODO: Move to common class.
+    /// </summary>
     public string Json
     {
       get
@@ -43,6 +64,10 @@ namespace TrainingPlanner.Model
       }
     }
 
+    /// <summary>
+    /// Deserializes the plan from JSON.
+    /// TODO: Move to common class.
+    /// </summary>
     public static WeeklyPlan FromJson(string json)
     {
       var serializer = new DataContractJsonSerializer(typeof (WeeklyPlan));
