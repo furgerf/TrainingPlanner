@@ -10,11 +10,6 @@ namespace TrainingPlanner.View.Forms
 {
   public partial class PaceForm : Form, IPaceForm
   {
-    // TODO: Move to settings
-    private const string PaceFormat = "mm':'ss";
-    private static readonly Color ValidPaceColor = SystemColors.Window;
-    private static readonly Color InvalidPaceColor = Color.LightSalmon;
-
     private readonly Dictionary<Pace, Tuple<Label, MaskedTextBox, TimeSpan, bool>> _paceControls;
     private readonly bool _validatePaces;
 
@@ -35,7 +30,7 @@ namespace TrainingPlanner.View.Forms
 
       foreach (var c in _paceControls.Values)
       {
-        c.Item2.Text = c.Item3.ToString(PaceFormat);
+        c.Item2.Text = c.Item3.ToString(Paces.Default.PaceFormat);
       }
 
       _validatePaces = true;
@@ -71,13 +66,13 @@ namespace TrainingPlanner.View.Forms
 
       _paceControls[key] = new Tuple<Label, MaskedTextBox, TimeSpan, bool>(data.Item1, data.Item2, data.Item3, valid);
 
-      data.Item2.BackColor = valid ? ValidPaceColor : InvalidPaceColor;
+      data.Item2.BackColor = valid ? Colors.Default.ValidPaceColor : Colors.Default.InvalidPaceColor;
 
-      if (data.Item2.Text != data.Item3.ToString(PaceFormat) && !data.Item1.Text.EndsWith("*"))
+      if (data.Item2.Text != data.Item3.ToString(Paces.Default.PaceFormat) && !data.Item1.Text.EndsWith("*"))
       {
         data.Item1.Text = data.Item1.Text + "*";
       }
-      else if (data.Item2.Text == data.Item3.ToString(PaceFormat) && data.Item1.Text.EndsWith("*"))
+      else if (data.Item2.Text == data.Item3.ToString(Paces.Default.PaceFormat) && data.Item1.Text.EndsWith("*"))
       {
         data.Item1.Text = data.Item1.Text.Substring(0, data.Item1.Text.Length - 1);
       }
@@ -97,7 +92,7 @@ namespace TrainingPlanner.View.Forms
 
         foreach (var c in _paceControls)
         {
-          if (c.Value.Item2.Text != c.Value.Item3.ToString(PaceFormat))
+          if (c.Value.Item2.Text != c.Value.Item3.ToString(Paces.Default.PaceFormat))
           {
             result.Add(new Tuple<Pace, TimeSpan>(c.Key, TimeSpan.Parse("00:" + c.Value.Item2.Text)));
           }

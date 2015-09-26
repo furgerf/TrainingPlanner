@@ -65,7 +65,7 @@ namespace TrainingPlanner.View.Controls
 
       this._data = data;
 
-      this.BackColor = Data.DefaultBackgroundColor;
+      this.BackColor = Colors.Default.DefaultWorkoutControlBackground;
       _workoutControls = new[]
       {
         wrkMondayMorning, wrkMondayEvening, wrkTuesdayMorning, wrkTuesdayEvening, wrkWednesdayMorning,

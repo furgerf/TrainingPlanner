@@ -130,5 +130,17 @@ namespace TrainingPlanner {
                 this["Cooldown"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mm\':\'ss")]
+        public string PaceFormat {
+            get {
+                return ((string)(this["PaceFormat"]));
+            }
+            set {
+                this["PaceFormat"] = value;
+            }
+        }
     }
 }

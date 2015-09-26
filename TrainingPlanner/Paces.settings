@@ -29,5 +29,8 @@
     <Setting Name="Cooldown" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:05:30</Value>
     </Setting>
+    <Setting Name="PaceFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">mm':'ss</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

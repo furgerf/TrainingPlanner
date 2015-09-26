@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model.EventArgs;
@@ -11,12 +10,6 @@ namespace TrainingPlanner.Model
   public class Data
   {
     #region Data
-    /// <summary>
-    /// Color to use for the background of controls that don't have a specific color.
-    /// TODO: Move to settings
-    /// </summary>
-    public static readonly Color DefaultBackgroundColor = Color.Beige;
-
     /// <summary>
     /// Actual data.
     /// </summary>

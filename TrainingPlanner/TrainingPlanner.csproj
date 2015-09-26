@@ -52,6 +52,11 @@
     <Compile Include="Model\Serializable\WorkoutCategory.cs" />
     <Compile Include="Model\EventArgs\WorkoutCategoryChangedEventArgs.cs" />
     <Compile Include="Model\EventArgs\WorkoutChangedEventArgs.cs" />
+    <Compile Include="Colors.Designer.cs">
+      <DependentUpon>Colors.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
     <Compile Include="Presenter\EditWorkoutCategoryFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IEditWorkoutCategoryFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IEditWorkoutFormPresenter.cs" />
@@ -158,6 +163,10 @@
     <EmbeddedResource Include="View\Controls\WorkoutStepControl.resx">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Colors.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Colors.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

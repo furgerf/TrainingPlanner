@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TrainingPlanner" GeneratedClassName="Colors">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefaultWorkoutControlBackground" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Beige</Value>
+    </Setting>
+    <Setting Name="ValidPaceColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Window</Value>
+    </Setting>
+    <Setting Name="InvalidPaceColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Salmon</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

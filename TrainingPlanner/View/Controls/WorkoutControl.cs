@@ -40,13 +40,13 @@ namespace TrainingPlanner.View.Controls
       {
         labWorkoutName.Text = Workout.ShortName ?? Workout.Name;
         txtDescription.Text = Workout.Description;
-        BackColor = this.Workout.CategoryName == null ? Data.DefaultBackgroundColor : this._data.WorkoutCategoryFromName(this.Workout.CategoryName).CategoryColor;
+        BackColor = this.Workout.CategoryName == null ? Colors.Default.DefaultWorkoutControlBackground : this._data.WorkoutCategoryFromName(this.Workout.CategoryName).CategoryColor;
       }
       else
       {
         labWorkoutName.Text = "";
         txtDescription.Text = "";
-        BackColor = Data.DefaultBackgroundColor;
+        BackColor = Colors.Default.DefaultWorkoutControlBackground;
       }
 
       foreach (var c in _emptyWorkoutControls)
