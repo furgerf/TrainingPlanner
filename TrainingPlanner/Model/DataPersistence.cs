@@ -61,8 +61,7 @@ namespace TrainingPlanner.Model
           File.Delete(GetWorkoutCategoryPath(e.WorkoutCategory));
         }
       };
-      data.TrainingPlanChanged +=
-        (s, e) => File.WriteAllLines(TrainingPlanFile, data.TrainingPlan.WeeklyPlans.Select(WeeklyPlanToJson));
+      data.TrainingPlanChanged += (s, e) => WriteJsonFile(data.TrainingPlan, TrainingPlanFile);
     }
 
     #region Public access - Loading data
@@ -80,18 +79,11 @@ namespace TrainingPlanner.Model
 
     public TrainingPlan LoadPlan()
     {
-      // TODO: Change
-      if (File.Exists(TrainingPlanFile))
-      {
-        //return (TrainingPlan)ParseJsonFile(TrainingPlanFile, typeof(TrainingPlan));
-
-        var weeks = File.ReadAllLines(TrainingPlanFile).Select(ParseWeeklyPlanJson).ToArray();
-
-        return new TrainingPlan { WeeklyPlans = weeks };
-      }
-
-      return TrainingPlan.NewTrainingPlan;
+      return File.Exists(TrainingPlanFile)
+        ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
+        : TrainingPlan.NewTrainingPlan;
     }
+
     #endregion
 
     #region Private access - Saving data
@@ -146,28 +138,6 @@ namespace TrainingPlanner.Model
       {
         return (T) new DataContractJsonSerializer(typeof(T)).ReadObject(fs);
       }
-    }
-
-    private static WeeklyPlan ParseWeeklyPlanJson(string json)
-    {
-      // TODO: get rid of
-      var bytes = new byte[json.Length * sizeof(char)];
-      Buffer.BlockCopy(json.ToCharArray(), 0, bytes, 0, bytes.Length);
-      using (var ms = new MemoryStream(bytes))
-      {
-        return (WeeklyPlan)new DataContractJsonSerializer(typeof(WeeklyPlan)).ReadObject(ms);
-      }
-    }
-
-    private static string WeeklyPlanToJson(WeeklyPlan plan)
-    {
-      // TODO: get rid of
-      var stream = new MemoryStream();
-      var serializer = new DataContractJsonSerializer(typeof(WeeklyPlan));
-      serializer.WriteObject(stream, plan);
-      stream.Position = 0;
-      var reader = new StreamReader(stream);
-      return reader.ReadToEnd();
     }
 
     private static void WriteJsonFile<T>(T data, string path)
