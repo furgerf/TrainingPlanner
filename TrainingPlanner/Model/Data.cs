@@ -10,22 +10,9 @@ namespace TrainingPlanner.Model
   {
     /// <summary>
     /// Color to use for the background of controls that don't have a specific color.
+    /// TODO: Move to settings
     /// </summary>
     public static readonly Color DefaultBackgroundColor = Color.Beige;
-
-    /// <summary>
-    /// Maps entries in the Pace-enum to the timespans stored in the settings.
-    /// </summary>
-    public static readonly Dictionary<Pace, TimeSpan> Paces = new Dictionary<Pace, TimeSpan>
-    {
-      {Pace.Easy, TrainingPlanner.Paces.Default.Easy},
-      {Pace.Long, TrainingPlanner.Paces.Default.Long},
-      {Pace.Marathon, TrainingPlanner.Paces.Default.Marathon},
-      {Pace.Threshold, TrainingPlanner.Paces.Default.Threshold},
-      {Pace.Halfmarathon, TrainingPlanner.Paces.Default.Halfmarathon},
-      {Pace.Tenk, TrainingPlanner.Paces.Default.TenK},
-      {Pace.Fivek, TrainingPlanner.Paces.Default.FiveK}
-    };
 
     /// <summary>
     /// Data.
@@ -198,6 +185,49 @@ namespace TrainingPlanner.Model
       }
     }
 
+    public static TimeSpan GetDurationFromPace(Pace pace)
+    {
+      switch (pace)
+      {
+        case Pace.Easy:
+          return Paces.Default.Easy;
+        case Pace.Long:
+          return Paces.Default.Long;
+        case Pace.Marathon:
+          return Paces.Default.Marathon;
+        case Pace.Halfmarathon:
+          return Paces.Default.Halfmarathon;
+        case Pace.Threshold:
+          return Paces.Default.Threshold;
+        case Pace.Tenk:
+          return Paces.Default.TenK;
+        case Pace.Fivek:
+          return Paces.Default.FiveK;
+        default:
+          throw new ArgumentOutOfRangeException("pace");
+      }
+    }
+
+    public static Pace GetPaceFromDuration(TimeSpan duration)
+    {
+      if (duration == Paces.Default.Easy)
+        return Pace.Easy;
+      if (duration == Paces.Default.Long)
+        return Pace.Long;
+      if (duration == Paces.Default.Marathon)
+        return Pace.Marathon;
+      if (duration == Paces.Default.Halfmarathon)
+        return Pace.Halfmarathon;
+      if (duration == Paces.Default.Threshold)
+        return Pace.Threshold;
+      if (duration == Paces.Default.TenK)
+        return Pace.Tenk;
+      if (duration == Paces.Default.FiveK)
+        return Pace.Fivek;
+
+      throw new ArgumentException("unkown pace");
+    }
+
     /// <summary>
     /// Updates the value of a pace.
     /// </summary>
@@ -205,16 +235,9 @@ namespace TrainingPlanner.Model
     /// <param name="value">New value of the pace.</param>
     public void ChangePace(Pace key, TimeSpan value)
     {
-      if (!Paces.ContainsKey(key))
-      {
-        throw new ArgumentException(string.Format("Unkown pace name ({0})!", key));
-      }
-
-      Paces[key] = value;
-
       if (PacesChanged != null)
       {
-        PacesChanged(this, new PaceChangedEventArgs(key));
+        PacesChanged(this, new PaceChangedEventArgs(key, value));
       }
     }
 

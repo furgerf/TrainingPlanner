@@ -86,9 +86,9 @@ namespace TrainingPlanner.View
     {
       get
       {
-        return Data.Paces[(Pace)Enum.Parse(typeof(Pace), comPace.Text)];
+        return Data.GetDurationFromPace((Pace)Enum.Parse(typeof(Pace), comPace.Text));
       }
-      set { comPace.Text = Data.Paces.First(p => value.Equals(p.Value)).Key.ToString(); }
+      set { comPace.Text = Data.GetPaceFromDuration(value).ToString(); }
     }
 
     private TimeSpan? Rest
@@ -112,7 +112,7 @@ namespace TrainingPlanner.View
       InitializeComponent();
 
       comName.Items.AddRange(new object[] {"Warmup", "Cooldown"});
-      comPace.Items.AddRange(Data.Paces.Keys.Select(p => p.ToString()).ToArray());
+      comPace.Items.AddRange(Enum.GetNames(typeof (Pace)));
       comPace.SelectedIndex = 0;
     }
 

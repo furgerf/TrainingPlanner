@@ -6,9 +6,12 @@ namespace TrainingPlanner.Model
   {
     public readonly Pace ModifiedPace;
 
-    public PaceChangedEventArgs(Pace modifiedPace)
+    public readonly TimeSpan NewPace;
+
+    public PaceChangedEventArgs(Pace modifiedPace, TimeSpan newPace)
     {
       this.ModifiedPace = modifiedPace;
+      this.NewPace = newPace;
     }
   }
 }

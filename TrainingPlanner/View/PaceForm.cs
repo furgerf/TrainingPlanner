@@ -22,13 +22,13 @@ namespace TrainingPlanner.View
 
       _paceControls = new Dictionary<Pace, Tuple<Label, MaskedTextBox, TimeSpan, bool>>
       {
-        {Pace.Easy, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label1, txtEasy, Data.Paces[Pace.Easy], true)},
-        {Pace.Long, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label2, txtLong, Data.Paces[Pace.Long], true)},
-        {Pace.Marathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label3, txtMarathon, Data.Paces[Pace.Marathon], true)},
-        {Pace.Halfmarathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label4, txtHalfmarathon, Data.Paces[Pace.Halfmarathon], true)},
-        {Pace.Threshold, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label5, txtThreshold, Data.Paces[Pace.Threshold], true)},
-        {Pace.Tenk, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label6, txtTenk, Data.Paces[Pace.Tenk], true)},
-        {Pace.Fivek, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label7, txtFivek, Data.Paces[Pace.Fivek], true)},
+        {Pace.Easy, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label1, txtEasy, Data.GetDurationFromPace(Pace.Easy), true)},
+        {Pace.Long, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label2, txtLong, Data.GetDurationFromPace(Pace.Long), true)},
+        {Pace.Marathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label3, txtMarathon, Data.GetDurationFromPace(Pace.Marathon), true)},
+        {Pace.Halfmarathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label4, txtHalfmarathon, Data.GetDurationFromPace(Pace.Halfmarathon), true)},
+        {Pace.Threshold, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label5, txtThreshold, Data.GetDurationFromPace(Pace.Threshold), true)},
+        {Pace.Tenk, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label6, txtTenk, Data.GetDurationFromPace(Pace.Tenk), true)},
+        {Pace.Fivek, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label7, txtFivek, Data.GetDurationFromPace(Pace.Fivek), true)},
       };
 
       foreach (var c in _paceControls.Values)

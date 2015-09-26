@@ -35,7 +35,7 @@ namespace TrainingPlanner.Model
 
     public DataPersistence(Data data)
     {
-      data.PacesChanged += (s, e) => SavePaceToSettings(e.ModifiedPace);
+      data.PacesChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
       data.WorkoutChanged += (s, e) =>
       {
         if (e.WorkoutAdded)
@@ -73,30 +73,30 @@ namespace TrainingPlanner.Model
              ".json";
     }
 
-    private static void SavePaceToSettings(Pace pace)
+    private static void SavePaceToSettings(Pace pace, TimeSpan value)
     {
       switch (pace)
       {
         case Pace.Easy:
-          Paces.Default.Easy = Data.Paces[Pace.Easy];
+          Paces.Default.Easy = value;
           break;
         case Pace.Long:
-          Paces.Default.Long = Data.Paces[Pace.Long];
+          Paces.Default.Long = value;
           break;
         case Pace.Marathon:
-          Paces.Default.Marathon = Data.Paces[Pace.Marathon];
+          Paces.Default.Marathon = value;
           break;
         case Pace.Halfmarathon:
-          Paces.Default.Halfmarathon = Data.Paces[Pace.Halfmarathon];
+          Paces.Default.Halfmarathon = value;
           break;
         case Pace.Threshold:
-          Paces.Default.Threshold = Data.Paces[Pace.Threshold];
+          Paces.Default.Threshold = value;
           break;
         case Pace.Tenk:
-          Paces.Default.TenK = Data.Paces[Pace.Tenk];
+          Paces.Default.TenK = value;
           break;
         case Pace.Fivek:
-          Paces.Default.FiveK = Data.Paces[Pace.Fivek];
+          Paces.Default.FiveK = value;
           break;
         default:
           throw new ArgumentOutOfRangeException("pace");
