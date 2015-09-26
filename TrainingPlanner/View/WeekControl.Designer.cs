@@ -54,7 +54,7 @@
       this.txtTotalDistance = new System.Windows.Forms.TextBox();
       this.txtTotalDuration = new System.Windows.Forms.TextBox();
       this.txtWorkoutCount = new System.Windows.Forms.TextBox();
-      this.grpData = new System.Windows.Forms.GroupBox();
+      this.grpDate = new System.Windows.Forms.GroupBox();
       this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
       this.grpMonday.SuspendLayout();
       this.grpTuesday.SuspendLayout();
@@ -64,7 +64,7 @@
       this.grpSaturday.SuspendLayout();
       this.grpSunday.SuspendLayout();
       this.grpSummary.SuspendLayout();
-      this.grpData.SuspendLayout();
+      this.grpDate.SuspendLayout();
       this.SuspendLayout();
       // 
       // grpMonday
@@ -312,15 +312,15 @@
       this.txtWorkoutCount.Size = new System.Drawing.Size(164, 20);
       this.txtWorkoutCount.TabIndex = 0;
       // 
-      // grpData
+      // grpDate
       // 
-      this.grpData.Controls.Add(this.monthCalendar1);
-      this.grpData.Location = new System.Drawing.Point(1144, 3);
-      this.grpData.Name = "grpData";
-      this.grpData.Size = new System.Drawing.Size(176, 208);
-      this.grpData.TabIndex = 5;
-      this.grpData.TabStop = false;
-      this.grpData.Text = "Data";
+      this.grpDate.Controls.Add(this.monthCalendar1);
+      this.grpDate.Location = new System.Drawing.Point(1144, 3);
+      this.grpDate.Name = "grpDate";
+      this.grpDate.Size = new System.Drawing.Size(176, 208);
+      this.grpDate.TabIndex = 5;
+      this.grpDate.TabStop = false;
+      this.grpDate.Text = "Date";
       // 
       // monthCalendar1
       // 
@@ -335,7 +335,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      this.Controls.Add(this.grpData);
+      this.Controls.Add(this.grpDate);
       this.Controls.Add(this.grpSummary);
       this.Controls.Add(this.grpSunday);
       this.Controls.Add(this.grpSaturday);
@@ -355,7 +355,7 @@
       this.grpSunday.ResumeLayout(false);
       this.grpSummary.ResumeLayout(false);
       this.grpSummary.PerformLayout();
-      this.grpData.ResumeLayout(false);
+      this.grpDate.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -387,7 +387,7 @@
     private WorkoutControl wrkSaturdayMorning;
     private WorkoutControl wrkSundayEvening;
     private WorkoutControl wrkSundayMorning;
-    private System.Windows.Forms.GroupBox grpData;
+    private System.Windows.Forms.GroupBox grpDate;
     private System.Windows.Forms.MonthCalendar monthCalendar1;
     private System.Windows.Forms.TextBox txtNotes;
   }

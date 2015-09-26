@@ -11,16 +11,14 @@ namespace TrainingPlanner.Model
   {
     /// <summary>
     /// Number of the week in the plan. Should be zero-based.
-    /// TODO: make IsRequired = true
     /// </summary>
-    [DataMember(Name = "WeekNumber")]
+    [DataMember(Name = "WeekNumber", IsRequired = true)]
     public int WeekNumber;
 
     /// <summary>
     /// The names of the workouts of the week.
-    /// TODO: rename
     /// </summary>
-    [DataMember(Name = "_workouts", IsRequired = true)]
+    [DataMember(Name = "Workouts", IsRequired = true)]
     private string[] _workouts;
 
     /// <summary>

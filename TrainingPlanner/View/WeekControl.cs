@@ -13,6 +13,8 @@ namespace TrainingPlanner.View
 
     private readonly WorkoutControl[] _workoutControls;
 
+    private int _weekNumber;
+
     private bool _updateDateRange = true;
 
     public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
@@ -28,7 +30,7 @@ namespace TrainingPlanner.View
         {
           workouts[i] = _workouts[i] == null ? null : _workouts[i].Name;
         }
-        return new WeeklyPlan {WeekStart = monthCalendar1.SelectionStart, Workouts = workouts, Notes = txtNotes.Text};
+        return new WeeklyPlan {WeekStart = monthCalendar1.SelectionStart, WeekNumber = _weekNumber, Workouts = workouts, Notes = txtNotes.Text};
       }
       set
       {
@@ -41,6 +43,8 @@ namespace TrainingPlanner.View
         }
         txtNotes.Text = value.Notes;
         WeekStart = value.WeekStart;
+        _weekNumber = value.WeekNumber;
+        grpSummary.Text = "Summary - Week " + (value.WeekNumber + 1);
       }
     }
 

@@ -124,7 +124,7 @@ namespace TrainingPlanner.Model
 
     /// <summary>
     /// Gets a context menu based on the current workoutouts and categories.
-    // TODO: create this when the workouts/categories change, not on each call
+    /// The menu is created on each call so that there are no outdated event listeners...
     /// </summary>
     public ContextMenu WorkoutContextMenu
     {
