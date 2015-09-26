@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -29,39 +28,42 @@ namespace TrainingPlanner.Model
     };
 
     /// <summary>
-    /// Number of weeks of the training plan.
-    /// </summary>
-    public const int TrainingWeeks = 11;
-
-    /// <summary>
     /// Data.
     /// </summary>
     private readonly List<WorkoutCategory> _categories;
     private readonly List<Workout> _workouts;
-    private readonly List<WeeklyPlan> _trainingPlan;
+    private readonly TrainingPlan _trainingPlan;
 
-    private Data(IEnumerable<WorkoutCategory> categories, IEnumerable<Workout> workouts, IEnumerable<WeeklyPlan> trainingPlan)
+    public Data()
     {
-      this._trainingPlan = new List<WeeklyPlan>(trainingPlan);
-      this._workouts = new List<Workout>(workouts);
-      this._categories = new List<WorkoutCategory>(categories);
+      var persistence = new DataPersistence(this);
+
+      this._categories = new List<WorkoutCategory>(persistence.LoadCategories());
+      this._workouts = new List<Workout>(persistence.LoadWorkouts());
+      this._trainingPlan = persistence.LoadPlan();
     }
 
     /// <summary>
     /// Triggered whenever one of the workout changes or when one is added or removed.
     /// </summary>
-    public event EventHandler WorkoutsChanged;
+    public event EventHandler<WorkoutChangedEventArgs> WorkoutChanged;
 
     /// <summary>
     /// Triggered whenever one of the categories changes or when one is added or removed.
     /// </summary>
-    public event EventHandler CategoriesChanged;
+    public event EventHandler<WorkoutCategoryChangedEventArgs> CategoryChanged;
+
+    /// <summary>
+    /// Triggered whenever one of the training plan entries changes.
+    /// TODO: Let the event be triggered when something changes that isn't a workout (week date, week note)
+    /// TODO: Also something else which I forgot at the moment...
+    /// </summary>
+    public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanChanged;
 
     /// <summary>
     /// Triggered whenever the value of any of the paces changes.
-    /// TODO: figure out what to do with the existing workouts when a pace changes...
     /// </summary>
-    public event EventHandler PacesChanged;
+    public event EventHandler<PaceChangedEventArgs> PacesChanged;
 
     /// <summary>
     /// Gets the workout categories.
@@ -82,9 +84,19 @@ namespace TrainingPlanner.Model
     /// <summary>
     /// Gets the training plan.
     /// </summary>
-    public WeeklyPlan[] TrainingPlan
+    public TrainingPlan TrainingPlan
     {
-      get { return _trainingPlan.ToArray(); }
+      get { return _trainingPlan; }
+    }
+
+    public void UpdateTrainingPlan(WeeklyPlan newWeeklyPlan, int week)
+    {
+      _trainingPlan.WeeklyPlans[week] = newWeeklyPlan;
+
+      if (TrainingPlanChanged != null)
+      {
+        TrainingPlanChanged(this, new TrainingPlanChangedEventArgs());
+      }
     }
 
     /// <summary>
@@ -118,21 +130,6 @@ namespace TrainingPlanner.Model
     }
 
     /// <summary>
-    /// Creates a new instance, loading the data from the provided directories and files.
-    /// </summary>
-    /// <param name="categoryDirectory">Directory where workout categories are stored.</param>
-    /// <param name="workoutDirectory">Directory where workouts are stored.</param>
-    /// <param name="planFile">File where the training plan is stored.</param>
-    /// <returns>Data instance.</returns>
-    public static Data Load(string categoryDirectory, string workoutDirectory, string planFile)
-    {
-      return new Data(
-        Directory.GetFiles(categoryDirectory, "*.json").Select(WorkoutCategory.ParseJsonFile).ToArray(),
-        Directory.GetFiles(workoutDirectory, "*.json").Select(Workout.ParseJsonFile).ToArray(),
-        File.ReadAllLines(planFile).Select(WeeklyPlan.FromJson).ToArray());
-    }
-
-    /// <summary>
     /// Gets the workout from the workout's name.
     /// </summary>
     /// <param name="workoutName">Name of the workout.</param>
@@ -162,14 +159,15 @@ namespace TrainingPlanner.Model
       this._workouts.Add(workout);
       this._workouts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
 
-      if (WorkoutsChanged != null)
+      if (WorkoutChanged != null)
       {
-        WorkoutsChanged(this, EventArgs.Empty);
+        WorkoutChanged(this, new WorkoutChangedEventArgs(workout, true));
       }
     }
 
     public void AddOrUpdateWorkout(Workout workout)
     {
+      // TODO: Add proper updating of workout
       var existing = this._workouts.FirstOrDefault(c => c.Name == workout.Name);
 
       if (existing != null)
@@ -194,9 +192,9 @@ namespace TrainingPlanner.Model
 
       // (no need to sort)
 
-      if (WorkoutsChanged != null)
+      if (WorkoutChanged != null)
       {
-        WorkoutsChanged(this, EventArgs.Empty);
+        WorkoutChanged(this, new WorkoutChangedEventArgs(workout, false));
       }
     }
 
@@ -213,28 +211,11 @@ namespace TrainingPlanner.Model
       }
 
       Paces[key] = value;
-      SavePacesToSettings();
 
       if (PacesChanged != null)
       {
-        PacesChanged(this, EventArgs.Empty);
+        PacesChanged(this, new PaceChangedEventArgs(key));
       }
-    }
-
-    /// <summary>
-    /// Stores the current values of the Dictionary in the settings.
-    /// </summary>
-    private static void SavePacesToSettings()
-    {
-      TrainingPlanner.Paces.Default.Easy = Paces[Pace.Easy];
-      TrainingPlanner.Paces.Default.Long = Paces[Pace.Long];
-      TrainingPlanner.Paces.Default.Marathon = Paces[Pace.Marathon];
-      TrainingPlanner.Paces.Default.Threshold = Paces[Pace.Threshold];
-      TrainingPlanner.Paces.Default.Halfmarathon = Paces[Pace.Halfmarathon];
-      TrainingPlanner.Paces.Default.TenK = Paces[Pace.Tenk];
-      TrainingPlanner.Paces.Default.FiveK = Paces[Pace.Fivek];
-
-      TrainingPlanner.Paces.Default.Save();
     }
 
     /// <summary>
@@ -252,14 +233,15 @@ namespace TrainingPlanner.Model
 
       // (no need to sort)
 
-      if (CategoriesChanged != null)
+      if (CategoryChanged != null)
       {
-        CategoriesChanged(this, EventArgs.Empty);
+        CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, false));
       }
     }
 
     public void AddOrUpdateWorkoutCategory(WorkoutCategory category)
     {
+      // TODO: add proper updating of workout category
       var existing = this._categories.FirstOrDefault(c => c.Name == category.Name);
 
       if (existing != null)
@@ -275,9 +257,9 @@ namespace TrainingPlanner.Model
       this._categories.Add(category);
       this._categories.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
 
-      if (CategoriesChanged != null)
+      if (CategoryChanged != null)
       {
-        CategoriesChanged(this, EventArgs.Empty);
+        CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, true));
       }
     }
   }

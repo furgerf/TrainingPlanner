@@ -24,7 +24,7 @@ namespace TrainingPlanner.Presenter
       view.DeleteCategoryButtonClick += (s, e) => DeleteCategory(e);
       view.ExitButtonClick += (s, e) => view.Close();
 
-      data.CategoriesChanged += (s, e) => view.DisplayCategories(data.Categories);
+      data.CategoryChanged += (s, e) => view.DisplayCategories(data.Categories);
     }
 
     private void AddCategory()
@@ -52,7 +52,6 @@ namespace TrainingPlanner.Presenter
       }
 
       this._data.RemoveWorkoutCategory(this._data.WorkoutCategoryFromName(categoryName));
-      File.Delete(Program.WorkoutCategoriesDirectory + Path.DirectorySeparatorChar + categoryName.ToLower().Replace(' ', '-') + ".json");
     }
   }
 }

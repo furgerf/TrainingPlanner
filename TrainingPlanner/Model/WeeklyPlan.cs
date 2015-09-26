@@ -1,33 +1,38 @@
 using System;
-using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 
 namespace TrainingPlanner.Model
 {
   /// <summary>
   /// Describes a week's worth of training (up to 14 workouts).
   /// </summary>
-  [DataContract]
+  [DataContract(Name = "WeeklyPlan")]
   public struct WeeklyPlan
   {
     /// <summary>
-    /// The names of the workouts of the week.
-    /// TODO: Rename...
+    /// Number of the week in the plan. Should be zero-based.
+    /// TODO: make IsRequired = true
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "WeekNumber")]
+    public int WeekNumber;
+
+    /// <summary>
+    /// The names of the workouts of the week.
+    /// TODO: rename
+    /// </summary>
+    [DataMember(Name = "_workouts", IsRequired = true)]
     private string[] _workouts;
 
     /// <summary>
     /// Date of the start of the week (Monday).
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "WeekStart", IsRequired = true)]
     public DateTime WeekStart { get; set; }
 
     /// <summary>
     /// Notes for the week.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Notes")]
     public string Notes { get; set; }
 
     /// <summary>
@@ -44,38 +49,6 @@ namespace TrainingPlanner.Model
           throw new ArgumentException("Invalid workout array");
         }
         _workouts = value;
-      }
-    }
-
-    /// <summary>
-    /// Serializes the plan to JSON.
-    /// TODO: Move to common class.
-    /// </summary>
-    public string Json
-    {
-      get
-      {
-        var stream = new MemoryStream();
-        var serializer = new DataContractJsonSerializer(typeof(WeeklyPlan));
-        serializer.WriteObject(stream, this);
-        stream.Position = 0;
-        var reader = new StreamReader(stream);
-        return reader.ReadToEnd();
-      }
-    }
-
-    /// <summary>
-    /// Deserializes the plan from JSON.
-    /// TODO: Move to common class.
-    /// </summary>
-    public static WeeklyPlan FromJson(string json)
-    {
-      var serializer = new DataContractJsonSerializer(typeof (WeeklyPlan));
-      var bytes = new byte[json.Length*sizeof (char)];
-      Buffer.BlockCopy(json.ToCharArray(), 0, bytes, 0, bytes.Length);
-      using (var ms = new MemoryStream(bytes))
-      {
-        return (WeeklyPlan) serializer.ReadObject(ms);
       }
     }
   }

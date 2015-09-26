@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
@@ -20,7 +20,7 @@ namespace TrainingPlanner.Presenter
       this._view = view;
       this._data = data;
       
-      this._data.CategoriesChanged += (s, e) => SetCategories();
+      this._data.CategoryChanged += (s, e) => SetCategories();
       SetCategories();
 
       this._view.AddStepButtonClick += (s, e) => this._view.AddStep();
@@ -76,15 +76,9 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      var workout = new Workout(this._view.WorkoutName, this._data.WorkoutCategoryFromName(this._view.CategoryName), steps);
-
-      File.WriteAllText(
-        Program.WorkoutsDirectory + Path.DirectorySeparatorChar + this._view.WorkoutName.ToLower().Replace(' ', '-') +
-        ".json", workout.Json);
-
       this._dontAskToSave = true;
 
-      this._data.AddOrUpdateWorkout(workout);
+      this._data.AddOrUpdateWorkout(new Workout(this._view.WorkoutName, this._data.WorkoutCategoryFromName(this._view.CategoryName), steps));
 
       this._view.Close();
     }
@@ -98,7 +92,6 @@ namespace TrainingPlanner.Presenter
       }
 
       this._data.RemoveWorkout(this._data.WorkoutFromName(this._view.WorkoutName));
-      File.Delete(Program.WorkoutsDirectory + Path.DirectorySeparatorChar + this._view.WorkoutName.ToLower().Replace(' ', '-') + ".json");
 
       this._dontAskToSave = true;
       this._view.Close();

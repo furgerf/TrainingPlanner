@@ -29,11 +29,6 @@ namespace TrainingPlanner.View
     event EventHandler EditCategoriesButtonClick;
 
     /// <summary>
-    /// Triggered when the main form is closing.
-    /// </summary>
-    event EventHandler MainFormClosing;
-
-    /// <summary>
     /// Triggered when a workout in one of the weekly plans changed.
     /// </summary>
     event EventHandler<EventArgs<WeeklyPlan[]>> WeeklyPlansChanged;

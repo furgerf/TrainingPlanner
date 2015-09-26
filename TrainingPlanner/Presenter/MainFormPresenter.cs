@@ -1,5 +1,4 @@
-﻿using System.IO;
-using TrainingPlanner.Model;
+﻿using TrainingPlanner.Model;
 using TrainingPlanner.View;
 
 namespace TrainingPlanner.Presenter
@@ -12,7 +11,8 @@ namespace TrainingPlanner.Presenter
     {
       this._data = data;
 
-      view.MainFormClosing += (s, e) => SaveTrainingPlan();
+      view.UpdateWeeklyPlan(this._data.TrainingPlan.WeeklyPlans);
+
       view.AddWorkoutButtonClick += (s, e) =>
       {
         var form = new EditWorkoutForm(this._data);
@@ -41,23 +41,11 @@ namespace TrainingPlanner.Presenter
       };
       view.WeeklyPlansChanged += (s, e) =>
       {
-        for (var i = 0; i < this._data.TrainingPlan.Length; i++)
+        for (var i = 0; i < this._data.TrainingPlan.WeeklyPlans.Length; i++)
         {
-          this._data.TrainingPlan[i] = e.Value[i];
+          this._data.UpdateTrainingPlan(e.Value[i], i);
         }
       };
-
-      view.UpdateWeeklyPlan(this._data.TrainingPlan);
-    }
-
-    private void SaveTrainingPlan()
-    {
-      var data = new string[Data.TrainingWeeks];
-      for (var i = 0; i < Data.TrainingWeeks; i++)
-      {
-        data[i] = this._data.TrainingPlan[i].Json;
-      }
-      File.WriteAllLines(Program.TrainingPlanFile, data);
     }
   }
 }

@@ -44,8 +44,14 @@
   <ItemGroup>
     <Compile Include="EventArgs.cs" />
     <Compile Include="Model\Data.cs" />
+    <Compile Include="Model\DataPersistence.cs" />
     <Compile Include="Model\Pace.cs" />
+    <Compile Include="Model\PaceChangedEventArgs.cs" />
+    <Compile Include="Model\TrainingPlan.cs" />
+    <Compile Include="Model\TrainingPlanChangedEventArgs.cs" />
     <Compile Include="Model\WorkoutCategory.cs" />
+    <Compile Include="Model\WorkoutCategoryChangedEventArgs.cs" />
+    <Compile Include="Model\WorkoutChangedEventArgs.cs" />
     <Compile Include="Presenter\EditWorkoutCategoryFormPresenter.cs" />
     <Compile Include="Presenter\IEditWorkoutCategoryFormPresenter.cs" />
     <Compile Include="Presenter\IEditWorkoutFormPresenter.cs" />

@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 
 namespace TrainingPlanner.Model
 {
@@ -63,24 +61,6 @@ namespace TrainingPlanner.Model
     }
 
     /// <summary>
-    /// Serializes the workout to JSON.
-    /// TODO: Move to common class.
-    /// </summary>
-    public string Json
-    {
-      get
-      {
-        var stream = new MemoryStream();
-        var serializer = new DataContractJsonSerializer(typeof(Workout));
-        serializer.WriteObject(stream, this);
-        stream.Position = 0;
-        var reader = new StreamReader(stream);
-
-        return reader.ReadToEnd();
-      }
-    }
-
-    /// <summary>
     /// Creates a new workout without a short name.
     /// </summary>
     public Workout(string name, WorkoutCategory category, Step[] steps)
@@ -99,19 +79,6 @@ namespace TrainingPlanner.Model
       this.ShortName = shortName;
       this.CategoryName = category.Name;
       this.Steps = steps;
-    }
-
-    /// <summary>
-    /// Deserializes the workout from file containing JSON.
-    /// TODO: Move to common class.
-    /// </summary>
-    public static Workout ParseJsonFile(string path)
-    {
-      var serializer = new DataContractJsonSerializer(typeof(Workout));
-      using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-      {
-        return (Workout)serializer.ReadObject(fs);
-      }
     }
 
     public override string ToString()

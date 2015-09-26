@@ -107,8 +107,8 @@ namespace TrainingPlanner.View
     {
       this._data = data;
 
-      this._data.CategoriesChanged += (s, e) => UpdateControl();
-      this._data.WorkoutsChanged += (s, e) => UpdateControl();
+      this._data.CategoryChanged += (s, e) => UpdateControl();
+      this._data.WorkoutChanged += (s, e) => UpdateControl();
 
       CreateContextMenu();
     }

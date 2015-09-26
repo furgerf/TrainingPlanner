@@ -33,7 +33,7 @@ namespace TrainingPlanner.View
       };
 
       // prepare WeekControls
-      this._weekControls = new WeekControl[Data.TrainingWeeks];
+      this._weekControls = new WeekControl[TrainingPlan.TrainingWeeks];
       for (var i = 0; i < _weekControls.Length; i++)
       {
         // create control
@@ -56,11 +56,10 @@ namespace TrainingPlanner.View
       this.butEditCategories.Left = this.foregroundPanel.Right + 6;
 
       // edit workout button menu
-      this._data.WorkoutsChanged += (s, e) => CreateContextMenu();
+      this._data.WorkoutChanged += (s, e) => CreateContextMenu();
       CreateContextMenu();
 
       // register to more events (to retrigger)
-      this.FormClosing += (s, e) => MainFormClosing(this, e);
       this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, e);
     }
 
@@ -90,9 +89,6 @@ namespace TrainingPlanner.View
     public event EventHandler ConfigurePacesButtonClick;
     public event EventHandler<string> EditWorkoutButtonClick;
     public event EventHandler EditCategoriesButtonClick;
-
-    public event EventHandler MainFormClosing;
-
     public event EventHandler<EventArgs<WeeklyPlan[]>> WeeklyPlansChanged;
 
     public void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans)
