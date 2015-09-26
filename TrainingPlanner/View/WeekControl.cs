@@ -9,31 +9,27 @@ namespace TrainingPlanner.View
   {
     private const int MaxWeeklyWorkouts = 14;
 
-    private readonly Workout[] _workouts = new Workout[MaxWeeklyWorkouts];
-
     private readonly WorkoutControl[] _workoutControls;
-
-    private int _weekNumber;
 
     private bool _updateDateRange = true;
 
     public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
+    private bool _triggerWeeklyPlanChangedEvent = true;
+
     private readonly Data _data;
+
+    private WeeklyPlan _weeklyPlan;
 
     public WeeklyPlan WeeklyPlan
     {
-      get
-      {
-        var workouts = new string[MaxWeeklyWorkouts];
-        for (var i = 0; i < MaxWeeklyWorkouts; i++)
-        {
-          workouts[i] = _workouts[i] == null ? null : _workouts[i].Name;
-        }
-        return new WeeklyPlan {WeekStart = monthCalendar1.SelectionStart, WeekNumber = _weekNumber, Workouts = workouts, Notes = txtNotes.Text};
-      }
+      get { return _weeklyPlan; }
       set
       {
+        this._weeklyPlan = value;
+
+        _triggerWeeklyPlanChangedEvent = false;
+
         for (var i = 0; i < MaxWeeklyWorkouts; i++)
         {
           if (value.Workouts[i] != null)
@@ -41,10 +37,17 @@ namespace TrainingPlanner.View
             _workoutControls[i].Workout = this._data.WorkoutFromName(value.Workouts[i]);
           }
         }
+
         txtNotes.Text = value.Notes;
         WeekStart = value.WeekStart;
-        _weekNumber = value.WeekNumber;
         grpSummary.Text = "Summary - Week " + (value.WeekNumber + 1);
+
+        _triggerWeeklyPlanChangedEvent = true;
+
+        if (WeeklyPlanChanged != null)
+        {
+          WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
+        }
       }
     }
 
@@ -79,23 +82,31 @@ namespace TrainingPlanner.View
         _workoutControls[i].SetData(this._data);
         _workoutControls[i].WorkoutChanged += workout =>
         {
-          _workouts[i1] = workout;
+          this._weeklyPlan.Workouts[i1] = workout == null ? null : workout.Name;
           UpdateStatistics();
 
-          if (WeeklyPlanChanged != null)
+          if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
           {
             WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
           }
         };
       }
+
+      monthCalendar1.DateChanged += (s, e) =>
+      {
+        if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
+        {
+          WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
+        }
+      };
     }
 
     private void UpdateStatistics()
     {
-      txtWorkoutCount.Text = string.Format("{0} workouts", _workouts.Count(w => w != null));
+      txtWorkoutCount.Text = string.Format("{0} workouts", this._weeklyPlan.Workouts.Count(w => w != null));
       txtTotalDuration.Text = string.Format("Total duration: {0}",
-        TimeSpan.FromSeconds(_workouts.Where(w => w != null).Sum(w => w.Duration.TotalSeconds)));
-      txtTotalDistance.Text = string.Format("Total distance: {0}", Math.Round(_workouts.Where(w => w != null).Sum(w => w.Distance), 1));
+        TimeSpan.FromSeconds(this._weeklyPlan.Workouts.Where(w => w != null).Sum(w => this._data.WorkoutFromName(w).Duration.TotalSeconds)));
+      txtTotalDistance.Text = string.Format("Total distance: {0}", Math.Round(this._weeklyPlan.Workouts.Where(w => w != null).Sum(w => this._data.WorkoutFromName(w).Distance), 1));
     }
 
     private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
