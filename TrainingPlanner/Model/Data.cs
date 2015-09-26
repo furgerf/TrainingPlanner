@@ -185,8 +185,8 @@ namespace TrainingPlanner.Model
     public void AddWorkout(Workout workout)
     {
       // TODO: Change "add + sort" to "insert"
-      this._workouts.Add(workout);
-      this._workouts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
+      var index = this._workouts.FindIndex(c => string.Compare(c.Name, workout.Name, StringComparison.InvariantCulture) > 0);
+      this._workouts.Insert(index == -1 ? this._categories.Count : index, workout);
 
       if (WorkoutChanged != null)
       {
@@ -230,9 +230,8 @@ namespace TrainingPlanner.Model
 
     public void AddWorkoutCategory(WorkoutCategory category)
     {
-      // TODO: Change "add + sort" to "insert"
-      this._categories.Add(category);
-      this._categories.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
+      var index = this._categories.FindIndex(c => string.Compare(c.Name, category.Name, StringComparison.InvariantCulture) > 0);
+      this._categories.Insert(index == -1 ? this._categories.Count : index, category);
 
       if (CategoryChanged != null)
       {

@@ -23,7 +23,7 @@ namespace TrainingPlanner.Model.Serializable
 
     /// <summary>
     /// Pace at which to run during the step.
-    /// TODO: Store enum name instead of timespan
+    /// TODO: (workout-redoing) Store enum name instead of timespan
     /// </summary>
     [DataMember(Name = "Pace", IsRequired = true)]
     public readonly TimeSpan Pace;
@@ -48,19 +48,19 @@ namespace TrainingPlanner.Model.Serializable
 
     /// <summary>
     /// True if distance is the manually entered value and duration was calculated.
-    /// TODO: Rename
+    /// TODO: (workout-redoing) Rename
     /// </summary>
     [DataMember(Name = "_durationCalculated", IsRequired = true)]
     public readonly bool DurationCalculated;
 
     /// <summary>
     /// True if duration is the manually entered value and distance was calculated.
-    /// TODO: Rename
+    /// TODO: (workout-redoing) Rename
     /// </summary>
     [DataMember(Name = "_distanceCalculated", IsRequired = true)]
     public readonly bool DistanceCalculated;
 
-    // TODO: Add note
+    // TODO: (workout-redoing) Add note
 
     /// <summary>
     /// Format with which to convert the pace to string.

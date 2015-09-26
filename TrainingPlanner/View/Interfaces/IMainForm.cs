@@ -31,7 +31,6 @@ namespace TrainingPlanner.View.Interfaces
 
     /// <summary>
     /// Triggered when a workout in one of the weekly plans changed.
-    /// TODO: Also trigger more finely-grained
     /// </summary>
     event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
