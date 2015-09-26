@@ -1,8 +1,9 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace TrainingPlanner.Model
 {
-  //[DataContract(Name = "TrainingPlan")]
+  [DataContract(Name = "TrainingPlan")]
   public class TrainingPlan
   {
     /// <summary>
@@ -10,8 +11,8 @@ namespace TrainingPlanner.Model
     /// </summary>
     public const int TrainingWeeks = 11;
 
-    //[DataMember(Name = "WeeklyPlans", IsRequired = true)]
-    public WeeklyPlan[] WeeklyPlans { get; set; }
+    [DataMember(Name = "WeeklyPlans", IsRequired = true)]
+    public WeeklyPlan[] WeeklyPlans;
 
     public static TrainingPlan NewTrainingPlan
     {

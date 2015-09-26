@@ -7,31 +7,31 @@ namespace TrainingPlanner.Model
   /// <summary>
   /// Describes a workout.
   /// </summary>
-  [DataContract]
+  [DataContract(Name = "Workout")]
   public class Workout
   {
     /// <summary>
     /// Name of the workout. Used for the file name and to uniquely identify the workout.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Name", IsRequired = true)]
     public readonly string Name;
 
     /// <summary>
     /// Short name of the workout. Used in the view if provided.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "ShortName")]
     public readonly string ShortName;
 
     /// <summary>
     /// Name of the workout's category.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "CategoryName")]
     public readonly string CategoryName;
 
     /// <summary>
     /// Steps of the workout.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Steps", IsRequired = true)]
     public Step[] Steps { get; private set; }
 
     /// <summary>

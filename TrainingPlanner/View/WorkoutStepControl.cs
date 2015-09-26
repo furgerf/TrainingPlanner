@@ -32,7 +32,7 @@ namespace TrainingPlanner.View
       set
       {
         comName.Text = value.Name;
-        if (value._distanceCalculated)
+        if (value.DistanceCalculated)
         {
           txtDuration.Text = value.Duration.ToString("hh':'mm':'ss");
         }

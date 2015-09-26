@@ -8,6 +8,7 @@ namespace TrainingPlanner.Model
 {
   public class DataPersistence
   {
+    #region Paths
     private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
     private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
     private const string TrainingPlanFileName = "plan.json";
@@ -32,6 +33,7 @@ namespace TrainingPlanner.Model
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + TrainingPlanFileName; }
     }
+    #endregion
 
     public DataPersistence(Data data)
     {
@@ -62,6 +64,36 @@ namespace TrainingPlanner.Model
         (s, e) => File.WriteAllLines(TrainingPlanFile, data.TrainingPlan.WeeklyPlans.Select(WeeklyPlanToJson));
     }
 
+    #region Public access - Loading data
+    public IEnumerable<WorkoutCategory> LoadCategories()
+    {
+      return
+        Directory.GetFiles(WorkoutCategoriesDirectory, "*.json")
+          .Select(wc => (WorkoutCategory)ParseJsonFile(wc, typeof(WorkoutCategory)));
+    }
+
+    public IEnumerable<Workout> LoadWorkouts()
+    {
+      return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(wc => (Workout)ParseJsonFile(wc, typeof(Workout)));
+    }
+
+    public TrainingPlan LoadPlan()
+    {
+      // TODO: Change
+      if (File.Exists(TrainingPlanFile))
+      {
+        //return (TrainingPlan)ParseJsonFile(TrainingPlanFile, typeof(TrainingPlan));
+
+        var weeks = File.ReadAllLines(TrainingPlanFile).Select(ParseWeeklyPlanJson).ToArray();
+
+        return new TrainingPlan { WeeklyPlans = weeks };
+      }
+
+      return TrainingPlan.NewTrainingPlan;
+    }
+    #endregion
+
+    #region Private access - Saving data
     private static string GetWorkoutPath(Workout workout)
     {
       return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.Name.ToLower().Replace(' ', '-') + ".json";
@@ -104,34 +136,9 @@ namespace TrainingPlanner.Model
 
       Paces.Default.Save();
     }
+    #endregion
 
-    public IEnumerable<WorkoutCategory> LoadCategories()
-    {
-      return
-        Directory.GetFiles(WorkoutCategoriesDirectory, "*.json")
-          .Select(wc => (WorkoutCategory)ParseJsonFile(wc, typeof(WorkoutCategory)));
-    }
-
-    public IEnumerable<Workout> LoadWorkouts()
-    {
-      return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(wc => (Workout)ParseJsonFile(wc, typeof(Workout)));
-    }
-
-    public TrainingPlan LoadPlan()
-    {
-      // TODO: Change
-      if (File.Exists(TrainingPlanFile))
-      {
-        //return (TrainingPlan)ParseJsonFile(TrainingPlanFile, typeof(TrainingPlan));
-
-        var weeks = File.ReadAllLines(TrainingPlanFile).Select(ParseWeeklyPlanJson).ToArray();
-
-        return new TrainingPlan {WeeklyPlans = weeks};
-      }
-
-      return TrainingPlan.NewTrainingPlan;
-    }
-
+    #region (De-)serialization
     private static object ParseJsonFile(string path, Type type)
     {
       using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -143,11 +150,11 @@ namespace TrainingPlanner.Model
     private static WeeklyPlan ParseWeeklyPlanJson(string json)
     {
       // TODO: get rid of
-      var bytes = new byte[json.Length*sizeof (char)];
+      var bytes = new byte[json.Length * sizeof(char)];
       Buffer.BlockCopy(json.ToCharArray(), 0, bytes, 0, bytes.Length);
       using (var ms = new MemoryStream(bytes))
       {
-        return (WeeklyPlan) new DataContractJsonSerializer(typeof (WeeklyPlan)).ReadObject(ms);
+        return (WeeklyPlan)new DataContractJsonSerializer(typeof(WeeklyPlan)).ReadObject(ms);
       }
     }
 
@@ -155,23 +162,20 @@ namespace TrainingPlanner.Model
     {
       // TODO: get rid of
       var stream = new MemoryStream();
-      var serializer = new DataContractJsonSerializer(typeof (WeeklyPlan));
+      var serializer = new DataContractJsonSerializer(typeof(WeeklyPlan));
       serializer.WriteObject(stream, plan);
       stream.Position = 0;
       var reader = new StreamReader(stream);
       return reader.ReadToEnd();
     }
 
-
-    public void WriteJsonFile(object data, string path)
+    private static void WriteJsonFile(object data, string path)
     {
       using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
       {
         new DataContractJsonSerializer(data.GetType()).WriteObject(fs, data);
       }
-      //new DataContractJsonSerializer(data.GetType()).WriteObject(stream, this);
-      //stream.Position = 0;
-      //return new StreamReader(stream).ReadToEnd();
     }
+    #endregion
   }
 }

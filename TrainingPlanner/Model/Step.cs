@@ -6,58 +6,59 @@ namespace TrainingPlanner.Model
   /// <summary>
   /// Describes one segment in a workout.
   /// </summary>
-  [DataContract]
+  [DataContract(Name = "Step")]
   public struct Step
   {
     /// <summary>
     /// Name of the step.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Name", IsRequired = true)]
     public readonly string Name;
 
     /// <summary>
     /// Duration of the step.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Duration", IsRequired = true)]
     public readonly TimeSpan Duration;
 
     /// <summary>
     /// Pace at which to run during the step.
+    /// TODO: Store enum name instead of timespan
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Pace", IsRequired = true)]
     public readonly TimeSpan Pace;
 
     /// <summary>
     /// Distance to cover during the step.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Distance", IsRequired = true)]
     public readonly double Distance;
 
     /// <summary>
     /// Rest after the step.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Rest", IsRequired = true)]
     public readonly TimeSpan Rest;
 
     /// <summary>
     /// Number of times this step is repeated.
     /// </summary>
-    [DataMember]
+    [DataMember(Name = "Repetitions", IsRequired = true)]
     public readonly int Repetitions;
 
     /// <summary>
     /// True if distance is the manually entered value and duration was calculated.
-    /// TODO: Rename...
+    /// TODO: Rename
     /// </summary>
-    [DataMember]
-    public readonly bool _durationCalculated;
+    [DataMember(Name = "_durationCalculated", IsRequired = true)]
+    public readonly bool DurationCalculated;
 
     /// <summary>
     /// True if duration is the manually entered value and distance was calculated.
-    /// TODO: Rename...
+    /// TODO: Rename
     /// </summary>
-    [DataMember]
-    public readonly bool _distanceCalculated;
+    [DataMember(Name = "_distanceCalculated", IsRequired = true)]
+    public readonly bool DistanceCalculated;
 
     // TODO: Add note
 
@@ -100,8 +101,8 @@ namespace TrainingPlanner.Model
       Distance = distance;
       Rest = rest ?? TimeSpan.Zero;
       Repetitions = repetitions;
-      _durationCalculated = durationCalculated;
-      _distanceCalculated = distanceCalculated;
+      DurationCalculated = durationCalculated;
+      DistanceCalculated = distanceCalculated;
     }
 
     /// <summary>
@@ -124,7 +125,7 @@ namespace TrainingPlanner.Model
     {
       var result = "";
 
-      if (_durationCalculated)
+      if (DurationCalculated)
       {
         result += Distance + " km";
       }

@@ -8,6 +8,7 @@ namespace TrainingPlanner.Model
 {
   public class Data
   {
+    #region Data
     /// <summary>
     /// Color to use for the background of controls that don't have a specific color.
     /// TODO: Move to settings
@@ -15,11 +16,12 @@ namespace TrainingPlanner.Model
     public static readonly Color DefaultBackgroundColor = Color.Beige;
 
     /// <summary>
-    /// Data.
+    /// Actual data.
     /// </summary>
     private readonly List<WorkoutCategory> _categories;
     private readonly List<Workout> _workouts;
     private readonly TrainingPlan _trainingPlan;
+    #endregion
 
     public Data()
     {
@@ -30,6 +32,7 @@ namespace TrainingPlanner.Model
       this._trainingPlan = persistence.LoadPlan();
     }
 
+    #region Events
     /// <summary>
     /// Triggered whenever one of the workout changes or when one is added or removed.
     /// </summary>
@@ -43,6 +46,7 @@ namespace TrainingPlanner.Model
     /// <summary>
     /// Triggered whenever one of the training plan entries changes.
     /// TODO: Let the event be triggered when something changes that isn't a workout (week date, week note)
+    /// this change isn't required here but I'm writing it here anyway...
     /// TODO: Also something else which I forgot at the moment...
     /// </summary>
     public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanChanged;
@@ -51,6 +55,51 @@ namespace TrainingPlanner.Model
     /// Triggered whenever the value of any of the paces changes.
     /// </summary>
     public event EventHandler<PaceChangedEventArgs> PacesChanged;
+    #endregion
+
+    #region Data access
+    public static TimeSpan GetDurationFromPace(Pace pace)
+    {
+      switch (pace)
+      {
+        case Pace.Easy:
+          return Paces.Default.Easy;
+        case Pace.Long:
+          return Paces.Default.Long;
+        case Pace.Marathon:
+          return Paces.Default.Marathon;
+        case Pace.Halfmarathon:
+          return Paces.Default.Halfmarathon;
+        case Pace.Threshold:
+          return Paces.Default.Threshold;
+        case Pace.Tenk:
+          return Paces.Default.TenK;
+        case Pace.Fivek:
+          return Paces.Default.FiveK;
+        default:
+          throw new ArgumentOutOfRangeException("pace");
+      }
+    }
+
+    public static Pace GetPaceFromDuration(TimeSpan duration)
+    {
+      if (duration == Paces.Default.Easy)
+        return Pace.Easy;
+      if (duration == Paces.Default.Long)
+        return Pace.Long;
+      if (duration == Paces.Default.Marathon)
+        return Pace.Marathon;
+      if (duration == Paces.Default.Halfmarathon)
+        return Pace.Halfmarathon;
+      if (duration == Paces.Default.Threshold)
+        return Pace.Threshold;
+      if (duration == Paces.Default.TenK)
+        return Pace.Tenk;
+      if (duration == Paces.Default.FiveK)
+        return Pace.Fivek;
+
+      throw new ArgumentException("unkown pace");
+    }
 
     /// <summary>
     /// Gets the workout categories.
@@ -76,18 +125,9 @@ namespace TrainingPlanner.Model
       get { return _trainingPlan; }
     }
 
-    public void UpdateTrainingPlan(WeeklyPlan newWeeklyPlan, int week)
-    {
-      _trainingPlan.WeeklyPlans[week] = newWeeklyPlan;
-
-      if (TrainingPlanChanged != null)
-      {
-        TrainingPlanChanged(this, new TrainingPlanChangedEventArgs());
-      }
-    }
-
     /// <summary>
     /// Gets a context menu based on the current workoutouts and categories.
+    // TODO: create this when the workouts/categories change, not on each call
     /// </summary>
     public ContextMenu WorkoutContextMenu
     {
@@ -136,6 +176,9 @@ namespace TrainingPlanner.Model
       return Categories.FirstOrDefault(w => w.Name == categoryName);
     }
 
+    #endregion
+
+    #region Data modification
     /// <summary>
     /// Adds a new workout to the data model.
     /// </summary>
@@ -185,60 +228,29 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public static TimeSpan GetDurationFromPace(Pace pace)
+
+    public void AddWorkoutCategory(WorkoutCategory category)
     {
-      switch (pace)
+      // TODO: Change "add + sort" to "insert"
+      this._categories.Add(category);
+      this._categories.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
+
+      if (CategoryChanged != null)
       {
-        case Pace.Easy:
-          return Paces.Default.Easy;
-        case Pace.Long:
-          return Paces.Default.Long;
-        case Pace.Marathon:
-          return Paces.Default.Marathon;
-        case Pace.Halfmarathon:
-          return Paces.Default.Halfmarathon;
-        case Pace.Threshold:
-          return Paces.Default.Threshold;
-        case Pace.Tenk:
-          return Paces.Default.TenK;
-        case Pace.Fivek:
-          return Paces.Default.FiveK;
-        default:
-          throw new ArgumentOutOfRangeException("pace");
+        CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, true));
       }
     }
 
-    public static Pace GetPaceFromDuration(TimeSpan duration)
+    public void AddOrUpdateWorkoutCategory(WorkoutCategory category)
     {
-      if (duration == Paces.Default.Easy)
-        return Pace.Easy;
-      if (duration == Paces.Default.Long)
-        return Pace.Long;
-      if (duration == Paces.Default.Marathon)
-        return Pace.Marathon;
-      if (duration == Paces.Default.Halfmarathon)
-        return Pace.Halfmarathon;
-      if (duration == Paces.Default.Threshold)
-        return Pace.Threshold;
-      if (duration == Paces.Default.TenK)
-        return Pace.Tenk;
-      if (duration == Paces.Default.FiveK)
-        return Pace.Fivek;
+      // TODO: add proper updating of workout category
+      var existing = this._categories.FirstOrDefault(c => c.Name == category.Name);
 
-      throw new ArgumentException("unkown pace");
-    }
-
-    /// <summary>
-    /// Updates the value of a pace.
-    /// </summary>
-    /// <param name="key">Description of the pace.</param>
-    /// <param name="value">New value of the pace.</param>
-    public void ChangePace(Pace key, TimeSpan value)
-    {
-      if (PacesChanged != null)
+      if (existing != null)
       {
-        PacesChanged(this, new PaceChangedEventArgs(key, value));
+        this._categories.Remove(existing);
       }
+      AddWorkoutCategory(category);
     }
 
     /// <summary>
@@ -262,28 +274,28 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public void AddOrUpdateWorkoutCategory(WorkoutCategory category)
+    /// <summary>
+    /// Updates the value of a pace.
+    /// </summary>
+    /// <param name="key">Description of the pace.</param>
+    /// <param name="value">New value of the pace.</param>
+    public void ChangePace(Pace key, TimeSpan value)
     {
-      // TODO: add proper updating of workout category
-      var existing = this._categories.FirstOrDefault(c => c.Name == category.Name);
-
-      if (existing != null)
+      if (PacesChanged != null)
       {
-        this._categories.Remove(existing);
-      }
-      AddWorkoutCategory(category);
-    }
-
-    public void AddWorkoutCategory(WorkoutCategory category)
-    {
-      // TODO: Change "add + sort" to "insert"
-      this._categories.Add(category);
-      this._categories.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCulture));
-
-      if (CategoryChanged != null)
-      {
-        CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, true));
+        PacesChanged(this, new PaceChangedEventArgs(key, value));
       }
     }
+
+    public void UpdateTrainingPlan(WeeklyPlan newWeeklyPlan, int week)
+    {
+      _trainingPlan.WeeklyPlans[week] = newWeeklyPlan;
+
+      if (TrainingPlanChanged != null)
+      {
+        TrainingPlanChanged(this, new TrainingPlanChangedEventArgs());
+      }
+    }
+    #endregion
   }
 }
