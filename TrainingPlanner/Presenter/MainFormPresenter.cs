@@ -39,13 +39,7 @@ namespace TrainingPlanner.Presenter
         var presenter = new ManageWorkoutCategoriesFormPresenter(form, this._data);
         form.Show();
       };
-      view.WeeklyPlansChanged += (s, e) =>
-      {
-        for (var i = 0; i < this._data.TrainingPlan.WeeklyPlans.Length; i++)
-        {
-          this._data.UpdateTrainingPlan(e.Value[i], i);
-        }
-      };
+      view.WeeklyPlanChanged += (s, e) => this._data.UpdateTrainingPlan(e.Value);
     }
   }
 }

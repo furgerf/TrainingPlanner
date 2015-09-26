@@ -1,4 +1,6 @@
-﻿namespace TrainingPlanner.View
+﻿using System.Windows.Forms;
+
+namespace TrainingPlanner.View
 {
   partial class WeekControl
   {

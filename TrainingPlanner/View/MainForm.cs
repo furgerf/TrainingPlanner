@@ -39,11 +39,11 @@ namespace TrainingPlanner.View
         // create control
         this._weekControls[i] = new WeekControl(this._data) {Top = i*WeeklyControlHeight, Parent = foregroundPanel};
         // register to event (to retrigger)
-        this._weekControls[i].WeeklyPlanChanged += (sender, workout) =>
+        this._weekControls[i].WeeklyPlanChanged += (sender, plan) =>
         {
-          if (WeeklyPlansChanged != null)
+          if (WeeklyPlanChanged != null)
           {
-            WeeklyPlansChanged(this, new EventArgs<WeeklyPlan[]>(_weekControls.Select(wc => wc.WeeklyPlan).ToArray()));
+            WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(plan.Value));
           }
         };
       }
@@ -89,7 +89,7 @@ namespace TrainingPlanner.View
     public event EventHandler ConfigurePacesButtonClick;
     public event EventHandler<string> EditWorkoutButtonClick;
     public event EventHandler EditCategoriesButtonClick;
-    public event EventHandler<EventArgs<WeeklyPlan[]>> WeeklyPlansChanged;
+    public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
     public void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans)
     {

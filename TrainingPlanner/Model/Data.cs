@@ -284,9 +284,9 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public void UpdateTrainingPlan(WeeklyPlan newWeeklyPlan, int week)
+    public void UpdateTrainingPlan(WeeklyPlan newWeeklyPlan)
     {
-      _trainingPlan.WeeklyPlans[week] = newWeeklyPlan;
+      _trainingPlan.WeeklyPlans[newWeeklyPlan.WeekNumber] = newWeeklyPlan;
 
       if (TrainingPlanChanged != null)
       {

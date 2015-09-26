@@ -92,12 +92,31 @@ namespace TrainingPlanner.View
         };
       }
 
-      monthCalendar1.DateChanged += (s, e) =>
+      // create a timer that triggers after 2s
+      var noteChangeTriggerTimer = new Timer {Interval = 2000};
+
+      noteChangeTriggerTimer.Tick += (s, e) =>
       {
-        if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
+        // when the timer triggers, stop it from re-triggering
+        noteChangeTriggerTimer.Stop();
+
+        // save the currently entered notes
+        this._weeklyPlan.Notes = txtNotes.Text;
+
+        if (WeeklyPlanChanged != null)
         {
           WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
         }
+      };
+
+      txtNotes.TextChanged += (s, e) =>
+      {
+        if (!_triggerWeeklyPlanChangedEvent)
+        {
+          return;
+        }
+        noteChangeTriggerTimer.Stop();
+        noteChangeTriggerTimer.Start();
       };
     }
 
@@ -127,6 +146,12 @@ namespace TrainingPlanner.View
       monthCalendar1.SelectionEnd = monthCalendar1.SelectionStart.AddDays(7);
 
       _updateDateRange = true;
+
+      this._weeklyPlan.WeekStart = this.WeekStart;
+      if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
+      {
+        WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(this.WeeklyPlan));
+      }
     }
   }
 }

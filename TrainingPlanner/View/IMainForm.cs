@@ -30,10 +30,9 @@ namespace TrainingPlanner.View
 
     /// <summary>
     /// Triggered when a workout in one of the weekly plans changed.
-    /// TODO: Let the event be triggered when something changes that isn't a workout (week date, week note)
     /// TODO: Also trigger more finely-grained
     /// </summary>
-    event EventHandler<EventArgs<WeeklyPlan[]>> WeeklyPlansChanged;
+    event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
     /// <summary>
     /// Updates the view with a new set of WeeklyPlans.
