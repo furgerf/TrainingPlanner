@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventArgs.cs" />
+    <Compile Include="Model\EventArgs\EventArgs.cs" />
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\DataPersistence.cs" />
     <Compile Include="Model\Pace.cs" />

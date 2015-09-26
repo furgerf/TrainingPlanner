@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
+using TrainingPlanner.Model.EventArgs;
 using TrainingPlanner.Model.Serializable;
 using TrainingPlanner.View.Controls;
 using TrainingPlanner.View.Interfaces;

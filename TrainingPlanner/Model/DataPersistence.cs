@@ -70,12 +70,12 @@ namespace TrainingPlanner.Model
     {
       return
         Directory.GetFiles(WorkoutCategoriesDirectory, "*.json")
-          .Select(wc => (WorkoutCategory)ParseJsonFile(wc, typeof(WorkoutCategory)));
+          .Select(ParseJsonFile<WorkoutCategory>);
     }
 
     public IEnumerable<Workout> LoadWorkouts()
     {
-      return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(wc => (Workout)ParseJsonFile(wc, typeof(Workout)));
+      return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(ParseJsonFile<Workout>);
     }
 
     public TrainingPlan LoadPlan()
@@ -140,11 +140,11 @@ namespace TrainingPlanner.Model
     #endregion
 
     #region (De-)serialization
-    private static object ParseJsonFile(string path, Type type)
+    private static T ParseJsonFile<T>(string path)
     {
       using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
       {
-        return new DataContractJsonSerializer(type).ReadObject(fs);
+        return (T) new DataContractJsonSerializer(typeof(T)).ReadObject(fs);
       }
     }
 
@@ -170,11 +170,11 @@ namespace TrainingPlanner.Model
       return reader.ReadToEnd();
     }
 
-    private static void WriteJsonFile(object data, string path)
+    private static void WriteJsonFile<T>(T data, string path)
     {
       using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
       {
-        new DataContractJsonSerializer(data.GetType()).WriteObject(fs, data);
+        new DataContractJsonSerializer(typeof(T)).WriteObject(fs, data);
       }
     }
     #endregion

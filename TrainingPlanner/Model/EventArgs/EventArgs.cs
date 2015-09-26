@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace TrainingPlanner
+﻿namespace TrainingPlanner.Model.EventArgs
 {
   /// <summary>
   /// Generic event args
   /// </summary>
   /// <typeparam name="T"></typeparam>
-  public class EventArgs<T> : EventArgs
+  public class EventArgs<T> : System.EventArgs
   {
     private readonly T _value;
 

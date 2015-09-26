@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
+using TrainingPlanner.Model.EventArgs;
 using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.View.Controls

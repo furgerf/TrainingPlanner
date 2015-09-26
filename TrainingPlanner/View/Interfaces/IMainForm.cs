@@ -1,4 +1,5 @@
 ﻿using System;
+using TrainingPlanner.Model.EventArgs;
 using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.View.Interfaces
