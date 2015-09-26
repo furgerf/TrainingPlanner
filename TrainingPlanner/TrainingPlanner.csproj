@@ -46,43 +46,43 @@
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\DataPersistence.cs" />
     <Compile Include="Model\Pace.cs" />
-    <Compile Include="Model\PaceChangedEventArgs.cs" />
-    <Compile Include="Model\TrainingPlan.cs" />
-    <Compile Include="Model\TrainingPlanChangedEventArgs.cs" />
-    <Compile Include="Model\WorkoutCategory.cs" />
-    <Compile Include="Model\WorkoutCategoryChangedEventArgs.cs" />
-    <Compile Include="Model\WorkoutChangedEventArgs.cs" />
+    <Compile Include="Model\EventArgs\PaceChangedEventArgs.cs" />
+    <Compile Include="Model\Serializable\TrainingPlan.cs" />
+    <Compile Include="Model\EventArgs\TrainingPlanChangedEventArgs.cs" />
+    <Compile Include="Model\Serializable\WorkoutCategory.cs" />
+    <Compile Include="Model\EventArgs\WorkoutCategoryChangedEventArgs.cs" />
+    <Compile Include="Model\EventArgs\WorkoutChangedEventArgs.cs" />
     <Compile Include="Presenter\EditWorkoutCategoryFormPresenter.cs" />
-    <Compile Include="Presenter\IEditWorkoutCategoryFormPresenter.cs" />
-    <Compile Include="Presenter\IEditWorkoutFormPresenter.cs" />
-    <Compile Include="Presenter\IMainFormPresenter.cs" />
-    <Compile Include="Presenter\IManageWorkoutCategoriesFormPresenter.cs" />
-    <Compile Include="Presenter\IPaceFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\IEditWorkoutCategoryFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\IEditWorkoutFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\IMainFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\IManageWorkoutCategoriesFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\IPaceFormPresenter.cs" />
     <Compile Include="Presenter\MainFormPresenter.cs" />
     <Compile Include="Presenter\EditWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\ManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\PaceFormPresenter.cs" />
-    <Compile Include="View\EditWorkoutCategoryForm.cs">
+    <Compile Include="View\Forms\EditWorkoutCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\EditWorkoutCategoryForm.Designer.cs">
+    <Compile Include="View\Forms\EditWorkoutCategoryForm.Designer.cs">
       <DependentUpon>EditWorkoutCategoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\EditWorkoutForm.cs">
+    <Compile Include="View\Forms\EditWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\EditWorkoutForm.Designer.cs">
+    <Compile Include="View\Forms\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\IEditWorkoutCategoryForm.cs" />
-    <Compile Include="View\IEditWorkoutForm.cs" />
-    <Compile Include="View\IMainForm.cs" />
-    <Compile Include="View\IManageWorkoutCategoriesForm.cs" />
-    <Compile Include="View\IPaceForm.cs" />
-    <Compile Include="View\MainForm.cs">
+    <Compile Include="View\Interfaces\IEditWorkoutCategoryForm.cs" />
+    <Compile Include="View\Interfaces\IEditWorkoutForm.cs" />
+    <Compile Include="View\Interfaces\IMainForm.cs" />
+    <Compile Include="View\Interfaces\IManageWorkoutCategoriesForm.cs" />
+    <Compile Include="View\Interfaces\IPaceForm.cs" />
+    <Compile Include="View\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\MainForm.Designer.cs">
+    <Compile Include="View\Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -92,46 +92,46 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Paces.settings</DependentUpon>
     </Compile>
-    <Compile Include="Model\Step.cs" />
-    <Compile Include="View\ManageWorkoutCategoriesForm.cs">
+    <Compile Include="Model\Serializable\Step.cs" />
+    <Compile Include="View\Forms\ManageWorkoutCategoriesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\ManageWorkoutCategoriesForm.Designer.cs">
+    <Compile Include="View\Forms\ManageWorkoutCategoriesForm.Designer.cs">
       <DependentUpon>ManageWorkoutCategoriesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\PaceForm.cs">
+    <Compile Include="View\Forms\PaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\PaceForm.Designer.cs">
+    <Compile Include="View\Forms\PaceForm.Designer.cs">
       <DependentUpon>PaceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\WeekControl.cs">
+    <Compile Include="View\Controls\WeekControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\WeekControl.Designer.cs">
+    <Compile Include="View\Controls\WeekControl.Designer.cs">
       <DependentUpon>WeekControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\WeeklyPlan.cs" />
-    <Compile Include="Model\Workout.cs" />
-    <Compile Include="View\WorkoutControl.cs">
+    <Compile Include="Model\Serializable\WeeklyPlan.cs" />
+    <Compile Include="Model\Serializable\Workout.cs" />
+    <Compile Include="View\Controls\WorkoutControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\WorkoutControl.Designer.cs">
+    <Compile Include="View\Controls\WorkoutControl.Designer.cs">
       <DependentUpon>WorkoutControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\WorkoutStepControl.cs">
+    <Compile Include="View\Controls\WorkoutStepControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\WorkoutStepControl.Designer.cs">
+    <Compile Include="View\Controls\WorkoutStepControl.Designer.cs">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\EditWorkoutCategoryForm.resx">
+    <EmbeddedResource Include="View\Forms\EditWorkoutCategoryForm.resx">
       <DependentUpon>EditWorkoutCategoryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\EditWorkoutForm.resx">
+    <EmbeddedResource Include="View\Forms\EditWorkoutForm.resx">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\MainForm.resx">
+    <EmbeddedResource Include="View\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -143,19 +143,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\ManageWorkoutCategoriesForm.resx">
+    <EmbeddedResource Include="View\Forms\ManageWorkoutCategoriesForm.resx">
       <DependentUpon>ManageWorkoutCategoriesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\PaceForm.resx">
+    <EmbeddedResource Include="View\Forms\PaceForm.resx">
       <DependentUpon>PaceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\WeekControl.resx">
+    <EmbeddedResource Include="View\Controls\WeekControl.resx">
       <DependentUpon>WeekControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\WorkoutControl.resx">
+    <EmbeddedResource Include="View\Controls\WorkoutControl.resx">
       <DependentUpon>WorkoutControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\WorkoutStepControl.resx">
+    <EmbeddedResource Include="View\Controls\WorkoutStepControl.resx">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

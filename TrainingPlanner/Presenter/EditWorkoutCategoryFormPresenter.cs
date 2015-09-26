@@ -1,5 +1,8 @@
 ﻿using TrainingPlanner.Model;
+using TrainingPlanner.Model.Serializable;
+using TrainingPlanner.Presenter.Interfaces;
 using TrainingPlanner.View;
+using TrainingPlanner.View.Forms;
 
 namespace TrainingPlanner.Presenter
 {

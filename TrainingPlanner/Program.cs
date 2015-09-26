@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Presenter;
 using TrainingPlanner.View;
+using TrainingPlanner.View.Forms;
 
 namespace TrainingPlanner
 {
