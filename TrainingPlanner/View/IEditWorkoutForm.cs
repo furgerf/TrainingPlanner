@@ -7,16 +7,6 @@ namespace TrainingPlanner.View
   public interface IEditWorkoutForm
   {
     /// <summary>
-    /// Tells the form to add a new step.
-    /// </summary>
-    void AddStep();
-
-    /// <summary>
-    /// Tells the form to remove a step.
-    /// </summary>
-    void RemoveStep();
-
-    /// <summary>
     /// The steps that are currently entered by the user.
     /// </summary>
     Step[] Steps { get; }
@@ -55,6 +45,16 @@ namespace TrainingPlanner.View
     /// Triggered when the main form is closing.
     /// </summary>
     event EventHandler<FormClosingEventArgs> EditWorkoutFormClosing;
+
+    /// <summary>
+    /// Tells the form to add a new step.
+    /// </summary>
+    void AddStep();
+
+    /// <summary>
+    /// Tells the form to remove a step.
+    /// </summary>
+    void RemoveStep();
 
     /// <summary>
     /// Updates the list of workout categories.

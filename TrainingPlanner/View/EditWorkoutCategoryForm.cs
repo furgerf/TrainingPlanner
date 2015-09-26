@@ -12,6 +12,7 @@ namespace TrainingPlanner.View
     {
       InitializeComponent();
 
+      // fill combobox with known color names
       foreach (KnownColor kc in Enum.GetValues(typeof(KnownColor)))
         comColorNames.Items.Add(Color.FromKnownColor(kc).Name);
     }
@@ -19,10 +20,20 @@ namespace TrainingPlanner.View
     public EditWorkoutCategoryForm(WorkoutCategory category)
       : this()
     {
+      // assign control values according to the category to be edited
       txtName.Text = category.Name;
       comColorNames.Text = category.CategoryColor.ToKnownColor().ToString();
     }
 
+    public event EventHandler SaveButtonClick;
+
+    public string CategoryName { get { return txtName.Text; } }
+
+    public Color CategoryColor { get { return labColor.BackColor; } }
+
+    /// <summary>
+    /// Calculates the difference between two colors.
+    /// </summary>
     private static int ColorDifference(Color a, Color b)
     {
       return Math.Abs(a.R - b.R) + Math.Abs(a.G - b.G) + Math.Abs(a.B - b.B);
@@ -66,12 +77,6 @@ namespace TrainingPlanner.View
     {
       labColor.BackColor = Color.FromName(comColorNames.Text);
     }
-
-    public event EventHandler SaveButtonClick;
-
-    public string CategoryName { get { return txtName.Text; } }
-
-    public Color CategoryColor { get { return labColor.BackColor; } }
 
     private void butOk_Click(object sender, EventArgs e)
     {

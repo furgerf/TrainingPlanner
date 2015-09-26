@@ -25,6 +25,10 @@ namespace TrainingPlanner.View
     /// </summary>
     event EventHandler ExitButtonClick;
 
+    /// <summary>
+    /// Displays the supplied workout categories.
+    /// </summary>
+    /// <param name="categories">Workout categories to display.</param>
     void DisplayCategories(WorkoutCategory[] categories);
   }
 }

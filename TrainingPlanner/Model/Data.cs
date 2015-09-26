@@ -45,9 +45,6 @@ namespace TrainingPlanner.Model
 
     /// <summary>
     /// Triggered whenever one of the training plan entries changes.
-    /// TODO: Let the event be triggered when something changes that isn't a workout (week date, week note)
-    /// this change isn't required here but I'm writing it here anyway...
-    /// TODO: Also something else which I forgot at the moment...
     /// </summary>
     public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanChanged;
 

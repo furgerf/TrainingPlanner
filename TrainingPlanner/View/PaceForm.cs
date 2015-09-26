@@ -9,12 +9,13 @@ namespace TrainingPlanner.View
 {
   public partial class PaceForm : Form, IPaceForm
   {
+    // TODO: Move to settings
     private const string PaceFormat = "mm':'ss";
     private static readonly Color ValidPaceColor = SystemColors.Window;
     private static readonly Color InvalidPaceColor = Color.LightSalmon;
 
     private readonly Dictionary<Pace, Tuple<Label, MaskedTextBox, TimeSpan, bool>> _paceControls;
-    private bool _validatePaces;
+    private readonly bool _validatePaces;
 
     public PaceForm()
     {
