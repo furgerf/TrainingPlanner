@@ -49,6 +49,23 @@ namespace TrainingPlanner.Presenter
           MessageBox.Show("Please add steps to the workout.");
           return;
         }
+        if (this._data.WorkoutFromName(this._view.WorkoutName) == null)
+        {
+          if (MessageBox.Show("Do you want to save a new workout?", "Create new workout?", MessageBoxButtons.YesNo) ==
+              DialogResult.No)
+          {
+            return;
+          }
+        }
+        else
+        {
+          if (MessageBox.Show("Do you want to overwrite an existing workout?", "Overwrite existing workout?", MessageBoxButtons.YesNo) ==
+              DialogResult.No)
+          {
+            return;
+          }
+        }
+
         SaveWorkout();
       };
       this._view.DeleteButtonClick += (s, e) =>
@@ -128,7 +145,10 @@ namespace TrainingPlanner.Presenter
       }
 
       // workout data is ok, ask to save
-      if (MessageBox.Show("Do you want to save the workout?", "Save?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+      var message = this._data.WorkoutFromName(this._view.WorkoutName) == null
+        ? "Do you want to create a new workout?"
+        : "Do you want to overwrite an existing workout?";
+      if (MessageBox.Show(message, "Save?", MessageBoxButtons.YesNo) == DialogResult.Yes)
       {
         SaveWorkout();
       }
