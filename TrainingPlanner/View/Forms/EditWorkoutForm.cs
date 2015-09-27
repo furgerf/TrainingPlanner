@@ -100,6 +100,7 @@ namespace TrainingPlanner.View.Forms
     }
 
     public string WorkoutName { get { return txtName.Text; } }
+    public string WorkoutShortName { get { return txtShortName.Text; } }
     public string CategoryName { get { return comCategory.Text; } }
 
     public event EventHandler AddStepButtonClick;

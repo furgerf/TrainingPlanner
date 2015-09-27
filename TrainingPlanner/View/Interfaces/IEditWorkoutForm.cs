@@ -17,6 +17,11 @@ namespace TrainingPlanner.View.Interfaces
     string WorkoutName { get; }
 
     /// <summary>
+    /// The current short name of the workout.
+    /// </summary>
+    string WorkoutShortName { get; }
+
+    /// <summary>
     /// The current name of the category.
     /// </summary>
     string CategoryName { get; }

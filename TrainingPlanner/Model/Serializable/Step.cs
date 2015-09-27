@@ -117,7 +117,7 @@ namespace TrainingPlanner.Model.Serializable
     /// Create a new step with the length being determined by the distance.
     /// </summary>
     public Step(string name, double distance, TimeSpan pace, TimeSpan? rest = null, int repetitions = 1)
-      : this(name, TimeSpan.FromSeconds(distance / pace.TotalSeconds), pace, distance, true, false, rest, repetitions)
+      : this(name, TimeSpan.FromSeconds(distance * pace.TotalSeconds), pace, distance, true, false, rest, repetitions)
     {
     }
 

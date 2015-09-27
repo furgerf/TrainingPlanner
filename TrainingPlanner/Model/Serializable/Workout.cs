@@ -60,24 +60,11 @@ namespace TrainingPlanner.Model.Serializable
       }
     }
 
-    /// <summary>
-    /// Creates a new workout without a short name.
-    /// </summary>
-    public Workout(string name, WorkoutCategory category, Step[] steps)
-    {
-      this.Name = name;
-      this.CategoryName = category == null ? null : category.Name;
-      this.Steps = steps;
-    }
-
-    /// <summary>
-    /// Creates a new workout with a short name.
-    /// </summary>
     public Workout(string name, string shortName, WorkoutCategory category, Step[] steps)
     {
       this.Name = name;
-      this.ShortName = shortName;
-      this.CategoryName = category.Name;
+      this.ShortName = string.IsNullOrEmpty(shortName) ? null : shortName; // empty shortName -> null
+      this.CategoryName = category == null ? null : category.Name;
       this.Steps = steps;
     }
 

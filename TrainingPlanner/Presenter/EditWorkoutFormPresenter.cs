@@ -51,7 +51,15 @@ namespace TrainingPlanner.Presenter
         }
         SaveWorkout();
       };
-      this._view.DeleteButtonClick += (s, e) => DeleteWorkout();
+      this._view.DeleteButtonClick += (s, e) =>
+      {
+        if (this._data.WorkoutFromName(this._view.WorkoutName) == null)
+        {
+          MessageBox.Show("There is no workout with this name.");
+          return;
+        }
+        DeleteWorkout();
+      };
 
       // only add a step if there is none yet (there already are steps when editing
       // but not when creating workouts)
@@ -130,7 +138,10 @@ namespace TrainingPlanner.Presenter
     {
       this._dontAskToSave = true;
 
-      this._data.AddOrUpdateWorkout(new Workout(this._view.WorkoutName, string.IsNullOrEmpty(this._view.CategoryName) ? null : this._data.WorkoutCategoryFromName(this._view.CategoryName), this._view.Steps));
+      this._data.AddOrUpdateWorkout(new Workout(this._view.WorkoutName, this._view.WorkoutShortName,
+        string.IsNullOrEmpty(this._view.CategoryName)
+          ? null
+          : this._data.WorkoutCategoryFromName(this._view.CategoryName), this._view.Steps));
 
       this._view.Close();
     }
