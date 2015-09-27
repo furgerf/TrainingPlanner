@@ -1,10 +1,9 @@
-﻿using System;
+﻿using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
 using TrainingPlanner.Presenter.Interfaces;
-using TrainingPlanner.View;
 using TrainingPlanner.View.Forms;
 
 namespace TrainingPlanner.Presenter
@@ -16,7 +15,6 @@ namespace TrainingPlanner.Presenter
     private readonly Data _data;
 
     private bool _dontAskToSave;
-    private bool _cancelClosing;
 
     public EditWorkoutFormPresenter(EditWorkoutForm view, Data data)
     {
@@ -29,7 +27,30 @@ namespace TrainingPlanner.Presenter
       this._view.AddStepButtonClick += (s, e) => this._view.AddStep();
       this._view.RemoveStepButtonClick += (s, e) => this._view.RemoveStep();
       this._view.EditWorkoutFormClosing += OnEditWorkoutFormClosing;
-      this._view.SaveButtonClick += (s, e) => SaveWorkout();
+      this._view.SaveButtonClick += (s, e) =>
+      {
+        if (string.IsNullOrEmpty(this._view.WorkoutName))
+        {
+          MessageBox.Show("Please enter a workout name.");
+          return;
+        }
+        if (this._view.WorkoutName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+        {
+          MessageBox.Show("The workout name is invalid, please enter a valid file name.");
+          return;
+        }
+        if (this._view.Steps == null)
+        {
+          MessageBox.Show("One or more of the steps are invalid, please fix.");
+          return;
+        }
+        if (this._view.Steps.Length == 0)
+        {
+          MessageBox.Show("Please add steps to the workout.");
+          return;
+        }
+        SaveWorkout();
+      };
       this._view.DeleteButtonClick += (s, e) => DeleteWorkout();
 
       // only add a step if there is none yet (there already are steps when editing
@@ -52,36 +73,64 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      if (MessageBox.Show("Do you want to save the workout?", "Save?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+      var steps = this._view.Steps;
+
+      // check steps
+      if (steps == null)
       {
-        SaveWorkout();
-        if (_cancelClosing)
+        // invalid steps are entered - ask to discard
+        if (
+          MessageBox.Show("One or more of the steps currently is invalid. Do you want to discard the workout?",
+            "Discard?", MessageBoxButtons.YesNo) == DialogResult.No)
         {
           e.Cancel = true;
         }
+        return;
+      }
+      if (steps.Length == 0)
+      {
+        // no steps are entered - close form
+        return;
+      }
+
+      // check workout name
+      if (string.IsNullOrEmpty(this._view.WorkoutName) || this._view.WorkoutName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+      {
+        // no (valid) workout name - ask to discard
+        if (
+          MessageBox.Show("The workout has no name or an invalid name. Do you want to discard the workout?",
+            "Discard?", MessageBoxButtons.YesNo) == DialogResult.No)
+        {
+          e.Cancel = true;
+        }
+        return;
+      }
+
+      // check category name
+      if (string.IsNullOrEmpty(this._view.CategoryName))
+      {
+        // no category name - ask to continue editing
+        if (
+          MessageBox.Show("The workout has no category. Do you want to keep editing?",
+            "Keep editing?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+        {
+          e.Cancel = true;
+          return;
+        }
+      }
+
+      // workout data is ok, ask to save
+      if (MessageBox.Show("Do you want to save the workout?", "Save?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+      {
+        SaveWorkout();
       }
     }
 
     private void SaveWorkout()
     {
-      var steps = this._view.Steps;
-      if (steps == null)
-      {
-        MessageBox.Show("One of the steps is invalid, please fix...");
-        _cancelClosing = true;
-        return;
-      }
-
-      if (string.IsNullOrEmpty(this._view.WorkoutName))
-      {
-        MessageBox.Show("Please provide a name for the workout...");
-        _cancelClosing = true;
-        return;
-      }
-
       this._dontAskToSave = true;
 
-      this._data.AddOrUpdateWorkout(new Workout(this._view.WorkoutName, this._data.WorkoutCategoryFromName(this._view.CategoryName), steps));
+      this._data.AddOrUpdateWorkout(new Workout(this._view.WorkoutName, string.IsNullOrEmpty(this._view.CategoryName) ? null : this._data.WorkoutCategoryFromName(this._view.CategoryName), this._view.Steps));
 
       this._view.Close();
     }
