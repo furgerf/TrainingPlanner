@@ -18,14 +18,24 @@ namespace TrainingPlanner.View.Forms
 
     public MainForm(Data data)
     {
-      // TODO: cleanup
-      InitializeComponent();
-
       this._data = data;
 
-      // prepare UI
-      this.WindowState = FormWindowState.Maximized;
+      InitializeComponent();
 
+      this._weekControls = new WeekControl[TrainingPlan.TrainingWeeks];
+      InitializeDynamicControls();
+
+      // edit workout button menu
+      this._data.WorkoutChanged += (s, e) => CreateContextMenu();
+      // register to more events (to retrigger)
+      this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, e);
+
+      CreateContextMenu();
+    }
+
+    private void InitializeDynamicControls()
+    {
+      // prepare UI
       var screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
       var panelHeight = screenHeight - 50;
       this.foregroundPanel.Height = panelHeight;
@@ -37,7 +47,6 @@ namespace TrainingPlanner.View.Forms
       };
 
       // prepare WeekControls
-      this._weekControls = new WeekControl[TrainingPlan.TrainingWeeks];
       for (var i = 0; i < _weekControls.Length; i++)
       {
         // create control
@@ -59,13 +68,6 @@ namespace TrainingPlanner.View.Forms
       this.butPaces.Left = this.foregroundPanel.Right + 6;
       this.butEditWorkout.Left = this.foregroundPanel.Right + 6;
       this.butEditCategories.Left = this.foregroundPanel.Right + 6;
-
-      // edit workout button menu
-      this._data.WorkoutChanged += (s, e) => CreateContextMenu();
-      CreateContextMenu();
-
-      // register to more events (to retrigger)
-      this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, e);
     }
 
     private void CreateContextMenu()

@@ -93,6 +93,7 @@
       this.Controls.Add(this.butAddWorkout);
       this.Name = "MainForm";
       this.Text = "Training Planner";
+      this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
       this.ResumeLayout(false);
 
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
+using TrainingPlanner.Model.EventArgs;
 using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.Model
@@ -38,34 +39,43 @@ namespace TrainingPlanner.Model
 
     public DataPersistence(Data data)
     {
-      // TODO: Move handlers into separate methods (with console output!)
       data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
-      data.WorkoutChanged += (s, e) =>
-      {
-        if (e.WorkoutAdded)
-        {
-          WriteJsonFile(e.Workout, GetWorkoutPath(e.Workout));
-        }
-        else
-        {
-          File.Delete(GetWorkoutPath(e.Workout));
-        }
-      };
-      data.CategoryChanged += (s, e) =>
-      {
-        if (e.CategoryAdded)
-        {
-          WriteJsonFile(e.WorkoutCategory, GetWorkoutCategoryPath(e.WorkoutCategory));
-        }
-        else
-        {
-          File.Delete(GetWorkoutCategoryPath(e.WorkoutCategory));
-        }
-      };
+      data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
+      data.CategoryChanged += (s, e) => OnCategoryChanged(e);
       data.TrainingPlanChanged += (s, e) => WriteJsonFile(data.TrainingPlan, TrainingPlanFile);
 
       Console.WriteLine("DataPersistence instantiated");
     }
+
+    #region Event handlers
+    private void OnWorkoutChanged(WorkoutChangedEventArgs e)
+    {
+      if (e.WorkoutAdded)
+      {
+        Console.WriteLine("Writing workout {0} to file", e.Workout);
+        WriteJsonFile(e.Workout, GetWorkoutPath(e.Workout));
+      }
+      else
+      {
+        Console.WriteLine("Deleting workout {0}", e.Workout);
+        File.Delete(GetWorkoutPath(e.Workout));
+      }
+    }
+
+    private void OnCategoryChanged(WorkoutCategoryChangedEventArgs e)
+    {
+      if (e.CategoryAdded)
+      {
+        Console.WriteLine("Writing category {0} to file", e.WorkoutCategory);
+        WriteJsonFile(e.WorkoutCategory, GetWorkoutCategoryPath(e.WorkoutCategory));
+      }
+      else
+      {
+        Console.WriteLine("Deleting category {0}", e.WorkoutCategory);
+        File.Delete(GetWorkoutCategoryPath(e.WorkoutCategory));
+      }
+    }
+    #endregion
 
     #region Public access - Loading data
     public IEnumerable<WorkoutCategory> LoadCategories()

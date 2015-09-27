@@ -16,7 +16,7 @@ namespace TrainingPlanner.Presenter
 
       view.DisplayCategories(data.Categories);
 
-      view.AddCategoryButtonClick += (s, e) => AddCategory();
+      view.AddCategoryButtonClick += (s, e) => EditCategory(null);
       view.EditCategoryButtonClick += (s, e) => EditCategory(e);
       view.DeleteCategoryButtonClick += (s, e) => DeleteCategory(e);
       view.ExitButtonClick += (s, e) => view.Close();
@@ -24,19 +24,11 @@ namespace TrainingPlanner.Presenter
       data.CategoryChanged += (s, e) => view.DisplayCategories(data.Categories);
     }
 
-    // TODO: remove
-    private void AddCategory()
-    {
-      var form = new EditWorkoutCategoryForm();
-      var presenter = new EditWorkoutCategoryFormPresenter(form, this._data);
-      form.Show();
-    }
-
     private void EditCategory(string categoryName)
     {
       // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
       // the workout will be overwritten but if it gets a new name, a new workout is created?
-      var form = new EditWorkoutCategoryForm(this._data.WorkoutCategoryFromName(categoryName));
+      var form = categoryName == null ? new EditWorkoutCategoryForm() : new EditWorkoutCategoryForm(this._data.WorkoutCategoryFromName(categoryName));
       var presenter = new EditWorkoutCategoryFormPresenter(form, this._data);
       form.Show();
     }
