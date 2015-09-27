@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Presenter.Interfaces;
-using TrainingPlanner.View;
 using TrainingPlanner.View.Forms;
+using TrainingPlanner.View.Interfaces;
 
 namespace TrainingPlanner.Presenter
 {
@@ -12,9 +10,9 @@ namespace TrainingPlanner.Presenter
   {
     private readonly Data _data;
 
-    private readonly ManageWorkoutCategoriesForm _view;
+    private readonly IManageWorkoutCategoriesForm _view;
 
-    public ManageWorkoutCategoriesFormPresenter(ManageWorkoutCategoriesForm view, Data data)
+    public ManageWorkoutCategoriesFormPresenter(IManageWorkoutCategoriesForm view, Data data)
     {
       this._data = data;
       this._view = view;

@@ -19,5 +19,10 @@ namespace TrainingPlanner.View.Interfaces
     /// Triggered when the user clicks the "save" button.
     /// </summary>
     event EventHandler SaveButtonClick;
+
+    /// <summary>
+    /// Tells the form to close.
+    /// </summary>
+    void Close();
   }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
@@ -36,6 +35,27 @@ namespace TrainingPlanner.View.Forms
       _validatePaces = true;
     }
 
+    public Tuple<Pace, TimeSpan>[] ChangedPaces
+    {
+      get
+      {
+        var result = new List<Tuple<Pace, TimeSpan>>();
+
+        foreach (var c in _paceControls)
+        {
+          if (c.Value.Item2.Text != c.Value.Item3.ToString(Paces.Default.PaceFormat))
+          {
+            result.Add(new Tuple<Pace, TimeSpan>(c.Key, TimeSpan.Parse("00:" + c.Value.Item2.Text)));
+          }
+        }
+
+        return result.ToArray();
+      }
+    }
+
+    public event EventHandler SaveChangesButtonClick;
+
+    public event EventHandler DiscardChangesButtonClick;
     private void butSaveChanges_Click(object sender, EventArgs e)
     {
       if (SaveChangesButtonClick != null)
@@ -78,28 +98,6 @@ namespace TrainingPlanner.View.Forms
       }
 
       butSaveChanges.Enabled = _paceControls.Values.All(pc => pc.Item4);
-    }
-
-    public event EventHandler SaveChangesButtonClick;
-
-    public event EventHandler DiscardChangesButtonClick;
-
-    public Tuple<Pace, TimeSpan>[] ChangedPaces
-    {
-      get
-      {
-        var result = new List<Tuple<Pace, TimeSpan>>();
-
-        foreach (var c in _paceControls)
-        {
-          if (c.Value.Item2.Text != c.Value.Item3.ToString(Paces.Default.PaceFormat))
-          {
-            result.Add(new Tuple<Pace, TimeSpan>(c.Key, TimeSpan.Parse("00:" + c.Value.Item2.Text)));
-          }
-        }
-
-        return result.ToArray();
-      }
     }
   }
 }

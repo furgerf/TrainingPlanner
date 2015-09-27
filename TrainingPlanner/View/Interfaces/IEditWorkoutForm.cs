@@ -65,5 +65,10 @@ namespace TrainingPlanner.View.Interfaces
     /// Updates the list of workout categories.
     /// </summary>
     void SetCategories(string[] categories);
+
+    /// <summary>
+    /// Tells the form to close.
+    /// </summary>
+    void Close();
   }
 }

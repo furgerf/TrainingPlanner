@@ -4,19 +4,19 @@ using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
 using TrainingPlanner.Presenter.Interfaces;
-using TrainingPlanner.View.Forms;
+using TrainingPlanner.View.Interfaces;
 
 namespace TrainingPlanner.Presenter
 {
   public class EditWorkoutFormPresenter : IEditWorkoutFormPresenter
   {
-    private readonly EditWorkoutForm _view;
+    private readonly IEditWorkoutForm _view;
 
     private readonly Data _data;
 
     private bool _dontAskToSave;
 
-    public EditWorkoutFormPresenter(EditWorkoutForm view, Data data)
+    public EditWorkoutFormPresenter(IEditWorkoutForm view, Data data)
     {
       this._view = view;
       this._data = data;

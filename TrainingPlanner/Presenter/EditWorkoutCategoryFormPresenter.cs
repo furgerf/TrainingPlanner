@@ -1,14 +1,13 @@
 ﻿using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
 using TrainingPlanner.Presenter.Interfaces;
-using TrainingPlanner.View;
-using TrainingPlanner.View.Forms;
+using TrainingPlanner.View.Interfaces;
 
 namespace TrainingPlanner.Presenter
 {
   public class EditWorkoutCategoryFormPresenter : IEditWorkoutCategoryFormPresenter
   {
-    public EditWorkoutCategoryFormPresenter(EditWorkoutCategoryForm view, Data data)
+    public EditWorkoutCategoryFormPresenter(IEditWorkoutCategoryForm view, Data data)
     {
       view.SaveButtonClick += (s, e) =>
       {

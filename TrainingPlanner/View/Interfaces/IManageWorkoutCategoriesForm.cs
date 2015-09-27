@@ -30,5 +30,10 @@ namespace TrainingPlanner.View.Interfaces
     /// </summary>
     /// <param name="categories">Workout categories to display.</param>
     void DisplayCategories(WorkoutCategory[] categories);
+
+    /// <summary>
+    /// Tells the form to close.
+    /// </summary>
+    void Close();
   }
 }
