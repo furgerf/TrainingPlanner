@@ -48,6 +48,7 @@ namespace TrainingPlanner.View.Controls
 
         if (WeeklyPlanChanged != null)
         {
+          Console.WriteLine("Triggering WeeklyPlanChanged event");
           WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
         }
       }
@@ -82,13 +83,14 @@ namespace TrainingPlanner.View.Controls
       {
         var i1 = i;
         _workoutControls[i].SetData(this._data);
-        _workoutControls[i].WorkoutChanged += workout =>
+        _workoutControls[i].WorkoutChanged += (s, workout) =>
         {
           this._weeklyPlan.Workouts[i1] = workout == null ? null : workout.Name;
           UpdateStatistics();
 
           if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
           {
+            Console.WriteLine("Triggering WeeklyPlanChanged event");
             WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
           }
         };
@@ -107,6 +109,7 @@ namespace TrainingPlanner.View.Controls
 
         if (WeeklyPlanChanged != null)
         {
+          Console.WriteLine("Triggering WeeklyPlanChanged event");
           WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
         }
       };
@@ -152,6 +155,7 @@ namespace TrainingPlanner.View.Controls
       this._weeklyPlan.WeekStart = this.WeekStart;
       if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
       {
+        Console.WriteLine("Triggering WeeklyPlanChanged event");
         WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(this.WeeklyPlan));
       }
     }

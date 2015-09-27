@@ -56,10 +56,12 @@ namespace TrainingPlanner.View.Forms
     public event EventHandler SaveChangesButtonClick;
 
     public event EventHandler DiscardChangesButtonClick;
+
     private void butSaveChanges_Click(object sender, EventArgs e)
     {
       if (SaveChangesButtonClick != null)
       {
+        Console.WriteLine("Triggering SaveChangesButtonClick event");
         SaveChangesButtonClick(this, e);
       }
     }
@@ -68,6 +70,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (DiscardChangesButtonClick != null)
       {
+        Console.WriteLine("Triggering DiscardChangesButtonClick event");
         DiscardChangesButtonClick(this, e);
       }
     }

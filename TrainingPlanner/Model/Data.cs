@@ -25,6 +25,8 @@ namespace TrainingPlanner.Model
       this._categories = new List<WorkoutCategory>(persistence.LoadCategories());
       this._workouts = new List<Workout>(persistence.LoadWorkouts());
       this._trainingPlan = persistence.LoadPlan();
+
+      Console.WriteLine("Data instantiated");
     }
 
     #region Events
@@ -46,7 +48,7 @@ namespace TrainingPlanner.Model
     /// <summary>
     /// Triggered whenever the value of any of the paces changes.
     /// </summary>
-    public event EventHandler<PaceChangedEventArgs> PacesChanged;
+    public event EventHandler<PaceChangedEventArgs> PaceChanged;
     #endregion
 
     #region Data access
@@ -182,6 +184,7 @@ namespace TrainingPlanner.Model
 
       if (WorkoutChanged != null)
       {
+        Console.WriteLine("Triggering WorkoutChanged event");
         WorkoutChanged(this, new WorkoutChangedEventArgs(workout, true));
       }
     }
@@ -215,6 +218,7 @@ namespace TrainingPlanner.Model
 
       if (WorkoutChanged != null)
       {
+        Console.WriteLine("Triggering WorkoutChanged event");
         WorkoutChanged(this, new WorkoutChangedEventArgs(workout, false));
       }
     }
@@ -227,6 +231,7 @@ namespace TrainingPlanner.Model
 
       if (CategoryChanged != null)
       {
+        Console.WriteLine("Triggering CategoryChanged event");
         CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, true));
       }
     }
@@ -260,6 +265,7 @@ namespace TrainingPlanner.Model
 
       if (CategoryChanged != null)
       {
+        Console.WriteLine("Triggering CategoryChanged event");
         CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, false));
       }
     }
@@ -271,9 +277,13 @@ namespace TrainingPlanner.Model
     /// <param name="value">New value of the pace.</param>
     public void ChangePace(Pace key, TimeSpan value)
     {
-      if (PacesChanged != null)
+      // nothing to do here because paces aren't saved in ram
+      // just trigger event to persist the new value
+
+      if (PaceChanged != null)
       {
-        PacesChanged(this, new PaceChangedEventArgs(key, value));
+        Console.WriteLine("Triggering PaceChanged event");
+        PaceChanged(this, new PaceChangedEventArgs(key, value));
       }
     }
 
@@ -283,6 +293,7 @@ namespace TrainingPlanner.Model
 
       if (TrainingPlanChanged != null)
       {
+        Console.WriteLine("Triggering TrainingPlanChanged event");
         TrainingPlanChanged(this, new TrainingPlanChangedEventArgs());
       }
     }

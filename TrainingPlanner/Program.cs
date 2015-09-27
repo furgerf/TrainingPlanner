@@ -14,6 +14,7 @@ namespace TrainingPlanner
     [STAThread]
     private static void Main()
     {
+      Console.WriteLine("Initializing application...");
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
@@ -24,6 +25,7 @@ namespace TrainingPlanner
       var view = new MainForm(data);
       var presenter = new MainFormPresenter(view, data);
 
+      Console.WriteLine("... initialization complete");
       Application.Run(view);
     }
   }

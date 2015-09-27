@@ -18,6 +18,7 @@ namespace TrainingPlanner.View.Forms
 
     public MainForm(Data data)
     {
+      // TODO: cleanup
       InitializeComponent();
 
       this._data = data;
@@ -46,6 +47,7 @@ namespace TrainingPlanner.View.Forms
         {
           if (WeeklyPlanChanged != null)
           {
+            Console.WriteLine("Triggering WeeklyPlanChanged event");
             WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(plan.Value));
           }
         };
@@ -81,6 +83,7 @@ namespace TrainingPlanner.View.Forms
           {
             if (EditWorkoutButtonClick != null)
             {
+              Console.WriteLine("Triggering EditWorkoutButtonClick event");
               EditWorkoutButtonClick(this, workout1.Text);
             }
           };
@@ -100,6 +103,7 @@ namespace TrainingPlanner.View.Forms
       {
         throw new ArgumentException("Array size mismatch");
       }
+
       for (var i = 0; i < weeklyPlans.Length; i++)
       {
         _weekControls[i].WeeklyPlan = weeklyPlans[i];
@@ -110,6 +114,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (ConfigurePacesButtonClick != null)
       {
+        Console.WriteLine("Triggering ConfigurePacesButtonClick event");
         ConfigurePacesButtonClick(this, e);
       }
     }
@@ -123,6 +128,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (EditCategoriesButtonClick != null)
       {
+        Console.WriteLine("Triggering EditCategoriesButtonClick event");
         EditCategoriesButtonClick(this, e);
       }
     }

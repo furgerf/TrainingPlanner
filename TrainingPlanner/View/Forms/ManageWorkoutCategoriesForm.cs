@@ -17,6 +17,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (AddCategoryButtonClick != null)
       {
+        Console.WriteLine("Triggering AddCategoryButtonClick event");
         AddCategoryButtonClick(this, e);
       }
     }
@@ -30,6 +31,7 @@ namespace TrainingPlanner.View.Forms
 
       if (EditCategoryButtonClick != null)
       {
+        Console.WriteLine("Triggering EditCategoryButtonClick event");
         EditCategoryButtonClick(this, lisCategories.SelectedItems[0].Text);
       }
     }
@@ -43,6 +45,7 @@ namespace TrainingPlanner.View.Forms
 
       if (DeleteCategoryButtonClick != null)
       {
+        Console.WriteLine("Triggering DeleteCategoryButtonClick event");
         DeleteCategoryButtonClick(this, lisCategories.SelectedItems[0].Text);
       }
     }
@@ -51,6 +54,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (ExitButtonClick != null)
       {
+        Console.WriteLine("Triggering ExitCategoryButtonClick event");
         ExitButtonClick(this, e);
       }
     }
@@ -59,6 +63,7 @@ namespace TrainingPlanner.View.Forms
     public event EventHandler<string> EditCategoryButtonClick;
     public event EventHandler<string> DeleteCategoryButtonClick;
     public event EventHandler ExitButtonClick;
+
     public void DisplayCategories(WorkoutCategory[] categories)
     {
       lisCategories.Items.Clear();

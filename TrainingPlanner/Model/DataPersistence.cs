@@ -38,7 +38,8 @@ namespace TrainingPlanner.Model
 
     public DataPersistence(Data data)
     {
-      data.PacesChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
+      // TODO: Move handlers into separate methods (with console output!)
+      data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
       data.WorkoutChanged += (s, e) =>
       {
         if (e.WorkoutAdded)
@@ -62,11 +63,14 @@ namespace TrainingPlanner.Model
         }
       };
       data.TrainingPlanChanged += (s, e) => WriteJsonFile(data.TrainingPlan, TrainingPlanFile);
+
+      Console.WriteLine("DataPersistence instantiated");
     }
 
     #region Public access - Loading data
     public IEnumerable<WorkoutCategory> LoadCategories()
     {
+      Console.WriteLine("Loading workout categories");
       return
         Directory.GetFiles(WorkoutCategoriesDirectory, "*.json")
           .Select(ParseJsonFile<WorkoutCategory>);
@@ -74,11 +78,13 @@ namespace TrainingPlanner.Model
 
     public IEnumerable<Workout> LoadWorkouts()
     {
+      Console.WriteLine("Loading workouts");
       return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(ParseJsonFile<Workout>);
     }
 
     public TrainingPlan LoadPlan()
     {
+      Console.WriteLine("Loading training plan");
       return File.Exists(TrainingPlanFile)
         ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
         : TrainingPlan.NewTrainingPlan;
@@ -100,6 +106,8 @@ namespace TrainingPlanner.Model
 
     private static void SavePaceToSettings(Pace pace, TimeSpan value)
     {
+      Console.WriteLine("Saving pace {0} with new value {1}", pace, value);
+
       switch (pace)
       {
         case Pace.Easy:

@@ -30,16 +30,13 @@ namespace TrainingPlanner.View.Forms
     public EditWorkoutForm(Data data, Workout workout)
       : this(data)
     {
-      for (var i = 0; i < workout.Steps.Length; i++)
+      foreach (var wsc in workout.Steps.Select(t => new WorkoutStepControl
       {
-        var wsc = new WorkoutStepControl
-        {
-          Location =
-            new Point(_stepControls.Count == 0 ? labName.Left : _stepControls.Last().Right + ControlPadding, butAddStep.Top),
-          Parent = this,
-          Step = workout.Steps[i]
-        };
-
+        Location = new Point(_stepControls.Count == 0 ? labName.Left : _stepControls.Last().Right + ControlPadding, butAddStep.Top),
+        Parent = this,
+        Step = t
+      }))
+      {
         _stepControls.Add(wsc);
       }
 
@@ -52,8 +49,6 @@ namespace TrainingPlanner.View.Forms
 
       butAddStep.Left = _stepControls.Last().Right + ControlPadding;
       butRemoveStep.Left = _stepControls.Last().Right + ControlPadding;
-
-      UpdateWidth();
     }
 
     private void UpdateWidth()
@@ -100,7 +95,9 @@ namespace TrainingPlanner.View.Forms
     }
 
     public string WorkoutName { get { return txtName.Text; } }
+
     public string WorkoutShortName { get { return txtShortName.Text; } }
+
     public string CategoryName { get { return comCategory.Text; } }
 
     public event EventHandler AddStepButtonClick;
@@ -124,6 +121,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (SaveButtonClick != null)
       {
+        Console.WriteLine("Triggering SaveButtonClick event");
         SaveButtonClick(this, e);
       }
     }
@@ -132,6 +130,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (AddStepButtonClick != null)
       {
+        Console.WriteLine("Triggering AddStepButtonClick event");
         AddStepButtonClick(this, e);
       }
     }
@@ -140,6 +139,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (RemoveStepButtonClick != null)
       {
+        Console.WriteLine("Triggering RemoveStepButtonClick event");
         RemoveStepButtonClick(this, e);
       }
     }
@@ -148,6 +148,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (EditWorkoutFormClosing != null)
       {
+        Console.WriteLine("Triggering EditWorkoutFormClosing event");
         EditWorkoutFormClosing(this, e);
       }
     }
@@ -156,6 +157,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (DeleteButtonClick != null)
       {
+        Console.WriteLine("Triggering DeleteButtonClick event");
         DeleteButtonClick(this, e);
       }
     }

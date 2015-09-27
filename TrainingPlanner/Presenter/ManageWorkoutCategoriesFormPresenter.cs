@@ -24,6 +24,7 @@ namespace TrainingPlanner.Presenter
       data.CategoryChanged += (s, e) => view.DisplayCategories(data.Categories);
     }
 
+    // TODO: remove
     private void AddCategory()
     {
       var form = new EditWorkoutCategoryForm();

@@ -7,16 +7,25 @@ namespace TrainingPlanner.View.Controls
 {
   public partial class WorkoutControl : UserControl
   {
-    public delegate void OnWorkoutChanged(Workout newWorkout);
-
-    public event OnWorkoutChanged WorkoutChanged;
-
-    private Workout _workout;
-
     private readonly Control[] _emptyWorkoutControls;
 
     private readonly Control[] _nonemptyWorkoutControls;
+
+    private Workout _workout;
+
     private Data _data;
+
+    public WorkoutControl()
+    {
+      InitializeComponent();
+
+      _emptyWorkoutControls = new Control[] { labSelectWorkout };
+      _nonemptyWorkoutControls = new Control[] { labWorkoutName, txtDescription, butRemove, labRemove };
+
+      WorkoutChanged += (s, e) => DisplayCurrentWorkout();
+
+      DisplayCurrentWorkout();
+    }
 
     private bool HasWorkout { get { return _workout != null; } }
 
@@ -29,10 +38,13 @@ namespace TrainingPlanner.View.Controls
 
         if (WorkoutChanged != null)
         {
-          WorkoutChanged(_workout);
+          Console.WriteLine("Triggering WorkoutChanged event");
+          WorkoutChanged(this, _workout);
         }
       }
     }
+
+    public event EventHandler<Workout> WorkoutChanged;
 
     private void DisplayCurrentWorkout()
     {
@@ -57,20 +69,6 @@ namespace TrainingPlanner.View.Controls
       {
         c.Visible = HasWorkout;
       }
-    }
-
-    public WorkoutControl()
-    {
-      InitializeComponent();
-
-      _emptyWorkoutControls = new Control[] { labSelectWorkout };
-      _nonemptyWorkoutControls = new Control[] { labWorkoutName, txtDescription, butRemove, labRemove };
-
-      WorkoutChanged += workout => DisplayCurrentWorkout();
-
-      DisplayCurrentWorkout();
-
-      this.ContextMenu = new ContextMenu();
     }
 
     private void CreateContextMenu()

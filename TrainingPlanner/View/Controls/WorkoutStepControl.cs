@@ -11,6 +11,15 @@ namespace TrainingPlanner.View.Controls
 
     private bool _dontRecalculate;
 
+    public WorkoutStepControl()
+    {
+      InitializeComponent();
+
+      comName.Items.AddRange(new object[] {"Warmup", "Cooldown"});
+      comPace.Items.AddRange(Enum.GetNames(typeof (Pace)));
+      comPace.SelectedIndex = 0;
+    }
+
     public bool IsValid
     {
       get { return (Duration.HasValue || Distance.HasValue) && comName.Text != null; }
@@ -88,7 +97,10 @@ namespace TrainingPlanner.View.Controls
       {
         return Data.GetDurationFromPace((Pace)Enum.Parse(typeof(Pace), comPace.Text));
       }
-      set { comPace.Text = Data.GetPaceFromDuration(value).ToString(); }
+      set
+      {
+        comPace.Text = Data.GetPaceFromDuration(value).ToString();
+      }
     }
 
     private TimeSpan? Rest
@@ -105,15 +117,6 @@ namespace TrainingPlanner.View.Controls
 
         return null;
       }
-    }
-
-    public WorkoutStepControl()
-    {
-      InitializeComponent();
-
-      comName.Items.AddRange(new object[] {"Warmup", "Cooldown"});
-      comPace.Items.AddRange(Enum.GetNames(typeof (Pace)));
-      comPace.SelectedIndex = 0;
     }
 
     private void txtDuration_TextChanged(object sender, EventArgs e)
