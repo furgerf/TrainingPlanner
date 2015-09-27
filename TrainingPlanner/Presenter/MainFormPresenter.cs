@@ -32,7 +32,7 @@ namespace TrainingPlanner.Presenter
       {
         var form = new EditWorkoutForm(this._data, this._data.WorkoutFromName(e));
         var presenter = new EditWorkoutFormPresenter(form, this._data);
-        // TODO: maybe notify the user that if he modifies the workout but leaves the name,
+        // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
         // the workout will be overwritten but if it gets a new name, a new workout is created?
         form.Show();
       };

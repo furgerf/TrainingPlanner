@@ -177,7 +177,6 @@ namespace TrainingPlanner.Model
     /// <param name="workout">New workout.</param>
     public void AddWorkout(Workout workout)
     {
-      // TODO: Change "add + sort" to "insert"
       var index = this._workouts.FindIndex(c => string.Compare(c.Name, workout.Name, StringComparison.InvariantCulture) > 0);
       this._workouts.Insert(index == -1 ? this._categories.Count : index, workout);
 
@@ -189,7 +188,7 @@ namespace TrainingPlanner.Model
 
     public void AddOrUpdateWorkout(Workout workout)
     {
-      // TODO: Add proper updating of workout
+      // TODO: (add/edit/update) Add proper updating of workout
       var existing = this._workouts.FirstOrDefault(c => c.Name == workout.Name);
 
       if (existing != null)
@@ -234,7 +233,7 @@ namespace TrainingPlanner.Model
 
     public void AddOrUpdateWorkoutCategory(WorkoutCategory category)
     {
-      // TODO: add proper updating of workout category
+      // TODO: (add/edit/update) add proper updating of workout category
       var existing = this._categories.FirstOrDefault(c => c.Name == category.Name);
 
       if (existing != null)
