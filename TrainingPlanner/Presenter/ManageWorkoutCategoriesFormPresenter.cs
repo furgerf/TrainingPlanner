@@ -10,12 +10,9 @@ namespace TrainingPlanner.Presenter
   {
     private readonly Data _data;
 
-    private readonly IManageWorkoutCategoriesForm _view;
-
     public ManageWorkoutCategoriesFormPresenter(IManageWorkoutCategoriesForm view, Data data)
     {
       this._data = data;
-      this._view = view;
 
       view.DisplayCategories(data.Categories);
 

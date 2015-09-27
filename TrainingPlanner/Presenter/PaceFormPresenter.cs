@@ -6,17 +6,26 @@ namespace TrainingPlanner.Presenter
 {
   public class PaceFormPresenter : IPaceFormPresenter
   {
+    private readonly Data _data;
+
+    private readonly IPaceForm _view;
+
     public PaceFormPresenter(IPaceForm view, Data data)
     {
-      view.DiscardChangesButtonClick += (s, e) => view.Close();
-      view.SaveChangesButtonClick += (s, e) =>
+      this._data = data;
+      this._view = view;
+
+      this._view.DiscardChangesButtonClick += (s, e) => this._view.Close();
+      this._view.SaveChangesButtonClick += (s, e) => OnSaveButtonClick();
+    }
+
+    private void OnSaveButtonClick()
+    {
+      foreach (var change in this._view.ChangedPaces)
       {
-        foreach (var change in view.ChangedPaces)
-        {
-          data.ChangePace(change.Item1, change.Item2);
-        }
-        view.Close();
-      };
+        this._data.ChangePace(change.Item1, change.Item2);
+      }
+      this._view.Close();
     }
   }
 }

@@ -7,15 +7,24 @@ namespace TrainingPlanner.Presenter
 {
   public class EditWorkoutCategoryFormPresenter : IEditWorkoutCategoryFormPresenter
   {
+    private readonly Data _data;
+
+    private readonly IEditWorkoutCategoryForm _view;
+
     public EditWorkoutCategoryFormPresenter(IEditWorkoutCategoryForm view, Data data)
     {
-      view.SaveButtonClick += (s, e) =>
-      {
-        var category = new WorkoutCategory(view.CategoryName, view.CategoryColor);
-        data.AddOrUpdateWorkoutCategory(category);
+      this._data = data;
+      this._view = view;
 
-        view.Close();
-      };
+      this._view.SaveButtonClick += (s, e) => SaveWorkoutCategory();
+    }
+
+    public void SaveWorkoutCategory()
+    {
+      var category = new WorkoutCategory(this._view.CategoryName, this._view.CategoryColor);
+      this._data.AddOrUpdateWorkoutCategory(category);
+
+      this._view.Close();
     }
   }
 }

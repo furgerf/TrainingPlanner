@@ -27,56 +27,8 @@ namespace TrainingPlanner.Presenter
       this._view.AddStepButtonClick += (s, e) => this._view.AddStep();
       this._view.RemoveStepButtonClick += (s, e) => this._view.RemoveStep();
       this._view.EditWorkoutFormClosing += OnEditWorkoutFormClosing;
-      this._view.SaveButtonClick += (s, e) =>
-      {
-        if (string.IsNullOrEmpty(this._view.WorkoutName))
-        {
-          MessageBox.Show("Please enter a workout name.");
-          return;
-        }
-        if (this._view.WorkoutName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-        {
-          MessageBox.Show("The workout name is invalid, please enter a valid file name.");
-          return;
-        }
-        if (this._view.Steps == null)
-        {
-          MessageBox.Show("One or more of the steps are invalid, please fix.");
-          return;
-        }
-        if (this._view.Steps.Length == 0)
-        {
-          MessageBox.Show("Please add steps to the workout.");
-          return;
-        }
-        if (this._data.WorkoutFromName(this._view.WorkoutName) == null)
-        {
-          if (MessageBox.Show("Do you want to save a new workout?", "Create new workout?", MessageBoxButtons.YesNo) ==
-              DialogResult.No)
-          {
-            return;
-          }
-        }
-        else
-        {
-          if (MessageBox.Show("Do you want to overwrite an existing workout?", "Overwrite existing workout?", MessageBoxButtons.YesNo) ==
-              DialogResult.No)
-          {
-            return;
-          }
-        }
-
-        SaveWorkout();
-      };
-      this._view.DeleteButtonClick += (s, e) =>
-      {
-        if (this._data.WorkoutFromName(this._view.WorkoutName) == null)
-        {
-          MessageBox.Show("There is no workout with this name.");
-          return;
-        }
-        DeleteWorkout();
-      };
+      this._view.SaveButtonClick += (s, e) => OnSaveButtonClick();
+      this._view.DeleteButtonClick += (s, e) => OnDeleteButtonClick();
 
       // only add a step if there is none yet (there already are steps when editing
       // but not when creating workouts)
@@ -84,6 +36,60 @@ namespace TrainingPlanner.Presenter
       {
         this._view.AddStep();
       }
+    }
+
+    private void OnSaveButtonClick()
+    {
+      if (string.IsNullOrEmpty(this._view.WorkoutName))
+      {
+        MessageBox.Show("Please enter a workout name.");
+        return;
+      }
+      if (this._view.WorkoutName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+      {
+        MessageBox.Show("The workout name is invalid, please enter a valid file name.");
+        return;
+      }
+      if (this._view.Steps == null)
+      {
+        MessageBox.Show("One or more of the steps are invalid, please fix.");
+        return;
+      }
+      if (this._view.Steps.Length == 0)
+      {
+        MessageBox.Show("Please add steps to the workout.");
+        return;
+      }
+      if (this._data.WorkoutFromName(this._view.WorkoutName) == null)
+      {
+        if (MessageBox.Show("Do you want to save a new workout?", "Create new workout?", MessageBoxButtons.YesNo) ==
+            DialogResult.No)
+        {
+          return;
+        }
+      }
+      else
+      {
+        if (
+          MessageBox.Show("Do you want to overwrite an existing workout?", "Overwrite existing workout?",
+            MessageBoxButtons.YesNo) ==
+          DialogResult.No)
+        {
+          return;
+        }
+      }
+
+      SaveWorkout();
+    }
+
+    private void OnDeleteButtonClick()
+    {
+      if (this._data.WorkoutFromName(this._view.WorkoutName) == null)
+      {
+        MessageBox.Show("There is no workout with this name.");
+        return;
+      }
+      DeleteWorkout();
     }
 
     private void SetCategories()
