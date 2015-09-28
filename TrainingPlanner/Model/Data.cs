@@ -179,8 +179,8 @@ namespace TrainingPlanner.Model
     /// <param name="workout">New workout.</param>
     public void AddWorkout(Workout workout)
     {
-      var index = this._workouts.FindIndex(c => string.Compare(c.Name, workout.Name, StringComparison.InvariantCulture) > 0);
-      this._workouts.Insert(index == -1 ? this._categories.Count : index, workout);
+      var index = this._workouts.FindIndex(w => string.Compare(w.Name, workout.Name, StringComparison.InvariantCulture) > 0);
+      this._workouts.Insert(index == -1 ? this._workouts.Count : index, workout);
 
       if (WorkoutChanged != null)
       {

@@ -148,8 +148,8 @@ namespace TrainingPlanner
       {
         throw new Exception(string.Format("Path \"{0}\" doesn't appear to be a valid path", path));
       }
-      
-      return fileName.Substring(0, fileName.IndexOf('.'));
+
+      return fileName.Contains(".") ? fileName.Substring(0, fileName.IndexOf('.')) : fileName;
     }
   }
 }
