@@ -124,7 +124,7 @@ namespace TrainingPlanner.Presenter
 
     private void OnManageWorkoutCategoriesClick()
     {
-      var form = new ManageWorkoutCategoriesForm();
+      var form = new ManageWorkoutCategoriesForm(this._data);
       var presenter = new ManageWorkoutCategoriesFormPresenter(form, this._data);
       form.Show();
     }

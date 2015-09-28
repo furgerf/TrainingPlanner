@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
 using TrainingPlanner.View.Interfaces;
 
@@ -8,8 +10,12 @@ namespace TrainingPlanner.View.Forms
 {
   public partial class ManageWorkoutCategoriesForm : Form, IManageWorkoutCategoriesForm
   {
-    public ManageWorkoutCategoriesForm()
+    private readonly Data _data;
+
+    public ManageWorkoutCategoriesForm(Data data)
     {
+      this._data = data;
+
       InitializeComponent();
 
       this.lisCategories.ListViewItemSorter = new ListViewItemComparer(0, false);
@@ -69,7 +75,7 @@ namespace TrainingPlanner.View.Forms
     public void DisplayCategories(WorkoutCategory[] categories)
     {
       this.lisCategories.Items.Clear();
-      this.lisCategories.Items.AddRange(categories.Select(c => new ListViewItem(new []{ c.Name, c.CategoryColor.ToKnownColor().ToString()}) { BackColor = c.CategoryColor }).ToArray());
+      this.lisCategories.Items.AddRange(categories.Select(c => new ListViewItem(new []{ c.Name, c.CategoryColor.ToKnownColor().ToString(), this._data.Workouts.Count(w => w.CategoryName == c.Name).ToString(CultureInfo.InvariantCulture)}) { BackColor = c.CategoryColor }).ToArray());
       this.lisCategories.Sort();
     }
 

@@ -35,13 +35,15 @@
       this.butDelete = new System.Windows.Forms.Button();
       this.butEdit = new System.Windows.Forms.Button();
       this.butAdd = new System.Windows.Forms.Button();
+      this.colUsages = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.SuspendLayout();
       // 
       // lisCategories
       // 
       this.lisCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colName,
-            this.colColor});
+            this.colColor,
+            this.colUsages});
       this.lisCategories.FullRowSelect = true;
       this.lisCategories.GridLines = true;
       this.lisCategories.HideSelection = false;
@@ -58,12 +60,12 @@
       // colName
       // 
       this.colName.Text = "Name";
-      this.colName.Width = 202;
+      this.colName.Width = 172;
       // 
       // colColor
       // 
       this.colColor.Text = "Color";
-      this.colColor.Width = 100;
+      this.colColor.Width = 80;
       // 
       // butExit
       // 
@@ -105,6 +107,11 @@
       this.butAdd.UseVisualStyleBackColor = true;
       this.butAdd.Click += new System.EventHandler(this.butAdd_Click);
       // 
+      // colUsages
+      // 
+      this.colUsages.Text = "Usages";
+      this.colUsages.Width = 50;
+      // 
       // ManageWorkoutCategoriesForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -131,5 +138,6 @@
     private System.Windows.Forms.Button butDelete;
     private System.Windows.Forms.Button butEdit;
     private System.Windows.Forms.Button butAdd;
+    private System.Windows.Forms.ColumnHeader colUsages;
   }
 }
