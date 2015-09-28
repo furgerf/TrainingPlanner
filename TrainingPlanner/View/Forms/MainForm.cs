@@ -25,12 +25,20 @@ namespace TrainingPlanner.View.Forms
       this._weekControls = new WeekControl[TrainingPlan.TrainingWeeks];
       InitializeDynamicControls();
 
-      // edit workout button menu
-      this._data.WorkoutChanged += (s, e) => CreateContextMenu();
       // register to more events (to retrigger)
-      this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, e);
-
-      CreateContextMenu();
+      this.newPlanToolStripMenuItem.Click += (s, e) => OnNewPlanClick();
+      this.openPlanToolStripMenuItem.Click += (s, e) => OnOpenPlanClick();
+      this.closePlanToolStripMenuItem.Click += (s, e) => OnClosePlanClick();
+      this.addToolStripMenuItem.Click += (s, e) => OnAddWorkoutClick();
+      this.editToolStripMenuItem.Click += (s, e) => OnEditWorkoutClick();
+      this.deleteToolStripMenuItem.Click += (s, e) => OnDeleteWorkoutClick();
+      this.manageToolStripMenuItem.Click += (s, e) => OnManageWorkoutsClick();
+      this.addToolStripMenuItem1.Click += (s, e) => OnAddWorkoutCategoryClick();
+      this.editToolStripMenuItem1.Click += (s, e) => OnEditWorkoutCategoryClick();
+      this.deleteToolStripMenuItem1.Click += (s, e) => OnDeleteWorkoutCategoryClick();
+      this.manageToolStripMenuItem1.Click += (s, e) => OnManageWorkoutCategoriesClick();
+      this.configureToolStripMenuItem.Click += (s, e) => OnConfigurePacesClick();
+      this.infoToolStripMenuItem.Click += (s, e) => OnInfoClick();
 
       foreach (var wc in this._weekControls)
       {
@@ -69,39 +77,21 @@ namespace TrainingPlanner.View.Forms
 
       // some more own UI stuff
       this.foregroundPanel.Width = _weekControls[0].Width + 16;
-      this.butAddWorkout.Left = this.foregroundPanel.Right + 6;
-      this.butPaces.Left = this.foregroundPanel.Right + 6;
-      this.butEditWorkout.Left = this.foregroundPanel.Right + 6;
-      this.butEditCategories.Left = this.foregroundPanel.Right + 6;
     }
 
-    private void CreateContextMenu()
-    {
-      // retrieve menu
-      this.butEditWorkout.ContextMenu = this._data.WorkoutContextMenu;
-
-      // add event listeners
-      foreach (MenuItem category in this.butEditWorkout.ContextMenu.MenuItems)
-      {
-        foreach (MenuItem workout in category.MenuItems)
-        {
-          var workout1 = workout;
-          workout.Click += (s, e) =>
-          {
-            if (EditWorkoutButtonClick != null)
-            {
-              Logger.Debug("Triggering EditWorkoutButtonClick event");
-              EditWorkoutButtonClick(this, workout1.Text);
-            }
-          };
-        }
-      }
-    }
-
-    public event EventHandler AddWorkoutButtonClick;
-    public event EventHandler ConfigurePacesButtonClick;
-    public event EventHandler<string> EditWorkoutButtonClick;
-    public event EventHandler EditCategoriesButtonClick;
+    public event EventHandler NewPlanClick;
+    public event EventHandler OpenPlanClick;
+    public event EventHandler ClosePlanClick;
+    public event EventHandler AddWorkoutClick;
+    public event EventHandler<string> EditWorkoutClick;
+    public event EventHandler<string> DeleteWorkoutClick;
+    public event EventHandler ManageWorkoutsClick;
+    public event EventHandler AddWorkoutCategoryClick;
+    public event EventHandler<string> EditWorkoutCategoryClick;
+    public event EventHandler<string> DeleteWorkoutCategoryClick;
+    public event EventHandler ManageWorkoutCategoriesClick;
+    public event EventHandler ConfigurePacesClick;
+    public event EventHandler InfoClick;
     public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
     public void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans)
@@ -117,26 +107,104 @@ namespace TrainingPlanner.View.Forms
       }
     }
 
-    private void butPaces_Click(object sender, EventArgs e)
+    private void OnNewPlanClick()
     {
-      if (ConfigurePacesButtonClick != null)
+      if (NewPlanClick != null)
       {
-        Logger.Debug("Triggering ConfigurePacesButtonClick event");
-        ConfigurePacesButtonClick(this, e);
+        Logger.Debug("Triggering NewPlanClick event");
+        NewPlanClick(this, null);
       }
     }
 
-    private void butEditWorkout_Click(object sender, EventArgs e)
+    private void OnOpenPlanClick()
     {
-      this.butEditWorkout.ContextMenu.Show(this.butEditWorkout, ((MouseEventArgs)e).Location);
+      if (OpenPlanClick != null)
+      {
+        Logger.Debug("Triggering OpenPlanClick event");
+        OpenPlanClick(this, null);
+      }
     }
 
-    private void butEditCategories_Click(object sender, EventArgs e)
+    private void OnClosePlanClick()
     {
-      if (EditCategoriesButtonClick != null)
+      if (ClosePlanClick != null)
       {
-        Logger.Debug("Triggering EditCategoriesButtonClick event");
-        EditCategoriesButtonClick(this, e);
+        Logger.Debug("Triggering ClosePlanClick event");
+        ClosePlanClick(this, null);
+      }
+    }
+
+    private void OnAddWorkoutClick()
+    {
+      if (AddWorkoutClick != null)
+      {
+        Logger.Debug("Triggering AddWorkoutClick event");
+        AddWorkoutClick(this, null);
+      }
+    }
+
+    private void OnEditWorkoutClick()
+    {
+      throw new NotImplementedException();
+    }
+
+    private void OnDeleteWorkoutClick()
+    {
+      throw new NotImplementedException();
+    }
+
+    private void OnManageWorkoutsClick()
+    {
+      if (ManageWorkoutsClick != null)
+      {
+        Logger.Debug("Triggering ManageWorkoutsClick event");
+        ManageWorkoutsClick(this, null);
+      }
+    }
+
+    private void OnAddWorkoutCategoryClick()
+    {
+      if (AddWorkoutCategoryClick != null)
+      {
+        Logger.Debug("Triggering AddWorkoutCategoryClick event");
+        AddWorkoutCategoryClick(this, null);
+      }
+    }
+
+    private void OnEditWorkoutCategoryClick()
+    {
+      throw new NotImplementedException();
+    }
+
+    private void OnDeleteWorkoutCategoryClick()
+    {
+      throw new NotImplementedException();
+    }
+
+    private void OnManageWorkoutCategoriesClick()
+    {
+      if (ManageWorkoutCategoriesClick != null)
+      {
+        Logger.Debug("Triggering ManageWorkoutCategoriesClick event");
+        ManageWorkoutCategoriesClick(this, null);
+      }
+    }
+
+    private void OnConfigurePacesClick()
+    {
+      if (ConfigurePacesClick != null)
+      {
+        Logger.Debug("Triggering ConfigurePacesClick event");
+        ConfigurePacesClick(this, null);
+      }
+    }
+
+    private void OnInfoClick()
+    {
+      if (InfoClick != null)
+      {
+        Logger.Debug("Triggering InfoClick event");
+        InfoClick(this, null);
       }
     }
   }

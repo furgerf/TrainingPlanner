@@ -9,25 +9,19 @@ namespace TrainingPlanner.View.Interfaces
   /// </summary>
   public interface IMainForm
   {
-    /// <summary>
-    /// Triggered when the user requests to add new workouts.
-    /// </summary>
-    event EventHandler AddWorkoutButtonClick;
-
-    /// <summary>
-    /// Triggered when the user requests to configure paces.
-    /// </summary>
-    event EventHandler ConfigurePacesButtonClick;
-
-    /// <summary>
-    /// Triggered when the user requests to edit a workout.
-    /// </summary>
-    event EventHandler<string> EditWorkoutButtonClick;
-
-    /// <summary>
-    /// Triggered when the user requests to edit a workout.
-    /// </summary>
-    event EventHandler EditCategoriesButtonClick;
+    event EventHandler NewPlanClick;
+    event EventHandler OpenPlanClick;
+    event EventHandler ClosePlanClick;
+    event EventHandler AddWorkoutClick;
+    event EventHandler<string> EditWorkoutClick;
+    event EventHandler<string> DeleteWorkoutClick;
+    event EventHandler ManageWorkoutsClick;
+    event EventHandler AddWorkoutCategoryClick;
+    event EventHandler<string> EditWorkoutCategoryClick;
+    event EventHandler<string> DeleteWorkoutCategoryClick;
+    event EventHandler ManageWorkoutCategoriesClick;
+    event EventHandler ConfigurePacesClick;
+    event EventHandler InfoClick;
 
     /// <summary>
     /// Triggered when a workout in one of the weekly plans changed.
