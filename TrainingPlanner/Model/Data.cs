@@ -26,6 +26,8 @@ namespace TrainingPlanner.Model
       this._workouts = new List<Workout>(persistence.LoadWorkouts());
       this._trainingPlan = persistence.LoadPlan();
 
+      this._trainingPlan.SetData(this);
+
       Logger.Info("Data instantiated");
     }
 

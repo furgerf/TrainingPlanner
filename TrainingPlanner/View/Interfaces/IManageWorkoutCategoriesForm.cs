@@ -6,22 +6,22 @@ namespace TrainingPlanner.View.Interfaces
   public interface IManageWorkoutCategoriesForm
   {
     /// <summary>
-    /// Triggered when the user requests to edit a workout.
+    /// Triggered when the user requests to add a category.
     /// </summary>
     event EventHandler AddCategoryButtonClick;
      
     /// <summary>
-    /// Triggered when the user requests to edit a workout.
+    /// Triggered when the user requests to edit a category.
     /// </summary>
     event EventHandler<string> EditCategoryButtonClick;
      
     /// <summary>
-    /// Triggered when the user requests to edit a workout.
+    /// Triggered when the user requests to delete a category.
     /// </summary>
     event EventHandler<string> DeleteCategoryButtonClick;
      
     /// <summary>
-    /// Triggered when the user requests to edit a workout.
+    /// Triggered when the user requests to exit.
     /// </summary>
     event EventHandler ExitButtonClick;
 

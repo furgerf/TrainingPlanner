@@ -84,7 +84,9 @@ namespace TrainingPlanner.Presenter
 
     private void OnManageWorkoutsClick()
     {
-      throw new NotImplementedException();
+      var form = new ManageWorkoutsForm(this._data);
+      var presenter = new ManageWorkoutsFormPresenter(form, this._data);
+      form.Show();
     }
 
     private void OnAddWorkoutCategoryClick()

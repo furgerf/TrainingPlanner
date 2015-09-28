@@ -62,10 +62,12 @@
     <Compile Include="Presenter\Interfaces\IEditWorkoutCategoryFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IEditWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IMainFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\IManageWorkoutsFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IPaceFormPresenter.cs" />
     <Compile Include="Presenter\MainFormPresenter.cs" />
     <Compile Include="Presenter\EditWorkoutFormPresenter.cs" />
+    <Compile Include="Presenter\ManageWorkoutCategoriesFormPresenter - Copy.cs" />
     <Compile Include="Presenter\ManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\PaceFormPresenter.cs" />
     <Compile Include="View\Forms\EditWorkoutCategoryForm.cs">
@@ -80,9 +82,16 @@
     <Compile Include="View\Forms\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Forms\ManageWorkoutsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Forms\ManageWorkoutsForm.Designer.cs">
+      <DependentUpon>ManageWorkoutsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Interfaces\IEditWorkoutCategoryForm.cs" />
     <Compile Include="View\Interfaces\IEditWorkoutForm.cs" />
     <Compile Include="View\Interfaces\IMainForm.cs" />
+    <Compile Include="View\Interfaces\IManageWorkoutsForm.cs" />
     <Compile Include="View\Interfaces\IManageWorkoutCategoriesForm.cs" />
     <Compile Include="View\Interfaces\IPaceForm.cs" />
     <Compile Include="View\Forms\MainForm.cs">
@@ -149,6 +158,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\Forms\ManageWorkoutsForm.resx">
+      <DependentUpon>ManageWorkoutsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Forms\ManageWorkoutCategoriesForm.resx">
       <DependentUpon>ManageWorkoutCategoriesForm.cs</DependentUpon>
     </EmbeddedResource>

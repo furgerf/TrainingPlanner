@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace TrainingPlanner.Model.Serializable
@@ -13,6 +15,13 @@ namespace TrainingPlanner.Model.Serializable
 
     [DataMember(Name = "WeeklyPlans", IsRequired = true)]
     public WeeklyPlan[] WeeklyPlans;
+
+    private Data _data;
+
+    public void SetData(Data data)
+    {
+      this._data = data;
+    }
 
     public static TrainingPlan NewTrainingPlan
     {
@@ -33,6 +42,20 @@ namespace TrainingPlanner.Model.Serializable
         }
 
         return new TrainingPlan { WeeklyPlans = weeks };
+      }
+    }
+
+    public Workout[] AllWorkouts
+    {
+      get
+      {
+        var workouts = new List<Workout>();
+        foreach (var w in WeeklyPlans)
+        {
+          workouts.AddRange(w.Workouts.Where(ww => ww != null).Select(ww => this._data.WorkoutFromName(ww)));
+        }
+
+        return workouts.ToArray();
       }
     }
   }
