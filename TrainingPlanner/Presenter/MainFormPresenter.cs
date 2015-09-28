@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Presenter.Interfaces;
 using TrainingPlanner.View.Forms;
@@ -66,7 +67,19 @@ namespace TrainingPlanner.Presenter
 
     private void OnDeleteWorkoutClick(string workoutName)
     {
-      throw new NotImplementedException();
+      if (this._data.WorkoutFromName(workoutName) == null)
+      {
+        MessageBox.Show("There is no workout with this name.");
+        return;
+      }
+
+      if (MessageBox.Show("Are you sure you want to delete the workout?", "Delete?", MessageBoxButtons.YesNo) !=
+          DialogResult.Yes)
+      {
+        return;
+      }
+
+      this._data.RemoveWorkout(this._data.WorkoutFromName(workoutName));
     }
 
     private void OnManageWorkoutsClick()
@@ -76,17 +89,35 @@ namespace TrainingPlanner.Presenter
 
     private void OnAddWorkoutCategoryClick()
     {
-      throw new NotImplementedException();
+      var form = new EditWorkoutCategoryForm();
+      var presenter = new EditWorkoutCategoryFormPresenter(form, this._data);
+      form.Show();
     }
 
     private void OnEditWorkoutCategoryClick(string categoryName)
     {
-      throw new NotImplementedException();
+      var form = new EditWorkoutCategoryForm(this._data.WorkoutCategoryFromName(categoryName));
+      var presenter = new EditWorkoutCategoryFormPresenter(form, this._data);
+      // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
+      // the workout will be overwritten but if it gets a new name, a new workout is created?
+      form.Show();
     }
 
     private void OnDeleteWorkoutCategoryClick(string categoryName)
     {
-      throw new NotImplementedException();
+      if (this._data.WorkoutCategoryFromName(categoryName) == null)
+      {
+        MessageBox.Show("There is no workout category with this name.");
+        return;
+      }
+
+      if (MessageBox.Show("Are you sure you want to delete the workout category?", "Delete?", MessageBoxButtons.YesNo) !=
+          DialogResult.Yes)
+      {
+        return;
+      }
+
+      this._data.RemoveWorkoutCategory(this._data.WorkoutCategoryFromName(categoryName));
     }
 
     private void OnManageWorkoutCategoriesClick()
