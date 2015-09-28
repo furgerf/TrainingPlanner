@@ -11,6 +11,8 @@ namespace TrainingPlanner.View.Forms
     public ManageWorkoutCategoriesForm()
     {
       InitializeComponent();
+
+      this.lisCategories.ListViewItemSorter = new ListViewItemComparer(0, false);
     }
 
     private void butAdd_Click(object sender, EventArgs e)
@@ -66,8 +68,18 @@ namespace TrainingPlanner.View.Forms
 
     public void DisplayCategories(WorkoutCategory[] categories)
     {
-      lisCategories.Items.Clear();
-      lisCategories.Items.AddRange(categories.Select(c => new ListViewItem(new []{ c.Name, c.CategoryColor.ToKnownColor().ToString()}) { BackColor = c.CategoryColor }).ToArray());
+      this.lisCategories.Items.Clear();
+      this.lisCategories.Items.AddRange(categories.Select(c => new ListViewItem(new []{ c.Name, c.CategoryColor.ToKnownColor().ToString()}) { BackColor = c.CategoryColor }).ToArray());
+      this.lisCategories.Sort();
+    }
+
+    private void lisCategories_ColumnClick(object sender, ColumnClickEventArgs e)
+    {
+      var lvic = (ListViewItemComparer) this.lisCategories.ListViewItemSorter;
+      var reverse = e.Column == lvic.Column && !lvic.Reverse;
+
+      this.lisCategories.ListViewItemSorter = new ListViewItemComparer(e.Column, reverse);
+      this.lisCategories.Sort();
     }
   }
 }

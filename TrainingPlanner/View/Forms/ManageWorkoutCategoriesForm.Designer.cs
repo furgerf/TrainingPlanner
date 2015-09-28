@@ -53,6 +53,7 @@
       this.lisCategories.TabStop = false;
       this.lisCategories.UseCompatibleStateImageBehavior = false;
       this.lisCategories.View = System.Windows.Forms.View.Details;
+      this.lisCategories.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lisCategories_ColumnClick);
       // 
       // colName
       // 
