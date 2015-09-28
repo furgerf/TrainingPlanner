@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
@@ -11,6 +12,8 @@ namespace TrainingPlanner.View.Controls
 
     private readonly Control[] _nonemptyWorkoutControls;
 
+    private readonly ToolTip _toolTip = new ToolTip();
+
     private Workout _workout;
 
     private Data _data;
@@ -22,7 +25,26 @@ namespace TrainingPlanner.View.Controls
       _emptyWorkoutControls = new Control[] { labSelectWorkout };
       _nonemptyWorkoutControls = new Control[] { labWorkoutName, txtDescription, butRemove, labRemove };
 
-      WorkoutChanged += (s, e) => DisplayCurrentWorkout();
+      WorkoutChanged += (s, e) =>
+      {
+        DisplayCurrentWorkout();
+
+        if (this.Workout != null){
+          foreach (var c in _nonemptyWorkoutControls)
+          {
+            this._toolTip.SetToolTip(c,
+              string.Format("Total duration: {0}\nTotal distance: {1}km",
+                this.Workout.Duration.ToString(this.Workout.Duration.TotalHours < 1
+                  ? "mm'min 'ss's'"
+                  : "h'h 'mm'min 'ss's'")
+                , Math.Round(this.Workout.Distance, 2)));
+          }
+        }
+      };
+
+      this._toolTip.InitialDelay = 100;
+      this._toolTip.ReshowDelay = 50;
+      this._toolTip.ShowAlways = true;
 
       DisplayCurrentWorkout();
     }
