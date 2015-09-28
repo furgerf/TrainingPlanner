@@ -1,5 +1,4 @@
-﻿using System;
-using TrainingPlanner.Model;
+﻿using TrainingPlanner.Model;
 using TrainingPlanner.Presenter.Interfaces;
 using TrainingPlanner.View.Interfaces;
 

@@ -61,7 +61,7 @@ namespace TrainingPlanner.View.Forms
         {
           if (WeeklyPlanChanged != null)
           {
-            Console.WriteLine("Triggering WeeklyPlanChanged event");
+            Logger.Debug("Triggering WeeklyPlanChanged event");
             WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(plan.Value));
           }
         };
@@ -90,7 +90,7 @@ namespace TrainingPlanner.View.Forms
           {
             if (EditWorkoutButtonClick != null)
             {
-              Console.WriteLine("Triggering EditWorkoutButtonClick event");
+              Logger.Debug("Triggering EditWorkoutButtonClick event");
               EditWorkoutButtonClick(this, workout1.Text);
             }
           };
@@ -121,7 +121,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (ConfigurePacesButtonClick != null)
       {
-        Console.WriteLine("Triggering ConfigurePacesButtonClick event");
+        Logger.Debug("Triggering ConfigurePacesButtonClick event");
         ConfigurePacesButtonClick(this, e);
       }
     }
@@ -135,7 +135,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (EditCategoriesButtonClick != null)
       {
-        Console.WriteLine("Triggering EditCategoriesButtonClick event");
+        Logger.Debug("Triggering EditCategoriesButtonClick event");
         EditCategoriesButtonClick(this, e);
       }
     }

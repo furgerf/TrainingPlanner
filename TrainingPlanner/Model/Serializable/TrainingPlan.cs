@@ -18,7 +18,7 @@ namespace TrainingPlanner.Model.Serializable
     {
       get
       {
-        Console.WriteLine("Creating new empty TrainingPlan");
+        Logger.Info("Creating new empty TrainingPlan");
         var diff = DateTime.Today.DayOfWeek - DayOfWeek.Sunday;
         if (diff < 0)
         {

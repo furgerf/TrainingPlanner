@@ -17,7 +17,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (AddCategoryButtonClick != null)
       {
-        Console.WriteLine("Triggering AddCategoryButtonClick event");
+        Logger.Debug("Triggering AddCategoryButtonClick event");
         AddCategoryButtonClick(this, e);
       }
     }
@@ -31,7 +31,7 @@ namespace TrainingPlanner.View.Forms
 
       if (EditCategoryButtonClick != null)
       {
-        Console.WriteLine("Triggering EditCategoryButtonClick event");
+        Logger.Debug("Triggering EditCategoryButtonClick event");
         EditCategoryButtonClick(this, lisCategories.SelectedItems[0].Text);
       }
     }
@@ -45,7 +45,7 @@ namespace TrainingPlanner.View.Forms
 
       if (DeleteCategoryButtonClick != null)
       {
-        Console.WriteLine("Triggering DeleteCategoryButtonClick event");
+        Logger.Debug("Triggering DeleteCategoryButtonClick event");
         DeleteCategoryButtonClick(this, lisCategories.SelectedItems[0].Text);
       }
     }
@@ -54,7 +54,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (ExitButtonClick != null)
       {
-        Console.WriteLine("Triggering ExitCategoryButtonClick event");
+        Logger.Debug("Triggering ExitCategoryButtonClick event");
         ExitButtonClick(this, e);
       }
     }

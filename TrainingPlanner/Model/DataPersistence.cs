@@ -39,48 +39,55 @@ namespace TrainingPlanner.Model
 
     public DataPersistence(Data data)
     {
+
       data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
       data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
       data.CategoryChanged += (s, e) => OnCategoryChanged(e);
-      data.TrainingPlanChanged += (s, e) => WriteJsonFile(data.TrainingPlan, TrainingPlanFile);
+      data.TrainingPlanChanged += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
 
-      Console.WriteLine("DataPersistence instantiated");
+      Logger.Info("DataPersistence instantiated");
     }
 
     #region Event handlers
-    private void OnWorkoutChanged(WorkoutChangedEventArgs e)
+    private static void OnWorkoutChanged(WorkoutChangedEventArgs e)
     {
       if (e.WorkoutAdded)
       {
-        Console.WriteLine("Writing workout {0} to file", e.Workout);
+        Logger.InfoFormat("Writing workout {0} to file", e.Workout.Name);
         WriteJsonFile(e.Workout, GetWorkoutPath(e.Workout));
       }
       else
       {
-        Console.WriteLine("Deleting workout {0}", e.Workout);
+        Logger.InfoFormat("Deleting workout {0}", e.Workout.Name);
         File.Delete(GetWorkoutPath(e.Workout));
       }
     }
 
-    private void OnCategoryChanged(WorkoutCategoryChangedEventArgs e)
+    private static void OnCategoryChanged(WorkoutCategoryChangedEventArgs e)
     {
       if (e.CategoryAdded)
       {
-        Console.WriteLine("Writing category {0} to file", e.WorkoutCategory);
+        Logger.InfoFormat("Writing category {0} to file", e.WorkoutCategory.Name);
         WriteJsonFile(e.WorkoutCategory, GetWorkoutCategoryPath(e.WorkoutCategory));
       }
       else
       {
-        Console.WriteLine("Deleting category {0}", e.WorkoutCategory);
+        Logger.InfoFormat("Deleting category {0}", e.WorkoutCategory.Name);
         File.Delete(GetWorkoutCategoryPath(e.WorkoutCategory));
       }
+    }
+
+    private static void OnTrainingPlanChanged(TrainingPlan plan)
+    {
+      Logger.Info("Training plan saved");
+      WriteJsonFile(plan, TrainingPlanFile);
     }
     #endregion
 
     #region Public access - Loading data
     public IEnumerable<WorkoutCategory> LoadCategories()
     {
-      Console.WriteLine("Loading workout categories");
+      Logger.Info("Loading workout categories");
       return
         Directory.GetFiles(WorkoutCategoriesDirectory, "*.json")
           .Select(ParseJsonFile<WorkoutCategory>);
@@ -88,13 +95,13 @@ namespace TrainingPlanner.Model
 
     public IEnumerable<Workout> LoadWorkouts()
     {
-      Console.WriteLine("Loading workouts");
+      Logger.Info("Loading workouts");
       return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(ParseJsonFile<Workout>);
     }
 
     public TrainingPlan LoadPlan()
     {
-      Console.WriteLine("Loading training plan");
+      Logger.Info("Loading training plan");
       return File.Exists(TrainingPlanFile)
         ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
         : TrainingPlan.NewTrainingPlan;
@@ -116,7 +123,7 @@ namespace TrainingPlanner.Model
 
     private static void SavePaceToSettings(Pace pace, TimeSpan value)
     {
-      Console.WriteLine("Saving pace {0} with new value {1}", pace, value);
+      Logger.InfoFormat("Saving pace {0} with new value {1}", pace, value);
 
       switch (pace)
       {

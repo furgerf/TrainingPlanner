@@ -83,7 +83,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (SaveButtonClick != null)
       {
-        Console.WriteLine("Triggering SaveButtonClick event");
+        Logger.Debug("Triggering SaveButtonClick event");
         SaveButtonClick(this, e);
       }
     }

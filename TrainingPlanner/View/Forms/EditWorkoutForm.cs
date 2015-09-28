@@ -121,7 +121,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (SaveButtonClick != null)
       {
-        Console.WriteLine("Triggering SaveButtonClick event");
+        Logger.Debug("Triggering SaveButtonClick event");
         SaveButtonClick(this, e);
       }
     }
@@ -130,7 +130,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (AddStepButtonClick != null)
       {
-        Console.WriteLine("Triggering AddStepButtonClick event");
+        Logger.Debug("Triggering AddStepButtonClick event");
         AddStepButtonClick(this, e);
       }
     }
@@ -139,7 +139,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (RemoveStepButtonClick != null)
       {
-        Console.WriteLine("Triggering RemoveStepButtonClick event");
+        Logger.Debug("Triggering RemoveStepButtonClick event");
         RemoveStepButtonClick(this, e);
       }
     }
@@ -148,7 +148,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (EditWorkoutFormClosing != null)
       {
-        Console.WriteLine("Triggering EditWorkoutFormClosing event");
+        Logger.Debug("Triggering EditWorkoutFormClosing event");
         EditWorkoutFormClosing(this, e);
       }
     }
@@ -157,7 +157,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (DeleteButtonClick != null)
       {
-        Console.WriteLine("Triggering DeleteButtonClick event");
+        Logger.Debug("Triggering DeleteButtonClick event");
         DeleteButtonClick(this, e);
       }
     }

@@ -53,7 +53,7 @@ namespace TrainingPlanner.View.Controls
 
         if (WeeklyPlanChanged != null && this._triggerWeeklyPlanChangedEvent)
         {
-          Console.WriteLine("Triggering WeeklyPlanChanged event");
+          Logger.Debug("Triggering WeeklyPlanChanged event");
           WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
         }
       }
@@ -95,7 +95,7 @@ namespace TrainingPlanner.View.Controls
 
           if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
           {
-            Console.WriteLine("Triggering WeeklyPlanChanged event");
+            Logger.Debug("Triggering WeeklyPlanChanged event");
             WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
           }
         };
@@ -114,7 +114,7 @@ namespace TrainingPlanner.View.Controls
 
         if (WeeklyPlanChanged != null)
         {
-          Console.WriteLine("Triggering WeeklyPlanChanged event");
+          Logger.Debug("Triggering WeeklyPlanChanged event");
           WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
         }
       };
@@ -160,7 +160,7 @@ namespace TrainingPlanner.View.Controls
       this._weeklyPlan.WeekStart = this.WeekStart;
       if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
       {
-        Console.WriteLine("Triggering WeeklyPlanChanged event");
+        Logger.Debug("Triggering WeeklyPlanChanged event");
         WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(this.WeeklyPlan));
       }
     }

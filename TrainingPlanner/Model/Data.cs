@@ -26,7 +26,7 @@ namespace TrainingPlanner.Model
       this._workouts = new List<Workout>(persistence.LoadWorkouts());
       this._trainingPlan = persistence.LoadPlan();
 
-      Console.WriteLine("Data instantiated");
+      Logger.Info("Data instantiated");
     }
 
     #region Events
@@ -184,7 +184,7 @@ namespace TrainingPlanner.Model
 
       if (WorkoutChanged != null)
       {
-        Console.WriteLine("Triggering WorkoutChanged event");
+        Logger.Debug("Triggering WorkoutChanged event");
         WorkoutChanged(this, new WorkoutChangedEventArgs(workout, true));
       }
     }
@@ -218,7 +218,7 @@ namespace TrainingPlanner.Model
 
       if (WorkoutChanged != null)
       {
-        Console.WriteLine("Triggering WorkoutChanged event");
+        Logger.Debug("Triggering WorkoutChanged event");
         WorkoutChanged(this, new WorkoutChangedEventArgs(workout, false));
       }
     }
@@ -231,7 +231,7 @@ namespace TrainingPlanner.Model
 
       if (CategoryChanged != null)
       {
-        Console.WriteLine("Triggering CategoryChanged event");
+        Logger.Debug("Triggering CategoryChanged event");
         CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, true));
       }
     }
@@ -265,7 +265,7 @@ namespace TrainingPlanner.Model
 
       if (CategoryChanged != null)
       {
-        Console.WriteLine("Triggering CategoryChanged event");
+        Logger.Debug("Triggering CategoryChanged event");
         CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, false));
       }
     }
@@ -282,7 +282,7 @@ namespace TrainingPlanner.Model
 
       if (PaceChanged != null)
       {
-        Console.WriteLine("Triggering PaceChanged event");
+        Logger.Debug("Triggering PaceChanged event");
         PaceChanged(this, new PaceChangedEventArgs(key, value));
       }
     }
@@ -293,7 +293,7 @@ namespace TrainingPlanner.Model
 
       if (TrainingPlanChanged != null)
       {
-        Console.WriteLine("Triggering TrainingPlanChanged event");
+        Logger.Debug("Triggering TrainingPlanChanged event");
         TrainingPlanChanged(this, new TrainingPlanChangedEventArgs());
       }
     }

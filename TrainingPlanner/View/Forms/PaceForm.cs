@@ -61,7 +61,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (SaveChangesButtonClick != null)
       {
-        Console.WriteLine("Triggering SaveChangesButtonClick event");
+        Logger.Debug("Triggering SaveChangesButtonClick event");
         SaveChangesButtonClick(this, e);
       }
     }
@@ -70,7 +70,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (DiscardChangesButtonClick != null)
       {
-        Console.WriteLine("Triggering DiscardChangesButtonClick event");
+        Logger.Debug("Triggering DiscardChangesButtonClick event");
         DiscardChangesButtonClick(this, e);
       }
     }

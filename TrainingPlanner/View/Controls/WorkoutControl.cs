@@ -65,7 +65,7 @@ namespace TrainingPlanner.View.Controls
 
         if (WorkoutChanged != null && this._eventsActivated)
         {
-          Console.WriteLine("Triggering WorkoutChanged event");
+          Logger.Debug("Triggering WorkoutChanged event");
           WorkoutChanged(this, _workout);
         }
       }
