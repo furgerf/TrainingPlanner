@@ -67,7 +67,7 @@
     <Compile Include="Presenter\Interfaces\IPaceFormPresenter.cs" />
     <Compile Include="Presenter\MainFormPresenter.cs" />
     <Compile Include="Presenter\EditWorkoutFormPresenter.cs" />
-    <Compile Include="Presenter\ManageWorkoutCategoriesFormPresenter - Copy.cs" />
+    <Compile Include="Presenter\ManageWorkoutsFormPresenter.cs" />
     <Compile Include="Presenter\ManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\PaceFormPresenter.cs" />
     <Compile Include="View\Forms\EditWorkoutCategoryForm.cs">

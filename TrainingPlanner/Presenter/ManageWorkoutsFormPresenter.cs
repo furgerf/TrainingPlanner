@@ -14,26 +14,26 @@ namespace TrainingPlanner.Presenter
     {
       this._data = data;
 
-      view.DisplayWorkouts(data.Workouts);
+      view.DisplayWorkouts(this._data.Workouts);
 
-      view.AddWorkoutButtonClick += (s, e) => EditCategory(null);
-      view.EditWorkoutButtonClick += (s, e) => EditCategory(e);
-      view.DeleteWorkoutButtonClick += (s, e) => DeleteCategory(e);
+      view.AddWorkoutButtonClick += (s, e) => EditWorkout(null);
+      view.EditWorkoutButtonClick += (s, e) => EditWorkout(e);
+      view.DeleteWorkoutButtonClick += (s, e) => DeleteWorkout(e);
       view.ExitButtonClick += (s, e) => view.Close();
 
-      data.CategoryChanged += (s, e) => view.DisplayWorkouts(data.Workouts);
+      data.WorkoutChanged += (s, e) => view.DisplayWorkouts(this._data.Workouts);
     }
 
-    private void EditCategory(string categoryName)
+    private void EditWorkout(string workoutName)
     {
       // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
       // the workout will be overwritten but if it gets a new name, a new workout is created?
-      var form = categoryName == null ? new EditWorkoutCategoryForm() : new EditWorkoutCategoryForm(this._data.WorkoutCategoryFromName(categoryName));
-      var presenter = new EditWorkoutCategoryFormPresenter(form, this._data);
+      var form = workoutName == null ? new EditWorkoutForm(this._data) : new EditWorkoutForm(this._data, this._data.WorkoutFromName(workoutName));
+      var presenter = new EditWorkoutFormPresenter(form, this._data);
       form.Show();
     }
 
-    private void DeleteCategory(string categoryName)
+    private void DeleteWorkout(string workoutName)
     {
       if (MessageBox.Show("Are you sure you want to delete the workout?", "Delete?", MessageBoxButtons.YesNo) !=
           DialogResult.Yes)
@@ -41,7 +41,7 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      this._data.RemoveWorkoutCategory(this._data.WorkoutCategoryFromName(categoryName));
+      this._data.RemoveWorkout(this._data.WorkoutFromName(workoutName));
     }
   }
 }

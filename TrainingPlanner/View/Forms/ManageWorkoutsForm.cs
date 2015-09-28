@@ -73,7 +73,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (AddWorkoutButtonClick != null)
       {
-        Logger.Debug("Triggering AddCategoryButtonClick event");
+        Logger.Debug("Triggering AddWorkoutButtonClick event");
         AddWorkoutButtonClick(this, e);
       }
     }
@@ -87,7 +87,7 @@ namespace TrainingPlanner.View.Forms
 
       if (EditWorkoutButtonClick != null)
       {
-        Logger.Debug("Triggering EditCategoryButtonClick event");
+        Logger.Debug("Triggering EditWorkoutButtonClick event");
         EditWorkoutButtonClick(this, lisWorkouts.SelectedItems[0].Text);
       }
     }
@@ -101,7 +101,7 @@ namespace TrainingPlanner.View.Forms
 
       if (DeleteWorkoutButtonClick != null)
       {
-        Logger.Debug("Triggering DeleteCategoryButtonClick event");
+        Logger.Debug("Triggering DeleteWorkoutButtonClick event");
         DeleteWorkoutButtonClick(this, lisWorkouts.SelectedItems[0].Text);
       }
     }
@@ -110,7 +110,7 @@ namespace TrainingPlanner.View.Forms
     {
       if (ExitButtonClick != null)
       {
-        Logger.Debug("Triggering ExitCategoryButtonClick event");
+        Logger.Debug("Triggering ExitButtonClick event");
         ExitButtonClick(this, e);
       }
     }

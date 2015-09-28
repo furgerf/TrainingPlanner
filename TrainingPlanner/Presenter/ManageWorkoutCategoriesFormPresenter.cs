@@ -35,7 +35,7 @@ namespace TrainingPlanner.Presenter
 
     private void DeleteCategory(string categoryName)
     {
-      if (MessageBox.Show("Are you sure you want to delete the workout?", "Delete?", MessageBoxButtons.YesNo) !=
+      if (MessageBox.Show("Are you sure you want to delete the workout category?", "Delete?", MessageBoxButtons.YesNo) !=
           DialogResult.Yes)
       {
         return;
