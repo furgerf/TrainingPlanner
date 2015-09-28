@@ -17,7 +17,7 @@ namespace TrainingPlanner.View.Controls
 
     public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
 
-    private bool _triggerWeeklyPlanChangedEvent = true;
+    private bool _triggerWeeklyPlanChangedEvent;
 
     private readonly Data _data;
 
@@ -28,9 +28,14 @@ namespace TrainingPlanner.View.Controls
       get { return _weeklyPlan; }
       set
       {
+        if (this._weeklyPlan.Equals(value))
+        {
+          return;
+        }
+
         this._weeklyPlan = value;
 
-        _triggerWeeklyPlanChangedEvent = false;
+        this._triggerWeeklyPlanChangedEvent = false;
 
         for (var i = 0; i < MaxWeeklyWorkouts; i++)
         {
@@ -44,9 +49,9 @@ namespace TrainingPlanner.View.Controls
         WeekStart = value.WeekStart;
         grpSummary.Text = "Summary - Week " + (value.WeekNumber + 1);
 
-        _triggerWeeklyPlanChangedEvent = true;
+        this._triggerWeeklyPlanChangedEvent = true;
 
-        if (WeeklyPlanChanged != null)
+        if (WeeklyPlanChanged != null && this._triggerWeeklyPlanChangedEvent)
         {
           Console.WriteLine("Triggering WeeklyPlanChanged event");
           WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
@@ -157,6 +162,14 @@ namespace TrainingPlanner.View.Controls
       {
         Console.WriteLine("Triggering WeeklyPlanChanged event");
         WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(this.WeeklyPlan));
+      }
+    }
+
+    public void Activate()
+    {
+      foreach (var wc in this._workoutControls)
+      {
+        wc.Activate();
       }
     }
   }

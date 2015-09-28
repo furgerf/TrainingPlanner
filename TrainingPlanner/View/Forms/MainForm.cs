@@ -31,6 +31,11 @@ namespace TrainingPlanner.View.Forms
       this.butAddWorkout.Click += (s, e) => AddWorkoutButtonClick(this, e);
 
       CreateContextMenu();
+
+      foreach (var wc in this._weekControls)
+      {
+        wc.Activate();
+      }
     }
 
     private void InitializeDynamicControls()
