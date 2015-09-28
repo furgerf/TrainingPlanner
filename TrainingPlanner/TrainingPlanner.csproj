@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
     <Compile Include="Model\EventArgs\EventArgs.cs" />
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\DataPersistence.cs" />
