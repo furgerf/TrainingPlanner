@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
@@ -17,6 +16,8 @@ namespace TrainingPlanner.View.Controls
     private Workout _workout;
 
     private Data _data;
+
+    private bool _eventsActivated;
 
     public WorkoutControl()
     {
@@ -56,9 +57,13 @@ namespace TrainingPlanner.View.Controls
       get { return _workout; }
       set
       {
+        if (this.Workout.Equals(value))
+        {
+          return;
+        }
         _workout = value;
 
-        if (WorkoutChanged != null)
+        if (WorkoutChanged != null && this._eventsActivated)
         {
           Console.WriteLine("Triggering WorkoutChanged event");
           WorkoutChanged(this, _workout);
@@ -156,6 +161,11 @@ namespace TrainingPlanner.View.Controls
     private void ShowContextMenu(object sender, MouseEventArgs e)
     {
       this.ContextMenu.Show((Control)sender, e.Location);
+    }
+
+    public void Activate()
+    {
+      this._eventsActivated = true;
     }
   }
 }
