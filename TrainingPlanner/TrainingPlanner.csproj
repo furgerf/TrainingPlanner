@@ -140,6 +140,7 @@
     <Compile Include="View\Controls\WorkoutStepControl.Designer.cs">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ListViewItemComparer.cs" />
     <EmbeddedResource Include="View\Forms\EditWorkoutCategoryForm.resx">
       <DependentUpon>EditWorkoutCategoryForm.cs</DependentUpon>
     </EmbeddedResource>
