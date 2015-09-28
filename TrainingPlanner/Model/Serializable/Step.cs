@@ -10,6 +10,11 @@ namespace TrainingPlanner.Model.Serializable
   public struct Step
   {
     /// <summary>
+    /// Format with which to convert the pace to string.
+    /// </summary>
+    private const string PaceFormat = @"mm\:ss";
+
+    /// <summary>
     /// Name of the step.
     /// </summary>
     [DataMember(Name = "Name", IsRequired = true)]
@@ -62,31 +67,6 @@ namespace TrainingPlanner.Model.Serializable
 
     // TODO: (workout-redoing) Add note
 
-    /// <summary>
-    /// Format with which to convert the pace to string.
-    /// </summary>
-    private const string PaceFormat = @"mm\:ss";
-
-    /// <summary>
-    /// Gets a new Warmup-step.
-    /// </summary>
-    public static Step Warmup { get { return new Step("Warmup", new TimeSpan(0, 10, 0), Paces.Default.Warmup); } }
-
-    /// <summary>
-    /// Gets a new Cooldown-step.
-    /// </summary>
-    public static Step Cooldown { get { return new Step("Cooldown", new TimeSpan(0, 5, 0), Paces.Default.Cooldown); } }
-
-    /// <summary>
-    /// Gets a new empty step.
-    /// </summary>
-    public static Step Empty { get { return new Step(); } }
-
-    /// <summary>
-    /// Returns true if the step has no information.
-    /// </summary>
-    public bool IsEmpty { get { return Equals(Empty); } }
-
     private Step(string name, TimeSpan duration, TimeSpan pace, double distance, bool durationCalculated, bool distanceCalculated, TimeSpan? rest = null, int repetitions = 1)
       : this()
     {
@@ -120,6 +100,26 @@ namespace TrainingPlanner.Model.Serializable
       : this(name, TimeSpan.FromSeconds(distance * pace.TotalSeconds), pace, distance, true, false, rest, repetitions)
     {
     }
+
+    /// <summary>
+    /// Gets a new Warmup-step.
+    /// </summary>
+    public static Step Warmup { get { return new Step("Warmup", new TimeSpan(0, 10, 0), Paces.Default.Warmup); } }
+
+    /// <summary>
+    /// Gets a new Cooldown-step.
+    /// </summary>
+    public static Step Cooldown { get { return new Step("Cooldown", new TimeSpan(0, 5, 0), Paces.Default.Cooldown); } }
+
+    /// <summary>
+    /// Gets a new empty step.
+    /// </summary>
+    public static Step Empty { get { return new Step(); } }
+
+    /// <summary>
+    /// Returns true if the step has no information.
+    /// </summary>
+    public bool IsEmpty { get { return Equals(Empty); } }
 
     public override string ToString()
     {

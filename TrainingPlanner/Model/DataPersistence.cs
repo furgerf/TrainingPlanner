@@ -37,9 +37,9 @@ namespace TrainingPlanner.Model
     }
     #endregion
 
+    #region Constructor
     public DataPersistence(Data data)
     {
-
       data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
       data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
       data.CategoryChanged += (s, e) => OnCategoryChanged(e);
@@ -47,6 +47,7 @@ namespace TrainingPlanner.Model
 
       Logger.Info("DataPersistence instantiated");
     }
+    #endregion
 
     #region Event handlers
     private static void OnWorkoutChanged(WorkoutChangedEventArgs e)
@@ -106,7 +107,6 @@ namespace TrainingPlanner.Model
         ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
         : TrainingPlan.NewTrainingPlan;
     }
-
     #endregion
 
     #region Private access - Saving data

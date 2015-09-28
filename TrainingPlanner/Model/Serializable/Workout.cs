@@ -8,7 +8,7 @@ namespace TrainingPlanner.Model.Serializable
   /// Describes a workout.
   /// </summary>
   [DataContract(Name = "Workout")]
-  public class Workout
+  public sealed class Workout
   {
     /// <summary>
     /// Name of the workout. Used for the file name and to uniquely identify the workout.
@@ -32,7 +32,15 @@ namespace TrainingPlanner.Model.Serializable
     /// Steps of the workout.
     /// </summary>
     [DataMember(Name = "Steps", IsRequired = true)]
-    public Step[] Steps { get; private set; }
+    public readonly Step[] Steps;
+
+    public Workout(string name, string shortName, WorkoutCategory category, Step[] steps)
+    {
+      this.Name = name;
+      this.ShortName = string.IsNullOrEmpty(shortName) ? null : shortName; // empty shortName -> null
+      this.CategoryName = category == null ? null : category.Name;
+      this.Steps = steps;
+    }
 
     /// <summary>
     /// Total duration of the workout. Calculated from the steps.
@@ -60,17 +68,9 @@ namespace TrainingPlanner.Model.Serializable
       }
     }
 
-    public Workout(string name, string shortName, WorkoutCategory category, Step[] steps)
-    {
-      this.Name = name;
-      this.ShortName = string.IsNullOrEmpty(shortName) ? null : shortName; // empty shortName -> null
-      this.CategoryName = category == null ? null : category.Name;
-      this.Steps = steps;
-    }
-
     public override string ToString()
     {
-      return "Workout: " + Name;
+      return string.Format("Workout {0} ({1})", Name, CategoryName);
     }
   }
 }

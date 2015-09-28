@@ -4,13 +4,8 @@ using System.Runtime.CompilerServices;
 
 namespace TrainingPlanner
 {
-  public static class Logger
+  internal static class Logger
   {
-    public enum Severity
-    {
-      Debug, Info, Warn, Error
-    }
-
     private const string DebugString = "DEBUG";
     private const string InfoString = "INFO";
     private const string WarnString = "WARN";
@@ -18,6 +13,11 @@ namespace TrainingPlanner
     private const int SeverityCharacters = 5;
 
     public static Severity  LogSeverity = Severity.Debug;
+
+    public enum Severity
+    {
+      Debug, Info, Warn, Error
+    }
 
     public static void DebugFormat(string message, object arg0, [CallerFilePath] string callerFilePath = "",
       [CallerMemberName] string callerMemberName = "")

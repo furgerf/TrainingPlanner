@@ -18,10 +18,13 @@ namespace TrainingPlanner.Model
     private readonly TrainingPlan _trainingPlan;
     #endregion
 
+    #region Constructor
     public Data()
     {
+      // create persistence handler
       var persistence = new DataPersistence(this);
 
+      // load persisted data
       this._categories = new List<WorkoutCategory>(persistence.LoadCategories());
       this._workouts = new List<Workout>(persistence.LoadWorkouts());
       this._trainingPlan = persistence.LoadPlan();
@@ -30,6 +33,7 @@ namespace TrainingPlanner.Model
 
       Logger.Info("Data instantiated");
     }
+    #endregion
 
     #region Events
     /// <summary>
@@ -54,6 +58,61 @@ namespace TrainingPlanner.Model
     #endregion
 
     #region Data access
+    /// <summary>
+    /// Gets the workouts.
+    /// </summary>
+    public Workout[] Workouts
+    {
+      get { return _workouts.ToArray(); }
+    }
+
+    /// <summary>
+    /// Gets the workout categories.
+    /// </summary>
+    public WorkoutCategory[] Categories
+    {
+      get { return _categories.ToArray(); }
+    }
+
+    /// <summary>
+    /// Gets the training plan.
+    /// </summary>
+    public TrainingPlan TrainingPlan
+    {
+      get { return _trainingPlan; }
+    }
+
+    /// <summary>
+    /// Gets a context menu based on the current workoutouts and categories.
+    /// The menu is created on each call so that there are no outdated event listeners...
+    /// </summary>
+    public ContextMenu WorkoutContextMenu
+    {
+      get
+      {
+        var menu = new ContextMenu();
+
+        // add categories and their workouts
+        menu.MenuItems.AddRange(Categories.Select(c => new MenuItem(c.Name)).ToArray());
+        foreach (MenuItem mi in menu.MenuItems)
+        {
+          mi.MenuItems.AddRange(
+            Workouts.Where(w => mi.Text.Equals(w.CategoryName)).Select(w => new MenuItem(w.Name)).ToArray());
+        }
+
+        // add uncategorized workouts
+        var uncategorizedMenu = new MenuItem("(uncategorized)");
+        uncategorizedMenu.MenuItems.AddRange(
+          Workouts.Where(w => w.CategoryName == null).Select(w => new MenuItem(w.Name)).ToArray());
+        if (uncategorizedMenu.MenuItems.Count > 0)
+        {
+          menu.MenuItems.Add(uncategorizedMenu);
+        }
+
+        return menu;
+      }
+    }
+
     public static TimeSpan GetDurationFromPace(Pace pace)
     {
       switch (pace)
@@ -98,61 +157,6 @@ namespace TrainingPlanner.Model
     }
 
     /// <summary>
-    /// Gets the workout categories.
-    /// </summary>
-    public WorkoutCategory[] Categories
-    {
-      get { return _categories.ToArray(); }
-    }
-
-    /// <summary>
-    /// Gets the workouts.
-    /// </summary>
-    public Workout[] Workouts
-    {
-      get { return _workouts.ToArray(); }
-    }
-
-    /// <summary>
-    /// Gets the training plan.
-    /// </summary>
-    public TrainingPlan TrainingPlan
-    {
-      get { return _trainingPlan; }
-    }
-
-    /// <summary>
-    /// Gets a context menu based on the current workoutouts and categories.
-    /// The menu is created on each call so that there are no outdated event listeners...
-    /// </summary>
-    public ContextMenu WorkoutContextMenu
-    {
-      get
-      {
-        var menu = new ContextMenu();
-
-        // add categories and their workouts
-        menu.MenuItems.AddRange(Categories.Select(c => new MenuItem(c.Name)).ToArray());
-        foreach (MenuItem mi in menu.MenuItems)
-        {
-          mi.MenuItems.AddRange(
-            Workouts.Where(w => mi.Text.Equals(w.CategoryName)).Select(w => new MenuItem(w.Name)).ToArray());
-        }
-
-        // add uncategorized workouts
-        var uncategorizedMenu = new MenuItem("(uncategorized)");
-        uncategorizedMenu.MenuItems.AddRange(
-          Workouts.Where(w => w.CategoryName == null).Select(w => new MenuItem(w.Name)).ToArray());
-        if (uncategorizedMenu.MenuItems.Count > 0)
-        {
-          menu.MenuItems.Add(uncategorizedMenu);
-        }
-
-        return menu;
-      }
-    }
-
-    /// <summary>
     /// Gets the workout from the workout's name.
     /// </summary>
     /// <param name="workoutName">Name of the workout.</param>
@@ -171,7 +175,6 @@ namespace TrainingPlanner.Model
     {
       return Categories.FirstOrDefault(w => w.Name == categoryName);
     }
-
     #endregion
 
     #region Data modification
@@ -224,7 +227,6 @@ namespace TrainingPlanner.Model
         WorkoutChanged(this, new WorkoutChangedEventArgs(workout, false));
       }
     }
-
 
     public void AddWorkoutCategory(WorkoutCategory category)
     {

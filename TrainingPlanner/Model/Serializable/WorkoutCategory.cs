@@ -26,5 +26,10 @@ namespace TrainingPlanner.Model.Serializable
       this.Name = name;
       this.CategoryColor = categoryColor;
     }
+
+    public override string ToString()
+    {
+      return string.Format("Workout category {0}", Name);
+    }
   }
 }

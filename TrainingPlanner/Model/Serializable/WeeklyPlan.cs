@@ -13,25 +13,33 @@ namespace TrainingPlanner.Model.Serializable
     /// Number of the week in the plan. Should be zero-based.
     /// </summary>
     [DataMember(Name = "WeekNumber", IsRequired = true)]
-    public int WeekNumber;
+    public readonly int WeekNumber;
 
     /// <summary>
     /// The names of the workouts of the week.
     /// </summary>
     [DataMember(Name = "Workouts", IsRequired = true)]
-    private string[] _workouts;
+    private readonly string[] _workouts;
 
     /// <summary>
     /// Date of the start of the week (Monday).
     /// </summary>
     [DataMember(Name = "WeekStart", IsRequired = true)]
-    public DateTime WeekStart { get; set; }
+    public DateTime WeekStart;
 
     /// <summary>
     /// Notes for the week.
     /// </summary>
     [DataMember(Name = "Notes")]
-    public string Notes { get; set; }
+    public string Notes;
+
+    public WeeklyPlan(string[] workouts, DateTime weekStart, int weekNumber, string notes = "")
+    {
+      this._workouts = workouts;
+      this.WeekStart = weekStart;
+      this.WeekNumber = weekNumber;
+      this.Notes = notes;
+    }
 
     /// <summary>
     /// Wrapper around the backing field with the sole purpose to ensure that
@@ -46,8 +54,17 @@ namespace TrainingPlanner.Model.Serializable
         {
           throw new ArgumentException("Invalid workout array");
         }
-        _workouts = value;
+
+        for (var i = 0; i < 14; i++)
+        {
+          _workouts[i] = value[i];
+        }
       }
+    }
+
+    public override string ToString()
+    {
+      return string.Format("Week {0} starting {1}", this.WeekNumber, this.WeekStart);
     }
   }
 }

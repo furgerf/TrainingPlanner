@@ -40,6 +40,7 @@ namespace TrainingPlanner.View.Forms
       this.manageToolStripMenuItem1.Click += (s, e) => OnManageWorkoutCategoriesClick();
       this.configureToolStripMenuItem.Click += (s, e) => OnConfigurePacesClick();
       this.infoToolStripMenuItem.Click += (s, e) => OnInfoClick();
+      this.exitToolStripMenuItem.Click += (s, e) => this.Close();
 
       foreach (var wc in this._weekControls)
       {
