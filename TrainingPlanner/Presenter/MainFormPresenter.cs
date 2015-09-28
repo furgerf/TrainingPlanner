@@ -138,7 +138,7 @@ namespace TrainingPlanner.Presenter
 
     private void OnInfoClick()
     {
-      throw new NotImplementedException();
+      new AboutForm().Show();
     }
   }
 }
