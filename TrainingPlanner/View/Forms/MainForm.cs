@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.EventArgs;
 using TrainingPlanner.Model.Serializable;
+using TrainingPlanner.Presenter;
 using TrainingPlanner.View.Controls;
 using TrainingPlanner.View.Interfaces;
 
@@ -145,12 +146,38 @@ namespace TrainingPlanner.View.Forms
 
     private void OnEditWorkoutClick()
     {
-      throw new NotImplementedException();
+      var form = new SelectWorkoutForm();
+      var presenter = new SelectWorkoutFormPresenter(form, this._data);
+
+      presenter.WorkoutSelected += (s, e) =>
+      {
+        form.Close();
+        if (EditWorkoutClick != null)
+        {
+          Logger.Debug("Triggering EditWorkoutClick event");
+          EditWorkoutClick(this, e);
+        }
+      };
+
+      form.Show();
     }
 
     private void OnDeleteWorkoutClick()
     {
-      throw new NotImplementedException();
+      var form = new SelectWorkoutForm();
+      var presenter = new SelectWorkoutFormPresenter(form, this._data);
+
+      presenter.WorkoutSelected += (s, e) =>
+      {
+        form.Close();
+        if (DeleteWorkoutClick != null)
+        {
+          Logger.Debug("Triggering DeleteWorkoutClick event");
+          DeleteWorkoutClick(this, e);
+        }
+      };
+
+      form.Show();
     }
 
     private void OnManageWorkoutsClick()
@@ -173,12 +200,38 @@ namespace TrainingPlanner.View.Forms
 
     private void OnEditWorkoutCategoryClick()
     {
-      throw new NotImplementedException();
+      var form = new SelectWorkoutCategoryForm();
+      var presenter = new SelectWorkoutCategoryFormPresenter(form, this._data);
+
+      presenter.CategorySelected += (s, e) =>
+      {
+        form.Close();
+        if (EditWorkoutCategoryClick != null)
+        {
+          Logger.Debug("Triggering EditWorkoutCategoryClick event");
+          EditWorkoutCategoryClick(this, e);
+        }
+      };
+
+      form.Show();
     }
 
     private void OnDeleteWorkoutCategoryClick()
     {
-      throw new NotImplementedException();
+      var form = new SelectWorkoutCategoryForm();
+      var presenter = new SelectWorkoutCategoryFormPresenter(form, this._data);
+
+      presenter.CategorySelected += (s, e) =>
+      {
+        form.Close();
+        if (DeleteWorkoutCategoryClick != null)
+        {
+          Logger.Debug("Triggering DeleteWorkoutCategoryClick event");
+          DeleteWorkoutCategoryClick(this, e);
+        }
+      };
+
+      form.Show();
     }
 
     private void OnManageWorkoutCategoriesClick()

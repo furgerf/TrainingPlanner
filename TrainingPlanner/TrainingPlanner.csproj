@@ -65,11 +65,15 @@
     <Compile Include="Presenter\Interfaces\IManageWorkoutsFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IPaceFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\ISelectWorkoutCategoryFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\ISelectWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\MainFormPresenter.cs" />
     <Compile Include="Presenter\EditWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\ManageWorkoutsFormPresenter.cs" />
     <Compile Include="Presenter\ManageWorkoutCategoriesFormPresenter.cs" />
     <Compile Include="Presenter\PaceFormPresenter.cs" />
+    <Compile Include="Presenter\SelectWorkoutCategoryFormPresenter.cs" />
+    <Compile Include="Presenter\SelectWorkoutFormPresenter.cs" />
     <Compile Include="View\Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +91,18 @@
     </Compile>
     <Compile Include="View\Forms\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Forms\SelectWorkoutCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Forms\SelectWorkoutCategoryForm.Designer.cs">
+      <DependentUpon>SelectWorkoutCategoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Forms\SelectWorkoutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Forms\SelectWorkoutForm.Designer.cs">
+      <DependentUpon>SelectWorkoutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Forms\ManageWorkoutsForm.cs">
       <SubType>Form</SubType>
@@ -146,6 +162,8 @@
     <Compile Include="View\Controls\WorkoutStepControl.Designer.cs">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Interfaces\ISelectWorkoutCategoryForm.cs" />
+    <Compile Include="View\Interfaces\ISelectWorkoutForm.cs" />
     <Compile Include="View\ListViewItemComparer.cs" />
     <EmbeddedResource Include="View\Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -155,6 +173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Forms\EditWorkoutForm.resx">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Forms\SelectWorkoutCategoryForm.resx">
+      <DependentUpon>SelectWorkoutCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Forms\SelectWorkoutForm.resx">
+      <DependentUpon>SelectWorkoutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
