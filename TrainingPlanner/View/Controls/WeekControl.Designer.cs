@@ -29,26 +29,12 @@
     private void InitializeComponent()
     {
       this.grpMonday = new System.Windows.Forms.GroupBox();
-      this.wrkMondayEvening = new WorkoutControl();
-      this.wrkMondayMorning = new WorkoutControl();
       this.grpTuesday = new System.Windows.Forms.GroupBox();
-      this.wrkTuesdayEvening = new WorkoutControl();
-      this.wrkTuesdayMorning = new WorkoutControl();
       this.grpWednesday = new System.Windows.Forms.GroupBox();
-      this.wrkWednesdayEvening = new WorkoutControl();
-      this.wrkWednesdayMorning = new WorkoutControl();
       this.grpThursday = new System.Windows.Forms.GroupBox();
-      this.wrkThursdayEvening = new WorkoutControl();
-      this.wrkThursdayMorning = new WorkoutControl();
       this.grpFriday = new System.Windows.Forms.GroupBox();
-      this.wrkFridayEvening = new WorkoutControl();
-      this.wrkFridayMorning = new WorkoutControl();
       this.grpSaturday = new System.Windows.Forms.GroupBox();
-      this.wrkSaturdayEvening = new WorkoutControl();
-      this.wrkSaturdayMorning = new WorkoutControl();
       this.grpSunday = new System.Windows.Forms.GroupBox();
-      this.wrkSundayEvening = new WorkoutControl();
-      this.wrkSundayMorning = new WorkoutControl();
       this.grpSummary = new System.Windows.Forms.GroupBox();
       this.txtNotes = new System.Windows.Forms.TextBox();
       this.txtTotalDistance = new System.Windows.Forms.TextBox();
@@ -56,6 +42,20 @@
       this.txtWorkoutCount = new System.Windows.Forms.TextBox();
       this.grpDate = new System.Windows.Forms.GroupBox();
       this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+      this.wrkSundayEvening = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkSundayMorning = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkSaturdayEvening = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkSaturdayMorning = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkFridayEvening = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkFridayMorning = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkThursdayEvening = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkThursdayMorning = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkWednesdayEvening = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkWednesdayMorning = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkTuesdayEvening = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkTuesdayMorning = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkMondayEvening = new TrainingPlanner.View.Controls.WorkoutControl();
+      this.wrkMondayMorning = new TrainingPlanner.View.Controls.WorkoutControl();
       this.grpMonday.SuspendLayout();
       this.grpTuesday.SuspendLayout();
       this.grpWednesday.SuspendLayout();
@@ -78,24 +78,6 @@
       this.grpMonday.TabStop = false;
       this.grpMonday.Text = "Monday";
       // 
-      // wrkMondayEvening
-      // 
-      this.wrkMondayEvening.BackColor = System.Drawing.Color.Beige;
-      this.wrkMondayEvening.Location = new System.Drawing.Point(6, 113);
-      this.wrkMondayEvening.Name = "wrkMondayEvening";
-      this.wrkMondayEvening.Size = new System.Drawing.Size(144, 88);
-      this.wrkMondayEvening.TabIndex = 3;
-      this.wrkMondayEvening.Workout = null;
-      // 
-      // wrkMondayMorning
-      // 
-      this.wrkMondayMorning.BackColor = System.Drawing.Color.Beige;
-      this.wrkMondayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkMondayMorning.Name = "wrkMondayMorning";
-      this.wrkMondayMorning.Size = new System.Drawing.Size(144, 88);
-      this.wrkMondayMorning.TabIndex = 2;
-      this.wrkMondayMorning.Workout = null;
-      // 
       // grpTuesday
       // 
       this.grpTuesday.Controls.Add(this.wrkTuesdayEvening);
@@ -106,24 +88,6 @@
       this.grpTuesday.TabIndex = 1;
       this.grpTuesday.TabStop = false;
       this.grpTuesday.Text = "Tuesday";
-      // 
-      // wrkTuesdayEvening
-      // 
-      this.wrkTuesdayEvening.BackColor = System.Drawing.Color.Beige;
-      this.wrkTuesdayEvening.Location = new System.Drawing.Point(6, 113);
-      this.wrkTuesdayEvening.Name = "wrkTuesdayEvening";
-      this.wrkTuesdayEvening.Size = new System.Drawing.Size(144, 88);
-      this.wrkTuesdayEvening.TabIndex = 1;
-      this.wrkTuesdayEvening.Workout = null;
-      // 
-      // wrkTuesdayMorning
-      // 
-      this.wrkTuesdayMorning.BackColor = System.Drawing.Color.Beige;
-      this.wrkTuesdayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkTuesdayMorning.Name = "wrkTuesdayMorning";
-      this.wrkTuesdayMorning.Size = new System.Drawing.Size(144, 88);
-      this.wrkTuesdayMorning.TabIndex = 0;
-      this.wrkTuesdayMorning.Workout = null;
       // 
       // grpWednesday
       // 
@@ -136,24 +100,6 @@
       this.grpWednesday.TabStop = false;
       this.grpWednesday.Text = "Wednesday";
       // 
-      // wrkWednesdayEvening
-      // 
-      this.wrkWednesdayEvening.BackColor = System.Drawing.Color.Beige;
-      this.wrkWednesdayEvening.Location = new System.Drawing.Point(6, 113);
-      this.wrkWednesdayEvening.Name = "wrkWednesdayEvening";
-      this.wrkWednesdayEvening.Size = new System.Drawing.Size(144, 88);
-      this.wrkWednesdayEvening.TabIndex = 1;
-      this.wrkWednesdayEvening.Workout = null;
-      // 
-      // wrkWednesdayMorning
-      // 
-      this.wrkWednesdayMorning.BackColor = System.Drawing.Color.Beige;
-      this.wrkWednesdayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkWednesdayMorning.Name = "wrkWednesdayMorning";
-      this.wrkWednesdayMorning.Size = new System.Drawing.Size(144, 88);
-      this.wrkWednesdayMorning.TabIndex = 0;
-      this.wrkWednesdayMorning.Workout = null;
-      // 
       // grpThursday
       // 
       this.grpThursday.Controls.Add(this.wrkThursdayEvening);
@@ -164,24 +110,6 @@
       this.grpThursday.TabIndex = 2;
       this.grpThursday.TabStop = false;
       this.grpThursday.Text = "Thursday";
-      // 
-      // wrkThursdayEvening
-      // 
-      this.wrkThursdayEvening.BackColor = System.Drawing.Color.Beige;
-      this.wrkThursdayEvening.Location = new System.Drawing.Point(6, 113);
-      this.wrkThursdayEvening.Name = "wrkThursdayEvening";
-      this.wrkThursdayEvening.Size = new System.Drawing.Size(144, 88);
-      this.wrkThursdayEvening.TabIndex = 1;
-      this.wrkThursdayEvening.Workout = null;
-      // 
-      // wrkThursdayMorning
-      // 
-      this.wrkThursdayMorning.BackColor = System.Drawing.Color.Beige;
-      this.wrkThursdayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkThursdayMorning.Name = "wrkThursdayMorning";
-      this.wrkThursdayMorning.Size = new System.Drawing.Size(144, 88);
-      this.wrkThursdayMorning.TabIndex = 0;
-      this.wrkThursdayMorning.Workout = null;
       // 
       // grpFriday
       // 
@@ -194,24 +122,6 @@
       this.grpFriday.TabStop = false;
       this.grpFriday.Text = "Friday";
       // 
-      // wrkFridayEvening
-      // 
-      this.wrkFridayEvening.BackColor = System.Drawing.Color.Beige;
-      this.wrkFridayEvening.Location = new System.Drawing.Point(6, 113);
-      this.wrkFridayEvening.Name = "wrkFridayEvening";
-      this.wrkFridayEvening.Size = new System.Drawing.Size(144, 88);
-      this.wrkFridayEvening.TabIndex = 1;
-      this.wrkFridayEvening.Workout = null;
-      // 
-      // wrkFridayMorning
-      // 
-      this.wrkFridayMorning.BackColor = System.Drawing.Color.Beige;
-      this.wrkFridayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkFridayMorning.Name = "wrkFridayMorning";
-      this.wrkFridayMorning.Size = new System.Drawing.Size(144, 88);
-      this.wrkFridayMorning.TabIndex = 0;
-      this.wrkFridayMorning.Workout = null;
-      // 
       // grpSaturday
       // 
       this.grpSaturday.Controls.Add(this.wrkSaturdayEvening);
@@ -223,24 +133,6 @@
       this.grpSaturday.TabStop = false;
       this.grpSaturday.Text = "Saturday";
       // 
-      // wrkSaturdayEvening
-      // 
-      this.wrkSaturdayEvening.BackColor = System.Drawing.Color.Beige;
-      this.wrkSaturdayEvening.Location = new System.Drawing.Point(6, 113);
-      this.wrkSaturdayEvening.Name = "wrkSaturdayEvening";
-      this.wrkSaturdayEvening.Size = new System.Drawing.Size(144, 88);
-      this.wrkSaturdayEvening.TabIndex = 1;
-      this.wrkSaturdayEvening.Workout = null;
-      // 
-      // wrkSaturdayMorning
-      // 
-      this.wrkSaturdayMorning.BackColor = System.Drawing.Color.Beige;
-      this.wrkSaturdayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkSaturdayMorning.Name = "wrkSaturdayMorning";
-      this.wrkSaturdayMorning.Size = new System.Drawing.Size(144, 88);
-      this.wrkSaturdayMorning.TabIndex = 0;
-      this.wrkSaturdayMorning.Workout = null;
-      // 
       // grpSunday
       // 
       this.grpSunday.Controls.Add(this.wrkSundayEvening);
@@ -251,24 +143,6 @@
       this.grpSunday.TabIndex = 3;
       this.grpSunday.TabStop = false;
       this.grpSunday.Text = "Sunday";
-      // 
-      // wrkSundayEvening
-      // 
-      this.wrkSundayEvening.BackColor = System.Drawing.Color.Beige;
-      this.wrkSundayEvening.Location = new System.Drawing.Point(6, 113);
-      this.wrkSundayEvening.Name = "wrkSundayEvening";
-      this.wrkSundayEvening.Size = new System.Drawing.Size(144, 88);
-      this.wrkSundayEvening.TabIndex = 1;
-      this.wrkSundayEvening.Workout = null;
-      // 
-      // wrkSundayMorning
-      // 
-      this.wrkSundayMorning.BackColor = System.Drawing.Color.Beige;
-      this.wrkSundayMorning.Location = new System.Drawing.Point(6, 19);
-      this.wrkSundayMorning.Name = "wrkSundayMorning";
-      this.wrkSundayMorning.Size = new System.Drawing.Size(144, 88);
-      this.wrkSundayMorning.TabIndex = 0;
-      this.wrkSundayMorning.Workout = null;
       // 
       // grpSummary
       // 
@@ -329,6 +203,132 @@
       this.monthCalendar1.ShowToday = false;
       this.monthCalendar1.TabIndex = 1;
       this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+      // 
+      // wrkSundayEvening
+      // 
+      this.wrkSundayEvening.BackColor = System.Drawing.Color.Beige;
+      this.wrkSundayEvening.Location = new System.Drawing.Point(6, 113);
+      this.wrkSundayEvening.Name = "wrkSundayEvening";
+      this.wrkSundayEvening.Size = new System.Drawing.Size(144, 88);
+      this.wrkSundayEvening.TabIndex = 1;
+      this.wrkSundayEvening.Workout = null;
+      // 
+      // wrkSundayMorning
+      // 
+      this.wrkSundayMorning.BackColor = System.Drawing.Color.Beige;
+      this.wrkSundayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkSundayMorning.Name = "wrkSundayMorning";
+      this.wrkSundayMorning.Size = new System.Drawing.Size(144, 88);
+      this.wrkSundayMorning.TabIndex = 0;
+      this.wrkSundayMorning.Workout = null;
+      // 
+      // wrkSaturdayEvening
+      // 
+      this.wrkSaturdayEvening.BackColor = System.Drawing.Color.Beige;
+      this.wrkSaturdayEvening.Location = new System.Drawing.Point(6, 113);
+      this.wrkSaturdayEvening.Name = "wrkSaturdayEvening";
+      this.wrkSaturdayEvening.Size = new System.Drawing.Size(144, 88);
+      this.wrkSaturdayEvening.TabIndex = 1;
+      this.wrkSaturdayEvening.Workout = null;
+      // 
+      // wrkSaturdayMorning
+      // 
+      this.wrkSaturdayMorning.BackColor = System.Drawing.Color.Beige;
+      this.wrkSaturdayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkSaturdayMorning.Name = "wrkSaturdayMorning";
+      this.wrkSaturdayMorning.Size = new System.Drawing.Size(144, 88);
+      this.wrkSaturdayMorning.TabIndex = 0;
+      this.wrkSaturdayMorning.Workout = null;
+      // 
+      // wrkFridayEvening
+      // 
+      this.wrkFridayEvening.BackColor = System.Drawing.Color.Beige;
+      this.wrkFridayEvening.Location = new System.Drawing.Point(6, 113);
+      this.wrkFridayEvening.Name = "wrkFridayEvening";
+      this.wrkFridayEvening.Size = new System.Drawing.Size(144, 88);
+      this.wrkFridayEvening.TabIndex = 1;
+      this.wrkFridayEvening.Workout = null;
+      // 
+      // wrkFridayMorning
+      // 
+      this.wrkFridayMorning.BackColor = System.Drawing.Color.Beige;
+      this.wrkFridayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkFridayMorning.Name = "wrkFridayMorning";
+      this.wrkFridayMorning.Size = new System.Drawing.Size(144, 88);
+      this.wrkFridayMorning.TabIndex = 0;
+      this.wrkFridayMorning.Workout = null;
+      // 
+      // wrkThursdayEvening
+      // 
+      this.wrkThursdayEvening.BackColor = System.Drawing.Color.Beige;
+      this.wrkThursdayEvening.Location = new System.Drawing.Point(6, 113);
+      this.wrkThursdayEvening.Name = "wrkThursdayEvening";
+      this.wrkThursdayEvening.Size = new System.Drawing.Size(144, 88);
+      this.wrkThursdayEvening.TabIndex = 1;
+      this.wrkThursdayEvening.Workout = null;
+      // 
+      // wrkThursdayMorning
+      // 
+      this.wrkThursdayMorning.BackColor = System.Drawing.Color.Beige;
+      this.wrkThursdayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkThursdayMorning.Name = "wrkThursdayMorning";
+      this.wrkThursdayMorning.Size = new System.Drawing.Size(144, 88);
+      this.wrkThursdayMorning.TabIndex = 0;
+      this.wrkThursdayMorning.Workout = null;
+      // 
+      // wrkWednesdayEvening
+      // 
+      this.wrkWednesdayEvening.BackColor = System.Drawing.Color.Beige;
+      this.wrkWednesdayEvening.Location = new System.Drawing.Point(6, 113);
+      this.wrkWednesdayEvening.Name = "wrkWednesdayEvening";
+      this.wrkWednesdayEvening.Size = new System.Drawing.Size(144, 88);
+      this.wrkWednesdayEvening.TabIndex = 1;
+      this.wrkWednesdayEvening.Workout = null;
+      // 
+      // wrkWednesdayMorning
+      // 
+      this.wrkWednesdayMorning.BackColor = System.Drawing.Color.Beige;
+      this.wrkWednesdayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkWednesdayMorning.Name = "wrkWednesdayMorning";
+      this.wrkWednesdayMorning.Size = new System.Drawing.Size(144, 88);
+      this.wrkWednesdayMorning.TabIndex = 0;
+      this.wrkWednesdayMorning.Workout = null;
+      // 
+      // wrkTuesdayEvening
+      // 
+      this.wrkTuesdayEvening.BackColor = System.Drawing.Color.Beige;
+      this.wrkTuesdayEvening.Location = new System.Drawing.Point(6, 113);
+      this.wrkTuesdayEvening.Name = "wrkTuesdayEvening";
+      this.wrkTuesdayEvening.Size = new System.Drawing.Size(144, 88);
+      this.wrkTuesdayEvening.TabIndex = 1;
+      this.wrkTuesdayEvening.Workout = null;
+      // 
+      // wrkTuesdayMorning
+      // 
+      this.wrkTuesdayMorning.BackColor = System.Drawing.Color.Beige;
+      this.wrkTuesdayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkTuesdayMorning.Name = "wrkTuesdayMorning";
+      this.wrkTuesdayMorning.Size = new System.Drawing.Size(144, 88);
+      this.wrkTuesdayMorning.TabIndex = 0;
+      this.wrkTuesdayMorning.Workout = null;
+      // 
+      // wrkMondayEvening
+      // 
+      this.wrkMondayEvening.BackColor = System.Drawing.Color.Beige;
+      this.wrkMondayEvening.Location = new System.Drawing.Point(6, 113);
+      this.wrkMondayEvening.Name = "wrkMondayEvening";
+      this.wrkMondayEvening.Size = new System.Drawing.Size(144, 88);
+      this.wrkMondayEvening.TabIndex = 3;
+      this.wrkMondayEvening.Workout = null;
+      // 
+      // wrkMondayMorning
+      // 
+      this.wrkMondayMorning.BackColor = System.Drawing.Color.Beige;
+      this.wrkMondayMorning.Location = new System.Drawing.Point(6, 19);
+      this.wrkMondayMorning.Name = "wrkMondayMorning";
+      this.wrkMondayMorning.Size = new System.Drawing.Size(144, 88);
+      this.wrkMondayMorning.TabIndex = 2;
+      this.wrkMondayMorning.Workout = null;
       // 
       // WeekControl
       // 

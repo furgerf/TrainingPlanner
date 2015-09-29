@@ -33,5 +33,18 @@ namespace TrainingPlanner.View.Interfaces
     /// </summary>
     /// <param name="weeklyPlans"></param>
     void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans);
+
+    /// <summary>
+    /// Changes the "active" status of a week (-control).
+    /// </summary>
+    /// <param name="week">Week number.</param>
+    /// <param name="isActive">True if the week is the active week.</param>
+    void SetWeekActivity(int week, bool isActive);
+
+    /// <summary>
+    /// Scrolls to the specified week.
+    /// </summary>
+    /// <param name="week">Week number to scroll to.</param>
+    void ScrollToWeek(int week);
   }
 }

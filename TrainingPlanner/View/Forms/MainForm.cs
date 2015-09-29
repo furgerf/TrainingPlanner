@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.EventArgs;
@@ -106,6 +107,23 @@ namespace TrainingPlanner.View.Forms
       for (var i = 0; i < weeklyPlans.Length; i++)
       {
         _weekControls[i].WeeklyPlan = weeklyPlans[i];
+      }
+    }
+
+    public void SetWeekActivity(int week, bool isActive)
+    {
+      this._weekControls[week].IsActiveWeek = isActive;
+    }
+
+    public void ScrollToWeek(int week)
+    {
+      if (this.foregroundPanel.InvokeRequired)
+      {
+        this.foregroundPanel.Invoke((MethodInvoker) (() => ScrollToWeek(week)));
+      }
+      else
+      {
+        this.foregroundPanel.ScrollControlIntoView(this._weekControls[Math.Min(week + 2, this._weekControls.Length)]);
       }
     }
 

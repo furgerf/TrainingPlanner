@@ -22,6 +22,19 @@ namespace TrainingPlanner.View.Controls
     private readonly Data _data;
 
     private WeeklyPlan _weeklyPlan;
+    private bool _isActiveWeek;
+
+    public bool IsActiveWeek
+    {
+      get { return _isActiveWeek; }
+      set
+      {
+        _isActiveWeek = value;
+        this.BackColor = IsActiveWeek
+          ? Colors.Default.ActiveWorkoutControlBackground
+          : Colors.Default.DefaultWorkoutControlBackground;
+      }
+    }
 
     public WeeklyPlan WeeklyPlan
     {
@@ -72,6 +85,7 @@ namespace TrainingPlanner.View.Controls
       this._data = data;
 
       this.BackColor = Colors.Default.DefaultWorkoutControlBackground;
+
       _workoutControls = new[]
       {
         wrkMondayMorning, wrkMondayEvening, wrkTuesdayMorning, wrkTuesdayEvening, wrkWednesdayMorning,

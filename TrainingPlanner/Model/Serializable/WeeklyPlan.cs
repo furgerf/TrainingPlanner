@@ -62,6 +62,11 @@ namespace TrainingPlanner.Model.Serializable
       }
     }
 
+    public DateTime WeekEnd
+    {
+      get { return WeekStart.AddDays(7); }
+    }
+
     public override string ToString()
     {
       return string.Format("Week {0} starting {1}", this.WeekNumber, this.WeekStart);

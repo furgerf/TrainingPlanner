@@ -11,5 +11,8 @@
     <Setting Name="InvalidPaceColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Salmon</Value>
     </Setting>
+    <Setting Name="ActiveWorkoutControlBackground" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">BlanchedAlmond</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

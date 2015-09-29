@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Presenter.Interfaces;
@@ -32,6 +34,24 @@ namespace TrainingPlanner.Presenter
       view.InfoClick += (s, e) => OnInfoClick();
 
       view.WeeklyPlanChanged += (s, e) => this._data.UpdateTrainingPlan(e.Value);
+
+      // find active week
+      for (var i = 0; i < this._data.TrainingPlan.WeeklyPlans.Length; i++)
+      {
+
+        if (this._data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || this._data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
+        {
+          continue;
+        }
+
+        view.SetWeekActivity(i, true);
+        Task.Factory.StartNew(() =>
+        {
+          Thread.Sleep(1);
+          view.ScrollToWeek(i);
+        });
+        break;
+      }
     }
 
     private void OnNewPlanClick()

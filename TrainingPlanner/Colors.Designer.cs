@@ -58,5 +58,17 @@ namespace TrainingPlanner {
                 this["InvalidPaceColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BlanchedAlmond")]
+        public global::System.Drawing.Color ActiveWorkoutControlBackground {
+            get {
+                return ((global::System.Drawing.Color)(this["ActiveWorkoutControlBackground"]));
+            }
+            set {
+                this["ActiveWorkoutControlBackground"] = value;
+            }
+        }
     }
 }
