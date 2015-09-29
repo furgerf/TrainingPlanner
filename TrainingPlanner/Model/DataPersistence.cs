@@ -24,6 +24,8 @@ namespace TrainingPlanner.Model
       ? ApplicationDataDirectoryLinux
       : ApplicationDataDirectoryWindows;
 
+    private const int DefaultTrainingWeeks = 12;
+
     private static string WorkoutsDirectory
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + WorkoutsDirectoryName; }
@@ -111,7 +113,7 @@ namespace TrainingPlanner.Model
       Logger.Info("Loading training plan");
       return File.Exists(TrainingPlanFile)
         ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
-        : TrainingPlan.NewTrainingPlan;
+        : TrainingPlan.NewTrainingPlan(DefaultTrainingWeeks);
     }
     #endregion
 

@@ -11,33 +11,18 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Number of weeks of the training plan.
     /// </summary>
-    public const int TrainingWeeks = 11;
+    [DataMember(Name = "TrainingWeeks", IsRequired = true)]
+    public readonly int TrainingWeeks;
 
     [DataMember(Name = "WeeklyPlans", IsRequired = true)]
     public WeeklyPlan[] WeeklyPlans;
 
     private Data _data;
 
-    public static TrainingPlan NewTrainingPlan
+    public TrainingPlan(WeeklyPlan[] plans)
     {
-      get
-      {
-        Logger.Info("Creating new empty TrainingPlan");
-        var diff = DateTime.Today.DayOfWeek - DayOfWeek.Sunday;
-        if (diff < 0)
-        {
-          diff += 7;
-        }
-        var monday = DateTime.Today.AddDays(-1 * diff).Date;
-
-        var weeks = new WeeklyPlan[TrainingWeeks];
-        for (var i = 0; i < TrainingWeeks; i++)
-        {
-          weeks[i] = new WeeklyPlan(new string[14], monday.AddDays(i*7), i);
-        }
-
-        return new TrainingPlan { WeeklyPlans = weeks };
-      }
+      this.TrainingWeeks = plans.Length;
+      this.WeeklyPlans = plans;
     }
 
     public Workout[] AllWorkouts
@@ -57,6 +42,25 @@ namespace TrainingPlanner.Model.Serializable
     public void SetData(Data data)
     {
       this._data = data;
+    }
+
+    public static TrainingPlan NewTrainingPlan(int weekCount)
+    {
+        Logger.Info("Creating new empty TrainingPlan");
+        var diff = DateTime.Today.DayOfWeek - DayOfWeek.Sunday;
+        if (diff < 0)
+        {
+          diff += 7;
+        }
+        var monday = DateTime.Today.AddDays(-1 * diff).Date;
+
+        var weeks = new WeeklyPlan[weekCount];
+        for (var i = 0; i < weekCount; i++)
+        {
+          weeks[i] = new WeeklyPlan(new string[14], monday.AddDays(i*7), i);
+        }
+
+      return new TrainingPlan(weeks);
     }
 
     public override string ToString()

@@ -24,7 +24,8 @@ namespace TrainingPlanner.View.Forms
 
       InitializeComponent();
 
-      this._weekControls = new WeekControl[TrainingPlan.TrainingWeeks];
+      this._weekControls = new WeekControl[this._data.TrainingPlan.TrainingWeeks];
+
       InitializeDynamicControls();
 
       // register to more events (to retrigger)
