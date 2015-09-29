@@ -16,6 +16,7 @@ namespace TrainingPlanner.Model
     private const string TrainingPlanFileName = "plan.json";
     private const string WorkoutsDirectoryName = "workouts";
     private const string WorkoutCategoriesDirectoryName = "workout-categories";
+    private const string LogFileName = "training-planner.log";
 
     private static readonly bool IsLinux = !Environment.OSVersion.Platform.ToString().ToLower().StartsWith("win");
 
@@ -34,6 +35,11 @@ namespace TrainingPlanner.Model
     private static string TrainingPlanFile
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + TrainingPlanFileName; }
+    }
+
+    public static string LogFile
+    {
+      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + LogFileName; }
     }
     #endregion
 

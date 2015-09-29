@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -13,6 +14,8 @@ namespace TrainingPlanner
     private const int SeverityCharacters = 5;
 
     public static Severity  LogSeverity = Severity.Debug;
+
+    public static readonly List<string> LoggingPaths = new List<string>();
 
     public enum Severity
     {
@@ -133,7 +136,19 @@ namespace TrainingPlanner
 
     private static void Write(string message, string severity, string callerFilePath, string callerMemberName)
     {
-      Console.WriteLine("[{0}] {1}{2} - {3}.{4} - {5}", DateTime.Now, severity, GetWhitespaces(SeverityCharacters - severity.Length), GetClassNameFromPath(callerFilePath), callerMemberName, message);
+      var entry = new[]
+      {
+        string.Format("[{0}] {1}{2} - {3}.{4} - {5}", DateTime.Now, severity,
+          GetWhitespaces(SeverityCharacters - severity.Length), GetClassNameFromPath(callerFilePath), callerMemberName,
+          message)
+      };
+
+      Console.WriteLine(entry[0]);
+
+      foreach (var p in LoggingPaths)
+      {
+        File.AppendAllLines(p, entry);
+      }
     }
 
     private static string GetWhitespaces(int count)

@@ -15,6 +15,7 @@ namespace TrainingPlanner
     private static void Main()
     {
       Logger.LogSeverity = Logger.Severity.Info;
+      Logger.LoggingPaths.Add(DataPersistence.LogFile);
 
       Logger.Info("Initializing application...");
       Application.EnableVisualStyles();
