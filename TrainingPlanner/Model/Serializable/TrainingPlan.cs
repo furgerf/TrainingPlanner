@@ -8,6 +8,27 @@ namespace TrainingPlanner.Model.Serializable
   [DataContract(Name = "TrainingPlan")]
   public sealed class TrainingPlan
   {
+    [DataMember(Name = "Name", IsRequired = true)]
+    public string Name
+    {
+      get { return _name; }
+      set
+      {
+        if (_name == value)
+        {
+          return;
+        }
+
+        var oldName = _name;
+        _name = value;
+
+        if (NameChanged != null)
+        {
+          this.NameChanged(this, oldName);
+        }
+      }
+    }
+
     /// <summary>
     /// Number of weeks of the training plan.
     /// </summary>
@@ -18,12 +39,20 @@ namespace TrainingPlanner.Model.Serializable
     public WeeklyPlan[] WeeklyPlans;
 
     private Data _data;
+    private string _name;
 
-    public TrainingPlan(WeeklyPlan[] plans)
+    public TrainingPlan(string name, WeeklyPlan[] plans)
     {
+      this.Name = name;
       this.TrainingWeeks = plans.Length;
       this.WeeklyPlans = plans;
     }
+
+    /// <summary>
+    /// Triggered when the TrainingPlan's Name changed, with the EventArg
+    /// being the old name.
+    /// </summary>
+    public event EventHandler<string> NameChanged;
 
     public Workout[] AllWorkouts
     {
@@ -60,7 +89,7 @@ namespace TrainingPlanner.Model.Serializable
           weeks[i] = new WeeklyPlan(new string[14], monday.AddDays(i*7), i);
         }
 
-      return new TrainingPlan(weeks);
+      return new TrainingPlan("Empty Training Plan", weeks);
     }
 
     public override string ToString()
