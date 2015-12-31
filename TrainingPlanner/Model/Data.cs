@@ -27,7 +27,12 @@ namespace TrainingPlanner.Model
       // load persisted data
       this._categories = new List<WorkoutCategory>(persistence.LoadCategories());
       this._workouts = new List<Workout>(persistence.LoadWorkouts());
-      this._trainingPlan = persistence.LoadPlan();
+      this._trainingPlan = persistence.LoadPlan("lucerne-marathon-2015");
+      if (TrainingPlanLoaded != null)
+      {
+        Logger.Debug("Triggering TrainingPlanLoaded event");
+        TrainingPlanLoaded(this, null);
+      }
 
       this._trainingPlan.SetData(this);
 
@@ -49,12 +54,14 @@ namespace TrainingPlanner.Model
     /// <summary>
     /// Triggered whenever one of the training plan entries changes.
     /// </summary>
-    public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanChanged;
+    public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanModified;
 
     /// <summary>
     /// Triggered whenever the value of any of the paces changes.
     /// </summary>
     public event EventHandler<PaceChangedEventArgs> PaceChanged;
+
+    public event EventHandler TrainingPlanLoaded;
     #endregion
 
     #region Data access
@@ -295,10 +302,10 @@ namespace TrainingPlanner.Model
     {
       _trainingPlan.WeeklyPlans[newWeeklyPlan.WeekNumber] = newWeeklyPlan;
 
-      if (TrainingPlanChanged != null)
+      if (TrainingPlanModified != null)
       {
-        Logger.Debug("Triggering TrainingPlanChanged event");
-        TrainingPlanChanged(this, new TrainingPlanChangedEventArgs());
+        Logger.Debug("Triggering TrainingPlanModified event");
+        TrainingPlanModified(this, new TrainingPlanChangedEventArgs());
       }
     }
     #endregion

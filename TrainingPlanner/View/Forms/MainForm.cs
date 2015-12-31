@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.EventArgs;
@@ -47,6 +48,13 @@ namespace TrainingPlanner.View.Forms
       {
         wc.Activate();
       }
+
+      // TODO: create shown event in IMF and scroll on the event callback in MFP
+      this.Shown += (s, e) =>
+      {
+        //this.foregroundPanel.ScrollControlIntoView(_weekControls[9]);
+        this.foregroundPanel.AutoScrollPosition = new Point(100, 5*WeeklyControlHeight);
+      };
     }
 
     private void InitializeDynamicControls()
@@ -123,7 +131,8 @@ namespace TrainingPlanner.View.Forms
       }
       else
       {
-        this.foregroundPanel.ScrollControlIntoView(this._weekControls[Math.Min(week + 2, this._weekControls.Length)]);
+        //this.foregroundPanel.ScrollControlIntoView(this._weekControls[Math.Min(week + 2, this._weekControls.Length)]);
+        //this.foregroundPanel.AutoScrollPosition = new Point(0, -10);
       }
     }
 

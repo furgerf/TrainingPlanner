@@ -13,7 +13,6 @@ namespace TrainingPlanner.Model
     #region Paths
     private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
     private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
-    private const string TrainingPlanFileName = "plan.json";
     private const string WorkoutsDirectoryName = "workouts";
     private const string WorkoutCategoriesDirectoryName = "workout-categories";
     private const string LogFileName = "training-planner.log";
@@ -34,24 +33,24 @@ namespace TrainingPlanner.Model
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + WorkoutCategoriesDirectoryName; }
     }
-    private static string TrainingPlanFile
-    {
-      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + TrainingPlanFileName; }
-    }
-
     public static string LogFile
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + LogFileName; }
     }
     #endregion
 
+    private readonly Data _data;
+
     #region Constructor
     public DataPersistence(Data data)
     {
-      data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
-      data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
-      data.CategoryChanged += (s, e) => OnCategoryChanged(e);
-      data.TrainingPlanChanged += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
+      this._data = data;
+
+      this._data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
+      this._data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
+      this._data.CategoryChanged += (s, e) => OnCategoryChanged(e);
+      this._data.TrainingPlanModified += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
+      this._data.TrainingPlanLoaded += (s, e) => OnTrainingPlanLoaded();
 
       Logger.Info("DataPersistence instantiated");
     }
@@ -89,7 +88,18 @@ namespace TrainingPlanner.Model
     private static void OnTrainingPlanChanged(TrainingPlan plan)
     {
       Logger.Info("Training plan saved");
-      WriteJsonFile(plan, TrainingPlanFile);
+      WriteJsonFile(plan, TrainingPlanFile(plan.Name));
+    }
+
+    private void OnTrainingPlanLoaded()
+    {
+      this._data.TrainingPlan.NameChanged += (s, e) =>
+      {
+        var oldName = e;
+        var newName = ((TrainingPlan) s).Name;
+
+        File.Move(TrainingPlanFile(oldName), TrainingPlanFile(newName));
+      };
     }
     #endregion
 
@@ -108,11 +118,11 @@ namespace TrainingPlanner.Model
       return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(ParseJsonFile<Workout>);
     }
 
-    public TrainingPlan LoadPlan()
+    public TrainingPlan LoadPlan(string planName)
     {
-      Logger.Info("Loading training plan");
-      return File.Exists(TrainingPlanFile)
-        ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
+      Logger.InfoFormat("Loading training plan {0}", planName);
+      return File.Exists(TrainingPlanFile(planName))
+        ? ParseJsonFile<TrainingPlan>(TrainingPlanFile(planName))
         : TrainingPlan.NewTrainingPlan(DefaultTrainingWeeks);
     }
     #endregion
@@ -163,6 +173,11 @@ namespace TrainingPlanner.Model
       Paces.Default.Save();
     }
     #endregion
+
+    private static string TrainingPlanFile(string planName)
+    {
+      return ApplicationDataDirectory + Path.DirectorySeparatorChar + planName.Replace(' ', '-').ToLower() + ".json";
+    }
 
     #region (De-)serialization
     private static T ParseJsonFile<T>(string path)

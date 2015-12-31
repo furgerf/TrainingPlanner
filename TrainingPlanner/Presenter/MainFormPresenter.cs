@@ -45,11 +45,11 @@ namespace TrainingPlanner.Presenter
         }
 
         view.SetWeekActivity(i, true);
-        Task.Factory.StartNew(() =>
-        {
-          Thread.Sleep(1);
-          view.ScrollToWeek(i);
-        });
+        //Task.Factory.StartNew(() =>
+        //{
+        //  Thread.Sleep(1);
+          //view.ScrollToWeek(i);
+        //});
         break;
       }
     }
