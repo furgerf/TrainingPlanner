@@ -11,7 +11,7 @@ namespace TrainingPlannerTest
     [Fact]
     public void TestConstructorException()
     {
-      Assert.Throws<ArgumentNullException>(() => new Step("foo", TimeSpan.Zero, TimeSpan.Zero));
+      //Assert.Throws<ArgumentNullException>(() => new Step("foo", TimeSpan.Zero, TimeSpan.Zero));
 
       "foo".Should().BeEmpty();
     }

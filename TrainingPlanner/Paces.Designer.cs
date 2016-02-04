@@ -25,7 +25,7 @@ namespace TrainingPlanner {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:05:15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:05:20")]
         public global::System.TimeSpan Easy {
             get {
                 return ((global::System.TimeSpan)(this["Easy"]));
@@ -38,12 +38,12 @@ namespace TrainingPlanner {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("00:05:00")]
-        public global::System.TimeSpan Long {
+        public global::System.TimeSpan Base {
             get {
-                return ((global::System.TimeSpan)(this["Long"]));
+                return ((global::System.TimeSpan)(this["Base"]));
             }
             set {
-                this["Long"] = value;
+                this["Base"] = value;
             }
         }
         
@@ -85,7 +85,7 @@ namespace TrainingPlanner {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:03:30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:03:32")]
         public global::System.TimeSpan TenK {
             get {
                 return ((global::System.TimeSpan)(this["TenK"]));
@@ -109,30 +109,6 @@ namespace TrainingPlanner {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:05:15")]
-        public global::System.TimeSpan Warmup {
-            get {
-                return ((global::System.TimeSpan)(this["Warmup"]));
-            }
-            set {
-                this["Warmup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:05:30")]
-        public global::System.TimeSpan Cooldown {
-            get {
-                return ((global::System.TimeSpan)(this["Cooldown"]));
-            }
-            set {
-                this["Cooldown"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("mm\':\'ss")]
         public string PaceFormat {
             get {
@@ -140,6 +116,18 @@ namespace TrainingPlanner {
             }
             set {
                 this["PaceFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:04:15")]
+        public global::System.TimeSpan Steady {
+            get {
+                return ((global::System.TimeSpan)(this["Steady"]));
+            }
+            set {
+                this["Steady"] = value;
             }
         }
     }

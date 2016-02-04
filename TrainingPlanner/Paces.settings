@@ -3,9 +3,9 @@
   <Profiles />
   <Settings>
     <Setting Name="Easy" Type="System.TimeSpan" Scope="User">
-      <Value Profile="(Default)">00:05:15</Value>
+      <Value Profile="(Default)">00:05:20</Value>
     </Setting>
-    <Setting Name="Long" Type="System.TimeSpan" Scope="User">
+    <Setting Name="Base" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:05:00</Value>
     </Setting>
     <Setting Name="Marathon" Type="System.TimeSpan" Scope="User">
@@ -18,19 +18,16 @@
       <Value Profile="(Default)">00:03:37</Value>
     </Setting>
     <Setting Name="TenK" Type="System.TimeSpan" Scope="User">
-      <Value Profile="(Default)">00:03:30</Value>
+      <Value Profile="(Default)">00:03:32</Value>
     </Setting>
     <Setting Name="FiveK" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:03:22</Value>
     </Setting>
-    <Setting Name="Warmup" Type="System.TimeSpan" Scope="User">
-      <Value Profile="(Default)">00:05:15</Value>
-    </Setting>
-    <Setting Name="Cooldown" Type="System.TimeSpan" Scope="User">
-      <Value Profile="(Default)">00:05:30</Value>
-    </Setting>
     <Setting Name="PaceFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">mm':'ss</Value>
+    </Setting>
+    <Setting Name="Steady" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:04:15</Value>
     </Setting>
   </Settings>
 </SettingsFile>

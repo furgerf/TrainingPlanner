@@ -16,7 +16,7 @@ namespace TrainingPlanner.View.Controls
       InitializeComponent();
 
       comName.Items.AddRange(new object[] {"Warmup", "Cooldown"});
-      comPace.Items.AddRange(Enum.GetNames(typeof (Pace)));
+      comPace.Items.AddRange(Enum.GetNames(typeof (PaceNames)));
       comPace.SelectedIndex = 0;
     }
 
@@ -91,16 +91,10 @@ namespace TrainingPlanner.View.Controls
       }
     }
 
-    private TimeSpan Pace
+    private PaceNames Pace
     {
-      get
-      {
-        return Data.GetDurationFromPace((Pace)Enum.Parse(typeof(Pace), comPace.Text));
-      }
-      set
-      {
-        comPace.Text = Data.GetPaceFromDuration(value).ToString();
-      }
+      get { return (PaceNames) Enum.Parse(typeof (PaceNames), comPace.Text); }
+      set { comPace.Text = value.ToString(); }
     }
 
     private TimeSpan? Rest
@@ -127,7 +121,7 @@ namespace TrainingPlanner.View.Controls
       }
 
       _dontRecalculate = true;
-      txtDistance.Text = string.Format("{0}", Math.Round(Duration.Value.TotalMinutes/Pace.TotalMinutes, 2));
+      txtDistance.Text = string.Format("{0}", Math.Round(Duration.Value.TotalMinutes/Data.GetDurationFromPace(Pace).TotalMinutes, 2));
       _dontRecalculate = false;
 
       _distanceRecentlyCalculated = false;
@@ -141,7 +135,7 @@ namespace TrainingPlanner.View.Controls
       }
 
       _dontRecalculate = true;
-      txtDuration.Text = TimeSpan.FromMinutes(Pace.TotalMinutes*Distance.Value).ToString();
+      txtDuration.Text = TimeSpan.FromMinutes(Data.GetDurationFromPace(Pace).TotalMinutes*Distance.Value).ToString();
       _dontRecalculate = false;
 
       _distanceRecentlyCalculated = true;

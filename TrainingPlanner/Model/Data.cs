@@ -27,7 +27,8 @@ namespace TrainingPlanner.Model
       // load persisted data
       this._categories = new List<WorkoutCategory>(persistence.LoadCategories());
       this._workouts = new List<Workout>(persistence.LoadWorkouts());
-      this._trainingPlan = persistence.LoadPlan("lucerne-marathon-2015");
+
+      this._trainingPlan = persistence.LoadPlan("sempacherseelauf-2016");
       if (TrainingPlanLoaded != null)
       {
         Logger.Debug("Triggering TrainingPlanLoaded event");
@@ -120,45 +121,49 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public static TimeSpan GetDurationFromPace(Pace pace)
+    public static TimeSpan GetDurationFromPace(PaceNames pace)
     {
       switch (pace)
       {
-        case Pace.Easy:
+        case PaceNames.Easy:
           return Paces.Default.Easy;
-        case Pace.Long:
-          return Paces.Default.Long;
-        case Pace.Marathon:
+        case PaceNames.Base:
+          return Paces.Default.Base;
+        case PaceNames.Steady:
+          return Paces.Default.Steady;
+        case PaceNames.Marathon:
           return Paces.Default.Marathon;
-        case Pace.Halfmarathon:
+        case PaceNames.Halfmarathon:
           return Paces.Default.Halfmarathon;
-        case Pace.Threshold:
+        case PaceNames.Threshold:
           return Paces.Default.Threshold;
-        case Pace.Tenk:
+        case PaceNames.TenK:
           return Paces.Default.TenK;
-        case Pace.Fivek:
+        case PaceNames.FiveK:
           return Paces.Default.FiveK;
         default:
           throw new ArgumentOutOfRangeException("pace");
       }
     }
 
-    public static Pace GetPaceFromDuration(TimeSpan duration)
+    public static PaceNames GetPaceFromDuration(TimeSpan duration)
     {
       if (duration == Paces.Default.Easy)
-        return Pace.Easy;
-      if (duration == Paces.Default.Long)
-        return Pace.Long;
+        return PaceNames.Easy;
+      if (duration == Paces.Default.Base)
+        return PaceNames.Base;
+      if (duration == Paces.Default.Steady)
+        return PaceNames.Steady;
       if (duration == Paces.Default.Marathon)
-        return Pace.Marathon;
+        return PaceNames.Marathon;
       if (duration == Paces.Default.Halfmarathon)
-        return Pace.Halfmarathon;
+        return PaceNames.Halfmarathon;
       if (duration == Paces.Default.Threshold)
-        return Pace.Threshold;
+        return PaceNames.Threshold;
       if (duration == Paces.Default.TenK)
-        return Pace.Tenk;
+        return PaceNames.TenK;
       if (duration == Paces.Default.FiveK)
-        return Pace.Fivek;
+        return PaceNames.FiveK;
 
       throw new ArgumentException("unkown pace");
     }
@@ -286,7 +291,7 @@ namespace TrainingPlanner.Model
     /// </summary>
     /// <param name="key">Description of the pace.</param>
     /// <param name="value">New value of the pace.</param>
-    public void ChangePace(Pace key, TimeSpan value)
+    public void ChangePace(PaceNames key, TimeSpan value)
     {
       // nothing to do here because paces aren't saved in ram
       // just trigger event to persist the new value

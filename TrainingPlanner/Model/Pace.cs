@@ -1,10 +1,20 @@
-﻿namespace TrainingPlanner.Model
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace TrainingPlanner.Model
 {
   /// <summary>
   /// The different paces at which to run.
   /// </summary>
-  public enum Pace
+  public enum PaceNames
   {
-    Easy, Long, Marathon, Halfmarathon, Threshold, Tenk, Fivek
+    Easy,
+    Base,
+    Steady,
+    Marathon,
+    Threshold,
+    Halfmarathon,
+    TenK,
+    FiveK
   }
 }

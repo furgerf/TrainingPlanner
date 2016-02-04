@@ -28,10 +28,16 @@ namespace TrainingPlanner.Model.Serializable
 
     /// <summary>
     /// Pace at which to run during the step.
-    /// TODO: (workout-redoing) Store enum name instead of timespan
     /// </summary>
-    [DataMember(Name = "Pace", IsRequired = true)]
-    public readonly TimeSpan Pace;
+    [IgnoreDataMember]
+    public PaceNames Pace;
+
+    [DataMember(Name = "Pace")]
+    public string PaceName
+    {
+      get { return Pace.ToString(); }
+      set { Pace = (PaceNames) Enum.Parse(typeof (PaceNames), value); }
+    }
 
     /// <summary>
     /// Distance to cover during the step.
@@ -67,7 +73,8 @@ namespace TrainingPlanner.Model.Serializable
 
     // TODO: (workout-redoing) Add note
 
-    private Step(string name, TimeSpan duration, TimeSpan pace, double distance, bool durationCalculated, bool distanceCalculated, TimeSpan? rest = null, int repetitions = 1)
+    private Step(string name, TimeSpan duration, PaceNames pace, double distance, bool durationCalculated,
+      bool distanceCalculated, TimeSpan? rest = null, int repetitions = 1)
       : this()
     {
       if (!durationCalculated ^ distanceCalculated)
@@ -88,28 +95,35 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Create a new step with the length being determined by the duration.
     /// </summary>
-    public Step(string name, TimeSpan duration, TimeSpan pace, TimeSpan? rest = null, int repetitions = 1)
-      : this(name, duration, pace, duration.TotalSeconds / pace.TotalSeconds, false, true, rest, repetitions)
+    public Step(string name, TimeSpan duration, PaceNames pace, TimeSpan? rest = null, int repetitions = 1)
+      : this(name, duration, pace, duration.TotalSeconds/Data.GetDurationFromPace(pace).TotalSeconds, false, true, rest, repetitions)
     {
     }
 
     /// <summary>
     /// Create a new step with the length being determined by the distance.
     /// </summary>
-    public Step(string name, double distance, TimeSpan pace, TimeSpan? rest = null, int repetitions = 1)
-      : this(name, TimeSpan.FromSeconds(distance * pace.TotalSeconds), pace, distance, true, false, rest, repetitions)
+    public Step(string name, double distance, PaceNames pace, TimeSpan? rest = null, int repetitions = 1)
+      : this(name, TimeSpan.FromSeconds(distance*Data.GetDurationFromPace(pace).TotalSeconds), pace, distance, true, false, rest, repetitions
+        )
     {
     }
 
     /// <summary>
     /// Gets a new Warmup-step.
     /// </summary>
-    public static Step Warmup { get { return new Step("Warmup", new TimeSpan(0, 10, 0), Paces.Default.Warmup); } }
+    public static Step Warmup
+    {
+      get { return new Step("Warmup", new TimeSpan(0, 10, 0), PaceNames.Easy); }
+    }
 
     /// <summary>
     /// Gets a new Cooldown-step.
     /// </summary>
-    public static Step Cooldown { get { return new Step("Cooldown", new TimeSpan(0, 5, 0), Paces.Default.Cooldown); } }
+    public static Step Cooldown
+    {
+      get { return new Step("Cooldown", new TimeSpan(0, 10, 0), PaceNames.Easy); }
+    }
 
     /// <summary>
     /// Gets a new empty step.
@@ -141,7 +155,7 @@ namespace TrainingPlanner.Model.Serializable
         }
       }
 
-      result += " at " + Pace.ToString(PaceFormat);
+      result += " at " + Data.GetDurationFromPace(Pace).ToString(PaceFormat);
 
       if (Rest != TimeSpan.Zero)
       {

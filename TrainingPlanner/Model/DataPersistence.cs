@@ -23,7 +23,7 @@ namespace TrainingPlanner.Model
       ? ApplicationDataDirectoryLinux
       : ApplicationDataDirectoryWindows;
 
-    private const int DefaultTrainingWeeks = 12;
+    private const int DefaultTrainingWeeks = 16;
 
     private static string WorkoutsDirectory
     {
@@ -115,7 +115,7 @@ namespace TrainingPlanner.Model
     public IEnumerable<Workout> LoadWorkouts()
     {
       Logger.Info("Loading workouts");
-      return Directory.GetFiles(WorkoutsDirectory, "*.json").Select(ParseJsonFile<Workout>);
+      return Directory.GetDirectories(WorkoutsDirectory).SelectMany(d => Directory.GetFiles(d, "*.json").Select(ParseJsonFile<Workout>));
     }
 
     public TrainingPlan LoadPlan(string planName)
@@ -130,7 +130,7 @@ namespace TrainingPlanner.Model
     #region Private access - Saving data
     private static string GetWorkoutPath(Workout workout)
     {
-      return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.Name.ToLower().Replace(' ', '-') + ".json";
+      return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.CategoryName + Path.AltDirectorySeparatorChar + workout.Name.ToLower().Replace(' ', '-') + ".json";
     }
 
     private static string GetWorkoutCategoryPath(WorkoutCategory category)
@@ -139,31 +139,34 @@ namespace TrainingPlanner.Model
              ".json";
     }
 
-    private static void SavePaceToSettings(Pace pace, TimeSpan value)
+    private static void SavePaceToSettings(PaceNames pace, TimeSpan value)
     {
       Logger.InfoFormat("Saving pace {0} with new value {1}", pace, value);
 
       switch (pace)
       {
-        case Pace.Easy:
+        case PaceNames.Easy:
           Paces.Default.Easy = value;
           break;
-        case Pace.Long:
-          Paces.Default.Long = value;
+        case PaceNames.Base:
+          Paces.Default.Base = value;
           break;
-        case Pace.Marathon:
+        case PaceNames.Steady:
+          Paces.Default.Steady = value;
+          break;
+        case PaceNames.Marathon:
           Paces.Default.Marathon = value;
           break;
-        case Pace.Halfmarathon:
+        case PaceNames.Halfmarathon:
           Paces.Default.Halfmarathon = value;
           break;
-        case Pace.Threshold:
+        case PaceNames.Threshold:
           Paces.Default.Threshold = value;
           break;
-        case Pace.Tenk:
+        case PaceNames.TenK:
           Paces.Default.TenK = value;
           break;
-        case Pace.Fivek:
+        case PaceNames.FiveK:
           Paces.Default.FiveK = value;
           break;
         default:

@@ -18,7 +18,7 @@ namespace TrainingPlanner.View.Interfaces
     /// <summary>
     /// Retrieve the paces that were modified by the user.
     /// </summary>
-    Tuple<Pace, TimeSpan>[] ChangedPaces { get; }
+    Tuple<PaceNames, TimeSpan>[] ChangedPaces { get; }
 
     /// <summary>
     /// Tells the form to close.
