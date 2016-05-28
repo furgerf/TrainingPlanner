@@ -121,7 +121,7 @@ namespace TrainingPlanner.View.Controls
       }
 
       _dontRecalculate = true;
-      txtDistance.Text = string.Format("{0}", Math.Round(Duration.Value.TotalMinutes/Data.GetDurationFromPace(Pace).TotalMinutes, 2));
+      txtDistance.Text = string.Format("{0}", Math.Round(Duration.Value.TotalMinutes/Data.Instance.GetDurationFromPace(Pace).TotalMinutes, 2));
       _dontRecalculate = false;
 
       _distanceRecentlyCalculated = false;
@@ -135,7 +135,7 @@ namespace TrainingPlanner.View.Controls
       }
 
       _dontRecalculate = true;
-      txtDuration.Text = TimeSpan.FromMinutes(Data.GetDurationFromPace(Pace).TotalMinutes*Distance.Value).ToString();
+      txtDuration.Text = TimeSpan.FromMinutes(Data.Instance.GetDurationFromPace(Pace).TotalMinutes*Distance.Value).ToString();
       _dontRecalculate = false;
 
       _distanceRecentlyCalculated = true;

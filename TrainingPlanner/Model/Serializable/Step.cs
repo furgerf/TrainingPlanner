@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using System.Windows.Forms;
 
 namespace TrainingPlanner.Model.Serializable
 {
@@ -17,20 +18,17 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Name of the step.
     /// </summary>
-    [DataMember(Name = "Name", IsRequired = true)]
-    public readonly string Name;
+    [DataMember(Name = "Name", IsRequired = true)] public readonly string Name;
 
     /// <summary>
     /// Duration of the step.
     /// </summary>
-    [DataMember(Name = "Duration", IsRequired = true)]
-    public readonly TimeSpan Duration;
+    [DataMember(Name = "Duration", IsRequired = true)] public readonly TimeSpan Duration;
 
     /// <summary>
     /// Pace at which to run during the step.
     /// </summary>
-    [IgnoreDataMember]
-    public PaceNames Pace;
+    [IgnoreDataMember] public PaceNames Pace;
 
     [DataMember(Name = "Pace")]
     public string PaceName
@@ -42,34 +40,29 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Distance to cover during the step.
     /// </summary>
-    [DataMember(Name = "Distance", IsRequired = true)]
-    public readonly double Distance;
+    [DataMember(Name = "Distance", IsRequired = true)] public readonly double Distance;
 
     /// <summary>
     /// Rest after the step.
     /// </summary>
-    [DataMember(Name = "Rest", IsRequired = true)]
-    public readonly TimeSpan Rest;
+    [DataMember(Name = "Rest", IsRequired = true)] public readonly TimeSpan Rest;
 
     /// <summary>
     /// Number of times this step is repeated.
     /// </summary>
-    [DataMember(Name = "Repetitions", IsRequired = true)]
-    public readonly int Repetitions;
+    [DataMember(Name = "Repetitions", IsRequired = true)] public readonly int Repetitions;
 
     /// <summary>
     /// True if distance is the manually entered value and duration was calculated.
     /// TODO: (workout-redoing) Rename
     /// </summary>
-    [DataMember(Name = "_durationCalculated", IsRequired = true)]
-    public readonly bool DurationCalculated;
+    [DataMember(Name = "_durationCalculated", IsRequired = true)] public readonly bool DurationCalculated;
 
     /// <summary>
     /// True if duration is the manually entered value and distance was calculated.
     /// TODO: (workout-redoing) Rename
     /// </summary>
-    [DataMember(Name = "_distanceCalculated", IsRequired = true)]
-    public readonly bool DistanceCalculated;
+    [DataMember(Name = "_distanceCalculated", IsRequired = true)] public readonly bool DistanceCalculated;
 
     // TODO: (workout-redoing) Add note
 
@@ -96,7 +89,9 @@ namespace TrainingPlanner.Model.Serializable
     /// Create a new step with the length being determined by the duration.
     /// </summary>
     public Step(string name, TimeSpan duration, PaceNames pace, TimeSpan? rest = null, int repetitions = 1)
-      : this(name, duration, pace, duration.TotalSeconds/Data.GetDurationFromPace(pace).TotalSeconds, false, true, rest, repetitions)
+      : this(
+        name, duration, pace, duration.TotalSeconds/Data.Instance.GetDurationFromPace(pace).TotalSeconds, false, true,
+        rest, repetitions)
     {
     }
 
@@ -104,7 +99,9 @@ namespace TrainingPlanner.Model.Serializable
     /// Create a new step with the length being determined by the distance.
     /// </summary>
     public Step(string name, double distance, PaceNames pace, TimeSpan? rest = null, int repetitions = 1)
-      : this(name, TimeSpan.FromSeconds(distance*Data.GetDurationFromPace(pace).TotalSeconds), pace, distance, true, false, rest, repetitions
+      : this(
+        name, TimeSpan.FromSeconds(distance*Data.Instance.GetDurationFromPace(pace).TotalSeconds), pace, distance, true,
+        false, rest, repetitions
         )
     {
     }
@@ -128,12 +125,18 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Gets a new empty step.
     /// </summary>
-    public static Step Empty { get { return new Step(); } }
+    public static Step Empty
+    {
+      get { return new Step(); }
+    }
 
     /// <summary>
     /// Returns true if the step has no information.
     /// </summary>
-    public bool IsEmpty { get { return Equals(Empty); } }
+    public bool IsEmpty
+    {
+      get { return Equals(Empty); }
+    }
 
     public override string ToString()
     {
@@ -155,7 +158,7 @@ namespace TrainingPlanner.Model.Serializable
         }
       }
 
-      result += " at " + Data.GetDurationFromPace(Pace).ToString(PaceFormat);
+      result += " at " + Data.Instance.GetDurationFromPace(Pace).ToString(PaceFormat);
 
       if (Rest != TimeSpan.Zero)
       {

@@ -53,6 +53,7 @@
     <Compile Include="Model\DataPersistence.cs" />
     <Compile Include="Model\Pace.cs" />
     <Compile Include="Model\EventArgs\PaceChangedEventArgs.cs" />
+    <Compile Include="Model\Serializable\Pace.cs" />
     <Compile Include="Model\Serializable\TrainingPlan.cs" />
     <Compile Include="Model\EventArgs\TrainingPlanChangedEventArgs.cs" />
     <Compile Include="Model\Serializable\WorkoutCategory.cs" />
@@ -129,11 +130,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Paces.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Paces.settings</DependentUpon>
-    </Compile>
     <Compile Include="Model\Serializable\Step.cs" />
     <Compile Include="View\Forms\ManageWorkoutCategoriesForm.cs">
       <SubType>Form</SubType>
@@ -232,10 +228,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Paces.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Paces.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

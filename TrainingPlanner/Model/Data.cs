@@ -12,7 +12,13 @@ namespace TrainingPlanner.Model
   /// </summary>
   public class Data
   {
+    /// <summary>
+    /// Last `Data` instance that was created.
+    /// </summary>
+    public static Data Instance;
+
     public readonly string PlanName;
+    public readonly Pace Pace;
     private readonly List<WorkoutCategory> _categories;
     private readonly List<Workout> _workouts;
     private readonly TrainingPlan _trainingPlan;
@@ -24,6 +30,8 @@ namespace TrainingPlanner.Model
     /// <param name="planName"></param>
     public Data(string planName)
     {
+      Instance = this;
+
       // store the name of the plan
       PlanName = planName;
 
@@ -31,6 +39,7 @@ namespace TrainingPlanner.Model
       var persistence = new DataPersistence(this);
 
       // load persisted data
+      Pace = persistence.LoadPace();
       _categories = new List<WorkoutCategory>(persistence.LoadCategories());
       _workouts = new List<Workout>(persistence.LoadWorkouts());
       _trainingPlan = persistence.LoadPlan();
@@ -122,26 +131,26 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public static TimeSpan GetDurationFromPace(PaceNames pace)
+    public TimeSpan GetDurationFromPace(PaceNames pace)
     {
       switch (pace)
       {
         case PaceNames.Easy:
-          return Paces.Default.Easy;
+          return Pace.Easy;
         case PaceNames.Base:
-          return Paces.Default.Base;
+          return Pace.Base;
         case PaceNames.Steady:
-          return Paces.Default.Steady;
+          return Pace.Steady;
         case PaceNames.Marathon:
-          return Paces.Default.Marathon;
+          return Pace.Marathon;
         case PaceNames.Halfmarathon:
-          return Paces.Default.Halfmarathon;
+          return Pace.Halfmarathon;
         case PaceNames.Threshold:
-          return Paces.Default.Threshold;
+          return Pace.Threshold;
         case PaceNames.TenK:
-          return Paces.Default.TenK;
+          return Pace.TenK;
         case PaceNames.FiveK:
-          return Paces.Default.FiveK;
+          return Pace.FiveK;
         default:
           throw new ArgumentOutOfRangeException("pace");
       }
@@ -277,8 +286,8 @@ namespace TrainingPlanner.Model
     /// <param name="value">New value of the pace.</param>
     public void ChangePace(PaceNames key, TimeSpan value)
     {
-      // nothing to do here because paces aren't saved in ram
-      // just trigger event to persist the new value
+      // save pace
+      Pace.SetPace(key, value);
 
       Logger.Debug("Triggering PaceChanged event");
       PaceChanged(this, new PaceChangedEventArgs(key, value));

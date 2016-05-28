@@ -23,9 +23,12 @@ namespace TrainingPlanner.Model
       : ApplicationDataDirectoryWindows;
 
     // application sub-directories
+    private const string LogFileName = "training-planner.log";
+
     private const string WorkoutsDirectoryName = "workouts";
     private const string WorkoutCategoriesDirectoryName = "workout-categories";
-    private const string LogFileName = "training-planner.log";
+    private const string TrainingPlanFileName = "plan.json";
+    private const string PacesFileName = "paces.json";
 
     // data to persist - contains the training plan's name
     private readonly Data _data;
@@ -61,7 +64,15 @@ namespace TrainingPlanner.Model
       get
       {
         return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
-               "plan.json";
+               TrainingPlanFileName;
+      }
+    }
+    private string PacesFile
+    {
+      get
+      {
+        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
+               PacesFileName;
       }
     }
 
@@ -73,13 +84,25 @@ namespace TrainingPlanner.Model
     {
       _data = data;
 
-      _data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
+      _data.PaceChanged += (s, e) => SavePace();
       _data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
       _data.CategoryChanged += (s, e) => OnCategoryChanged(e);
       _data.TrainingPlanModified += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
       _data.TrainingPlanLoaded += (s, e) => OnTrainingPlanLoaded();
 
       Logger.Info("DataPersistence instantiated");
+    }
+
+    private string GetWorkoutPath(Workout workout)
+    {
+      return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.CategoryName + Path.AltDirectorySeparatorChar +
+             workout.Name.ToLower().Replace(' ', '-') + ".json";
+    }
+
+    private string GetWorkoutCategoryPath(WorkoutCategory category)
+    {
+      return WorkoutCategoriesDirectory + Path.DirectorySeparatorChar + category.Name.ToLower().Replace(' ', '-') +
+             ".json";
     }
 
     private void OnWorkoutChanged(WorkoutChangedEventArgs e)
@@ -154,53 +177,16 @@ namespace TrainingPlanner.Model
         : TrainingPlan.NewTrainingPlan(DefaultTrainingWeeks);
     }
 
-    private string GetWorkoutPath(Workout workout)
+    public Pace LoadPace()
     {
-      return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.CategoryName + Path.AltDirectorySeparatorChar +
-             workout.Name.ToLower().Replace(' ', '-') + ".json";
+      Logger.Info("Loading paces from file");
+      return ParseJsonFile<Pace>(PacesFile);
     }
 
-    private string GetWorkoutCategoryPath(WorkoutCategory category)
+    private void SavePace()
     {
-      return WorkoutCategoriesDirectory + Path.DirectorySeparatorChar + category.Name.ToLower().Replace(' ', '-') +
-             ".json";
-    }
-
-    private static void SavePaceToSettings(PaceNames pace, TimeSpan value)
-    {
-      Logger.InfoFormat("Saving pace {0} with new value {1}", pace, value);
-
-      switch (pace)
-      {
-        case PaceNames.Easy:
-          Paces.Default.Easy = value;
-          break;
-        case PaceNames.Base:
-          Paces.Default.Base = value;
-          break;
-        case PaceNames.Steady:
-          Paces.Default.Steady = value;
-          break;
-        case PaceNames.Marathon:
-          Paces.Default.Marathon = value;
-          break;
-        case PaceNames.Halfmarathon:
-          Paces.Default.Halfmarathon = value;
-          break;
-        case PaceNames.Threshold:
-          Paces.Default.Threshold = value;
-          break;
-        case PaceNames.TenK:
-          Paces.Default.TenK = value;
-          break;
-        case PaceNames.FiveK:
-          Paces.Default.FiveK = value;
-          break;
-        default:
-          throw new ArgumentOutOfRangeException("pace");
-      }
-
-      Paces.Default.Save();
+      Logger.Info("Saving paces to file");
+      WriteJsonFile(_data.Pace, PacesFile);
     }
 
     private static T ParseJsonFile<T>(string path)
