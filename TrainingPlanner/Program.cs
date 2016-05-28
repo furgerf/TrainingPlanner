@@ -21,7 +21,7 @@ namespace TrainingPlanner
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
-      // create data model
+      // create data model - load "default"
       var data = new Data("Sempacherseelauf 2016");
 
       // create main form and its presenter

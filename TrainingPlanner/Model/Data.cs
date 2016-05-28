@@ -7,69 +7,66 @@ using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.Model
 {
+  /// <summary>
+  /// Contains all relevant data of the current training plan.
+  /// </summary>
   public class Data
   {
     public readonly string PlanName;
-
-    #region Data
-    /// <summary>
-    /// Actual data.
-    /// </summary>
     private readonly List<WorkoutCategory> _categories;
     private readonly List<Workout> _workouts;
     private readonly TrainingPlan _trainingPlan;
-    #endregion
 
-    #region Constructor
+    /// <summary>
+    /// Initializes a new Data instance with the given name.
+    /// This name is used to resolve the path to the persisted data.
+    /// </summary>
+    /// <param name="planName"></param>
     public Data(string planName)
     {
+      // store the name of the plan
       PlanName = planName;
 
-      // create persistence handler
+      // create persistence handler for this `Data` instance.
       var persistence = new DataPersistence(this);
 
       // load persisted data
       _categories = new List<WorkoutCategory>(persistence.LoadCategories());
       _workouts = new List<Workout>(persistence.LoadWorkouts());
-
       _trainingPlan = persistence.LoadPlan();
-      if (TrainingPlanLoaded != null)
-      {
-        Logger.Debug("Triggering TrainingPlanLoaded event");
-        TrainingPlanLoaded(this, null);
-      }
-
       _trainingPlan.SetData(this);
+
+      Logger.Debug("Triggering TrainingPlanLoaded event");
+      TrainingPlanLoaded(this, null);
 
       Logger.Info("Data instantiated");
     }
-    #endregion
 
-    #region Events
     /// <summary>
     /// Triggered whenever one of the workout changes or when one is added or removed.
     /// </summary>
-    public event EventHandler<WorkoutChangedEventArgs> WorkoutChanged;
+    public event EventHandler<WorkoutChangedEventArgs> WorkoutChanged = (s, e) => { };
 
     /// <summary>
     /// Triggered whenever one of the categories changes or when one is added or removed.
     /// </summary>
-    public event EventHandler<WorkoutCategoryChangedEventArgs> CategoryChanged;
+    public event EventHandler<WorkoutCategoryChangedEventArgs> CategoryChanged = (s, e) => { };
 
     /// <summary>
     /// Triggered whenever one of the training plan entries changes.
     /// </summary>
-    public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanModified;
+    public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanModified = (s, e) => { };
 
     /// <summary>
     /// Triggered whenever the value of any of the paces changes.
     /// </summary>
-    public event EventHandler<PaceChangedEventArgs> PaceChanged;
+    public event EventHandler<PaceChangedEventArgs> PaceChanged = (s, e) => { };
 
-    public event EventHandler TrainingPlanLoaded;
-    #endregion
+    /// <summary>
+    /// Triggered when the training plan was loaded.
+    /// </summary>
+    public event EventHandler TrainingPlanLoaded = (s, e) => { };
 
-    #region Data access
     /// <summary>
     /// Gets the workouts.
     /// </summary>
@@ -150,28 +147,6 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public static PaceNames GetPaceFromDuration(TimeSpan duration)
-    {
-      if (duration == Paces.Default.Easy)
-        return PaceNames.Easy;
-      if (duration == Paces.Default.Base)
-        return PaceNames.Base;
-      if (duration == Paces.Default.Steady)
-        return PaceNames.Steady;
-      if (duration == Paces.Default.Marathon)
-        return PaceNames.Marathon;
-      if (duration == Paces.Default.Halfmarathon)
-        return PaceNames.Halfmarathon;
-      if (duration == Paces.Default.Threshold)
-        return PaceNames.Threshold;
-      if (duration == Paces.Default.TenK)
-        return PaceNames.TenK;
-      if (duration == Paces.Default.FiveK)
-        return PaceNames.FiveK;
-
-      throw new ArgumentException("unkown pace");
-    }
-
     /// <summary>
     /// Gets the workout from the workout's name.
     /// </summary>
@@ -191,25 +166,12 @@ namespace TrainingPlanner.Model
     {
       return Categories.FirstOrDefault(w => w.Name == categoryName);
     }
-    #endregion
 
-    #region Data modification
     /// <summary>
-    /// Adds a new workout to the data model.
+    /// Adds a new workout if no workout exists with the provided workout's name or
+    /// replaces the existing workout with the same name.
     /// </summary>
-    /// <param name="workout">New workout.</param>
-    public void AddWorkout(Workout workout)
-    {
-      var index = _workouts.FindIndex(w => string.Compare(w.Name, workout.Name, StringComparison.InvariantCulture) > 0);
-      _workouts.Insert(index == -1 ? _workouts.Count : index, workout);
-
-      if (WorkoutChanged != null)
-      {
-        Logger.Debug("Triggering WorkoutChanged event");
-        WorkoutChanged(this, new WorkoutChangedEventArgs(workout, true));
-      }
-    }
-
+    /// <param name="workout">Workout to add or update.</param>
     public void AddOrUpdateWorkout(Workout workout)
     {
       // TODO: (add/edit/update) Add proper updating of workout
@@ -217,9 +179,24 @@ namespace TrainingPlanner.Model
 
       if (existing != null)
       {
+        // NOTE: Removing workout "under the hood" which means that the
+        // WorkoutChanged-event is not triggered (which will be triggered afterwards)
         _workouts.Remove(existing);
       }
       AddWorkout(workout);
+    }
+
+    /// <summary>
+    /// Adds a new workout to the data model.
+    /// </summary>
+    /// <param name="workout">New workout to add.</param>
+    private void AddWorkout(Workout workout)
+    {
+      var index = _workouts.FindIndex(w => string.Compare(w.Name, workout.Name, StringComparison.InvariantCulture) > 0);
+      _workouts.Insert(index == -1 ? _workouts.Count : index, workout);
+
+      Logger.Debug("Triggering WorkoutChanged event");
+      WorkoutChanged(this, new WorkoutChangedEventArgs(workout, true));
     }
 
     /// <summary>
@@ -237,25 +214,15 @@ namespace TrainingPlanner.Model
 
       // (no need to sort)
 
-      if (WorkoutChanged != null)
-      {
-        Logger.Debug("Triggering WorkoutChanged event");
-        WorkoutChanged(this, new WorkoutChangedEventArgs(workout, false));
-      }
+      Logger.Debug("Triggering WorkoutChanged event");
+      WorkoutChanged(this, new WorkoutChangedEventArgs(workout, false));
     }
 
-    public void AddWorkoutCategory(WorkoutCategory category)
-    {
-      var index = _categories.FindIndex(c => string.Compare(c.Name, category.Name, StringComparison.InvariantCulture) > 0);
-      _categories.Insert(index == -1 ? _categories.Count : index, category);
-
-      if (CategoryChanged != null)
-      {
-        Logger.Debug("Triggering CategoryChanged event");
-        CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, true));
-      }
-    }
-
+    /// <summary>
+    /// Adds a new workout category if no category exists with the provided category's name or
+    /// replaces the existing category with the same name.
+    /// </summary>
+    /// <param name="category">The new workout category to add or update.</param>
     public void AddOrUpdateWorkoutCategory(WorkoutCategory category)
     {
       // TODO: (add/edit/update) add proper updating of workout category
@@ -263,9 +230,25 @@ namespace TrainingPlanner.Model
 
       if (existing != null)
       {
+        // NOTE: Removing category "under the hood" which means that the
+        // WorkoutCategoryChanged-event is not triggered (which will be triggered afterwards)
         _categories.Remove(existing);
       }
       AddWorkoutCategory(category);
+    }
+
+    /// <summary>
+    /// Adds a new workout category to the data model.
+    /// </summary>
+    /// <param name="category">New workout category to add.</param>
+    private void AddWorkoutCategory(WorkoutCategory category)
+    {
+      var index =
+        _categories.FindIndex(c => string.Compare(c.Name, category.Name, StringComparison.InvariantCulture) > 0);
+      _categories.Insert(index == -1 ? _categories.Count : index, category);
+
+      Logger.Debug("Triggering CategoryChanged event");
+      CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, true));
     }
 
     /// <summary>
@@ -283,11 +266,8 @@ namespace TrainingPlanner.Model
 
       // (no need to sort)
 
-      if (CategoryChanged != null)
-      {
-        Logger.Debug("Triggering CategoryChanged event");
-        CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, false));
-      }
+      Logger.Debug("Triggering CategoryChanged event");
+      CategoryChanged(this, new WorkoutCategoryChangedEventArgs(category, false));
     }
 
     /// <summary>
@@ -300,23 +280,16 @@ namespace TrainingPlanner.Model
       // nothing to do here because paces aren't saved in ram
       // just trigger event to persist the new value
 
-      if (PaceChanged != null)
-      {
-        Logger.Debug("Triggering PaceChanged event");
-        PaceChanged(this, new PaceChangedEventArgs(key, value));
-      }
+      Logger.Debug("Triggering PaceChanged event");
+      PaceChanged(this, new PaceChangedEventArgs(key, value));
     }
 
     public void UpdateTrainingPlan(WeeklyPlan newWeeklyPlan)
     {
       _trainingPlan.WeeklyPlans[newWeeklyPlan.WeekNumber] = newWeeklyPlan;
 
-      if (TrainingPlanModified != null)
-      {
-        Logger.Debug("Triggering TrainingPlanModified event");
-        TrainingPlanModified(this, new TrainingPlanChangedEventArgs());
-      }
+      Logger.Debug("Triggering TrainingPlanModified event");
+      TrainingPlanModified(this, new TrainingPlanChangedEventArgs());
     }
-    #endregion
   }
 }
