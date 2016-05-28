@@ -8,24 +8,29 @@ using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.Model
 {
+  /// <summary>
+  /// Handles the persistence of a `Data` instance.
+  /// </summary>
   public class DataPersistence
   {
-    #region Paths
+    // application root directory
     private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
     private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
-
-    private const string WorkoutsDirectoryName = "workouts";
-    private const string WorkoutCategoriesDirectoryName = "workout-categories";
-    private const string LogFileName = "training-planner.log";
-
     private static readonly bool IsLinux = !Environment.OSVersion.Platform.ToString().ToLower().StartsWith("win");
 
     private static readonly string ApplicationDataDirectory = IsLinux
       ? ApplicationDataDirectoryLinux
       : ApplicationDataDirectoryWindows;
 
+    // application sub-directories
+    private const string WorkoutsDirectoryName = "workouts";
+    private const string WorkoutCategoriesDirectoryName = "workout-categories";
+    private const string LogFileName = "training-planner.log";
+
+    // data to persist - contains the training plan's name
     private readonly Data _data;
 
+    // ...
     private const int DefaultTrainingWeeks = 16;
 
     public static string LogFile
@@ -35,12 +40,22 @@ namespace TrainingPlanner.Model
 
     private string WorkoutsDirectory
     {
-      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar + WorkoutsDirectoryName; }
+      get
+      {
+        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
+               WorkoutsDirectoryName;
+      }
     }
+
     private string WorkoutCategoriesDirectory
     {
-      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +  WorkoutCategoriesDirectoryName; }
+      get
+      {
+        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
+               WorkoutCategoriesDirectoryName;
+      }
     }
+
     private string TrainingPlanFile
     {
       get
@@ -49,9 +64,11 @@ namespace TrainingPlanner.Model
                "plan.json";
       }
     }
-    #endregion
 
-    #region Constructor
+    /// <summary>
+    /// Creates a new persistence for the provided `Data` instance.
+    /// </summary>
+    /// <param name="data">Data to persist.</param>
     public DataPersistence(Data data)
     {
       _data = data;
@@ -64,9 +81,7 @@ namespace TrainingPlanner.Model
 
       Logger.Info("DataPersistence instantiated");
     }
-    #endregion
 
-    #region Event handlers
     private void OnWorkoutChanged(WorkoutChangedEventArgs e)
     {
       if (e.WorkoutAdded)
@@ -114,9 +129,7 @@ namespace TrainingPlanner.Model
         */
       };
     }
-    #endregion
 
-    #region Public access - Loading data
     public IEnumerable<WorkoutCategory> LoadCategories()
     {
       Logger.Info("Loading workout categories");
@@ -128,7 +141,9 @@ namespace TrainingPlanner.Model
     public IEnumerable<Workout> LoadWorkouts()
     {
       Logger.Info("Loading workouts");
-      return Directory.GetDirectories(WorkoutsDirectory).SelectMany(d => Directory.GetFiles(d, "*.json").Select(ParseJsonFile<Workout>));
+      return
+        Directory.GetDirectories(WorkoutsDirectory)
+          .SelectMany(d => Directory.GetFiles(d, "*.json").Select(ParseJsonFile<Workout>));
     }
 
     public TrainingPlan LoadPlan()
@@ -138,12 +153,11 @@ namespace TrainingPlanner.Model
         ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
         : TrainingPlan.NewTrainingPlan(DefaultTrainingWeeks);
     }
-    #endregion
 
-    #region Private access - Saving data
     private string GetWorkoutPath(Workout workout)
     {
-      return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.CategoryName + Path.AltDirectorySeparatorChar + workout.Name.ToLower().Replace(' ', '-') + ".json";
+      return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.CategoryName + Path.AltDirectorySeparatorChar +
+             workout.Name.ToLower().Replace(' ', '-') + ".json";
     }
 
     private string GetWorkoutCategoryPath(WorkoutCategory category)
@@ -188,14 +202,12 @@ namespace TrainingPlanner.Model
 
       Paces.Default.Save();
     }
-    #endregion
 
-    #region (De-)serialization
     private static T ParseJsonFile<T>(string path)
     {
       using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
       {
-        return (T) new DataContractJsonSerializer(typeof(T)).ReadObject(fs);
+        return (T) new DataContractJsonSerializer(typeof (T)).ReadObject(fs);
       }
     }
 
@@ -203,9 +215,8 @@ namespace TrainingPlanner.Model
     {
       using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
       {
-        new DataContractJsonSerializer(typeof(T)).WriteObject(fs, data);
+        new DataContractJsonSerializer(typeof (T)).WriteObject(fs, data);
       }
     }
-    #endregion
   }
 }
