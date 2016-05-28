@@ -16,7 +16,7 @@ namespace TrainingPlanner.View.Forms
       if (WorkoutSelected != null)
       {
         Logger.Debug("Triggering WorkoutSelected event");
-        WorkoutSelected(this, this.lisWorkouts.SelectedItem.ToString());
+        WorkoutSelected(this, lisWorkouts.SelectedItem.ToString());
       }
     }
 
@@ -25,7 +25,7 @@ namespace TrainingPlanner.View.Forms
       if (WorkoutCategoryChanged != null)
       {
         Logger.Debug("Triggering WorkoutCategoryChanged event");
-        WorkoutCategoryChanged(this, this.lisCategories.SelectedItem.ToString());
+        WorkoutCategoryChanged(this, lisCategories.SelectedItem.ToString());
       }
     }
 
@@ -36,18 +36,18 @@ namespace TrainingPlanner.View.Forms
 
     public void SetCategories(string[] categories)
     {
-      var selected = this.lisCategories.SelectedItem;
-      this.lisCategories.Items.Clear();
-      this.lisCategories.Items.AddRange(categories);
-      this.lisCategories.SelectedItem = selected;
+      var selected = lisCategories.SelectedItem;
+      lisCategories.Items.Clear();
+      lisCategories.Items.AddRange(categories);
+      lisCategories.SelectedItem = selected;
     }
 
     public void SetWorkouts(string[] workouts)
     {
-      var selected = this.lisWorkouts.SelectedItem;
-      this.lisWorkouts.Items.Clear();
-      this.lisWorkouts.Items.AddRange(workouts);
-      this.lisWorkouts.SelectedItem = selected;
+      var selected = lisWorkouts.SelectedItem;
+      lisWorkouts.Items.Clear();
+      lisWorkouts.Items.AddRange(workouts);
+      lisWorkouts.SelectedItem = selected;
     }
 
     private void lisWorkouts_KeyDown(object sender, KeyEventArgs e)

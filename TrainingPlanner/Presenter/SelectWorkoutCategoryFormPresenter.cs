@@ -13,15 +13,15 @@ namespace TrainingPlanner.Presenter
 
     public SelectWorkoutCategoryFormPresenter(ISelectWorkoutCategoryForm view, Data data)
     {
-      this._data = data;
-      this._view = view;
+      _data = data;
+      _view = view;
 
-      this._view.WorkoutCategorySelected += (s, e) => OnWorkoutCategorySelected(e);
+      _view.WorkoutCategorySelected += (s, e) => OnWorkoutCategorySelected(e);
 
       // when the workout categories change, reload the category list
-      this._data.CategoryChanged += (s, e) => this._view.SetCategories(this._data.Categories.Select(c => c.Name).ToArray());
+      _data.CategoryChanged += (s, e) => _view.SetCategories(_data.Categories.Select(c => c.Name).ToArray());
 
-      this._view.SetCategories(this._data.Categories.Select(c => c.Name).ToArray());
+      _view.SetCategories(_data.Categories.Select(c => c.Name).ToArray());
     }
 
     private void OnWorkoutCategorySelected(string workoutName)

@@ -23,8 +23,8 @@ namespace TrainingPlanner.Model.Serializable
 
     public WorkoutCategory(string name, Color categoryColor )
     {
-      this.Name = name;
-      this.CategoryColor = categoryColor;
+      Name = name;
+      CategoryColor = categoryColor;
     }
 
     public override string ToString()

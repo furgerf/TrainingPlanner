@@ -30,7 +30,7 @@ namespace TrainingPlanner.View.Controls
       set
       {
         _isActiveWeek = value;
-        this.BackColor = IsActiveWeek
+        BackColor = IsActiveWeek
           ? Colors.Default.ActiveWorkoutControlBackground
           : Colors.Default.DefaultWorkoutControlBackground;
       }
@@ -41,20 +41,20 @@ namespace TrainingPlanner.View.Controls
       get { return _weeklyPlan; }
       set
       {
-        if (this._weeklyPlan.Equals(value))
+        if (_weeklyPlan.Equals(value))
         {
           return;
         }
 
-        this._weeklyPlan = value;
+        _weeklyPlan = value;
 
-        this._triggerWeeklyPlanChangedEvent = false;
+        _triggerWeeklyPlanChangedEvent = false;
 
         for (var i = 0; i < MaxWeeklyWorkouts; i++)
         {
           if (value.Workouts[i] != null)
           {
-            _workoutControls[i].Workout = this._data.WorkoutFromName(value.Workouts[i]);
+            _workoutControls[i].Workout = _data.WorkoutFromName(value.Workouts[i]);
           }
         }
 
@@ -62,9 +62,9 @@ namespace TrainingPlanner.View.Controls
         WeekStart = value.WeekStart;
         grpSummary.Text = "Summary - Week " + (value.WeekNumber + 1);
 
-        this._triggerWeeklyPlanChangedEvent = true;
+        _triggerWeeklyPlanChangedEvent = true;
 
-        if (WeeklyPlanChanged != null && this._triggerWeeklyPlanChangedEvent)
+        if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
         {
           Logger.Debug("Triggering WeeklyPlanChanged event");
           WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
@@ -82,9 +82,9 @@ namespace TrainingPlanner.View.Controls
     {
       InitializeComponent();
 
-      this._data = data;
+      _data = data;
 
-      this.BackColor = Colors.Default.DefaultWorkoutControlBackground;
+      BackColor = Colors.Default.DefaultWorkoutControlBackground;
 
       _workoutControls = new[]
       {
@@ -101,10 +101,10 @@ namespace TrainingPlanner.View.Controls
       for (var i = 0; i < _workoutControls.Length; i++)
       {
         var i1 = i;
-        _workoutControls[i].SetData(this._data);
+        _workoutControls[i].SetData(_data);
         _workoutControls[i].WorkoutChanged += (s, workout) =>
         {
-          this._weeklyPlan.Workouts[i1] = workout == null ? null : workout.Name;
+          _weeklyPlan.Workouts[i1] = workout == null ? null : workout.Name;
           UpdateStatistics();
 
           if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
@@ -124,7 +124,7 @@ namespace TrainingPlanner.View.Controls
         noteChangeTriggerTimer.Stop();
 
         // save the currently entered notes
-        this._weeklyPlan.Notes = txtNotes.Text;
+        _weeklyPlan.Notes = txtNotes.Text;
 
         if (WeeklyPlanChanged != null)
         {
@@ -146,10 +146,10 @@ namespace TrainingPlanner.View.Controls
 
     private void UpdateStatistics()
     {
-      txtWorkoutCount.Text = string.Format("{0} workouts", this._weeklyPlan.Workouts.Count(w => w != null));
+      txtWorkoutCount.Text = string.Format("{0} workouts", _weeklyPlan.Workouts.Count(w => w != null));
       txtTotalDuration.Text = string.Format("Total duration: {0}",
-        TimeSpan.FromSeconds(this._weeklyPlan.Workouts.Where(w => w != null).Sum(w => this._data.WorkoutFromName(w).Duration.TotalSeconds)));
-      txtTotalDistance.Text = string.Format("Total distance: {0}", Math.Round(this._weeklyPlan.Workouts.Where(w => w != null).Sum(w => this._data.WorkoutFromName(w).Distance), 1));
+        TimeSpan.FromSeconds(_weeklyPlan.Workouts.Where(w => w != null).Sum(w => _data.WorkoutFromName(w).Duration.TotalSeconds)));
+      txtTotalDistance.Text = string.Format("Total distance: {0}", Math.Round(_weeklyPlan.Workouts.Where(w => w != null).Sum(w => _data.WorkoutFromName(w).Distance), 1));
     }
 
     private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -171,17 +171,17 @@ namespace TrainingPlanner.View.Controls
 
       _updateDateRange = true;
 
-      this._weeklyPlan.WeekStart = this.WeekStart;
+      _weeklyPlan.WeekStart = WeekStart;
       if (WeeklyPlanChanged != null && _triggerWeeklyPlanChangedEvent)
       {
         Logger.Debug("Triggering WeeklyPlanChanged event");
-        WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(this.WeeklyPlan));
+        WeeklyPlanChanged(this, new EventArgs<WeeklyPlan>(WeeklyPlan));
       }
     }
 
     public void Activate()
     {
-      foreach (var wc in this._workoutControls)
+      foreach (var wc in _workoutControls)
       {
         wc.Activate();
       }

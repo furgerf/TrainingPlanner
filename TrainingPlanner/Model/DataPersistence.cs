@@ -13,6 +13,7 @@ namespace TrainingPlanner.Model
     #region Paths
     private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
     private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
+
     private const string WorkoutsDirectoryName = "workouts";
     private const string WorkoutCategoriesDirectoryName = "workout-categories";
     private const string LogFileName = "training-planner.log";
@@ -23,41 +24,50 @@ namespace TrainingPlanner.Model
       ? ApplicationDataDirectoryLinux
       : ApplicationDataDirectoryWindows;
 
+    private readonly Data _data;
+
     private const int DefaultTrainingWeeks = 16;
 
-    private static string WorkoutsDirectory
-    {
-      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + WorkoutsDirectoryName; }
-    }
-    private static string WorkoutCategoriesDirectory
-    {
-      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + WorkoutCategoriesDirectoryName; }
-    }
     public static string LogFile
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + LogFileName; }
     }
-    #endregion
 
-    private readonly Data _data;
+    private string WorkoutsDirectory
+    {
+      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar + WorkoutsDirectoryName; }
+    }
+    private string WorkoutCategoriesDirectory
+    {
+      get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +  WorkoutCategoriesDirectoryName; }
+    }
+    private string TrainingPlanFile
+    {
+      get
+      {
+        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
+               "plan.json";
+      }
+    }
+    #endregion
 
     #region Constructor
     public DataPersistence(Data data)
     {
-      this._data = data;
+      _data = data;
 
-      this._data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
-      this._data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
-      this._data.CategoryChanged += (s, e) => OnCategoryChanged(e);
-      this._data.TrainingPlanModified += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
-      this._data.TrainingPlanLoaded += (s, e) => OnTrainingPlanLoaded();
+      _data.PaceChanged += (s, e) => SavePaceToSettings(e.ModifiedPace, e.NewPace);
+      _data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
+      _data.CategoryChanged += (s, e) => OnCategoryChanged(e);
+      _data.TrainingPlanModified += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
+      _data.TrainingPlanLoaded += (s, e) => OnTrainingPlanLoaded();
 
       Logger.Info("DataPersistence instantiated");
     }
     #endregion
 
     #region Event handlers
-    private static void OnWorkoutChanged(WorkoutChangedEventArgs e)
+    private void OnWorkoutChanged(WorkoutChangedEventArgs e)
     {
       if (e.WorkoutAdded)
       {
@@ -71,7 +81,7 @@ namespace TrainingPlanner.Model
       }
     }
 
-    private static void OnCategoryChanged(WorkoutCategoryChangedEventArgs e)
+    private void OnCategoryChanged(WorkoutCategoryChangedEventArgs e)
     {
       if (e.CategoryAdded)
       {
@@ -85,20 +95,23 @@ namespace TrainingPlanner.Model
       }
     }
 
-    private static void OnTrainingPlanChanged(TrainingPlan plan)
+    private void OnTrainingPlanChanged(TrainingPlan plan)
     {
       Logger.Info("Training plan saved");
-      WriteJsonFile(plan, TrainingPlanFile(plan.Name));
+      WriteJsonFile(plan, TrainingPlanFile);
     }
 
     private void OnTrainingPlanLoaded()
     {
-      this._data.TrainingPlan.NameChanged += (s, e) =>
+      _data.TrainingPlan.NameChanged += (s, e) =>
       {
+        throw new NotImplementedException();
+        /*
         var oldName = e;
         var newName = ((TrainingPlan) s).Name;
 
         File.Move(TrainingPlanFile(oldName), TrainingPlanFile(newName));
+        */
       };
     }
     #endregion
@@ -118,22 +131,22 @@ namespace TrainingPlanner.Model
       return Directory.GetDirectories(WorkoutsDirectory).SelectMany(d => Directory.GetFiles(d, "*.json").Select(ParseJsonFile<Workout>));
     }
 
-    public TrainingPlan LoadPlan(string planName)
+    public TrainingPlan LoadPlan()
     {
-      Logger.InfoFormat("Loading training plan {0}", planName);
-      return File.Exists(TrainingPlanFile(planName))
-        ? ParseJsonFile<TrainingPlan>(TrainingPlanFile(planName))
+      Logger.InfoFormat("Loading training plan {0}", _data.PlanName);
+      return File.Exists(TrainingPlanFile)
+        ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
         : TrainingPlan.NewTrainingPlan(DefaultTrainingWeeks);
     }
     #endregion
 
     #region Private access - Saving data
-    private static string GetWorkoutPath(Workout workout)
+    private string GetWorkoutPath(Workout workout)
     {
       return WorkoutsDirectory + Path.DirectorySeparatorChar + workout.CategoryName + Path.AltDirectorySeparatorChar + workout.Name.ToLower().Replace(' ', '-') + ".json";
     }
 
-    private static string GetWorkoutCategoryPath(WorkoutCategory category)
+    private string GetWorkoutCategoryPath(WorkoutCategory category)
     {
       return WorkoutCategoriesDirectory + Path.DirectorySeparatorChar + category.Name.ToLower().Replace(' ', '-') +
              ".json";
@@ -176,11 +189,6 @@ namespace TrainingPlanner.Model
       Paces.Default.Save();
     }
     #endregion
-
-    private static string TrainingPlanFile(string planName)
-    {
-      return ApplicationDataDirectory + Path.DirectorySeparatorChar + planName.Replace(' ', '-').ToLower() + ".json";
-    }
 
     #region (De-)serialization
     private static T ParseJsonFile<T>(string path)

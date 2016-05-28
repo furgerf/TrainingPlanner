@@ -35,10 +35,10 @@ namespace TrainingPlanner.Model.Serializable
 
     public WeeklyPlan(string[] workouts, DateTime weekStart, int weekNumber, string notes = "")
     {
-      this._workouts = workouts;
-      this.WeekStart = weekStart;
-      this.WeekNumber = weekNumber;
-      this.Notes = notes;
+      _workouts = workouts;
+      WeekStart = weekStart;
+      WeekNumber = weekNumber;
+      Notes = notes;
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ namespace TrainingPlanner.Model.Serializable
 
     public override string ToString()
     {
-      return string.Format("Week {0} starting {1}", this.WeekNumber, this.WeekStart);
+      return string.Format("Week {0} starting {1}", WeekNumber, WeekStart);
     }
   }
 }

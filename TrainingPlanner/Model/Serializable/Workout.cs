@@ -36,10 +36,10 @@ namespace TrainingPlanner.Model.Serializable
 
     public Workout(string name, string shortName, WorkoutCategory category, Step[] steps)
     {
-      this.Name = name;
-      this.ShortName = string.IsNullOrEmpty(shortName) ? null : shortName; // empty shortName -> null
-      this.CategoryName = category == null ? null : category.Name;
-      this.Steps = steps;
+      Name = name;
+      ShortName = string.IsNullOrEmpty(shortName) ? null : shortName; // empty shortName -> null
+      CategoryName = category == null ? null : category.Name;
+      Steps = steps;
     }
 
     /// <summary>

@@ -12,24 +12,24 @@ namespace TrainingPlanner.Presenter
 
     public ManageWorkoutsFormPresenter(IManageWorkoutsForm view, Data data)
     {
-      this._data = data;
+      _data = data;
 
-      view.DisplayWorkouts(this._data.Workouts);
+      view.DisplayWorkouts(_data.Workouts);
 
       view.AddWorkoutButtonClick += (s, e) => EditWorkout(null);
       view.EditWorkoutButtonClick += (s, e) => EditWorkout(e);
       view.DeleteWorkoutButtonClick += (s, e) => DeleteWorkout(e);
       view.ExitButtonClick += (s, e) => view.Close();
 
-      data.WorkoutChanged += (s, e) => view.DisplayWorkouts(this._data.Workouts);
+      data.WorkoutChanged += (s, e) => view.DisplayWorkouts(_data.Workouts);
     }
 
     private void EditWorkout(string workoutName)
     {
       // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
       // the workout will be overwritten but if it gets a new name, a new workout is created?
-      var form = workoutName == null ? new EditWorkoutForm(this._data) : new EditWorkoutForm(this._data, this._data.WorkoutFromName(workoutName));
-      var presenter = new EditWorkoutFormPresenter(form, this._data);
+      var form = workoutName == null ? new EditWorkoutForm(_data) : new EditWorkoutForm(_data, _data.WorkoutFromName(workoutName));
+      var presenter = new EditWorkoutFormPresenter(form, _data);
       form.Show();
     }
 
@@ -41,7 +41,7 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      this._data.RemoveWorkout(this._data.WorkoutFromName(workoutName));
+      _data.RemoveWorkout(_data.WorkoutFromName(workoutName));
     }
   }
 }

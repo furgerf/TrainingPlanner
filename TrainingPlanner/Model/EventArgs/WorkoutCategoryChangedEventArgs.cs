@@ -12,8 +12,8 @@ namespace TrainingPlanner.Model.EventArgs
 
     public WorkoutCategoryChangedEventArgs(WorkoutCategory category, bool categoryAdded)
     {
-      this.WorkoutCategory = category;
-      this.CategoryAdded = categoryAdded;
+      WorkoutCategory = category;
+      CategoryAdded = categoryAdded;
     }
   }
 }

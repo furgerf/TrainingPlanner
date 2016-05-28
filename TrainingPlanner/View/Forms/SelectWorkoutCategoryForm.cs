@@ -15,10 +15,10 @@ namespace TrainingPlanner.View.Forms
 
     public void SetCategories(string[] categories)
     {
-      var selected = this.lisCategories.SelectedItem;
-      this.lisCategories.Items.Clear();
-      this.lisCategories.Items.AddRange(categories);
-      this.lisCategories.SelectedItem = selected;
+      var selected = lisCategories.SelectedItem;
+      lisCategories.Items.Clear();
+      lisCategories.Items.AddRange(categories);
+      lisCategories.SelectedItem = selected;
     }
 
     private void lisCategories_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -26,7 +26,7 @@ namespace TrainingPlanner.View.Forms
       if (WorkoutCategorySelected != null)
       {
         Logger.Debug("Triggering WorkoutCategorySelected event");
-        WorkoutCategorySelected(this, this.lisCategories.SelectedItem.ToString());
+        WorkoutCategorySelected(this, lisCategories.SelectedItem.ToString());
       }
 
     }

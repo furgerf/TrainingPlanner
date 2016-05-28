@@ -20,40 +20,40 @@ namespace TrainingPlanner.View.Forms
 
     public MainForm(Data data)
     {
-      this._data = data;
+      _data = data;
 
       InitializeComponent();
 
-      this._weekControls = new WeekControl[this._data.TrainingPlan.TrainingWeeks];
+      _weekControls = new WeekControl[_data.TrainingPlan.TrainingWeeks];
 
       InitializeDynamicControls();
 
       // register to more events (to retrigger)
-      this.newPlanToolStripMenuItem.Click += (s, e) => OnNewPlanClick();
-      this.openPlanToolStripMenuItem.Click += (s, e) => OnOpenPlanClick();
-      this.closePlanToolStripMenuItem.Click += (s, e) => OnClosePlanClick();
-      this.addToolStripMenuItem.Click += (s, e) => OnAddWorkoutClick();
-      this.editToolStripMenuItem.Click += (s, e) => OnEditWorkoutClick();
-      this.deleteToolStripMenuItem.Click += (s, e) => OnDeleteWorkoutClick();
-      this.manageToolStripMenuItem.Click += (s, e) => OnManageWorkoutsClick();
-      this.addToolStripMenuItem1.Click += (s, e) => OnAddWorkoutCategoryClick();
-      this.editToolStripMenuItem1.Click += (s, e) => OnEditWorkoutCategoryClick();
-      this.deleteToolStripMenuItem1.Click += (s, e) => OnDeleteWorkoutCategoryClick();
-      this.manageToolStripMenuItem1.Click += (s, e) => OnManageWorkoutCategoriesClick();
-      this.configureToolStripMenuItem.Click += (s, e) => OnConfigurePacesClick();
-      this.infoToolStripMenuItem.Click += (s, e) => OnInfoClick();
-      this.exitToolStripMenuItem.Click += (s, e) => this.Close();
+      newPlanToolStripMenuItem.Click += (s, e) => OnNewPlanClick();
+      openPlanToolStripMenuItem.Click += (s, e) => OnOpenPlanClick();
+      closePlanToolStripMenuItem.Click += (s, e) => OnClosePlanClick();
+      addToolStripMenuItem.Click += (s, e) => OnAddWorkoutClick();
+      editToolStripMenuItem.Click += (s, e) => OnEditWorkoutClick();
+      deleteToolStripMenuItem.Click += (s, e) => OnDeleteWorkoutClick();
+      manageToolStripMenuItem.Click += (s, e) => OnManageWorkoutsClick();
+      addToolStripMenuItem1.Click += (s, e) => OnAddWorkoutCategoryClick();
+      editToolStripMenuItem1.Click += (s, e) => OnEditWorkoutCategoryClick();
+      deleteToolStripMenuItem1.Click += (s, e) => OnDeleteWorkoutCategoryClick();
+      manageToolStripMenuItem1.Click += (s, e) => OnManageWorkoutCategoriesClick();
+      configureToolStripMenuItem.Click += (s, e) => OnConfigurePacesClick();
+      infoToolStripMenuItem.Click += (s, e) => OnInfoClick();
+      exitToolStripMenuItem.Click += (s, e) => Close();
 
-      foreach (var wc in this._weekControls)
+      foreach (var wc in _weekControls)
       {
         wc.Activate();
       }
 
       // TODO: create shown event in IMF and scroll on the event callback in MFP
-      this.Shown += (s, e) =>
+      Shown += (s, e) =>
       {
         //this.foregroundPanel.ScrollControlIntoView(_weekControls[9]);
-        this.foregroundPanel.AutoScrollPosition = new Point(100, 5*WeeklyControlHeight);
+        foregroundPanel.AutoScrollPosition = new Point(100, 5*WeeklyControlHeight);
       };
     }
 
@@ -62,21 +62,21 @@ namespace TrainingPlanner.View.Forms
       // prepare UI
       var screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
       var panelHeight = screenHeight - 50;
-      this.foregroundPanel.Height = panelHeight;
-      this.foregroundPanel.AutoScroll = true;
-      this.foregroundPanel.SizeChanged += (s, e) =>
+      foregroundPanel.Height = panelHeight;
+      foregroundPanel.AutoScroll = true;
+      foregroundPanel.SizeChanged += (s, e) =>
       {
-        this.foregroundPanel.VerticalScroll.SmallChange = this.foregroundPanel.VerticalScroll.Maximum/25;
-        this.foregroundPanel.VerticalScroll.LargeChange = this.foregroundPanel.VerticalScroll.Maximum/10;
+        foregroundPanel.VerticalScroll.SmallChange = foregroundPanel.VerticalScroll.Maximum/25;
+        foregroundPanel.VerticalScroll.LargeChange = foregroundPanel.VerticalScroll.Maximum/10;
       };
 
       // prepare WeekControls
       for (var i = 0; i < _weekControls.Length; i++)
       {
         // create control
-        this._weekControls[i] = new WeekControl(this._data) {Top = i*WeeklyControlHeight, Parent = foregroundPanel};
+        _weekControls[i] = new WeekControl(_data) {Top = i*WeeklyControlHeight, Parent = foregroundPanel};
         // register to event (to retrigger)
-        this._weekControls[i].WeeklyPlanChanged += (sender, plan) =>
+        _weekControls[i].WeeklyPlanChanged += (sender, plan) =>
         {
           if (WeeklyPlanChanged != null)
           {
@@ -87,7 +87,7 @@ namespace TrainingPlanner.View.Forms
       }
 
       // some more own UI stuff
-      this.foregroundPanel.Width = _weekControls[0].Width + 16;
+      foregroundPanel.Width = _weekControls[0].Width + 16;
     }
 
     public event EventHandler NewPlanClick;
@@ -107,7 +107,7 @@ namespace TrainingPlanner.View.Forms
 
     public void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans)
     {
-      if (weeklyPlans.Length != this._weekControls.Length)
+      if (weeklyPlans.Length != _weekControls.Length)
       {
         throw new ArgumentException("Array size mismatch");
       }
@@ -120,14 +120,14 @@ namespace TrainingPlanner.View.Forms
 
     public void SetWeekActivity(int week, bool isActive)
     {
-      this._weekControls[week].IsActiveWeek = isActive;
+      _weekControls[week].IsActiveWeek = isActive;
     }
 
     public void ScrollToWeek(int week)
     {
-      if (this.foregroundPanel.InvokeRequired)
+      if (foregroundPanel.InvokeRequired)
       {
-        this.foregroundPanel.Invoke((MethodInvoker) (() => ScrollToWeek(week)));
+        foregroundPanel.Invoke((MethodInvoker) (() => ScrollToWeek(week)));
       }
       else
       {
@@ -175,7 +175,7 @@ namespace TrainingPlanner.View.Forms
     private void OnEditWorkoutClick()
     {
       var form = new SelectWorkoutForm();
-      var presenter = new SelectWorkoutFormPresenter(form, this._data);
+      var presenter = new SelectWorkoutFormPresenter(form, _data);
 
       presenter.WorkoutSelected += (s, e) =>
       {
@@ -193,7 +193,7 @@ namespace TrainingPlanner.View.Forms
     private void OnDeleteWorkoutClick()
     {
       var form = new SelectWorkoutForm();
-      var presenter = new SelectWorkoutFormPresenter(form, this._data);
+      var presenter = new SelectWorkoutFormPresenter(form, _data);
 
       presenter.WorkoutSelected += (s, e) =>
       {
@@ -229,7 +229,7 @@ namespace TrainingPlanner.View.Forms
     private void OnEditWorkoutCategoryClick()
     {
       var form = new SelectWorkoutCategoryForm();
-      var presenter = new SelectWorkoutCategoryFormPresenter(form, this._data);
+      var presenter = new SelectWorkoutCategoryFormPresenter(form, _data);
 
       presenter.CategorySelected += (s, e) =>
       {
@@ -247,7 +247,7 @@ namespace TrainingPlanner.View.Forms
     private void OnDeleteWorkoutCategoryClick()
     {
       var form = new SelectWorkoutCategoryForm();
-      var presenter = new SelectWorkoutCategoryFormPresenter(form, this._data);
+      var presenter = new SelectWorkoutCategoryFormPresenter(form, _data);
 
       presenter.CategorySelected += (s, e) =>
       {

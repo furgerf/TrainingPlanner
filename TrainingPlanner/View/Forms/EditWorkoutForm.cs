@@ -110,11 +110,11 @@ namespace TrainingPlanner.View.Forms
     {
       // remember text that may have already been entered (when editing an existing workout)
       // to be re-assigned later
-      var text = this.comCategory.Text;
-      this.comCategory.Items.Clear();
-      this.comCategory.Items.AddRange(categories);
-      this.comCategory.DropDownStyle = ComboBoxStyle.DropDownList;
-      this.comCategory.Text = text;
+      var text = comCategory.Text;
+      comCategory.Items.Clear();
+      comCategory.Items.AddRange(categories);
+      comCategory.DropDownStyle = ComboBoxStyle.DropDownList;
+      comCategory.Text = text;
     }
 
     private void butSave_Click(object sender, EventArgs e)

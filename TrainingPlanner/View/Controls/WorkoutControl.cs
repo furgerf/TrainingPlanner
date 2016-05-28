@@ -30,22 +30,22 @@ namespace TrainingPlanner.View.Controls
       {
         DisplayCurrentWorkout();
 
-        if (this.Workout != null){
+        if (Workout != null){
           foreach (var c in _nonemptyWorkoutControls)
           {
-            this._toolTip.SetToolTip(c,
+            _toolTip.SetToolTip(c,
               string.Format("Total duration: {0}\nTotal distance: {1}km",
-                this.Workout.Duration.ToString(this.Workout.Duration.TotalHours < 1
+                Workout.Duration.ToString(Workout.Duration.TotalHours < 1
                   ? "mm'min 'ss's'"
                   : "h'h 'mm'min 'ss's'")
-                , Math.Round(this.Workout.Distance, 2)));
+                , Math.Round(Workout.Distance, 2)));
           }
         }
       };
 
-      this._toolTip.InitialDelay = 100;
-      this._toolTip.ReshowDelay = 50;
-      this._toolTip.ShowAlways = true;
+      _toolTip.InitialDelay = 100;
+      _toolTip.ReshowDelay = 50;
+      _toolTip.ShowAlways = true;
 
       DisplayCurrentWorkout();
     }
@@ -57,13 +57,13 @@ namespace TrainingPlanner.View.Controls
       get { return _workout; }
       set
       {
-        if ((this.Workout == null && value == null) || (this.Workout != null && this.Workout.Equals(value)))
+        if ((Workout == null && value == null) || (Workout != null && Workout.Equals(value)))
         {
           return;
         }
         _workout = value;
 
-        if (WorkoutChanged != null && this._eventsActivated)
+        if (WorkoutChanged != null && _eventsActivated)
         {
           Logger.Debug("Triggering WorkoutChanged event");
           WorkoutChanged(this, _workout);
@@ -79,7 +79,7 @@ namespace TrainingPlanner.View.Controls
       {
         labWorkoutName.Text = Workout.ShortName ?? Workout.Name;
         txtDescription.Text = Workout.Description;
-        BackColor = this.Workout.CategoryName == null ? Colors.Default.DefaultWorkoutControlBackground : this._data.WorkoutCategoryFromName(this.Workout.CategoryName).CategoryColor;
+        BackColor = Workout.CategoryName == null ? Colors.Default.DefaultWorkoutControlBackground : _data.WorkoutCategoryFromName(Workout.CategoryName).CategoryColor;
       }
       else
       {
@@ -100,16 +100,16 @@ namespace TrainingPlanner.View.Controls
 
     private void CreateContextMenu()
     {
-      if (this._data == null)
+      if (_data == null)
       {
         return;
       }
 
       // retrieve menu
-      this.ContextMenu = this._data.WorkoutContextMenu;
+      ContextMenu = _data.WorkoutContextMenu;
 
       // add event listeners
-      foreach (MenuItem category in this.ContextMenu.MenuItems)
+      foreach (MenuItem category in ContextMenu.MenuItems)
       {
         foreach (MenuItem workout in category.MenuItems)
         {
@@ -121,7 +121,7 @@ namespace TrainingPlanner.View.Controls
 
     private void WorkoutSelected(string workoutName)
     {
-      this.Workout = this._data.WorkoutFromName(workoutName);
+      Workout = _data.WorkoutFromName(workoutName);
     }
 
     private void RemoveWorkout(object sender, EventArgs e)
@@ -131,10 +131,10 @@ namespace TrainingPlanner.View.Controls
 
     public void SetData(Data data)
     {
-      this._data = data;
+      _data = data;
 
-      this._data.CategoryChanged += (s, e) => UpdateControl();
-      this._data.WorkoutChanged += (s, e) => UpdateControl();
+      _data.CategoryChanged += (s, e) => UpdateControl();
+      _data.WorkoutChanged += (s, e) => UpdateControl();
 
       CreateContextMenu();
     }
@@ -146,10 +146,10 @@ namespace TrainingPlanner.View.Controls
 
       // update the own workout:
       // if this control has a workout...
-      if (this.Workout != null)
+      if (Workout != null)
       {
         // ... it may have been modified so we load the up-to-date information from Data
-        this.Workout = this._data.WorkoutFromName(this.Workout.Name);
+        Workout = _data.WorkoutFromName(Workout.Name);
       }
     }
 
@@ -160,12 +160,12 @@ namespace TrainingPlanner.View.Controls
 
     private void ShowContextMenu(object sender, MouseEventArgs e)
     {
-      this.ContextMenu.Show((Control)sender, e.Location);
+      ContextMenu.Show((Control)sender, e.Location);
     }
 
     public void Activate()
     {
-      this._eventsActivated = true;
+      _eventsActivated = true;
     }
   }
 }

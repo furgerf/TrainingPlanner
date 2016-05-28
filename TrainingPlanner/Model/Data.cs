@@ -9,6 +9,8 @@ namespace TrainingPlanner.Model
 {
   public class Data
   {
+    public readonly string PlanName;
+
     #region Data
     /// <summary>
     /// Actual data.
@@ -19,23 +21,25 @@ namespace TrainingPlanner.Model
     #endregion
 
     #region Constructor
-    public Data()
+    public Data(string planName)
     {
+      PlanName = planName;
+
       // create persistence handler
       var persistence = new DataPersistence(this);
 
       // load persisted data
-      this._categories = new List<WorkoutCategory>(persistence.LoadCategories());
-      this._workouts = new List<Workout>(persistence.LoadWorkouts());
+      _categories = new List<WorkoutCategory>(persistence.LoadCategories());
+      _workouts = new List<Workout>(persistence.LoadWorkouts());
 
-      this._trainingPlan = persistence.LoadPlan("sempacherseelauf-2016");
+      _trainingPlan = persistence.LoadPlan();
       if (TrainingPlanLoaded != null)
       {
         Logger.Debug("Triggering TrainingPlanLoaded event");
         TrainingPlanLoaded(this, null);
       }
 
-      this._trainingPlan.SetData(this);
+      _trainingPlan.SetData(this);
 
       Logger.Info("Data instantiated");
     }
@@ -196,8 +200,8 @@ namespace TrainingPlanner.Model
     /// <param name="workout">New workout.</param>
     public void AddWorkout(Workout workout)
     {
-      var index = this._workouts.FindIndex(w => string.Compare(w.Name, workout.Name, StringComparison.InvariantCulture) > 0);
-      this._workouts.Insert(index == -1 ? this._workouts.Count : index, workout);
+      var index = _workouts.FindIndex(w => string.Compare(w.Name, workout.Name, StringComparison.InvariantCulture) > 0);
+      _workouts.Insert(index == -1 ? _workouts.Count : index, workout);
 
       if (WorkoutChanged != null)
       {
@@ -209,11 +213,11 @@ namespace TrainingPlanner.Model
     public void AddOrUpdateWorkout(Workout workout)
     {
       // TODO: (add/edit/update) Add proper updating of workout
-      var existing = this._workouts.FirstOrDefault(c => c.Name == workout.Name);
+      var existing = _workouts.FirstOrDefault(c => c.Name == workout.Name);
 
       if (existing != null)
       {
-        this._workouts.Remove(existing);
+        _workouts.Remove(existing);
       }
       AddWorkout(workout);
     }
@@ -224,12 +228,12 @@ namespace TrainingPlanner.Model
     /// <param name="workout">Workout to remove.</param>
     public void RemoveWorkout(Workout workout)
     {
-      if (!this._workouts.Contains(workout))
+      if (!_workouts.Contains(workout))
       {
         return;
       }
 
-      this._workouts.Remove(workout);
+      _workouts.Remove(workout);
 
       // (no need to sort)
 
@@ -242,8 +246,8 @@ namespace TrainingPlanner.Model
 
     public void AddWorkoutCategory(WorkoutCategory category)
     {
-      var index = this._categories.FindIndex(c => string.Compare(c.Name, category.Name, StringComparison.InvariantCulture) > 0);
-      this._categories.Insert(index == -1 ? this._categories.Count : index, category);
+      var index = _categories.FindIndex(c => string.Compare(c.Name, category.Name, StringComparison.InvariantCulture) > 0);
+      _categories.Insert(index == -1 ? _categories.Count : index, category);
 
       if (CategoryChanged != null)
       {
@@ -255,11 +259,11 @@ namespace TrainingPlanner.Model
     public void AddOrUpdateWorkoutCategory(WorkoutCategory category)
     {
       // TODO: (add/edit/update) add proper updating of workout category
-      var existing = this._categories.FirstOrDefault(c => c.Name == category.Name);
+      var existing = _categories.FirstOrDefault(c => c.Name == category.Name);
 
       if (existing != null)
       {
-        this._categories.Remove(existing);
+        _categories.Remove(existing);
       }
       AddWorkoutCategory(category);
     }
@@ -270,12 +274,12 @@ namespace TrainingPlanner.Model
     /// <param name="category">Category to remove.</param>
     public void RemoveWorkoutCategory(WorkoutCategory category)
     {
-      if (!this._categories.Contains(category))
+      if (!_categories.Contains(category))
       {
         return;
       }
 
-      this._categories.Remove(category);
+      _categories.Remove(category);
 
       // (no need to sort)
 

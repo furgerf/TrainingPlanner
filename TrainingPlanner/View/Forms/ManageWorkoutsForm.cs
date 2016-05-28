@@ -14,11 +14,11 @@ namespace TrainingPlanner.View.Forms
 
     public ManageWorkoutsForm(Data data)
     {
-      this._data = data;
+      _data = data;
 
       InitializeComponent();
 
-      this.lisWorkouts.ListViewItemSorter = new ListViewItemComparer(1, false);
+      lisWorkouts.ListViewItemSorter = new ListViewItemComparer(1, false);
     }
 
     private void butAdd_Click(object sender, EventArgs e)
@@ -74,28 +74,28 @@ namespace TrainingPlanner.View.Forms
 
     public void DisplayWorkouts(Workout[] workouts)
     {
-      this.lisWorkouts.Items.Clear();
-      this.lisWorkouts.Items.AddRange(
+      lisWorkouts.Items.Clear();
+      lisWorkouts.Items.AddRange(
         workouts.Select(
           c =>
             new ListViewItem(new[]
             {
               c.Name, c.CategoryName, Math.Round(c.Distance, 2).ToString(CultureInfo.InvariantCulture), c.Duration.ToString("hh':'mm':'ss"),
-              this._data.TrainingPlan.AllWorkouts.Count(w => w.Name == c.Name).ToString(CultureInfo.InvariantCulture)
+              _data.TrainingPlan.AllWorkouts.Count(w => w.Name == c.Name).ToString(CultureInfo.InvariantCulture)
             })
             {
-              BackColor = this._data.WorkoutCategoryFromName(c.CategoryName).CategoryColor
+              BackColor = _data.WorkoutCategoryFromName(c.CategoryName).CategoryColor
             }).ToArray());
-      this.lisWorkouts.Sort();
+      lisWorkouts.Sort();
     }
 
     private void lisWorkouts_ColumnClick(object sender, ColumnClickEventArgs e)
     {
-      var lvic = (ListViewItemComparer) this.lisWorkouts.ListViewItemSorter;
+      var lvic = (ListViewItemComparer) lisWorkouts.ListViewItemSorter;
       var reverse = e.Column == lvic.Column && !lvic.Reverse;
 
-      this.lisWorkouts.ListViewItemSorter = new ListViewItemComparer(e.Column, reverse);
-      this.lisWorkouts.Sort();
+      lisWorkouts.ListViewItemSorter = new ListViewItemComparer(e.Column, reverse);
+      lisWorkouts.Sort();
     }
   }
 }

@@ -14,7 +14,7 @@
     /// <param name="eventValue">The event value.</param>
     public EventArgs(T eventValue)
     {
-      this._value = eventValue;
+      _value = eventValue;
     }
 
     /// <summary>

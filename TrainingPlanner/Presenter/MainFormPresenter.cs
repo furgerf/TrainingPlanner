@@ -15,9 +15,9 @@ namespace TrainingPlanner.Presenter
 
     public MainFormPresenter(IMainForm view, Data data)
     {
-      this._data = data;
+      _data = data;
 
-      view.UpdateWeeklyPlan(this._data.TrainingPlan.WeeklyPlans);
+      view.UpdateWeeklyPlan(_data.TrainingPlan.WeeklyPlans);
 
       view.NewPlanClick += (s, e) => OnNewPlanClick();
       view.OpenPlanClick += (s, e) => OnOpenPlanClick();
@@ -33,13 +33,13 @@ namespace TrainingPlanner.Presenter
       view.ConfigurePacesClick += (s, e) => OnConfigurePacesClick();
       view.InfoClick += (s, e) => OnInfoClick();
 
-      view.WeeklyPlanChanged += (s, e) => this._data.UpdateTrainingPlan(e.Value);
+      view.WeeklyPlanChanged += (s, e) => _data.UpdateTrainingPlan(e.Value);
 
       // find active week
-      for (var i = 0; i < this._data.TrainingPlan.WeeklyPlans.Length; i++)
+      for (var i = 0; i < _data.TrainingPlan.WeeklyPlans.Length; i++)
       {
 
-        if (this._data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || this._data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
+        if (_data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || _data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
         {
           continue;
         }
@@ -71,15 +71,15 @@ namespace TrainingPlanner.Presenter
 
     private void OnAddWorkoutClick()
     {
-      var form = new EditWorkoutForm(this._data);
-      var presenter = new EditWorkoutFormPresenter(form, this._data);
+      var form = new EditWorkoutForm(_data);
+      var presenter = new EditWorkoutFormPresenter(form, _data);
       form.Show();
     }
 
     private void OnEditWorkoutClick(string workoutName)
     {
-      var form = new EditWorkoutForm(this._data, this._data.WorkoutFromName(workoutName));
-      var presenter = new EditWorkoutFormPresenter(form, this._data);
+      var form = new EditWorkoutForm(_data, _data.WorkoutFromName(workoutName));
+      var presenter = new EditWorkoutFormPresenter(form, _data);
       // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
       // the workout will be overwritten but if it gets a new name, a new workout is created?
       form.Show();
@@ -87,7 +87,7 @@ namespace TrainingPlanner.Presenter
 
     private void OnDeleteWorkoutClick(string workoutName)
     {
-      if (this._data.WorkoutFromName(workoutName) == null)
+      if (_data.WorkoutFromName(workoutName) == null)
       {
         MessageBox.Show("There is no workout with this name.");
         return;
@@ -99,27 +99,27 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      this._data.RemoveWorkout(this._data.WorkoutFromName(workoutName));
+      _data.RemoveWorkout(_data.WorkoutFromName(workoutName));
     }
 
     private void OnManageWorkoutsClick()
     {
-      var form = new ManageWorkoutsForm(this._data);
-      var presenter = new ManageWorkoutsFormPresenter(form, this._data);
+      var form = new ManageWorkoutsForm(_data);
+      var presenter = new ManageWorkoutsFormPresenter(form, _data);
       form.Show();
     }
 
     private void OnAddWorkoutCategoryClick()
     {
       var form = new EditWorkoutCategoryForm();
-      var presenter = new EditWorkoutCategoryFormPresenter(form, this._data);
+      var presenter = new EditWorkoutCategoryFormPresenter(form, _data);
       form.Show();
     }
 
     private void OnEditWorkoutCategoryClick(string categoryName)
     {
-      var form = new EditWorkoutCategoryForm(this._data.WorkoutCategoryFromName(categoryName));
-      var presenter = new EditWorkoutCategoryFormPresenter(form, this._data);
+      var form = new EditWorkoutCategoryForm(_data.WorkoutCategoryFromName(categoryName));
+      var presenter = new EditWorkoutCategoryFormPresenter(form, _data);
       // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
       // the workout will be overwritten but if it gets a new name, a new workout is created?
       form.Show();
@@ -127,7 +127,7 @@ namespace TrainingPlanner.Presenter
 
     private void OnDeleteWorkoutCategoryClick(string categoryName)
     {
-      if (this._data.WorkoutCategoryFromName(categoryName) == null)
+      if (_data.WorkoutCategoryFromName(categoryName) == null)
       {
         MessageBox.Show("There is no workout category with this name.");
         return;
@@ -139,20 +139,20 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      this._data.RemoveWorkoutCategory(this._data.WorkoutCategoryFromName(categoryName));
+      _data.RemoveWorkoutCategory(_data.WorkoutCategoryFromName(categoryName));
     }
 
     private void OnManageWorkoutCategoriesClick()
     {
-      var form = new ManageWorkoutCategoriesForm(this._data);
-      var presenter = new ManageWorkoutCategoriesFormPresenter(form, this._data);
+      var form = new ManageWorkoutCategoriesForm(_data);
+      var presenter = new ManageWorkoutCategoriesFormPresenter(form, _data);
       form.Show();
     }
 
     private void OnConfigurePacesClick()
     {
       var form = new PaceForm();
-      var presenter = new PaceFormPresenter(form, this._data);
+      var presenter = new PaceFormPresenter(form, _data);
       form.Show();
     }
 

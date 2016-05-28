@@ -11,8 +11,8 @@ namespace TrainingPlanner.View
 
     public ListViewItemComparer(int column, bool reverse)
     {
-      this._col = column;
-      this._reverse = reverse;
+      _col = column;
+      _reverse = reverse;
     }
 
     public int Column { get { return _col; } }

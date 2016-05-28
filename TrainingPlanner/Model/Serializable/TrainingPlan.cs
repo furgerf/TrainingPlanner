@@ -24,7 +24,7 @@ namespace TrainingPlanner.Model.Serializable
 
         if (NameChanged != null)
         {
-          this.NameChanged(this, oldName);
+          NameChanged(this, oldName);
         }
       }
     }
@@ -43,9 +43,9 @@ namespace TrainingPlanner.Model.Serializable
 
     public TrainingPlan(string name, WeeklyPlan[] plans)
     {
-      this.Name = name;
-      this.TrainingWeeks = plans.Length;
-      this.WeeklyPlans = plans;
+      Name = name;
+      TrainingWeeks = plans.Length;
+      WeeklyPlans = plans;
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ namespace TrainingPlanner.Model.Serializable
         var workouts = new List<Workout>();
         foreach (var w in WeeklyPlans)
         {
-          workouts.AddRange(w.Workouts.Where(ww => ww != null).Select(ww => this._data.WorkoutFromName(ww)));
+          workouts.AddRange(w.Workouts.Where(ww => ww != null).Select(ww => _data.WorkoutFromName(ww)));
         }
 
         return workouts.ToArray();
@@ -70,7 +70,7 @@ namespace TrainingPlanner.Model.Serializable
 
     public void SetData(Data data)
     {
-      this._data = data;
+      _data = data;
     }
 
     public static TrainingPlan NewTrainingPlan(int weekCount)
@@ -94,7 +94,7 @@ namespace TrainingPlanner.Model.Serializable
 
     public override string ToString()
     {
-      return string.Format("{0}-week plan starting {1}", TrainingWeeks, this.WeeklyPlans[0].WeekStart);
+      return string.Format("{0}-week plan starting {1}", TrainingWeeks, WeeklyPlans[0].WeekStart);
     }
   }
 }

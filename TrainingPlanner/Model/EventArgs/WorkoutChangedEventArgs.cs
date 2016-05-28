@@ -12,8 +12,8 @@ namespace TrainingPlanner.Model.EventArgs
 
     public WorkoutChangedEventArgs(Workout workout, bool workoutAdded)
     {
-      this.Workout = workout;
-      this.WorkoutAdded = workoutAdded;
+      Workout = workout;
+      WorkoutAdded = workoutAdded;
     }
   }
 }
