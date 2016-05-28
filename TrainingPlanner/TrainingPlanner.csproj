@@ -42,11 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Misc.Designer.cs">
-      <DependentUpon>Misc.settings</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Model\EventArgs\EventArgs.cs" />
     <Compile Include="Model\Data.cs" />
@@ -211,10 +206,6 @@
     <EmbeddedResource Include="View\Controls\WorkoutStepControl.resx">
       <DependentUpon>WorkoutStepControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Misc.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Misc.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Colors.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Colors.Designer.cs</LastGenOutput>
