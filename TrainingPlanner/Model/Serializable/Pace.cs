@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace TrainingPlanner.Model.Serializable
 {
+  /// <summary>
+  /// Describes the set of different paces that are used in the trainings.
+  /// </summary>
   [DataContract(Name = "Pace")]
   public sealed class Pace
   {
@@ -22,7 +25,7 @@ namespace TrainingPlanner.Model.Serializable
     }
 
     [IgnoreDataMember]
-    public const string PaceFormat = "mm':'ss";
+    public const string PaceFormat = @"mm\:ss";
 
     [DataMember(Name = "Easy", IsRequired = true)]
     public TimeSpan Easy { get; set; }

@@ -18,6 +18,9 @@ namespace TrainingPlanner.Model
     private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
     private static readonly bool IsLinux = !Environment.OSVersion.Platform.ToString().ToLower().StartsWith("win");
 
+    /// <summary>
+    /// The application working directory.
+    /// </summary>
     public static readonly string ApplicationDataDirectory = IsLinux
       ? ApplicationDataDirectoryLinux
       : ApplicationDataDirectoryWindows;
@@ -33,6 +36,9 @@ namespace TrainingPlanner.Model
     // data to persist - contains the training plan's name
     private readonly Data _data;
 
+    /// <summary>
+    /// The path to the application log file.
+    /// </summary>
     public static string LogFile
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + LogFileName; }
@@ -42,7 +48,8 @@ namespace TrainingPlanner.Model
     {
       get
       {
-        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
+        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.TrainingPlan.Name +
+               Path.DirectorySeparatorChar +
                WorkoutsDirectoryName;
       }
     }
@@ -51,24 +58,24 @@ namespace TrainingPlanner.Model
     {
       get
       {
-        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
+        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.TrainingPlan.Name +
+               Path.DirectorySeparatorChar +
                WorkoutCategoriesDirectoryName;
       }
     }
 
-    private string TrainingPlanFile
+    private string TrainingPlanFile(string planName)
     {
-      get
-      {
-        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
-               TrainingPlanFileName;
-      }
+      return ApplicationDataDirectory + Path.DirectorySeparatorChar + planName + Path.DirectorySeparatorChar +
+             TrainingPlanFileName;
     }
+
     private string PacesFile
     {
       get
       {
-        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.PlanName + Path.DirectorySeparatorChar +
+        return ApplicationDataDirectory + Path.DirectorySeparatorChar + _data.TrainingPlan.Name +
+               Path.DirectorySeparatorChar +
                PacesFileName;
       }
     }
@@ -85,7 +92,6 @@ namespace TrainingPlanner.Model
       _data.WorkoutChanged += (s, e) => OnWorkoutChanged(e);
       _data.CategoryChanged += (s, e) => OnCategoryChanged(e);
       _data.TrainingPlanModified += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
-      _data.TrainingPlanLoaded += (s, e) => OnTrainingPlanLoaded();
 
       Logger.Info("DataPersistence instantiated");
     }
@@ -133,23 +139,13 @@ namespace TrainingPlanner.Model
     private void OnTrainingPlanChanged(TrainingPlan plan)
     {
       Logger.Info("Training plan saved");
-      WriteJsonFile(plan, TrainingPlanFile);
+      WriteJsonFile(plan, TrainingPlanFile(plan.Name));
     }
 
-    private void OnTrainingPlanLoaded()
-    {
-      _data.TrainingPlan.NameChanged += (s, e) =>
-      {
-        throw new NotImplementedException();
-        /*
-        var oldName = e;
-        var newName = ((TrainingPlan) s).Name;
-
-        File.Move(TrainingPlanFile(oldName), TrainingPlanFile(newName));
-        */
-      };
-    }
-
+    /// <summary>
+    /// Loads all workout categories in the current training plan.
+    /// </summary>
+    /// <returns>All workout categories.</returns>
     public IEnumerable<WorkoutCategory> LoadCategories()
     {
       Logger.Info("Loading workout categories");
@@ -158,6 +154,10 @@ namespace TrainingPlanner.Model
           .Select(ParseJsonFile<WorkoutCategory>);
     }
 
+    /// <summary>
+    /// Loads all workouts in the current training plan.
+    /// </summary>
+    /// <returns>All workouts.</returns>
     public IEnumerable<Workout> LoadWorkouts()
     {
       Logger.Info("Loading workouts");
@@ -166,12 +166,21 @@ namespace TrainingPlanner.Model
           .SelectMany(d => Directory.GetFiles(d, "*.json").Select(ParseJsonFile<Workout>));
     }
 
-    public TrainingPlan LoadPlan()
+    /// <summary>
+    /// Loads the training plan with the given name.
+    /// </summary>
+    /// <param name="planName">Name of the training plan to load.</param>
+    /// <returns>Deserialized TrainingPlan instance.</returns>
+    public TrainingPlan LoadPlan(string planName)
     {
-      Logger.InfoFormat("Loading training plan {0}", _data.PlanName);
-      return ParseJsonFile<TrainingPlan>(TrainingPlanFile);
+      Logger.InfoFormat("Loading training plan {0}", planName);
+      return ParseJsonFile<TrainingPlan>(TrainingPlanFile(planName));
     }
 
+    /// <summary>
+    /// Loads the paces associated with the current training plan.
+    /// </summary>
+    /// <returns>Deserialized Pace instance.</returns>
     public Pace LoadPace()
     {
       Logger.Info("Loading paces from file");
@@ -184,12 +193,25 @@ namespace TrainingPlanner.Model
       WriteJsonFile(_data.Pace, PacesFile);
     }
 
+    /// <summary>
+    /// Writes the data of a training plan to a file that is *NOT* the currently loaded training plan file.
+    /// This is intended to be used when creating a new training plan.
+    /// </summary>
+    /// <param name="plan">New training plan to store.</param>
     public static void CreateNewTrainingPlanFile(TrainingPlan plan)
     {
-      WriteJsonFile(plan, ApplicationDataDirectory + Path.DirectorySeparatorChar + plan.Name + Path.DirectorySeparatorChar + TrainingPlanFileName);
+      WriteJsonFile(plan,
+        ApplicationDataDirectory + Path.DirectorySeparatorChar + plan.Name + Path.DirectorySeparatorChar +
+        TrainingPlanFileName);
     }
 
-    public static void CopyExistingWorkoutsToNewPlan(string oldPlanName, string newPlanName)
+    /// <summary>
+    /// Copies data associated with one training plan into the directory of another training plan.
+    /// This associated data includes workouts, categories, and paces.
+    /// </summary>
+    /// <param name="oldPlanName">Name of the plan from where to copy the data.</param>
+    /// <param name="newPlanName">Name of the plan where the data should be copied to.</param>
+    public static void CopyExistingTrainingPlanDataToNewPlan(string oldPlanName, string newPlanName)
     {
       var oldPlanDirectory = ApplicationDataDirectory + Path.DirectorySeparatorChar + oldPlanName +
                              Path.DirectorySeparatorChar;
@@ -202,12 +224,13 @@ namespace TrainingPlanner.Model
       {
         // create new subdirectory for the category
         Directory.CreateDirectory(newPlanDirectory + WorkoutsDirectoryName + Path.DirectorySeparatorChar + category.Name);
-        
+
         // copy workouts
         foreach (var workout in category.GetFiles())
         {
           File.Copy(workout.FullName,
-            newPlanDirectory + WorkoutsDirectoryName + Path.DirectorySeparatorChar + category.Name + Path.DirectorySeparatorChar + workout.Name);
+            newPlanDirectory + WorkoutsDirectoryName + Path.DirectorySeparatorChar + category.Name +
+            Path.DirectorySeparatorChar + workout.Name);
         }
       }
 
@@ -215,7 +238,8 @@ namespace TrainingPlanner.Model
       Directory.CreateDirectory(newPlanDirectory + WorkoutCategoriesDirectoryName);
       foreach (var category in new DirectoryInfo(oldPlanDirectory + WorkoutCategoriesDirectoryName).GetFiles())
       {
-        File.Copy(category.FullName, newPlanDirectory + WorkoutCategoriesDirectoryName + Path.DirectorySeparatorChar + category.Name);
+        File.Copy(category.FullName,
+          newPlanDirectory + WorkoutCategoriesDirectoryName + Path.DirectorySeparatorChar + category.Name);
       }
 
       // paces

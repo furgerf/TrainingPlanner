@@ -155,15 +155,25 @@ namespace TrainingPlanner.View.Controls
 
     private void comName_TextChanged(object sender, EventArgs e)
     {
-      if (!comName.Text.Equals("Warmup") && !comName.Text.Equals("Cooldown"))
+      Step step;
+
+      if ("warmup".Equals(comName.Text.ToLower()))
+      {
+        step = Step.Warmup;
+      }
+      else if ("cooldown".Equals(comName.Text.ToLower()))
+      {
+        step = Step.Cooldown;
+      }
+      else
       {
         return;
       }
 
-      comPace.Text = "Easy";
-      txtRest.Text = "";
-      txtDuration.Text = new TimeSpan(0, 10, 0).ToString();
-      numRepetitions.Value = 1;
+      comPace.Text = step.PaceName;
+      txtRest.Text = step.Rest.TotalSeconds == 0 ? "" : step.Rest.ToString(Model.Serializable.Pace.PaceFormat);
+      txtDuration.Text = step.Duration.ToString(Model.Serializable.Pace.PaceFormat);
+      numRepetitions.Value = step.Repetitions;
     }
   }
 }

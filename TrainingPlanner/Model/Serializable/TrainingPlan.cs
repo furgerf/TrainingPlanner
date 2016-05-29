@@ -54,7 +54,7 @@ namespace TrainingPlanner.Model.Serializable
     /// </summary>
     public event EventHandler<string> NameChanged;
 
-    public Workout[] AllWorkouts
+    public IEnumerable<Workout> AllWorkouts
     {
       get
       {

@@ -23,7 +23,7 @@ namespace TrainingPlanner.View.Forms
       set
       {
         _data = value;
-        Text = "Training Planner - " + (Data == null ? "<none>" : Data.PlanName);
+        Text = "Training Planner - " + (Data == null ? "<none>" : Data.TrainingPlan.Name);
       }
     }
 

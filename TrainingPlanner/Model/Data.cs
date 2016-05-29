@@ -8,45 +8,57 @@ using TrainingPlanner.Model.Serializable;
 namespace TrainingPlanner.Model
 {
   /// <summary>
-  /// Contains all relevant data of the current training plan.
+  /// Contains all relevant data of a training plan.
   /// </summary>
   public class Data
   {
     /// <summary>
-    /// Last `Data` instance that was created.
+    /// Last `Data` instance that was created - sometimes static access
+    /// to the current instance seems unavoidable...
     /// </summary>
     public static Data Instance;
 
-    public readonly string PlanName;
+    /// <summary>
+    /// Paces which are used in the plan.
+    /// </summary>
     public readonly Pace Pace;
-    private readonly List<WorkoutCategory> _categories;
-    private readonly List<Workout> _workouts;
+
+    /// <summary>
+    /// Training plan instance.
+    /// </summary>
     private readonly TrainingPlan _trainingPlan;
+
+    /// <summary>
+    /// List of the different workouts.
+    /// </summary>
+    private readonly List<Workout> _workouts;
+
+    /// <summary>
+    /// List of the different workout categories.
+    /// </summary>
+    private readonly List<WorkoutCategory> _categories;
 
     /// <summary>
     /// Initializes a new Data instance with the given name.
     /// This name is used to resolve the path to the persisted data.
     /// </summary>
-    /// <param name="planName"></param>
+    /// <param name="planName">Name of the training plan.</param>
     public Data(string planName)
     {
       Instance = this;
-
-      // store the name of the plan
-      PlanName = planName;
 
       // create persistence handler for this `Data` instance.
       var persistence = new DataPersistence(this);
 
       // load persisted data
-      Pace = persistence.LoadPace();
-      _categories = new List<WorkoutCategory>(persistence.LoadCategories());
-      _workouts = new List<Workout>(persistence.LoadWorkouts());
-      _trainingPlan = persistence.LoadPlan();
+      // NOTE: Must load training plan first because its name is needed to find the other files
+      _trainingPlan = persistence.LoadPlan(planName);
       _trainingPlan.SetData(this);
 
-      Logger.Debug("Triggering TrainingPlanLoaded event");
-      TrainingPlanLoaded(this, null);
+      Pace = persistence.LoadPace();
+
+      _workouts = new List<Workout>(persistence.LoadWorkouts());
+      _categories = new List<WorkoutCategory>(persistence.LoadCategories());
 
       Logger.Info("Data instantiated");
     }
@@ -70,11 +82,6 @@ namespace TrainingPlanner.Model
     /// Triggered whenever the value of any of the paces changes.
     /// </summary>
     public event EventHandler PaceChanged = (s, e) => { };
-
-    /// <summary>
-    /// Triggered when the training plan was loaded.
-    /// </summary>
-    public event EventHandler TrainingPlanLoaded = (s, e) => { };
 
     /// <summary>
     /// Gets the workouts.

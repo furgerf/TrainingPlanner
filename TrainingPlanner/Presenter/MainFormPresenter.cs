@@ -56,7 +56,7 @@ namespace TrainingPlanner.Presenter
         Directory.CreateDirectory(DataPersistence.ApplicationDataDirectory + Path.DirectorySeparatorChar + e.Name);
 
         // copy workouts, categories, and paces
-        DataPersistence.CopyExistingWorkoutsToNewPlan(e.OtherTrainingPlanToImportDataFrom, e.Name);
+        DataPersistence.CopyExistingTrainingPlanDataToNewPlan(e.OtherTrainingPlanToImportDataFrom, e.Name);
 
         // create and store new empty plan
         DataPersistence.CreateNewTrainingPlanFile(TrainingPlan.NewTrainingPlan(e.Name, e.TrainingWeeks));
@@ -216,7 +216,7 @@ namespace TrainingPlanner.Presenter
         break;
       }
 
-      Logger.InfoFormat("Opened new training plan '{0}'", data.PlanName);
+      Logger.InfoFormat("Opened new training plan '{0}'", data.TrainingPlan.Name);
     }
   }
 }

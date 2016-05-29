@@ -10,11 +10,6 @@ namespace TrainingPlanner.Model.Serializable
   public struct Step
   {
     /// <summary>
-    /// Format with which to convert the pace to string.
-    /// </summary>
-    private const string PaceFormat = @"mm\:ss";
-
-    /// <summary>
     /// Name of the step.
     /// </summary>
     [DataMember(Name = "Name", IsRequired = true)] public readonly string Name;
@@ -157,7 +152,7 @@ namespace TrainingPlanner.Model.Serializable
         }
       }
 
-      result += " at " + Data.Instance.GetDurationFromPace(Pace).ToString(PaceFormat);
+      result += " at " + Data.Instance.GetDurationFromPace(Pace).ToString(Serializable.Pace.PaceFormat);
 
       if (Rest != TimeSpan.Zero)
       {
