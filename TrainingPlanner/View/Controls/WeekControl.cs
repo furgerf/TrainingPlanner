@@ -72,7 +72,7 @@ namespace TrainingPlanner.View.Controls
       }
     }
 
-    public DateTime WeekStart
+    private DateTime WeekStart
     {
       get { return monthCalendar1.SelectionStart; }
       set { monthCalendar1.SelectionStart = value; }

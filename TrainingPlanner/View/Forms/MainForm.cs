@@ -88,20 +88,20 @@ namespace TrainingPlanner.View.Forms
       foregroundPanel.Width = _weekControls[0].Width + 16;
     }
 
-    public event EventHandler NewPlanClick;
-    public event EventHandler OpenPlanClick;
-    public event EventHandler ClosePlanClick;
-    public event EventHandler AddWorkoutClick;
-    public event EventHandler<string> EditWorkoutClick;
-    public event EventHandler<string> DeleteWorkoutClick;
-    public event EventHandler ManageWorkoutsClick;
-    public event EventHandler AddWorkoutCategoryClick;
-    public event EventHandler<string> EditWorkoutCategoryClick;
-    public event EventHandler<string> DeleteWorkoutCategoryClick;
-    public event EventHandler ManageWorkoutCategoriesClick;
-    public event EventHandler ConfigurePacesClick;
-    public event EventHandler InfoClick;
-    public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged;
+    public event EventHandler NewPlanClick = (s, e) => { };
+    public event EventHandler OpenPlanClick = (s, e) => { };
+    public event EventHandler ClosePlanClick = (s, e) => { };
+    public event EventHandler AddWorkoutClick = (s, e) => { };
+    public event EventHandler<string> EditWorkoutClick = (s, e) => { };
+    public event EventHandler<string> DeleteWorkoutClick = (s, e) => { };
+    public event EventHandler ManageWorkoutsClick = (s, e) => { };
+    public event EventHandler AddWorkoutCategoryClick = (s, e) => { };
+    public event EventHandler<string> EditWorkoutCategoryClick = (s, e) => { };
+    public event EventHandler<string> DeleteWorkoutCategoryClick = (s, e) => { };
+    public event EventHandler ManageWorkoutCategoriesClick = (s, e) => { };
+    public event EventHandler ConfigurePacesClick = (s, e) => { };
+    public event EventHandler InfoClick = (s, e) => { };
+    public event EventHandler<EventArgs<WeeklyPlan>> WeeklyPlanChanged = (s, e) => { };
 
     public void UpdateWeeklyPlan(WeeklyPlan[] weeklyPlans)
     {
@@ -145,7 +145,7 @@ namespace TrainingPlanner.View.Forms
         }
         _weekControls = null;
       }
-      
+
       // assign new data
       Data = data;
 
@@ -166,38 +166,26 @@ namespace TrainingPlanner.View.Forms
 
     private void OnNewPlanClick()
     {
-      if (NewPlanClick != null)
-      {
-        Logger.Debug("Triggering NewPlanClick event");
-        NewPlanClick(this, null);
-      }
+      Logger.Debug("Triggering NewPlanClick event");
+      NewPlanClick(this, null);
     }
 
     private void OnOpenPlanClick()
     {
-      if (OpenPlanClick != null)
-      {
-        Logger.Debug("Triggering OpenPlanClick event");
-        OpenPlanClick(this, null);
-      }
+      Logger.Debug("Triggering OpenPlanClick event");
+      OpenPlanClick(this, null);
     }
 
     private void OnClosePlanClick()
     {
-      if (ClosePlanClick != null)
-      {
-        Logger.Debug("Triggering ClosePlanClick event");
-        ClosePlanClick(this, null);
-      }
+      Logger.Debug("Triggering ClosePlanClick event");
+      ClosePlanClick(this, null);
     }
 
     private void OnAddWorkoutClick()
     {
-      if (AddWorkoutClick != null)
-      {
-        Logger.Debug("Triggering AddWorkoutClick event");
-        AddWorkoutClick(this, null);
-      }
+      Logger.Debug("Triggering AddWorkoutClick event");
+      AddWorkoutClick(this, null);
     }
 
     private void OnEditWorkoutClick()
@@ -208,11 +196,8 @@ namespace TrainingPlanner.View.Forms
       presenter.WorkoutSelected += (s, e) =>
       {
         form.Close();
-        if (EditWorkoutClick != null)
-        {
-          Logger.Debug("Triggering EditWorkoutClick event");
-          EditWorkoutClick(this, e);
-        }
+        Logger.Debug("Triggering EditWorkoutClick event");
+        EditWorkoutClick(this, e);
       };
 
       form.Show();
@@ -226,11 +211,8 @@ namespace TrainingPlanner.View.Forms
       presenter.WorkoutSelected += (s, e) =>
       {
         form.Close();
-        if (DeleteWorkoutClick != null)
-        {
-          Logger.Debug("Triggering DeleteWorkoutClick event");
-          DeleteWorkoutClick(this, e);
-        }
+        Logger.Debug("Triggering DeleteWorkoutClick event");
+        DeleteWorkoutClick(this, e);
       };
 
       form.Show();
@@ -238,20 +220,14 @@ namespace TrainingPlanner.View.Forms
 
     private void OnManageWorkoutsClick()
     {
-      if (ManageWorkoutsClick != null)
-      {
-        Logger.Debug("Triggering ManageWorkoutsClick event");
-        ManageWorkoutsClick(this, null);
-      }
+      Logger.Debug("Triggering ManageWorkoutsClick event");
+      ManageWorkoutsClick(this, null);
     }
 
     private void OnAddWorkoutCategoryClick()
     {
-      if (AddWorkoutCategoryClick != null)
-      {
-        Logger.Debug("Triggering AddWorkoutCategoryClick event");
-        AddWorkoutCategoryClick(this, null);
-      }
+      Logger.Debug("Triggering AddWorkoutCategoryClick event");
+      AddWorkoutCategoryClick(this, null);
     }
 
     private void OnEditWorkoutCategoryClick()
@@ -262,11 +238,8 @@ namespace TrainingPlanner.View.Forms
       presenter.CategorySelected += (s, e) =>
       {
         form.Close();
-        if (EditWorkoutCategoryClick != null)
-        {
-          Logger.Debug("Triggering EditWorkoutCategoryClick event");
-          EditWorkoutCategoryClick(this, e);
-        }
+        Logger.Debug("Triggering EditWorkoutCategoryClick event");
+        EditWorkoutCategoryClick(this, e);
       };
 
       form.Show();
@@ -280,11 +253,8 @@ namespace TrainingPlanner.View.Forms
       presenter.CategorySelected += (s, e) =>
       {
         form.Close();
-        if (DeleteWorkoutCategoryClick != null)
-        {
-          Logger.Debug("Triggering DeleteWorkoutCategoryClick event");
-          DeleteWorkoutCategoryClick(this, e);
-        }
+        Logger.Debug("Triggering DeleteWorkoutCategoryClick event");
+        DeleteWorkoutCategoryClick(this, e);
       };
 
       form.Show();
@@ -292,29 +262,20 @@ namespace TrainingPlanner.View.Forms
 
     private void OnManageWorkoutCategoriesClick()
     {
-      if (ManageWorkoutCategoriesClick != null)
-      {
-        Logger.Debug("Triggering ManageWorkoutCategoriesClick event");
-        ManageWorkoutCategoriesClick(this, null);
-      }
+      Logger.Debug("Triggering ManageWorkoutCategoriesClick event");
+      ManageWorkoutCategoriesClick(this, null);
     }
 
     private void OnConfigurePacesClick()
     {
-      if (ConfigurePacesClick != null)
-      {
-        Logger.Debug("Triggering ConfigurePacesClick event");
-        ConfigurePacesClick(this, null);
-      }
+      Logger.Debug("Triggering ConfigurePacesClick event");
+      ConfigurePacesClick(this, null);
     }
 
     private void OnInfoClick()
     {
-      if (InfoClick != null)
-      {
-        Logger.Debug("Triggering InfoClick event");
-        InfoClick(this, null);
-      }
+      Logger.Debug("Triggering InfoClick event");
+      InfoClick(this, null);
     }
   }
 }
