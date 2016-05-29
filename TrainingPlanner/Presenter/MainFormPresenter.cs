@@ -9,10 +9,12 @@ namespace TrainingPlanner.Presenter
 {
   public class MainFormPresenter : IMainFormPresenter
   {
-    private readonly Data _data;
+    private readonly IMainForm _view;
+    private Data _data;
 
     public MainFormPresenter(IMainForm view, Data data)
     {
+      _view = view;
       _data = data;
 
       view.UpdateWeeklyPlan(_data.TrainingPlan.WeeklyPlans);
@@ -59,7 +61,11 @@ namespace TrainingPlanner.Presenter
 
     private void OnOpenPlanClick()
     {
-      throw new NotImplementedException();
+      var data = new Data("Sempacherseelauf 2016");
+      _data = data;
+      _view.SetNewData(data);
+
+      Logger.InfoFormat("Opened new training plan '{0}'", data.PlanName);
     }
 
     private void OnClosePlanClick()

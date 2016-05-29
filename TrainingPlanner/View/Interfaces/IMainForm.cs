@@ -1,4 +1,5 @@
 ﻿using System;
+using TrainingPlanner.Model;
 using TrainingPlanner.Model.EventArgs;
 using TrainingPlanner.Model.Serializable;
 
@@ -46,5 +47,11 @@ namespace TrainingPlanner.View.Interfaces
     /// </summary>
     /// <param name="week">Week number to scroll to.</param>
     void ScrollToWeek(int week);
+
+    /// <summary>
+    /// Assigns a new data instance to the view.
+    /// </summary>
+    /// <param name="data">The new data instance.</param>
+    void SetNewData(Data data);
   }
 }

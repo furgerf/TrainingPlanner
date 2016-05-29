@@ -22,7 +22,7 @@ namespace TrainingPlanner
       Application.SetCompatibleTextRenderingDefault(false);
 
       // create data model - load "default"
-      var data = new Data("Sempacherseelauf 2016");
+      var data = new Data("Lucerne Marathon 2015");
 
       // create main form and its presenter
       var view = new MainForm(data);

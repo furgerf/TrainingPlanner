@@ -14,9 +14,9 @@ namespace TrainingPlanner.View.Forms
   {
     private const int WeeklyControlHeight = 218;
 
-    private readonly WeekControl[] _weekControls;
+    private WeekControl[] _weekControls;
 
-    private readonly Data _data;
+    private Data _data;
 
     public MainForm(Data data)
     {
@@ -25,7 +25,6 @@ namespace TrainingPlanner.View.Forms
       InitializeComponent();
 
       _weekControls = new WeekControl[_data.TrainingPlan.TrainingWeeks];
-
       InitializeDynamicControls();
 
       // register to more events (to retrigger)
@@ -134,6 +133,14 @@ namespace TrainingPlanner.View.Forms
         //this.foregroundPanel.ScrollControlIntoView(this._weekControls[Math.Min(week + 2, this._weekControls.Length)]);
         //this.foregroundPanel.AutoScrollPosition = new Point(0, -10);
       }
+    }
+
+    public void SetNewData(Data data)
+    {
+      _data = data;
+
+      _weekControls = new WeekControl[_data.TrainingPlan.TrainingWeeks];
+      InitializeDynamicControls();
     }
 
     private void OnNewPlanClick()
