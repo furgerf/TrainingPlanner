@@ -1,7 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using TrainingPlanner.Model;
-using TrainingPlanner.Model.Serializable;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace TrainingPlannerTest

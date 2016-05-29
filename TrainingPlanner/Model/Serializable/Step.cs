@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.Serialization;
-using System.Windows.Forms;
 
 namespace TrainingPlanner.Model.Serializable
 {

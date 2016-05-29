@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace TrainingPlanner.Model
+﻿namespace TrainingPlanner.Model
 {
   /// <summary>
   /// The different paces at which to run.
