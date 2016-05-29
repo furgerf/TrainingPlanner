@@ -36,19 +36,19 @@
       this.closePlanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.workoutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.workoutCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.pacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.manageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.workoutCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.addToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
       this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
       this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
       this.manageToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+      this.pacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.mainFormMenu.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -87,25 +87,29 @@
       // newPlanToolStripMenuItem
       // 
       this.newPlanToolStripMenuItem.Name = "newPlanToolStripMenuItem";
-      this.newPlanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.newPlanToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+      this.newPlanToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
       this.newPlanToolStripMenuItem.Text = "&New Plan";
       // 
       // openPlanToolStripMenuItem
       // 
       this.openPlanToolStripMenuItem.Name = "openPlanToolStripMenuItem";
-      this.openPlanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.openPlanToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+      this.openPlanToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
       this.openPlanToolStripMenuItem.Text = "&Open Plan";
       // 
       // closePlanToolStripMenuItem
       // 
       this.closePlanToolStripMenuItem.Name = "closePlanToolStripMenuItem";
-      this.closePlanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.closePlanToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+      this.closePlanToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
       this.closePlanToolStripMenuItem.Text = "&Close Plan";
       // 
       // exitToolStripMenuItem
       // 
       this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-      this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+      this.exitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
       this.exitToolStripMenuItem.Text = "&Exit";
       // 
       // workoutsToolStripMenuItem
@@ -119,6 +123,30 @@
       this.workoutsToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
       this.workoutsToolStripMenuItem.Text = "&Workouts";
       // 
+      // addToolStripMenuItem
+      // 
+      this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+      this.addToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+      this.addToolStripMenuItem.Text = "&Add";
+      // 
+      // editToolStripMenuItem
+      // 
+      this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+      this.editToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+      this.editToolStripMenuItem.Text = "&Edit";
+      // 
+      // deleteToolStripMenuItem
+      // 
+      this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+      this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+      this.deleteToolStripMenuItem.Text = "&Delete";
+      // 
+      // manageToolStripMenuItem
+      // 
+      this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
+      this.manageToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+      this.manageToolStripMenuItem.Text = "&Manage";
+      // 
       // workoutCategoriesToolStripMenuItem
       // 
       this.workoutCategoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -130,6 +158,30 @@
       this.workoutCategoriesToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
       this.workoutCategoriesToolStripMenuItem.Text = "Workout &Categories";
       // 
+      // addToolStripMenuItem1
+      // 
+      this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
+      this.addToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
+      this.addToolStripMenuItem1.Text = "&Add";
+      // 
+      // editToolStripMenuItem1
+      // 
+      this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
+      this.editToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
+      this.editToolStripMenuItem1.Text = "&Edit";
+      // 
+      // deleteToolStripMenuItem1
+      // 
+      this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
+      this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
+      this.deleteToolStripMenuItem1.Text = "&Delete";
+      // 
+      // manageToolStripMenuItem1
+      // 
+      this.manageToolStripMenuItem1.Name = "manageToolStripMenuItem1";
+      this.manageToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
+      this.manageToolStripMenuItem1.Text = "&Manage";
+      // 
       // pacesToolStripMenuItem
       // 
       this.pacesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -137,6 +189,12 @@
       this.pacesToolStripMenuItem.Name = "pacesToolStripMenuItem";
       this.pacesToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
       this.pacesToolStripMenuItem.Text = "&Paces";
+      // 
+      // configureToolStripMenuItem
+      // 
+      this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
+      this.configureToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+      this.configureToolStripMenuItem.Text = "&Configure";
       // 
       // aboutToolStripMenuItem
       // 
@@ -149,62 +207,8 @@
       // infoToolStripMenuItem
       // 
       this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-      this.infoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.infoToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
       this.infoToolStripMenuItem.Text = "&Info";
-      // 
-      // configureToolStripMenuItem
-      // 
-      this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
-      this.configureToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.configureToolStripMenuItem.Text = "&Configure";
-      // 
-      // addToolStripMenuItem
-      // 
-      this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-      this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.addToolStripMenuItem.Text = "&Add";
-      // 
-      // editToolStripMenuItem
-      // 
-      this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-      this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.editToolStripMenuItem.Text = "&Edit";
-      // 
-      // deleteToolStripMenuItem
-      // 
-      this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-      this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.deleteToolStripMenuItem.Text = "&Delete";
-      // 
-      // manageToolStripMenuItem
-      // 
-      this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-      this.manageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.manageToolStripMenuItem.Text = "&Manage";
-      // 
-      // addToolStripMenuItem1
-      // 
-      this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
-      this.addToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-      this.addToolStripMenuItem1.Text = "&Add";
-      // 
-      // editToolStripMenuItem1
-      // 
-      this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
-      this.editToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-      this.editToolStripMenuItem1.Text = "&Edit";
-      // 
-      // deleteToolStripMenuItem1
-      // 
-      this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-      this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-      this.deleteToolStripMenuItem1.Text = "&Delete";
-      // 
-      // manageToolStripMenuItem1
-      // 
-      this.manageToolStripMenuItem1.Name = "manageToolStripMenuItem1";
-      this.manageToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-      this.manageToolStripMenuItem1.Text = "&Manage";
       // 
       // MainForm
       // 
