@@ -6,6 +6,21 @@ namespace TrainingPlanner.Model.Serializable
   [DataContract(Name = "Pace")]
   public sealed class Pace
   {
+    /// <summary>
+    /// The different paces at which to run.
+    /// </summary>
+    public enum Names
+    {
+      Easy,
+      Base,
+      Steady,
+      Marathon,
+      Threshold,
+      Halfmarathon,
+      TenK,
+      FiveK
+    }
+
     [IgnoreDataMember]
     public const string PaceFormat = "mm':'ss";
 
@@ -33,57 +48,57 @@ namespace TrainingPlanner.Model.Serializable
     [DataMember(Name = "FiveK", IsRequired = true)]
     public TimeSpan FiveK { get; set; }
 
-    public TimeSpan GetPace(PaceNames name)
+    public TimeSpan GetPace(Names name)
     {
       switch (name)
       {
-        case PaceNames.Easy:
+        case Names.Easy:
           return Easy;
-        case PaceNames.Base:
+        case Names.Base:
           return Base;
-        case PaceNames.Steady:
+        case Names.Steady:
           return Steady;
-        case PaceNames.Marathon:
+        case Names.Marathon:
           return Marathon;
-        case PaceNames.Halfmarathon:
+        case Names.Halfmarathon:
           return Halfmarathon;
-        case PaceNames.Threshold:
+        case Names.Threshold:
           return Threshold;
-        case PaceNames.TenK:
+        case Names.TenK:
           return TenK;
-        case PaceNames.FiveK:
+        case Names.FiveK:
           return FiveK;
         default:
           throw new ArgumentOutOfRangeException("pace");
       }
     }
 
-    public void SetPace(PaceNames name, TimeSpan value)
+    public void SetPace(Names name, TimeSpan value)
     {
       switch (name)
       {
-        case PaceNames.Easy:
+        case Names.Easy:
           Easy = value;
           break;
-        case PaceNames.Base:
+        case Names.Base:
           Base = value;
           break;
-        case PaceNames.Steady:
+        case Names.Steady:
           Steady = value;
           break;
-        case PaceNames.Marathon:
+        case Names.Marathon:
           Marathon = value;
           break;
-        case PaceNames.Halfmarathon:
+        case Names.Halfmarathon:
           Halfmarathon = value;
           break;
-        case PaceNames.Threshold:
+        case Names.Threshold:
           Threshold = value;
           break;
-        case PaceNames.TenK:
+        case Names.TenK:
           TenK = value;
           break;
-        case PaceNames.FiveK:
+        case Names.FiveK:
           FiveK = value;
           break;
         default:

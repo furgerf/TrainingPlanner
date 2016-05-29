@@ -131,25 +131,25 @@ namespace TrainingPlanner.Model
       }
     }
 
-    public TimeSpan GetDurationFromPace(PaceNames pace)
+    public TimeSpan GetDurationFromPace(Pace.Names pace)
     {
       switch (pace)
       {
-        case PaceNames.Easy:
+        case Pace.Names.Easy:
           return Pace.Easy;
-        case PaceNames.Base:
+        case Pace.Names.Base:
           return Pace.Base;
-        case PaceNames.Steady:
+        case Pace.Names.Steady:
           return Pace.Steady;
-        case PaceNames.Marathon:
+        case Pace.Names.Marathon:
           return Pace.Marathon;
-        case PaceNames.Halfmarathon:
+        case Pace.Names.Halfmarathon:
           return Pace.Halfmarathon;
-        case PaceNames.Threshold:
+        case Pace.Names.Threshold:
           return Pace.Threshold;
-        case PaceNames.TenK:
+        case Pace.Names.TenK:
           return Pace.TenK;
-        case PaceNames.FiveK:
+        case Pace.Names.FiveK:
           return Pace.FiveK;
         default:
           throw new ArgumentOutOfRangeException("pace");
@@ -284,7 +284,7 @@ namespace TrainingPlanner.Model
     /// </summary>
     /// <param name="key">Description of the pace.</param>
     /// <param name="value">New value of the pace.</param>
-    public void ChangePace(PaceNames key, TimeSpan value)
+    public void ChangePace(Pace.Names key, TimeSpan value)
     {
       // save pace
       Pace.SetPace(key, value);

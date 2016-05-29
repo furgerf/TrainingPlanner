@@ -27,13 +27,13 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Pace at which to run during the step.
     /// </summary>
-    [IgnoreDataMember] public PaceNames Pace;
+    [IgnoreDataMember] public Pace.Names Pace;
 
     [DataMember(Name = "Pace")]
     public string PaceName
     {
       get { return Pace.ToString(); }
-      set { Pace = (PaceNames) Enum.Parse(typeof (PaceNames), value); }
+      set { Pace = (Pace.Names) Enum.Parse(typeof (Pace.Names), value); }
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ namespace TrainingPlanner.Model.Serializable
 
     // TODO: (workout-redoing) Add note
 
-    private Step(string name, TimeSpan duration, PaceNames pace, double distance, bool durationCalculated,
+    private Step(string name, TimeSpan duration, Pace.Names pace, double distance, bool durationCalculated,
       bool distanceCalculated, TimeSpan? rest = null, int repetitions = 1)
       : this()
     {
@@ -87,7 +87,7 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Create a new step with the length being determined by the duration.
     /// </summary>
-    public Step(string name, TimeSpan duration, PaceNames pace, TimeSpan? rest = null, int repetitions = 1)
+    public Step(string name, TimeSpan duration, Pace.Names pace, TimeSpan? rest = null, int repetitions = 1)
       : this(
         name, duration, pace, duration.TotalSeconds/Data.Instance.GetDurationFromPace(pace).TotalSeconds, false, true,
         rest, repetitions)
@@ -97,7 +97,7 @@ namespace TrainingPlanner.Model.Serializable
     /// <summary>
     /// Create a new step with the length being determined by the distance.
     /// </summary>
-    public Step(string name, double distance, PaceNames pace, TimeSpan? rest = null, int repetitions = 1)
+    public Step(string name, double distance, Pace.Names pace, TimeSpan? rest = null, int repetitions = 1)
       : this(
         name, TimeSpan.FromSeconds(distance*Data.Instance.GetDurationFromPace(pace).TotalSeconds), pace, distance, true,
         false, rest, repetitions
@@ -110,7 +110,7 @@ namespace TrainingPlanner.Model.Serializable
     /// </summary>
     public static Step Warmup
     {
-      get { return new Step("Warmup", new TimeSpan(0, 10, 0), PaceNames.Easy); }
+      get { return new Step("Warmup", new TimeSpan(0, 10, 0), Serializable.Pace.Names.Easy); }
     }
 
     /// <summary>
@@ -118,7 +118,7 @@ namespace TrainingPlanner.Model.Serializable
     /// </summary>
     public static Step Cooldown
     {
-      get { return new Step("Cooldown", new TimeSpan(0, 10, 0), PaceNames.Easy); }
+      get { return new Step("Cooldown", new TimeSpan(0, 10, 0), Serializable.Pace.Names.Easy); }
     }
 
     /// <summary>

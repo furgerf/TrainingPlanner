@@ -16,7 +16,7 @@ namespace TrainingPlanner.View.Controls
       InitializeComponent();
 
       comName.Items.AddRange(new object[] {"Warmup", "Cooldown"});
-      comPace.Items.AddRange(Enum.GetNames(typeof (PaceNames)));
+      comPace.Items.AddRange(Enum.GetNames(typeof (Pace.Names)));
       comPace.SelectedIndex = 0;
     }
 
@@ -91,9 +91,9 @@ namespace TrainingPlanner.View.Controls
       }
     }
 
-    private PaceNames Pace
+    private Pace.Names Pace
     {
-      get { return (PaceNames) Enum.Parse(typeof (PaceNames), comPace.Text); }
+      get { return (Pace.Names) Enum.Parse(typeof (Pace.Names), comPace.Text); }
       set { comPace.Text = value.ToString(); }
     }
 

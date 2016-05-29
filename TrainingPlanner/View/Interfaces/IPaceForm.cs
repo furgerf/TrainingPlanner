@@ -1,5 +1,6 @@
 ﻿using System;
 using TrainingPlanner.Model;
+using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.View.Interfaces
 {
@@ -18,7 +19,7 @@ namespace TrainingPlanner.View.Interfaces
     /// <summary>
     /// Retrieve the paces that were modified by the user.
     /// </summary>
-    Tuple<PaceNames, TimeSpan>[] ChangedPaces { get; }
+    Tuple<Pace.Names, TimeSpan>[] ChangedPaces { get; }
 
     /// <summary>
     /// Tells the form to close.

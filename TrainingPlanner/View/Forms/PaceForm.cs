@@ -10,23 +10,23 @@ namespace TrainingPlanner.View.Forms
 {
   public partial class PaceForm : Form, IPaceForm
   {
-    private readonly Dictionary<PaceNames, Tuple<Label, MaskedTextBox, TimeSpan, bool>> _paceControls;
+    private readonly Dictionary<Pace.Names, Tuple<Label, MaskedTextBox, TimeSpan, bool>> _paceControls;
     private readonly bool _validatePaces;
 
     public PaceForm()
     {
       InitializeComponent();
 
-      _paceControls = new Dictionary<PaceNames, Tuple<Label, MaskedTextBox, TimeSpan, bool>>
+      _paceControls = new Dictionary<Pace.Names, Tuple<Label, MaskedTextBox, TimeSpan, bool>>
       {
-        {PaceNames.Easy, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label1, txtEasy, Data.Instance.GetDurationFromPace(PaceNames.Easy), true)},
-        {PaceNames.Base, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label2, txtBase, Data.Instance.GetDurationFromPace(PaceNames.Base), true)},
-        {PaceNames.Steady, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label8, txtSteady, Data.Instance.GetDurationFromPace(PaceNames.Steady), true)},
-        {PaceNames.Marathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label3, txtMarathon, Data.Instance.GetDurationFromPace(PaceNames.Marathon), true)},
-        {PaceNames.Halfmarathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label4, txtHalfmarathon, Data.Instance.GetDurationFromPace(PaceNames.Halfmarathon), true)},
-        {PaceNames.Threshold, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label5, txtThreshold, Data.Instance.GetDurationFromPace(PaceNames.Threshold), true)},
-        {PaceNames.TenK, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label6, txtTenk, Data.Instance.GetDurationFromPace(PaceNames.TenK), true)},
-        {PaceNames.FiveK, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label7, txtFivek, Data.Instance.GetDurationFromPace(PaceNames.FiveK), true)},
+        {Pace.Names.Easy, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label1, txtEasy, Data.Instance.GetDurationFromPace(Pace.Names.Easy), true)},
+        {Pace.Names.Base, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label2, txtBase, Data.Instance.GetDurationFromPace(Pace.Names.Base), true)},
+        {Pace.Names.Steady, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label8, txtSteady, Data.Instance.GetDurationFromPace(Pace.Names.Steady), true)},
+        {Pace.Names.Marathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label3, txtMarathon, Data.Instance.GetDurationFromPace(Pace.Names.Marathon), true)},
+        {Pace.Names.Halfmarathon, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label4, txtHalfmarathon, Data.Instance.GetDurationFromPace(Pace.Names.Halfmarathon), true)},
+        {Pace.Names.Threshold, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label5, txtThreshold, Data.Instance.GetDurationFromPace(Pace.Names.Threshold), true)},
+        {Pace.Names.TenK, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label6, txtTenk, Data.Instance.GetDurationFromPace(Pace.Names.TenK), true)},
+        {Pace.Names.FiveK, new Tuple<Label, MaskedTextBox, TimeSpan, bool>(label7, txtFivek, Data.Instance.GetDurationFromPace(Pace.Names.FiveK), true)},
       };
 
       foreach (var c in _paceControls.Values)
@@ -37,17 +37,17 @@ namespace TrainingPlanner.View.Forms
       _validatePaces = true;
     }
 
-    public Tuple<PaceNames, TimeSpan>[] ChangedPaces
+    public Tuple<Pace.Names, TimeSpan>[] ChangedPaces
     {
       get
       {
-        var result = new List<Tuple<PaceNames, TimeSpan>>();
+        var result = new List<Tuple<Pace.Names, TimeSpan>>();
 
         foreach (var c in _paceControls)
         {
           if (c.Value.Item2.Text != c.Value.Item3.ToString(Pace.PaceFormat))
           {
-            result.Add(new Tuple<PaceNames, TimeSpan>(c.Key, TimeSpan.Parse("00:" + c.Value.Item2.Text)));
+            result.Add(new Tuple<Pace.Names, TimeSpan>(c.Key, TimeSpan.Parse("00:" + c.Value.Item2.Text)));
           }
         }
 
