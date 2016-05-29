@@ -48,10 +48,8 @@
     <Compile Include="Model\DataPersistence.cs" />
     <Compile Include="Model\EventArgs\NewTrainingPlanEventArgs.cs" />
     <Compile Include="Model\PaceNames.cs" />
-    <Compile Include="Model\EventArgs\PaceChangedEventArgs.cs" />
     <Compile Include="Model\Serializable\Pace.cs" />
     <Compile Include="Model\Serializable\TrainingPlan.cs" />
-    <Compile Include="Model\EventArgs\TrainingPlanChangedEventArgs.cs" />
     <Compile Include="Model\Serializable\WorkoutCategory.cs" />
     <Compile Include="Model\EventArgs\WorkoutCategoryChangedEventArgs.cs" />
     <Compile Include="Model\EventArgs\WorkoutChangedEventArgs.cs" />

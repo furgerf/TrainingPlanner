@@ -1,20 +1,31 @@
-using System;
-
 namespace TrainingPlanner.Model.EventArgs
 {
+  /// <summary>
+  /// Contains information required to create a new training plan.
+  /// </summary>
   public class NewTrainingPlanEventArgs : System.EventArgs
   {
-    public readonly string PlanName;
+    /// <summary>
+    /// Name of the new plan.
+    /// </summary>
+    public readonly string Name;
 
+    /// <summary>
+    /// Number of weeks of the plan.
+    /// </summary>
     public readonly int TrainingWeeks;
 
-    public readonly string PlanToImportWorkoutsFrom;
+    /// <summary>
+    /// Name of another training plan from where to import various data
+    /// such as Paces, Workouts, WorkoutCategories.
+    /// </summary>
+    public readonly string OtherTrainingPlanToImportDataFrom;
 
-    public NewTrainingPlanEventArgs(string planName, int trainingWeeks, string planToImportWorkoutsFrom)
+    public NewTrainingPlanEventArgs(string name, int trainingWeeks, string otherTrainingPlanToImportDataFrom)
     {
-      PlanName = planName;
+      Name = name;
       TrainingWeeks = trainingWeeks;
-      PlanToImportWorkoutsFrom = planToImportWorkoutsFrom;
+      OtherTrainingPlanToImportDataFrom = otherTrainingPlanToImportDataFrom;
     }
   }
 }

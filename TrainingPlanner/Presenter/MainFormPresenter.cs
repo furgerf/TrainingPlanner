@@ -43,16 +43,16 @@ namespace TrainingPlanner.Presenter
       {
         // we've received all information required to create the new plan
         // start by creating the directory
-        Directory.CreateDirectory(DataPersistence.ApplicationDataDirectory + Path.DirectorySeparatorChar + e.PlanName);
+        Directory.CreateDirectory(DataPersistence.ApplicationDataDirectory + Path.DirectorySeparatorChar + e.Name);
 
         // copy workouts, categories, and paces
-        DataPersistence.CopyExistingWorkoutsToNewPlan(e.PlanToImportWorkoutsFrom, e.PlanName);
+        DataPersistence.CopyExistingWorkoutsToNewPlan(e.OtherTrainingPlanToImportDataFrom, e.Name);
 
         // create and store new empty plan
-        DataPersistence.CreateNewTrainingPlanFile(TrainingPlan.NewTrainingPlan(e.PlanName, e.TrainingWeeks));
+        DataPersistence.CreateNewTrainingPlanFile(TrainingPlan.NewTrainingPlan(e.Name, e.TrainingWeeks));
 
         // load the now newly-created plan
-        LoadTrainingPlan(e.PlanName);
+        LoadTrainingPlan(e.Name);
       };
       form.Show();
     }

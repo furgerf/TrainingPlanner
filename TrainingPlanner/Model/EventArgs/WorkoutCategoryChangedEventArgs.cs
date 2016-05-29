@@ -2,12 +2,24 @@
 
 namespace TrainingPlanner.Model.EventArgs
 {
+  /// <summary>
+  /// Contains information about a WorkoutCategory that was added or removed.
+  /// </summary>
   public class WorkoutCategoryChangedEventArgs : System.EventArgs
   {
+    /// <summary>
+    /// The category that was added or removed.
+    /// </summary>
     public readonly WorkoutCategory WorkoutCategory;
 
+    /// <summary>
+    /// True if the category was added, false otherwise.
+    /// </summary>
     public readonly bool CategoryAdded;
 
+    /// <summary>
+    /// True if the category was removed, false otherwise.
+    /// </summary>
     public bool CategoryRemoved { get { return !CategoryAdded; } }
 
     public WorkoutCategoryChangedEventArgs(WorkoutCategory category, bool categoryAdded)

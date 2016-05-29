@@ -4,6 +4,8 @@ namespace TrainingPlanner.View.Interfaces
 {
   public interface INewTrainingPlanForm
   {
+    // TODO: Add selectable start date of the plan
+
     string NewTrainingPlanName { get; }
 
     int NumberOfTrainingWeeks { get; }

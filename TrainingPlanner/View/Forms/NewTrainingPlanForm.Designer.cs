@@ -44,7 +44,7 @@
       // 
       this.txtTrainingPlanName.Location = new System.Drawing.Point(126, 12);
       this.txtTrainingPlanName.Name = "txtTrainingPlanName";
-      this.txtTrainingPlanName.Size = new System.Drawing.Size(154, 20);
+      this.txtTrainingPlanName.Size = new System.Drawing.Size(186, 20);
       this.txtTrainingPlanName.TabIndex = 0;
       // 
       // label1
@@ -70,7 +70,7 @@
             0,
             0});
       this.numTrainingWeeks.Name = "numTrainingWeeks";
-      this.numTrainingWeeks.Size = new System.Drawing.Size(154, 20);
+      this.numTrainingWeeks.Size = new System.Drawing.Size(186, 20);
       this.numTrainingWeeks.TabIndex = 2;
       this.numTrainingWeeks.Value = new decimal(new int[] {
             16,
@@ -102,12 +102,12 @@
       this.txtPlanToImportWorkoutsFrom.Enabled = false;
       this.txtPlanToImportWorkoutsFrom.Location = new System.Drawing.Point(126, 66);
       this.txtPlanToImportWorkoutsFrom.Name = "txtPlanToImportWorkoutsFrom";
-      this.txtPlanToImportWorkoutsFrom.Size = new System.Drawing.Size(98, 20);
+      this.txtPlanToImportWorkoutsFrom.Size = new System.Drawing.Size(130, 20);
       this.txtPlanToImportWorkoutsFrom.TabIndex = 5;
       // 
       // butSelectWorkouts
       // 
-      this.butSelectWorkouts.Location = new System.Drawing.Point(230, 64);
+      this.butSelectWorkouts.Location = new System.Drawing.Point(262, 64);
       this.butSelectWorkouts.Name = "butSelectWorkouts";
       this.butSelectWorkouts.Size = new System.Drawing.Size(50, 23);
       this.butSelectWorkouts.TabIndex = 6;
@@ -127,7 +127,7 @@
       // 
       // butCancel
       // 
-      this.butCancel.Location = new System.Drawing.Point(205, 92);
+      this.butCancel.Location = new System.Drawing.Point(237, 91);
       this.butCancel.Name = "butCancel";
       this.butCancel.Size = new System.Drawing.Size(75, 23);
       this.butCancel.TabIndex = 8;
@@ -139,7 +139,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(292, 126);
+      this.ClientSize = new System.Drawing.Size(324, 126);
       this.Controls.Add(this.butCancel);
       this.Controls.Add(this.butOk);
       this.Controls.Add(this.butSelectWorkouts);

@@ -64,12 +64,12 @@ namespace TrainingPlanner.Model
     /// <summary>
     /// Triggered whenever one of the training plan entries changes.
     /// </summary>
-    public event EventHandler<TrainingPlanChangedEventArgs> TrainingPlanModified = (s, e) => { };
+    public event EventHandler TrainingPlanModified = (s, e) => { };
 
     /// <summary>
     /// Triggered whenever the value of any of the paces changes.
     /// </summary>
-    public event EventHandler<PaceChangedEventArgs> PaceChanged = (s, e) => { };
+    public event EventHandler PaceChanged = (s, e) => { };
 
     /// <summary>
     /// Triggered when the training plan was loaded.
@@ -290,7 +290,7 @@ namespace TrainingPlanner.Model
       Pace.SetPace(key, value);
 
       Logger.Debug("Triggering PaceChanged event");
-      PaceChanged(this, new PaceChangedEventArgs(key, value));
+      PaceChanged(this, null);
     }
 
     public void UpdateTrainingPlan(WeeklyPlan newWeeklyPlan)
@@ -298,7 +298,7 @@ namespace TrainingPlanner.Model
       _trainingPlan.WeeklyPlans[newWeeklyPlan.WeekNumber] = newWeeklyPlan;
 
       Logger.Debug("Triggering TrainingPlanModified event");
-      TrainingPlanModified(this, new TrainingPlanChangedEventArgs());
+      TrainingPlanModified(this, null);
     }
   }
 }
