@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -45,6 +46,7 @@
     <Compile Include="Model\EventArgs\EventArgs.cs" />
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\DataPersistence.cs" />
+    <Compile Include="Model\EventArgs\NewTrainingPlanEventArgs.cs" />
     <Compile Include="Model\PaceNames.cs" />
     <Compile Include="Model\EventArgs\PaceChangedEventArgs.cs" />
     <Compile Include="Model\Serializable\Pace.cs" />
@@ -59,6 +61,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Presenter\EditWorkoutCategoryFormPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\INewTrainingPlanFormPresenter.cs" />
+    <Compile Include="Presenter\NewTrainingPlanFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IEditWorkoutCategoryFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IEditWorkoutFormPresenter.cs" />
     <Compile Include="Presenter\Interfaces\IMainFormPresenter.cs" />
@@ -92,6 +96,12 @@
     <Compile Include="View\Forms\EditWorkoutForm.Designer.cs">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Forms\NewTrainingPlanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Forms\NewTrainingPlanForm.Designer.cs">
+      <DependentUpon>NewTrainingPlanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Forms\SelectWorkoutCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +125,7 @@
     <Compile Include="View\Interfaces\IMainForm.cs" />
     <Compile Include="View\Interfaces\IManageWorkoutsForm.cs" />
     <Compile Include="View\Interfaces\IManageWorkoutCategoriesForm.cs" />
+    <Compile Include="View\Interfaces\INewTrainingPlanForm.cs" />
     <Compile Include="View\Interfaces\IPaceForm.cs" />
     <Compile Include="View\Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -168,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Forms\EditWorkoutForm.resx">
       <DependentUpon>EditWorkoutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Forms\NewTrainingPlanForm.resx">
+      <DependentUpon>NewTrainingPlanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Forms\SelectWorkoutCategoryForm.resx">
       <DependentUpon>SelectWorkoutCategoryForm.cs</DependentUpon>

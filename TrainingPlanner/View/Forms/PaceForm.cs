@@ -55,26 +55,20 @@ namespace TrainingPlanner.View.Forms
       }
     }
 
-    public event EventHandler SaveChangesButtonClick;
+    public event EventHandler SaveChangesButtonClick = (s, e) => { };
 
-    public event EventHandler DiscardChangesButtonClick;
+    public event EventHandler DiscardChangesButtonClick = (s, e) => { }; 
 
     private void butSaveChanges_Click(object sender, EventArgs e)
     {
-      if (SaveChangesButtonClick != null)
-      {
         Logger.Debug("Triggering SaveChangesButtonClick event");
         SaveChangesButtonClick(this, e);
-      }
     }
 
     private void butDiscardChanges_Click(object sender, EventArgs e)
     {
-      if (DiscardChangesButtonClick != null)
-      {
-        Logger.Debug("Triggering DiscardChangesButtonClick event");
-        DiscardChangesButtonClick(this, e);
-      }
+      Logger.Debug("Triggering DiscardChangesButtonClick event");
+      DiscardChangesButtonClick(this, e);
     }
 
     private void PaceValueChanged(object sender, EventArgs e)

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
+using TrainingPlanner.Model.Serializable;
 using TrainingPlanner.Presenter.Interfaces;
 using TrainingPlanner.View.Forms;
 using TrainingPlanner.View.Interfaces;
@@ -36,7 +37,24 @@ namespace TrainingPlanner.Presenter
 
     private void OnNewPlanClick()
     {
-      throw new NotImplementedException();
+      var form = new NewTrainingPlanForm();
+      var presenter = new NewTrainingPlanFormPresenter(form);
+      presenter.NewTrainingPlanDataEntered += (s, e) =>
+      {
+        // we've received all information required to create the new plan
+        // start by creating the directory
+        Directory.CreateDirectory(DataPersistence.ApplicationDataDirectory + Path.DirectorySeparatorChar + e.PlanName);
+
+        // copy workouts, categories, and paces
+        DataPersistence.CopyExistingWorkoutsToNewPlan(e.PlanToImportWorkoutsFrom, e.PlanName);
+
+        // create and store new empty plan
+        DataPersistence.CreateNewTrainingPlanFile(TrainingPlan.NewTrainingPlan(e.PlanName, e.TrainingWeeks));
+
+        // load the now newly-created plan
+        LoadTrainingPlan(e.PlanName);
+      };
+      form.Show();
     }
 
     private void OnOpenPlanClick()
@@ -59,31 +77,7 @@ namespace TrainingPlanner.Presenter
       // get plan name and create stuff
       var planName = new DirectoryInfo(dlg.FileName).Parent.Name;
 
-      var data = new Data(planName);
-      _data = data;
-      _view.SetNewData(data);
-
-      _view.UpdateWeeklyPlan(_data.TrainingPlan.WeeklyPlans);
-
-      // find active week
-      for (var i = 0; i < _data.TrainingPlan.WeeklyPlans.Length; i++)
-      {
-
-        if (_data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || _data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
-        {
-          continue;
-        }
-
-        _view.SetWeekActivity(i, true);
-        //Task.Factory.StartNew(() =>
-        //{
-        //  Thread.Sleep(1);
-          //view.ScrollToWeek(i);
-        //});
-        break;
-      }
-
-      Logger.InfoFormat("Opened new training plan '{0}'", data.PlanName);
+      LoadTrainingPlan(planName);
     }
 
     private void OnClosePlanClick()
@@ -184,6 +178,35 @@ namespace TrainingPlanner.Presenter
     private void OnInfoClick()
     {
       new AboutForm().Show();
+    }
+
+    private void LoadTrainingPlan(string planName)
+    {
+      var data = new Data(planName);
+      _data = data;
+      _view.SetNewData(data);
+
+      _view.UpdateWeeklyPlan(_data.TrainingPlan.WeeklyPlans);
+
+      // find active week
+      for (var i = 0; i < _data.TrainingPlan.WeeklyPlans.Length; i++)
+      {
+
+        if (_data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || _data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
+        {
+          continue;
+        }
+
+        _view.SetWeekActivity(i, true);
+        //Task.Factory.StartNew(() =>
+        //{
+        //  Thread.Sleep(1);
+          //view.ScrollToWeek(i);
+        //});
+        break;
+      }
+
+      Logger.InfoFormat("Opened new training plan '{0}'", data.PlanName);
     }
   }
 }

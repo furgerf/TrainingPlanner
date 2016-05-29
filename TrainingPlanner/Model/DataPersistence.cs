@@ -33,9 +33,6 @@ namespace TrainingPlanner.Model
     // data to persist - contains the training plan's name
     private readonly Data _data;
 
-    // ...
-    private const int DefaultTrainingWeeks = 16;
-
     public static string LogFile
     {
       get { return ApplicationDataDirectory + Path.DirectorySeparatorChar + LogFileName; }
@@ -172,9 +169,7 @@ namespace TrainingPlanner.Model
     public TrainingPlan LoadPlan()
     {
       Logger.InfoFormat("Loading training plan {0}", _data.PlanName);
-      return File.Exists(TrainingPlanFile)
-        ? ParseJsonFile<TrainingPlan>(TrainingPlanFile)
-        : TrainingPlan.NewTrainingPlan(DefaultTrainingWeeks);
+      return ParseJsonFile<TrainingPlan>(TrainingPlanFile);
     }
 
     public Pace LoadPace()
@@ -187,6 +182,44 @@ namespace TrainingPlanner.Model
     {
       Logger.Info("Saving paces to file");
       WriteJsonFile(_data.Pace, PacesFile);
+    }
+
+    public static void CreateNewTrainingPlanFile(TrainingPlan plan)
+    {
+      WriteJsonFile(plan, ApplicationDataDirectory + Path.DirectorySeparatorChar + plan.Name + Path.DirectorySeparatorChar + TrainingPlanFileName);
+    }
+
+    public static void CopyExistingWorkoutsToNewPlan(string oldPlanName, string newPlanName)
+    {
+      var oldPlanDirectory = ApplicationDataDirectory + Path.DirectorySeparatorChar + oldPlanName +
+                             Path.DirectorySeparatorChar;
+      var newPlanDirectory = ApplicationDataDirectory + Path.DirectorySeparatorChar + newPlanName +
+                             Path.DirectorySeparatorChar;
+
+      // workouts
+      Directory.CreateDirectory(newPlanDirectory + WorkoutsDirectoryName);
+      foreach (var category in new DirectoryInfo(oldPlanDirectory + WorkoutsDirectoryName).GetDirectories())
+      {
+        // create new subdirectory for the category
+        Directory.CreateDirectory(newPlanDirectory + WorkoutsDirectoryName + Path.DirectorySeparatorChar + category.Name);
+        
+        // copy workouts
+        foreach (var workout in category.GetFiles())
+        {
+          File.Copy(workout.FullName,
+            newPlanDirectory + WorkoutsDirectoryName + Path.DirectorySeparatorChar + category.Name + Path.DirectorySeparatorChar + workout.Name);
+        }
+      }
+
+      // categories
+      Directory.CreateDirectory(newPlanDirectory + WorkoutCategoriesDirectoryName);
+      foreach (var category in new DirectoryInfo(oldPlanDirectory + WorkoutCategoriesDirectoryName).GetFiles())
+      {
+        File.Copy(category.FullName, newPlanDirectory + WorkoutCategoriesDirectoryName + Path.DirectorySeparatorChar + category.Name);
+      }
+
+      // paces
+      File.Copy(oldPlanDirectory + PacesFileName, newPlanDirectory + PacesFileName);
     }
 
     private static T ParseJsonFile<T>(string path)

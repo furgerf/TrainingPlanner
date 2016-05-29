@@ -73,7 +73,7 @@ namespace TrainingPlanner.Model.Serializable
       _data = data;
     }
 
-    public static TrainingPlan NewTrainingPlan(int weekCount)
+    public static TrainingPlan NewTrainingPlan(string name, int weekCount)
     {
         Logger.Info("Creating new empty TrainingPlan");
         var diff = DateTime.Today.DayOfWeek - DayOfWeek.Sunday;
@@ -89,7 +89,7 @@ namespace TrainingPlanner.Model.Serializable
           weeks[i] = new WeeklyPlan(new string[14], monday.AddDays(i*7), i);
         }
 
-      return new TrainingPlan("Empty Training Plan", weeks);
+      return new TrainingPlan(name, weeks);
     }
 
     public override string ToString()
