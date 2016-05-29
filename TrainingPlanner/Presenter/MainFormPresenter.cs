@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Presenter.Interfaces;
@@ -40,7 +41,25 @@ namespace TrainingPlanner.Presenter
 
     private void OnOpenPlanClick()
     {
-      var data = _data == null || _data.PlanName == "Sempacherseelauf 2016" ? new Data("Lucerne Marathon 2015") : new Data("Sempacherseelauf 2016");
+      var dlg = new OpenFileDialog
+      {
+        AddExtension = true,
+        DefaultExt = "json",
+        Filter = "JSON plan files|plan.json",
+        InitialDirectory = DataPersistence.ApplicationDataDirectory,
+        Title = "Select Training Plan file to open"
+      };
+
+      // abort if no plan was selected
+      if (dlg.ShowDialog() != DialogResult.OK)
+      {
+        return;
+      }
+
+      // get plan name and create stuff
+      var planName = new DirectoryInfo(dlg.FileName).Parent.Name;
+
+      var data = new Data(planName);
       _data = data;
       _view.SetNewData(data);
 

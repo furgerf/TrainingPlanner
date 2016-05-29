@@ -18,7 +18,7 @@ namespace TrainingPlanner.Model
     private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
     private static readonly bool IsLinux = !Environment.OSVersion.Platform.ToString().ToLower().StartsWith("win");
 
-    private static readonly string ApplicationDataDirectory = IsLinux
+    public static readonly string ApplicationDataDirectory = IsLinux
       ? ApplicationDataDirectoryLinux
       : ApplicationDataDirectoryWindows;
 
