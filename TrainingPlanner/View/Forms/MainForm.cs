@@ -170,6 +170,7 @@ namespace TrainingPlanner.View.Forms
       workoutsToolStripMenuItem.Enabled = isEnbabled;
       workoutCategoriesToolStripMenuItem.Enabled = isEnbabled;
       pacesToolStripMenuItem.Enabled = isEnbabled;
+      closePlanToolStripMenuItem.Enabled = isEnbabled;
     }
 
     private void OnNewPlanClick()
