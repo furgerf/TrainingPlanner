@@ -15,16 +15,26 @@ namespace TrainingPlanner.View.Forms
     private const int WeeklyControlHeight = 218;
 
     private WeekControl[] _weekControls;
-
     private Data _data;
+
+    private Data Data
+    {
+      get { return _data; }
+      set
+      {
+        _data = value;
+        Text = "Training Planner - " + Data.PlanName;
+      }
+    }
 
     public MainForm(Data data)
     {
-      _data = data;
-
       InitializeComponent();
 
-      _weekControls = new WeekControl[_data.TrainingPlan.TrainingWeeks];
+      // assign data after initializing form/views to set form name
+      Data = data;
+
+      _weekControls = new WeekControl[Data.TrainingPlan.TrainingWeeks];
       InitializeDynamicControls();
 
       // register to more events (to retrigger)
@@ -73,7 +83,7 @@ namespace TrainingPlanner.View.Forms
       for (var i = 0; i < _weekControls.Length; i++)
       {
         // create control
-        _weekControls[i] = new WeekControl(_data) {Top = i*WeeklyControlHeight, Parent = foregroundPanel};
+        _weekControls[i] = new WeekControl(Data) {Top = i*WeeklyControlHeight, Parent = foregroundPanel};
         // register to event (to retrigger)
         _weekControls[i].WeeklyPlanChanged += (sender, plan) =>
         {
@@ -137,9 +147,9 @@ namespace TrainingPlanner.View.Forms
 
     public void SetNewData(Data data)
     {
-      _data = data;
+      Data = data;
 
-      _weekControls = new WeekControl[_data.TrainingPlan.TrainingWeeks];
+      _weekControls = new WeekControl[Data.TrainingPlan.TrainingWeeks];
       InitializeDynamicControls();
     }
 
@@ -182,7 +192,7 @@ namespace TrainingPlanner.View.Forms
     private void OnEditWorkoutClick()
     {
       var form = new SelectWorkoutForm();
-      var presenter = new SelectWorkoutFormPresenter(form, _data);
+      var presenter = new SelectWorkoutFormPresenter(form, Data);
 
       presenter.WorkoutSelected += (s, e) =>
       {
@@ -200,7 +210,7 @@ namespace TrainingPlanner.View.Forms
     private void OnDeleteWorkoutClick()
     {
       var form = new SelectWorkoutForm();
-      var presenter = new SelectWorkoutFormPresenter(form, _data);
+      var presenter = new SelectWorkoutFormPresenter(form, Data);
 
       presenter.WorkoutSelected += (s, e) =>
       {
@@ -236,7 +246,7 @@ namespace TrainingPlanner.View.Forms
     private void OnEditWorkoutCategoryClick()
     {
       var form = new SelectWorkoutCategoryForm();
-      var presenter = new SelectWorkoutCategoryFormPresenter(form, _data);
+      var presenter = new SelectWorkoutCategoryFormPresenter(form, Data);
 
       presenter.CategorySelected += (s, e) =>
       {
@@ -254,7 +264,7 @@ namespace TrainingPlanner.View.Forms
     private void OnDeleteWorkoutCategoryClick()
     {
       var form = new SelectWorkoutCategoryForm();
-      var presenter = new SelectWorkoutCategoryFormPresenter(form, _data);
+      var presenter = new SelectWorkoutCategoryFormPresenter(form, Data);
 
       presenter.CategorySelected += (s, e) =>
       {
