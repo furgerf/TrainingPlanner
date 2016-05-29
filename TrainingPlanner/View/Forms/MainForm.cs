@@ -30,6 +30,7 @@ namespace TrainingPlanner.View.Forms
     public MainForm()
     {
       InitializeComponent();
+      SetTrainingPlanMenusEnabled(false);
 
       // register to more events (to retrigger)
       newPlanToolStripMenuItem.Click += (s, e) => OnNewPlanClick();
@@ -162,6 +163,13 @@ namespace TrainingPlanner.View.Forms
       {
         wc.Activate();
       }
+    }
+
+    public void SetTrainingPlanMenusEnabled(bool isEnbabled)
+    {
+      workoutsToolStripMenuItem.Enabled = isEnbabled;
+      workoutCategoriesToolStripMenuItem.Enabled = isEnbabled;
+      pacesToolStripMenuItem.Enabled = isEnbabled;
     }
 
     private void OnNewPlanClick()

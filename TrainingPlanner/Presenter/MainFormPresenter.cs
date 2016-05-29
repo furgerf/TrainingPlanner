@@ -14,6 +14,16 @@ namespace TrainingPlanner.Presenter
     private readonly IMainForm _view;
     private Data _data;
 
+    private Data Data
+    {
+      get { return _data; }
+      set
+      {
+        _data = value;
+        _view.SetTrainingPlanMenusEnabled(Data != null);
+      }
+    }
+
     public MainFormPresenter(IMainForm view)
     {
       _view = view;
@@ -32,7 +42,7 @@ namespace TrainingPlanner.Presenter
       view.ConfigurePacesClick += (s, e) => OnConfigurePacesClick();
       view.InfoClick += (s, e) => OnInfoClick();
 
-      view.WeeklyPlanChanged += (s, e) => _data.UpdateTrainingPlan(e.Value);
+      view.WeeklyPlanChanged += (s, e) => Data.UpdateTrainingPlan(e.Value);
     }
 
     private void OnNewPlanClick()
@@ -82,7 +92,7 @@ namespace TrainingPlanner.Presenter
 
     private void OnClosePlanClick()
     {
-      _data = null;
+      Data = null;
       _view.SetNewData(null);
 
       Logger.Info("Closed current training plan");
@@ -90,15 +100,15 @@ namespace TrainingPlanner.Presenter
 
     private void OnAddWorkoutClick()
     {
-      var form = new EditWorkoutForm(_data);
-      var presenter = new EditWorkoutFormPresenter(form, _data);
+      var form = new EditWorkoutForm(Data);
+      var presenter = new EditWorkoutFormPresenter(form, Data);
       form.Show();
     }
 
     private void OnEditWorkoutClick(string workoutName)
     {
-      var form = new EditWorkoutForm(_data, _data.WorkoutFromName(workoutName));
-      var presenter = new EditWorkoutFormPresenter(form, _data);
+      var form = new EditWorkoutForm(Data, Data.WorkoutFromName(workoutName));
+      var presenter = new EditWorkoutFormPresenter(form, Data);
       // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
       // the workout will be overwritten but if it gets a new name, a new workout is created?
       form.Show();
@@ -106,7 +116,7 @@ namespace TrainingPlanner.Presenter
 
     private void OnDeleteWorkoutClick(string workoutName)
     {
-      if (_data.WorkoutFromName(workoutName) == null)
+      if (Data.WorkoutFromName(workoutName) == null)
       {
         MessageBox.Show("There is no workout with this name.");
         return;
@@ -118,27 +128,27 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      _data.RemoveWorkout(_data.WorkoutFromName(workoutName));
+      Data.RemoveWorkout(Data.WorkoutFromName(workoutName));
     }
 
     private void OnManageWorkoutsClick()
     {
-      var form = new ManageWorkoutsForm(_data);
-      var presenter = new ManageWorkoutsFormPresenter(form, _data);
+      var form = new ManageWorkoutsForm(Data);
+      var presenter = new ManageWorkoutsFormPresenter(form, Data);
       form.Show();
     }
 
     private void OnAddWorkoutCategoryClick()
     {
       var form = new EditWorkoutCategoryForm();
-      var presenter = new EditWorkoutCategoryFormPresenter(form, _data);
+      var presenter = new EditWorkoutCategoryFormPresenter(form, Data);
       form.Show();
     }
 
     private void OnEditWorkoutCategoryClick(string categoryName)
     {
-      var form = new EditWorkoutCategoryForm(_data.WorkoutCategoryFromName(categoryName));
-      var presenter = new EditWorkoutCategoryFormPresenter(form, _data);
+      var form = new EditWorkoutCategoryForm(Data.WorkoutCategoryFromName(categoryName));
+      var presenter = new EditWorkoutCategoryFormPresenter(form, Data);
       // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
       // the workout will be overwritten but if it gets a new name, a new workout is created?
       form.Show();
@@ -146,7 +156,7 @@ namespace TrainingPlanner.Presenter
 
     private void OnDeleteWorkoutCategoryClick(string categoryName)
     {
-      if (_data.WorkoutCategoryFromName(categoryName) == null)
+      if (Data.WorkoutCategoryFromName(categoryName) == null)
       {
         MessageBox.Show("There is no workout category with this name.");
         return;
@@ -158,20 +168,20 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      _data.RemoveWorkoutCategory(_data.WorkoutCategoryFromName(categoryName));
+      Data.RemoveWorkoutCategory(Data.WorkoutCategoryFromName(categoryName));
     }
 
     private void OnManageWorkoutCategoriesClick()
     {
-      var form = new ManageWorkoutCategoriesForm(_data);
-      var presenter = new ManageWorkoutCategoriesFormPresenter(form, _data);
+      var form = new ManageWorkoutCategoriesForm(Data);
+      var presenter = new ManageWorkoutCategoriesFormPresenter(form, Data);
       form.Show();
     }
 
     private void OnConfigurePacesClick()
     {
       var form = new PaceForm();
-      var presenter = new PaceFormPresenter(form, _data);
+      var presenter = new PaceFormPresenter(form, Data);
       form.Show();
     }
 
@@ -183,16 +193,16 @@ namespace TrainingPlanner.Presenter
     private void LoadTrainingPlan(string planName)
     {
       var data = new Data(planName);
-      _data = data;
+      Data = data;
       _view.SetNewData(data);
 
-      _view.UpdateWeeklyPlan(_data.TrainingPlan.WeeklyPlans);
+      _view.UpdateWeeklyPlan(Data.TrainingPlan.WeeklyPlans);
 
       // find active week
-      for (var i = 0; i < _data.TrainingPlan.WeeklyPlans.Length; i++)
+      for (var i = 0; i < Data.TrainingPlan.WeeklyPlans.Length; i++)
       {
 
-        if (_data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || _data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
+        if (Data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || Data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
         {
           continue;
         }

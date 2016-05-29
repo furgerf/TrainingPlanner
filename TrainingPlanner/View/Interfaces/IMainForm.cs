@@ -53,5 +53,11 @@ namespace TrainingPlanner.View.Interfaces
     /// </summary>
     /// <param name="data">The new data instance.</param>
     void SetNewData(Data data);
+
+    /// <summary>
+    /// Enables or disables the training-plan related menu entries.
+    /// </summary>
+    /// <param name="isEnbabled">True if the menu entrires should be enabled.</param>
+    void SetTrainingPlanMenusEnabled(bool isEnbabled);
   }
 }
