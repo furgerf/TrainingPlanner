@@ -12,6 +12,7 @@ namespace TrainingPlanner.View.Interfaces
   {
     event EventHandler NewPlanClick;
     event EventHandler OpenPlanClick;
+    event EventHandler<string> OpenSpecificPlanClick;
     event EventHandler ClosePlanClick;
     event EventHandler AddWorkoutClick;
     event EventHandler<string> EditWorkoutClick;

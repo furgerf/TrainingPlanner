@@ -49,6 +49,7 @@
       this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.openRecentPlanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.mainFormMenu.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -78,6 +79,7 @@
       this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newPlanToolStripMenuItem,
             this.openPlanToolStripMenuItem,
+            this.openRecentPlanToolStripMenuItem,
             this.closePlanToolStripMenuItem,
             this.exitToolStripMenuItem});
       this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -88,28 +90,28 @@
       // 
       this.newPlanToolStripMenuItem.Name = "newPlanToolStripMenuItem";
       this.newPlanToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-      this.newPlanToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+      this.newPlanToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
       this.newPlanToolStripMenuItem.Text = "&New Plan";
       // 
       // openPlanToolStripMenuItem
       // 
       this.openPlanToolStripMenuItem.Name = "openPlanToolStripMenuItem";
       this.openPlanToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-      this.openPlanToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+      this.openPlanToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
       this.openPlanToolStripMenuItem.Text = "&Open Plan";
       // 
       // closePlanToolStripMenuItem
       // 
       this.closePlanToolStripMenuItem.Name = "closePlanToolStripMenuItem";
       this.closePlanToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-      this.closePlanToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+      this.closePlanToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
       this.closePlanToolStripMenuItem.Text = "&Close Plan";
       // 
       // exitToolStripMenuItem
       // 
       this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
       this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-      this.exitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+      this.exitToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
       this.exitToolStripMenuItem.Text = "&Exit";
       // 
       // workoutsToolStripMenuItem
@@ -210,6 +212,12 @@
       this.infoToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
       this.infoToolStripMenuItem.Text = "&Info";
       // 
+      // openRecentPlanToolStripMenuItem
+      // 
+      this.openRecentPlanToolStripMenuItem.Name = "openRecentPlanToolStripMenuItem";
+      this.openRecentPlanToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+      this.openRecentPlanToolStripMenuItem.Text = "Open Recent Plan...";
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,6 +259,7 @@
         private System.Windows.Forms.ToolStripMenuItem configureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openRecentPlanToolStripMenuItem;
 
 
     }

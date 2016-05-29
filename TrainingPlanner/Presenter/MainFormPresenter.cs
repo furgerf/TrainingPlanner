@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
@@ -30,6 +31,7 @@ namespace TrainingPlanner.Presenter
 
       view.NewPlanClick += (s, e) => OnNewPlanClick();
       view.OpenPlanClick += (s, e) => OnOpenPlanClick();
+      view.OpenSpecificPlanClick += (s, e) => LoadTrainingPlan(e);
       view.ClosePlanClick += (s, e) => OnClosePlanClick();
       view.AddWorkoutClick += (s, e) => OnAddWorkoutClick();
       view.EditWorkoutClick += (s, e) => OnEditWorkoutClick(e);
@@ -192,13 +194,35 @@ namespace TrainingPlanner.Presenter
 
     private void LoadTrainingPlan(string planName)
     {
+      // load plan
       var data = new Data(planName);
       Data = data;
       _view.SetNewData(data);
-
       _view.UpdateWeeklyPlan(Data.TrainingPlan.WeeklyPlans);
 
-      // find active week
+      // update recent training plans
+      var recentPlans = Misc.Default.LastTrainingPlans.Split(';').ToList();
+      if (recentPlans.Contains(planName))
+      {
+        // the newly-loaded plan is already among the list of recent plans - remove it
+        recentPlans.Remove(planName);
+      }
+      else
+      {
+        while (recentPlans.Count >= 5)
+        {
+          // the plan isn't already in the list but we may need to remove one
+          // to avoid having too many recent plans
+          recentPlans.RemoveAt(4);
+        }
+      }
+
+      // insert newly-loaded plan and save
+      recentPlans.Insert(0, planName);
+      Misc.Default.LastTrainingPlans = recentPlans.Aggregate((a, b) => a + ";" + b).TrimEnd(';');
+      Misc.Default.Save();
+
+      // scroll to current week - this probably doesn't work
       for (var i = 0; i < Data.TrainingPlan.WeeklyPlans.Length; i++)
       {
 

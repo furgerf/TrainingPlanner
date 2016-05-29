@@ -43,6 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logger.cs" />
+    <Compile Include="Misc.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Misc.settings</DependentUpon>
+    </Compile>
     <Compile Include="Model\EventArgs\EventArgs.cs" />
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\DataPersistence.cs" />
@@ -219,6 +224,10 @@
     <None Include="Colors.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Colors.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Misc.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Misc.Designer.cs</LastGenOutput>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

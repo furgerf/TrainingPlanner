@@ -30,6 +30,7 @@ namespace TrainingPlanner.View.Forms
     public MainForm()
     {
       InitializeComponent();
+      PopulateRecentPlans();
       SetTrainingPlanMenusEnabled(false);
 
       // register to more events (to retrigger)
@@ -54,6 +55,43 @@ namespace TrainingPlanner.View.Forms
         //this.foregroundPanel.ScrollControlIntoView(_weekControls[9]);
         foregroundPanel.AutoScrollPosition = new Point(100, 5*WeeklyControlHeight);
       };
+    }
+
+    private void PopulateRecentPlans()
+    {
+      // TODO: Keep this list up to date when new plans get opened
+      for (var i = 0; i < Misc.Default.LastTrainingPlans.Split(';').Length; i++)
+      {
+        var planName = Misc.Default.LastTrainingPlans.Split(';')[i];
+
+        if (string.IsNullOrEmpty(planName))
+        {
+          continue;
+        }
+
+        var item = new ToolStripMenuItem(planName) {Text = planName, ShortcutKeys = Keys.Control | GetIthKey(i + 1)};
+        item.Click += (s, e) => OpenSpecificPlanClick(this, planName);
+        openRecentPlanToolStripMenuItem.DropDownItems.Add(item);
+      }
+    }
+
+    private static Keys GetIthKey(int i)
+    {
+      switch (i)
+      {
+        case 1:
+          return Keys.D1;
+        case 2:
+          return Keys.D2;
+        case 3:
+          return Keys.D3;
+        case 4:
+          return Keys.D4;
+        case 5:
+          return Keys.D5;
+        default:
+          throw new ArgumentException();
+      }
     }
 
     private void InitializeDynamicControls()
@@ -91,6 +129,7 @@ namespace TrainingPlanner.View.Forms
 
     public event EventHandler NewPlanClick = (s, e) => { };
     public event EventHandler OpenPlanClick = (s, e) => { };
+    public event EventHandler<string> OpenSpecificPlanClick = (s, e) => { }; 
     public event EventHandler ClosePlanClick = (s, e) => { };
     public event EventHandler AddWorkoutClick = (s, e) => { };
     public event EventHandler<string> EditWorkoutClick = (s, e) => { };
