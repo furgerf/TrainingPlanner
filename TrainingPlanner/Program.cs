@@ -21,12 +21,9 @@ namespace TrainingPlanner
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
-      // create data model - load "default"
-      var data = new Data("Lucerne Marathon 2015");
-
       // create main form and its presenter
-      var view = new MainForm(data);
-      var presenter = new MainFormPresenter(view, data);
+      var view = new MainForm();
+      var presenter = new MainFormPresenter(view);
 
       Logger.Info("... initialization complete");
       Application.Run(view);

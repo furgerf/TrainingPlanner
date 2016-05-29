@@ -12,12 +12,9 @@ namespace TrainingPlanner.Presenter
     private readonly IMainForm _view;
     private Data _data;
 
-    public MainFormPresenter(IMainForm view, Data data)
+    public MainFormPresenter(IMainForm view)
     {
       _view = view;
-      _data = data;
-
-      view.UpdateWeeklyPlan(_data.TrainingPlan.WeeklyPlans);
 
       view.NewPlanClick += (s, e) => OnNewPlanClick();
       view.OpenPlanClick += (s, e) => OnOpenPlanClick();
@@ -34,6 +31,20 @@ namespace TrainingPlanner.Presenter
       view.InfoClick += (s, e) => OnInfoClick();
 
       view.WeeklyPlanChanged += (s, e) => _data.UpdateTrainingPlan(e.Value);
+    }
+
+    private void OnNewPlanClick()
+    {
+      throw new NotImplementedException();
+    }
+
+    private void OnOpenPlanClick()
+    {
+      var data = _data == null || _data.PlanName == "Sempacherseelauf 2016" ? new Data("Lucerne Marathon 2015") : new Data("Sempacherseelauf 2016");
+      _data = data;
+      _view.SetNewData(data);
+
+      _view.UpdateWeeklyPlan(_data.TrainingPlan.WeeklyPlans);
 
       // find active week
       for (var i = 0; i < _data.TrainingPlan.WeeklyPlans.Length; i++)
@@ -44,7 +55,7 @@ namespace TrainingPlanner.Presenter
           continue;
         }
 
-        view.SetWeekActivity(i, true);
+        _view.SetWeekActivity(i, true);
         //Task.Factory.StartNew(() =>
         //{
         //  Thread.Sleep(1);
@@ -52,25 +63,16 @@ namespace TrainingPlanner.Presenter
         //});
         break;
       }
-    }
-
-    private void OnNewPlanClick()
-    {
-      throw new NotImplementedException();
-    }
-
-    private void OnOpenPlanClick()
-    {
-      var data = new Data("Sempacherseelauf 2016");
-      _data = data;
-      _view.SetNewData(data);
 
       Logger.InfoFormat("Opened new training plan '{0}'", data.PlanName);
     }
 
     private void OnClosePlanClick()
     {
-      throw new NotImplementedException();
+      _data = null;
+      _view.SetNewData(null);
+
+      Logger.Info("Closed current training plan");
     }
 
     private void OnAddWorkoutClick()

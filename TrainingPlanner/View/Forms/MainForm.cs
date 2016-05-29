@@ -23,19 +23,13 @@ namespace TrainingPlanner.View.Forms
       set
       {
         _data = value;
-        Text = "Training Planner - " + Data.PlanName;
+        Text = "Training Planner - " + (Data == null ? "<none>" : Data.PlanName);
       }
     }
 
-    public MainForm(Data data)
+    public MainForm()
     {
       InitializeComponent();
-
-      // assign data after initializing form/views to set form name
-      Data = data;
-
-      _weekControls = new WeekControl[Data.TrainingPlan.TrainingWeeks];
-      InitializeDynamicControls();
 
       // register to more events (to retrigger)
       newPlanToolStripMenuItem.Click += (s, e) => OnNewPlanClick();
@@ -52,11 +46,6 @@ namespace TrainingPlanner.View.Forms
       configureToolStripMenuItem.Click += (s, e) => OnConfigurePacesClick();
       infoToolStripMenuItem.Click += (s, e) => OnInfoClick();
       exitToolStripMenuItem.Click += (s, e) => Close();
-
-      foreach (var wc in _weekControls)
-      {
-        wc.Activate();
-      }
 
       // TODO: create shown event in IMF and scroll on the event callback in MFP
       Shown += (s, e) =>
@@ -147,10 +136,32 @@ namespace TrainingPlanner.View.Forms
 
     public void SetNewData(Data data)
     {
+      // cleanup
+      if (_weekControls != null)
+      {
+        foreach (var wc in _weekControls)
+        {
+          wc.Dispose();
+        }
+        _weekControls = null;
+      }
+      
+      // assign new data
       Data = data;
 
+      // no need for new setup if new data is null
+      if (Data == null)
+      {
+        return;
+      }
+
+      // setup new data
       _weekControls = new WeekControl[Data.TrainingPlan.TrainingWeeks];
       InitializeDynamicControls();
+      foreach (var wc in _weekControls)
+      {
+        wc.Activate();
+      }
     }
 
     private void OnNewPlanClick()
