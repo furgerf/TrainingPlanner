@@ -34,13 +34,10 @@ namespace TrainingPlanner.Presenter
 
     private void OnWorkoutSelected(string workoutName)
     {
-      if (WorkoutSelected != null)
-      {
-        Logger.Debug("Triggering WorkoutSelected event");
-        WorkoutSelected(this, workoutName);
-      }
+      Logger.Debug("Triggering WorkoutSelected event");
+      WorkoutSelected(this, workoutName);
     }
 
-    public event EventHandler<string> WorkoutSelected;
+    public event EventHandler<string> WorkoutSelected = (s, e) => { };
   }
 }

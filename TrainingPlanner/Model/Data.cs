@@ -287,14 +287,22 @@ namespace TrainingPlanner.Model
     }
 
     /// <summary>
-    /// Updates the value of a pace.
+    /// Updates the value of several paces.
     /// </summary>
-    /// <param name="key">Description of the pace.</param>
-    /// <param name="value">New value of the pace.</param>
-    public void ChangePace(Pace.Names key, TimeSpan value)
+    /// <param name="keys">Description of the changed paces.</param>
+    /// <param name="values">New value of the changed paces.</param>
+    public void ChangePaces(Pace.Names[] keys, TimeSpan[] values)
     {
-      // save pace
-      Pace.SetPace(key, value);
+      if (keys.Length != values.Length)
+      {
+        throw new ArgumentException();
+      }
+
+      // save pace in model
+      for (var i = 0; i < keys.Length; i++)
+      {
+        Pace.SetPace(keys[i], values[i]);
+      }
 
       Logger.Debug("Triggering PaceChanged event");
       PaceChanged(this, null);

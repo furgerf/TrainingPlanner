@@ -1,4 +1,5 @@
-﻿using TrainingPlanner.Model;
+﻿using System.Linq;
+using TrainingPlanner.Model;
 using TrainingPlanner.Presenter.Interfaces;
 using TrainingPlanner.View.Interfaces;
 
@@ -15,16 +16,14 @@ namespace TrainingPlanner.Presenter
       _data = data;
       _view = view;
 
-      _view.DiscardChangesButtonClick += (s, e) => _view.Close();
       _view.SaveChangesButtonClick += (s, e) => OnSaveButtonClick();
+      _view.DiscardChangesButtonClick += (s, e) => _view.Close();
     }
 
     private void OnSaveButtonClick()
     {
-      foreach (var change in _view.ChangedPaces)
-      {
-        _data.ChangePace(change.Item1, change.Item2);
-      }
+      _data.ChangePaces(_view.ChangedPaces.Select(c => c.Item1).ToArray(),
+        _view.ChangedPaces.Select(c => c.Item2).ToArray());
       _view.Close();
     }
   }

@@ -58,8 +58,6 @@ namespace TrainingPlanner.Model.Serializable
     /// </summary>
     [DataMember(Name = "_distanceCalculated", IsRequired = true)] public readonly bool DistanceCalculated;
 
-    // TODO: (workout-redoing) Add note
-
     private Step(string name, TimeSpan duration, Pace.Names pace, double distance, bool durationCalculated,
       bool distanceCalculated, TimeSpan? rest = null, int repetitions = 1)
       : this()

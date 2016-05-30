@@ -26,13 +26,10 @@ namespace TrainingPlanner.Presenter
 
     private void OnWorkoutCategorySelected(string workoutName)
     {
-      if (CategorySelected != null)
-      {
-        Logger.Debug("Triggering CategorySelected event");
-        CategorySelected(this, workoutName);
-      }
+      Logger.Debug("Triggering CategorySelected event");
+      CategorySelected(this, workoutName);
     }
 
-    public event EventHandler<string> CategorySelected;
+    public event EventHandler<string> CategorySelected = (s, e) => { };
   }
 }

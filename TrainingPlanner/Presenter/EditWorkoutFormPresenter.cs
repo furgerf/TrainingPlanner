@@ -89,6 +89,7 @@ namespace TrainingPlanner.Presenter
         MessageBox.Show("There is no workout with this name.");
         return;
       }
+
       DeleteWorkout();
     }
 

@@ -29,7 +29,8 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      if (string.IsNullOrEmpty(_view.TrainingPlanToImportWorkoutsFrom))
+      if (string.IsNullOrEmpty(_view.TrainingPlanToImportWorkoutsFrom) ||
+          _view.TrainingPlanToImportWorkoutsFrom.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
       {
         MessageBox.Show("Please enter a valid existing plan name to import data from");
         return;

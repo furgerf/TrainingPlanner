@@ -19,7 +19,7 @@ namespace TrainingPlanner.Presenter
       _view.SaveButtonClick += (s, e) => SaveWorkoutCategory();
     }
 
-    public void SaveWorkoutCategory()
+    private void SaveWorkoutCategory()
     {
       var category = new WorkoutCategory(_view.CategoryName, _view.CategoryColor);
       _data.AddOrUpdateWorkoutCategory(category);
