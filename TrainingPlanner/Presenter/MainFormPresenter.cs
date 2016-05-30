@@ -45,6 +45,13 @@ namespace TrainingPlanner.Presenter
       view.InfoClick += (s, e) => OnInfoClick();
 
       view.WeeklyPlanChanged += (s, e) => Data.UpdateTrainingPlan(e.Value);
+
+      // automatically load last plan on startup
+      var recentPlans = Misc.Default.LastTrainingPlans.Split(';');
+      if (recentPlans.Length > 0)
+      {
+        LoadTrainingPlan(recentPlans[0]);
+      }
     }
 
     private void OnNewPlanClick()
@@ -194,13 +201,7 @@ namespace TrainingPlanner.Presenter
 
     private void LoadTrainingPlan(string planName)
     {
-      // load plan
-      var data = new Data(planName);
-      Data = data;
-      _view.SetNewData(data);
-      _view.UpdateWeeklyPlan(Data.TrainingPlan.WeeklyPlans);
-
-      // update recent training plans
+      // update recent training plans in settings - before actually loading the plan
       var recentPlans = Misc.Default.LastTrainingPlans.Split(';').ToList();
       if (recentPlans.Contains(planName))
       {
@@ -221,6 +222,12 @@ namespace TrainingPlanner.Presenter
       recentPlans.Insert(0, planName);
       Misc.Default.LastTrainingPlans = recentPlans.Aggregate((a, b) => a + ";" + b).TrimEnd(';');
       Misc.Default.Save();
+
+      // load plan
+      var data = new Data(planName);
+      Data = data;
+      _view.SetNewData(data);
+      _view.UpdateWeeklyPlan(Data.TrainingPlan.WeeklyPlans);
 
       // scroll to current week - this probably doesn't work
       for (var i = 0; i < Data.TrainingPlan.WeeklyPlans.Length; i++)

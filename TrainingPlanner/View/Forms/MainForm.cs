@@ -24,6 +24,8 @@ namespace TrainingPlanner.View.Forms
       {
         _data = value;
         Text = "Training Planner - " + (Data == null ? "<none>" : Data.TrainingPlan.Name);
+        openRecentPlanToolStripMenuItem.DropDownItems.Clear();
+        PopulateRecentPlans();
       }
     }
 
@@ -32,6 +34,7 @@ namespace TrainingPlanner.View.Forms
       InitializeComponent();
       PopulateRecentPlans();
       SetTrainingPlanMenusEnabled(false);
+      Data = null;
 
       // register to more events (to retrigger)
       newPlanToolStripMenuItem.Click += (s, e) => OnNewPlanClick();
@@ -59,7 +62,6 @@ namespace TrainingPlanner.View.Forms
 
     private void PopulateRecentPlans()
     {
-      // TODO: Keep this list up to date when new plans get opened
       for (var i = 0; i < Misc.Default.LastTrainingPlans.Split(';').Length; i++)
       {
         var planName = Misc.Default.LastTrainingPlans.Split(';')[i];
