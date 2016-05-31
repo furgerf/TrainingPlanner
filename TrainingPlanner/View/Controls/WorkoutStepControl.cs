@@ -41,7 +41,7 @@ namespace TrainingPlanner.View.Controls
       set
       {
         comName.Text = value.Name;
-        if (value.DistanceCalculated)
+        if (value.IsDistanceCalculated)
         {
           txtDuration.Text = value.Duration.ToString("hh':'mm':'ss");
         }

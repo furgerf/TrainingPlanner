@@ -48,21 +48,19 @@ namespace TrainingPlanner.Model.Serializable
 
     /// <summary>
     /// True if distance is the manually entered value and duration was calculated.
-    /// TODO: (workout-redoing) Rename
     /// </summary>
-    [DataMember(Name = "_durationCalculated", IsRequired = true)] public readonly bool DurationCalculated;
+    [DataMember(Name = "IsDurationCalculated", IsRequired = true)] public readonly bool IsDurationCalculated;
 
     /// <summary>
     /// True if duration is the manually entered value and distance was calculated.
-    /// TODO: (workout-redoing) Rename
     /// </summary>
-    [DataMember(Name = "_distanceCalculated", IsRequired = true)] public readonly bool DistanceCalculated;
+    [DataMember(Name = "IsDistanceCalculated", IsRequired = true)] public readonly bool IsDistanceCalculated;
 
-    private Step(string name, TimeSpan duration, Pace.Names pace, double distance, bool durationCalculated,
-      bool distanceCalculated, TimeSpan? rest = null, int repetitions = 1)
+    private Step(string name, TimeSpan duration, Pace.Names pace, double distance, bool isDurationCalculated,
+      bool isDistanceCalculated, TimeSpan? rest = null, int repetitions = 1)
       : this()
     {
-      if (!durationCalculated ^ distanceCalculated)
+      if (!isDurationCalculated ^ isDistanceCalculated)
       {
         throw new ArgumentException("Exactly one of duration and distance can have been calculated");
       }
@@ -73,8 +71,8 @@ namespace TrainingPlanner.Model.Serializable
       Distance = distance;
       Rest = rest ?? TimeSpan.Zero;
       Repetitions = repetitions;
-      DurationCalculated = durationCalculated;
-      DistanceCalculated = distanceCalculated;
+      IsDurationCalculated = isDurationCalculated;
+      IsDistanceCalculated = isDistanceCalculated;
     }
 
     /// <summary>
@@ -134,7 +132,7 @@ namespace TrainingPlanner.Model.Serializable
     {
       var result = "";
 
-      if (DurationCalculated)
+      if (IsDurationCalculated)
       {
         result += Distance + " km";
       }
