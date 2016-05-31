@@ -26,8 +26,6 @@ namespace TrainingPlanner.Presenter
 
     private void EditWorkout(string workoutName)
     {
-      // TODO: (add/edit/update) maybe notify the user that if he modifies the workout but leaves the name,
-      // the workout will be overwritten but if it gets a new name, a new workout is created?
       var form = workoutName == null ? new EditWorkoutForm(_data) : new EditWorkoutForm(_data, _data.WorkoutFromName(workoutName));
       var presenter = new EditWorkoutFormPresenter(form, _data);
       form.Show();

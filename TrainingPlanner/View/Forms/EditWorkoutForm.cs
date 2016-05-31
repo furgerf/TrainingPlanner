@@ -30,6 +30,9 @@ namespace TrainingPlanner.View.Forms
     public EditWorkoutForm(Data data, Workout workout)
       : this(data)
     {
+      // disabling the name field to avoid renaming of existing workouts
+      txtName.Enabled = false;
+
       foreach (var wsc in workout.Steps.Select(t => new WorkoutStepControl
       {
         Location = new Point(_stepControls.Count == 0 ? labName.Left : _stepControls.Last().Right + ControlPadding, butAddStep.Top),
@@ -163,3 +166,4 @@ namespace TrainingPlanner.View.Forms
     }
   }
 }
+

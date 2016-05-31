@@ -21,6 +21,9 @@ namespace TrainingPlanner.View.Forms
     public EditWorkoutCategoryForm(WorkoutCategory category)
       : this()
     {
+      // disabling the name field to avoid renaming of existing workouts
+      txtName.Enabled = false;
+
       // assign control values according to the category to be edited
       txtName.Text = category.Name;
       comColorNames.Text = category.CategoryColor.ToKnownColor().ToString();
