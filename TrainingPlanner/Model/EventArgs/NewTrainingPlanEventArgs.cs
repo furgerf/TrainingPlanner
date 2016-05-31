@@ -1,3 +1,5 @@
+using System;
+
 namespace TrainingPlanner.Model.EventArgs
 {
   /// <summary>
@@ -21,11 +23,17 @@ namespace TrainingPlanner.Model.EventArgs
     /// </summary>
     public readonly string OtherTrainingPlanToImportDataFrom;
 
-    public NewTrainingPlanEventArgs(string name, int trainingWeeks, string otherTrainingPlanToImportDataFrom)
+    /// <summary>
+    /// Day when the training plan starts.
+    /// </summary>
+    public readonly DateTime StartOfTrainingPlan;
+
+    public NewTrainingPlanEventArgs(string name, int trainingWeeks, string otherTrainingPlanToImportDataFrom, DateTime startOfTrainingPlan)
     {
       Name = name;
       TrainingWeeks = trainingWeeks;
       OtherTrainingPlanToImportDataFrom = otherTrainingPlanToImportDataFrom;
+      StartOfTrainingPlan = startOfTrainingPlan;
     }
   }
 }

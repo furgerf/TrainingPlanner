@@ -68,7 +68,7 @@ namespace TrainingPlanner.Presenter
         DataPersistence.CopyExistingTrainingPlanDataToNewPlan(e.OtherTrainingPlanToImportDataFrom, e.Name);
 
         // create and store new empty plan
-        DataPersistence.CreateNewTrainingPlanFile(TrainingPlan.NewTrainingPlan(e.Name, e.TrainingWeeks));
+        DataPersistence.CreateNewTrainingPlanFile(TrainingPlan.NewTrainingPlan(e.Name, e.TrainingWeeks, e.StartOfTrainingPlan));
 
         // load the now newly-created plan
         LoadTrainingPlan(e.Name);

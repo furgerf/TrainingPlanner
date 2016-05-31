@@ -73,21 +73,21 @@ namespace TrainingPlanner.Model.Serializable
       _data = data;
     }
 
-    public static TrainingPlan NewTrainingPlan(string name, int weekCount)
+    public static TrainingPlan NewTrainingPlan(string name, int weekCount, DateTime startOfTrainingPlan)
     {
-        Logger.Info("Creating new empty TrainingPlan");
-        var diff = DateTime.Today.DayOfWeek - DayOfWeek.Sunday;
-        if (diff < 0)
-        {
-          diff += 7;
-        }
-        var monday = DateTime.Today.AddDays(-1 * diff).Date;
+      if (startOfTrainingPlan.DayOfWeek != DayOfWeek.Monday)
+      {
+        throw new ArgumentException();
+      }
 
-        var weeks = new WeeklyPlan[weekCount];
-        for (var i = 0; i < weekCount; i++)
-        {
-          weeks[i] = new WeeklyPlan(new string[14], monday.AddDays(i*7), i);
-        }
+      Logger.Info("Creating new empty TrainingPlan");
+      var monday = startOfTrainingPlan.Date;
+
+      var weeks = new WeeklyPlan[weekCount];
+      for (var i = 0; i < weekCount; i++)
+      {
+        weeks[i] = new WeeklyPlan(new string[14], monday.AddDays(i*7), i);
+      }
 
       return new TrainingPlan(name, weeks);
     }

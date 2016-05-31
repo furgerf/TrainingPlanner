@@ -36,7 +36,7 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      NewTrainingPlanDataEntered(this, new NewTrainingPlanEventArgs(_view.NewTrainingPlanName, _view.NumberOfTrainingWeeks, _view.TrainingPlanToImportWorkoutsFrom));
+      NewTrainingPlanDataEntered(this, new NewTrainingPlanEventArgs(_view.NewTrainingPlanName, _view.NumberOfTrainingWeeks, _view.TrainingPlanToImportWorkoutsFrom, _view.StartOfTrainingPlan));
 
       _view.Close();
     }
