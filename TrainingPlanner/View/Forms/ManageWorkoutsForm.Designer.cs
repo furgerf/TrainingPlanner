@@ -89,6 +89,7 @@
       // 
       // butExit
       // 
+      this.butExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butExit.Location = new System.Drawing.Point(440, 281);
       this.butExit.Name = "butExit";
       this.butExit.Size = new System.Drawing.Size(75, 23);
@@ -99,6 +100,7 @@
       // 
       // butDelete
       // 
+      this.butDelete.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butDelete.Location = new System.Drawing.Point(440, 180);
       this.butDelete.Name = "butDelete";
       this.butDelete.Size = new System.Drawing.Size(75, 23);
@@ -109,6 +111,7 @@
       // 
       // butEdit
       // 
+      this.butEdit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butEdit.Location = new System.Drawing.Point(440, 90);
       this.butEdit.Name = "butEdit";
       this.butEdit.Size = new System.Drawing.Size(75, 23);
@@ -119,6 +122,7 @@
       // 
       // butAdd
       // 
+      this.butAdd.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butAdd.Location = new System.Drawing.Point(440, 12);
       this.butAdd.Name = "butAdd";
       this.butAdd.Size = new System.Drawing.Size(75, 23);
@@ -131,6 +135,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.CancelButton = this.butExit;
       this.ClientSize = new System.Drawing.Size(528, 316);
       this.Controls.Add(this.lisWorkouts);
       this.Controls.Add(this.butExit);

@@ -31,11 +31,11 @@
       this.lisCategories = new System.Windows.Forms.ListView();
       this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.colColor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.colUsages = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.butExit = new System.Windows.Forms.Button();
       this.butDelete = new System.Windows.Forms.Button();
       this.butEdit = new System.Windows.Forms.Button();
       this.butAdd = new System.Windows.Forms.Button();
-      this.colUsages = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.SuspendLayout();
       // 
       // lisCategories
@@ -67,8 +67,14 @@
       this.colColor.Text = "Color";
       this.colColor.Width = 80;
       // 
+      // colUsages
+      // 
+      this.colUsages.Text = "Usages";
+      this.colUsages.Width = 50;
+      // 
       // butExit
       // 
+      this.butExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butExit.Location = new System.Drawing.Point(324, 281);
       this.butExit.Name = "butExit";
       this.butExit.Size = new System.Drawing.Size(75, 23);
@@ -79,6 +85,7 @@
       // 
       // butDelete
       // 
+      this.butDelete.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butDelete.Location = new System.Drawing.Point(324, 180);
       this.butDelete.Name = "butDelete";
       this.butDelete.Size = new System.Drawing.Size(75, 23);
@@ -89,6 +96,7 @@
       // 
       // butEdit
       // 
+      this.butEdit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butEdit.Location = new System.Drawing.Point(324, 90);
       this.butEdit.Name = "butEdit";
       this.butEdit.Size = new System.Drawing.Size(75, 23);
@@ -99,6 +107,7 @@
       // 
       // butAdd
       // 
+      this.butAdd.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butAdd.Location = new System.Drawing.Point(324, 12);
       this.butAdd.Name = "butAdd";
       this.butAdd.Size = new System.Drawing.Size(75, 23);
@@ -107,15 +116,11 @@
       this.butAdd.UseVisualStyleBackColor = true;
       this.butAdd.Click += new System.EventHandler(this.butAdd_Click);
       // 
-      // colUsages
-      // 
-      this.colUsages.Text = "Usages";
-      this.colUsages.Width = 50;
-      // 
       // ManageWorkoutCategoriesForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.CancelButton = this.butExit;
       this.ClientSize = new System.Drawing.Size(411, 316);
       this.Controls.Add(this.lisCategories);
       this.Controls.Add(this.butExit);

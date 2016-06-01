@@ -186,6 +186,7 @@
       // 
       // butDiscardChanges
       // 
+      this.butDiscardChanges.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.butDiscardChanges.Location = new System.Drawing.Point(12, 249);
       this.butDiscardChanges.Name = "butDiscardChanges";
       this.butDiscardChanges.Size = new System.Drawing.Size(111, 23);
@@ -215,6 +216,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.CancelButton = this.butDiscardChanges;
       this.ClientSize = new System.Drawing.Size(135, 282);
       this.Controls.Add(this.label8);
       this.Controls.Add(this.txtSteady);

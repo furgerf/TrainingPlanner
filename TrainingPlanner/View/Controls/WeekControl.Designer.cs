@@ -334,7 +334,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+      this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.Controls.Add(this.grpDate);
       this.Controls.Add(this.grpSummary);
       this.Controls.Add(this.grpSunday);
@@ -345,7 +345,7 @@
       this.Controls.Add(this.grpTuesday);
       this.Controls.Add(this.grpMonday);
       this.Name = "WeekControl";
-      this.Size = new System.Drawing.Size(1505, 216);
+      this.Size = new System.Drawing.Size(1507, 218);
       this.grpMonday.ResumeLayout(false);
       this.grpTuesday.ResumeLayout(false);
       this.grpWednesday.ResumeLayout(false);

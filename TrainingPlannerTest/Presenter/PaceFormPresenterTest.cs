@@ -12,6 +12,7 @@ namespace TrainingPlannerTest.Presenter
   {
     private readonly Mock<IPaceForm> _viewMock;
     private readonly Mock<IData> _dataMock;
+    private readonly PaceFormPresenter _testee;
 
     public PaceFormPresenterTest()
     {
@@ -28,7 +29,7 @@ namespace TrainingPlannerTest.Presenter
           new Tuple<Pace.Names, TimeSpan>(Pace.Names.Marathon, TimeSpan.FromSeconds(1234))
         });
 
-      var testee = new PaceFormPresenter(_viewMock.Object, _dataMock.Object);
+      _testee = new PaceFormPresenter(_viewMock.Object, _dataMock.Object);
     }
 
     [Fact]
