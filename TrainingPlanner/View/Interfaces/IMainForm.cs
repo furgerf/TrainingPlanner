@@ -6,10 +6,11 @@ using TrainingPlanner.Model.Serializable;
 namespace TrainingPlanner.View.Interfaces
 {
   /// <summary>
-  /// Describes the functionality required to interact with the main form.
+  /// Describes the functionality required to interact with the MainForm.
   /// </summary>
   public interface IMainForm
   {
+    // events for menu item clicks
     event EventHandler NewPlanClick;
     event EventHandler OpenPlanClick;
     event EventHandler<string> OpenSpecificPlanClick;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -72,7 +73,7 @@ namespace TrainingPlanner.View.Forms
     public event EventHandler<string> DeleteWorkoutButtonClick;
     public event EventHandler ExitButtonClick;
 
-    public void DisplayWorkouts(Workout[] workouts)
+    public void DisplayWorkouts(IEnumerable<Workout> workouts)
     {
       lisWorkouts.Items.Clear();
       lisWorkouts.Items.AddRange(

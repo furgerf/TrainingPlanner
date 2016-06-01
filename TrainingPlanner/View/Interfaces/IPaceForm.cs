@@ -1,9 +1,12 @@
 ﻿using System;
-using TrainingPlanner.Model;
+using System.Collections.Generic;
 using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.View.Interfaces
 {
+  /// <summary>
+  /// Defines the functionality required to interact with the PaceForm.
+  /// </summary>
   public interface IPaceForm
   {
     /// <summary>
@@ -19,7 +22,7 @@ namespace TrainingPlanner.View.Interfaces
     /// <summary>
     /// Retrieve the paces that were modified by the user.
     /// </summary>
-    Tuple<Pace.Names, TimeSpan>[] ChangedPaces { get; }
+    IEnumerable<Tuple<Pace.Names, TimeSpan>> ChangedPaces { get; }
 
     /// <summary>
     /// Tells the form to close.

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.View.Interfaces
 {
+  /// <summary>
+  /// Defines the functionality required to interact with the ManageWorkoutCategoriesForm.
+  /// </summary>
   public interface IManageWorkoutCategoriesForm
   {
     /// <summary>
@@ -29,7 +33,7 @@ namespace TrainingPlanner.View.Interfaces
     /// Displays the supplied workout categories.
     /// </summary>
     /// <param name="categories">Workout categories to display.</param>
-    void DisplayCategories(WorkoutCategory[] categories);
+    void DisplayCategories(IEnumerable<WorkoutCategory> categories);
 
     /// <summary>
     /// Tells the form to close.

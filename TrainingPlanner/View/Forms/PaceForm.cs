@@ -37,7 +37,7 @@ namespace TrainingPlanner.View.Forms
       _validatePaces = true;
     }
 
-    public Tuple<Pace.Names, TimeSpan>[] ChangedPaces
+    public IEnumerable<Tuple<Pace.Names, TimeSpan>> ChangedPaces
     {
       get
       {

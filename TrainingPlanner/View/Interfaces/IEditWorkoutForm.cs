@@ -4,13 +4,11 @@ using TrainingPlanner.Model.Serializable;
 
 namespace TrainingPlanner.View.Interfaces
 {
+  /// <summary>
+  /// Defines the functionality required to interact with the EditWorkoutForm.
+  /// </summary>
   public interface IEditWorkoutForm
   {
-    /// <summary>
-    /// The steps that are currently entered by the user.
-    /// </summary>
-    Step[] Steps { get; }
-
     /// <summary>
     /// The current name of the workout.
     /// </summary>
@@ -25,6 +23,11 @@ namespace TrainingPlanner.View.Interfaces
     /// The current name of the category.
     /// </summary>
     string CategoryName { get; }
+
+    /// <summary>
+    /// Gets the steps that are currently entered by the user.
+    /// </summary>
+    Step[] Steps { get; }
 
     /// <summary>
     /// Triggered when the user presses the "add step"-button.

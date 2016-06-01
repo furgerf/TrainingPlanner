@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace TrainingPlanner.View.Interfaces
 {
+  /// <summary>
+  /// Defines the functionality required to interact with the EditWorkoutCategoryForm.
+  /// </summary>
   public interface IEditWorkoutCategoryForm
   {
     /// <summary>

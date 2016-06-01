@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -72,7 +73,7 @@ namespace TrainingPlanner.View.Forms
     public event EventHandler<string> DeleteCategoryButtonClick;
     public event EventHandler ExitButtonClick;
 
-    public void DisplayCategories(WorkoutCategory[] categories)
+    public void DisplayCategories(IEnumerable<WorkoutCategory> categories)
     {
       lisCategories.Items.Clear();
       lisCategories.Items.AddRange(categories.Select(c => new ListViewItem(new []{ c.Name, c.CategoryColor.ToKnownColor().ToString(), _data.Workouts.Count(w => w.CategoryName == c.Name).ToString(CultureInfo.InvariantCulture)}) { BackColor = c.CategoryColor }).ToArray());
