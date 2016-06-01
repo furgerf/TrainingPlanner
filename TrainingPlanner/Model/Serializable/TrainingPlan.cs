@@ -9,25 +9,7 @@ namespace TrainingPlanner.Model.Serializable
   public sealed class TrainingPlan
   {
     [DataMember(Name = "Name", IsRequired = true)]
-    public string Name
-    {
-      get { return _name; }
-      set
-      {
-        if (_name == value)
-        {
-          return;
-        }
-
-        var oldName = _name;
-        _name = value;
-
-        if (NameChanged != null)
-        {
-          NameChanged(this, oldName);
-        }
-      }
-    }
+    public string Name { get; set; }
 
     /// <summary>
     /// Number of weeks of the training plan.
@@ -39,7 +21,6 @@ namespace TrainingPlanner.Model.Serializable
     public WeeklyPlan[] WeeklyPlans;
 
     private Data _data;
-    private string _name;
 
     public TrainingPlan(string name, WeeklyPlan[] plans)
     {
@@ -47,12 +28,6 @@ namespace TrainingPlanner.Model.Serializable
       TrainingWeeks = plans.Length;
       WeeklyPlans = plans;
     }
-
-    /// <summary>
-    /// Triggered when the TrainingPlan's Name changed, with the EventArg
-    /// being the old name.
-    /// </summary>
-    public event EventHandler<string> NameChanged;
 
     public IEnumerable<Workout> AllWorkouts
     {

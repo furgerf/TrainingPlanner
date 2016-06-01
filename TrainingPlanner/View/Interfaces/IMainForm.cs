@@ -45,12 +45,6 @@ namespace TrainingPlanner.View.Interfaces
     void SetWeekActivity(int week, bool isActive);
 
     /// <summary>
-    /// Scrolls to the specified week.
-    /// </summary>
-    /// <param name="week">Week number to scroll to.</param>
-    void ScrollToWeek(int week);
-
-    /// <summary>
     /// Assigns a new data instance to the view.
     /// </summary>
     /// <param name="data">The new data instance.</param>

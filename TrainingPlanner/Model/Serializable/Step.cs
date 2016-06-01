@@ -120,14 +120,6 @@ namespace TrainingPlanner.Model.Serializable
       get { return new Step(); }
     }
 
-    /// <summary>
-    /// Returns true if the step has no information.
-    /// </summary>
-    public bool IsEmpty
-    {
-      get { return Equals(Empty); }
-    }
-
     public override string ToString()
     {
       var result = "";

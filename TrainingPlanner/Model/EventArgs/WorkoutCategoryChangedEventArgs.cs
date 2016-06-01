@@ -17,11 +17,6 @@ namespace TrainingPlanner.Model.EventArgs
     /// </summary>
     public readonly bool CategoryAdded;
 
-    /// <summary>
-    /// True if the category was removed, false otherwise.
-    /// </summary>
-    public bool CategoryRemoved { get { return !CategoryAdded; } }
-
     public WorkoutCategoryChangedEventArgs(WorkoutCategory category, bool categoryAdded)
     {
       WorkoutCategory = category;

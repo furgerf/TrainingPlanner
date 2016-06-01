@@ -26,7 +26,7 @@ namespace TrainingPlanner.View.Controls
 
     public bool IsActiveWeek
     {
-      get { return _isActiveWeek; }
+      private get { return _isActiveWeek; }
       set
       {
         _isActiveWeek = value;
@@ -38,7 +38,7 @@ namespace TrainingPlanner.View.Controls
 
     public WeeklyPlan WeeklyPlan
     {
-      get { return _weeklyPlan; }
+      private get { return _weeklyPlan; }
       set
       {
         if (_weeklyPlan.Equals(value))

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using TrainingPlanner.Model;
 using TrainingPlanner.Model.Serializable;
@@ -47,7 +48,7 @@ namespace TrainingPlanner.View.Controls
         }
         else
         {
-          txtDistance.Text = value.Distance.ToString();
+          txtDistance.Text = value.Distance.ToString(CultureInfo.InvariantCulture);
         }
         Pace = value.Pace;
 

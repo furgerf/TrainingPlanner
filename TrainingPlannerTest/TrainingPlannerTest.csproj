@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenter\SelectWorkoutFormPresenterTest.cs" />
     <Compile Include="Presenter\PaceFormPresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

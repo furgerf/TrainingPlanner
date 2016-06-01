@@ -41,17 +41,7 @@ namespace TrainingPlanner.View.Forms
     {
       get
       {
-        var result = new List<Tuple<Pace.Names, TimeSpan>>();
-
-        foreach (var c in _paceControls)
-        {
-          if (c.Value.Item2.Text != c.Value.Item3.ToString(Pace.PaceFormat))
-          {
-            result.Add(new Tuple<Pace.Names, TimeSpan>(c.Key, TimeSpan.Parse("00:" + c.Value.Item2.Text)));
-          }
-        }
-
-        return result.ToArray();
+        return (from c in _paceControls where c.Value.Item2.Text != c.Value.Item3.ToString(Pace.PaceFormat) select new Tuple<Pace.Names, TimeSpan>(c.Key, TimeSpan.Parse("00:" + c.Value.Item2.Text))).ToArray();
       }
     }
 

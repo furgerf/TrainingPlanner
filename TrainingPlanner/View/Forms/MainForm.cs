@@ -162,19 +162,6 @@ namespace TrainingPlanner.View.Forms
       _weekControls[week].IsActiveWeek = isActive;
     }
 
-    public void ScrollToWeek(int week)
-    {
-      if (foregroundPanel.InvokeRequired)
-      {
-        foregroundPanel.Invoke((MethodInvoker) (() => ScrollToWeek(week)));
-      }
-      else
-      {
-        //this.foregroundPanel.ScrollControlIntoView(this._weekControls[Math.Min(week + 2, this._weekControls.Length)]);
-        //this.foregroundPanel.AutoScrollPosition = new Point(0, -10);
-      }
-    }
-
     public void SetNewData(Data data)
     {
       // cleanup

@@ -17,11 +17,6 @@ namespace TrainingPlanner.Model.EventArgs
     /// </summary>
     public readonly bool WorkoutAdded;
 
-    /// <summary>
-    /// True if the workout was removed, false otherwise.
-    /// </summary>
-    public bool WorkoutRemoved { get { return !WorkoutAdded; } }
-
     public WorkoutChangedEventArgs(Workout workout, bool workoutAdded)
     {
       Workout = workout;

@@ -8,10 +8,10 @@ namespace TrainingPlanner.Presenter
 {
   public class SelectWorkoutFormPresenter : ISelectWorkoutFormPresenter
   {
-    private readonly Data _data;
+    private readonly IData _data;
     private readonly ISelectWorkoutForm _view;
 
-    public SelectWorkoutFormPresenter(ISelectWorkoutForm view, Data data)
+    public SelectWorkoutFormPresenter(ISelectWorkoutForm view, IData data)
     {
       _data = data;
       _view = view;

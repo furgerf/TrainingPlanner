@@ -53,11 +53,6 @@ namespace TrainingPlanner.Model.Serializable
     public double Distance { get { return Steps.Sum(s => s.Distance * s.Repetitions); } }
 
     /// <summary>
-    /// Average pace over the entire workout. Calculated from the steps.
-    /// </summary>
-    public TimeSpan AveragePace { get { return TimeSpan.FromSeconds(Steps.Sum(s => Data.Instance.GetDurationFromPace(s.Pace).TotalSeconds * s.Distance) / Distance); } }
-
-    /// <summary>
     /// Description of the workout. Lists all steps separated by newlines.
     /// </summary>
     public string Description

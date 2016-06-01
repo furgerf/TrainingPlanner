@@ -51,31 +51,6 @@ namespace TrainingPlanner.Model.Serializable
     [DataMember(Name = "FiveK", IsRequired = true)]
     public TimeSpan FiveK { get; set; }
 
-    public TimeSpan GetPace(Names name)
-    {
-      switch (name)
-      {
-        case Names.Easy:
-          return Easy;
-        case Names.Base:
-          return Base;
-        case Names.Steady:
-          return Steady;
-        case Names.Marathon:
-          return Marathon;
-        case Names.Halfmarathon:
-          return Halfmarathon;
-        case Names.Threshold:
-          return Threshold;
-        case Names.TenK:
-          return TenK;
-        case Names.FiveK:
-          return FiveK;
-        default:
-          throw new ArgumentOutOfRangeException("pace");
-      }
-    }
-
     public void SetPace(Names name, TimeSpan value)
     {
       switch (name)
@@ -105,7 +80,7 @@ namespace TrainingPlanner.Model.Serializable
           FiveK = value;
           break;
         default:
-          throw new ArgumentOutOfRangeException("pace");
+          throw new ArgumentOutOfRangeException("name");
       }
     }
   }

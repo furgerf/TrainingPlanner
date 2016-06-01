@@ -54,7 +54,7 @@ namespace TrainingPlanner.View.Controls
 
     public Workout Workout
     {
-      get { return _workout; }
+      private get { return _workout; }
       set
       {
         if ((Workout == null && value == null) || (Workout != null && Workout.Equals(value)))

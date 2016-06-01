@@ -48,18 +48,6 @@ namespace TrainingPlanner.Model.Serializable
     public string[] Workouts
     {
       get { return _workouts; }
-      set
-      {
-        if (value == null || value.Length != 14)
-        {
-          throw new ArgumentException("Invalid workout array");
-        }
-
-        for (var i = 0; i < 14; i++)
-        {
-          _workouts[i] = value[i];
-        }
-      }
     }
 
     public DateTime WeekEnd
