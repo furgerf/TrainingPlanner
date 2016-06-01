@@ -7,11 +7,11 @@ namespace TrainingPlanner.Presenter
 {
   public class PaceFormPresenter : IPaceFormPresenter
   {
-    private readonly Data _data;
+    private readonly IData _data;
 
     private readonly IPaceForm _view;
 
-    public PaceFormPresenter(IPaceForm view, Data data)
+    public PaceFormPresenter(IPaceForm view, IData data)
     {
       _data = data;
       _view = view;
@@ -22,8 +22,9 @@ namespace TrainingPlanner.Presenter
 
     private void OnSaveButtonClick()
     {
-      _data.ChangePaces(_view.ChangedPaces.Select(c => c.Item1).ToArray(),
-        _view.ChangedPaces.Select(c => c.Item2).ToArray());
+      var changes = _view.ChangedPaces.ToArray();
+      _data.ChangePaces(changes.Select(c => c.Item1).ToArray(),
+        changes.Select(c => c.Item2).ToArray());
       _view.Close();
     }
   }

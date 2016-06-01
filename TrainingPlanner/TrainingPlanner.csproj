@@ -56,6 +56,7 @@
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\DataPersistence.cs" />
     <Compile Include="Model\EventArgs\NewTrainingPlanEventArgs.cs" />
+    <Compile Include="Model\IData.cs" />
     <Compile Include="Model\Serializable\Pace.cs" />
     <Compile Include="Model\Serializable\TrainingPlan.cs" />
     <Compile Include="Model\Serializable\WorkoutCategory.cs" />
