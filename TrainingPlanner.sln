@@ -5,7 +5,12 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingPlanner", "TrainingPlanner\TrainingPlanner.csproj", "{060FEA09-8C52-46B0-87D3-64A06F328373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingPlannerTest", "TrainingPlannerTest\TrainingPlannerTest.csproj", "{236E8657-1F86-4176-A3F1-1BEA8F2D0429}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingPlannerTest", "TrainingPlannerTest\TrainingPlannerTest.csproj", "{56B9A166-AA9B-474C-90EA-B24ABE8CFE7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2D97CA83-8515-4CE1-AB44-EB03D82A38E8}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +22,10 @@ Global
 		{060FEA09-8C52-46B0-87D3-64A06F328373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{060FEA09-8C52-46B0-87D3-64A06F328373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{060FEA09-8C52-46B0-87D3-64A06F328373}.Release|Any CPU.Build.0 = Release|Any CPU
-		{236E8657-1F86-4176-A3F1-1BEA8F2D0429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{236E8657-1F86-4176-A3F1-1BEA8F2D0429}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{236E8657-1F86-4176-A3F1-1BEA8F2D0429}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{236E8657-1F86-4176-A3F1-1BEA8F2D0429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56B9A166-AA9B-474C-90EA-B24ABE8CFE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56B9A166-AA9B-474C-90EA-B24ABE8CFE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56B9A166-AA9B-474C-90EA-B24ABE8CFE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56B9A166-AA9B-474C-90EA-B24ABE8CFE7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

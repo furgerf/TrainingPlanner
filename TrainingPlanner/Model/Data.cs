@@ -10,7 +10,7 @@ namespace TrainingPlanner.Model
   /// <summary>
   /// Contains all relevant data of a training plan.
   /// </summary>
-  public class Data
+  public class Data : IData
   {
     /// <summary>
     /// Last `Data` instance that was created - sometimes static access

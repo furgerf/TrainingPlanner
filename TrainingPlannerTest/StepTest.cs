@@ -8,9 +8,8 @@ namespace TrainingPlannerTest
     [Fact]
     public void TestConstructorException()
     {
-      //Assert.Throws<ArgumentNullException>(() => new Step("foo", TimeSpan.Zero, TimeSpan.Zero));
-
-      "foo".Should().BeEmpty();
+      "foo".Should().NotBeEmpty();
+      Assert.Equal(4, 2 + 2);
     }
   }
 }
