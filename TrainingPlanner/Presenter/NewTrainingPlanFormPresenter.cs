@@ -29,14 +29,18 @@ namespace TrainingPlanner.Presenter
         return;
       }
 
-      if (string.IsNullOrEmpty(_view.TrainingPlanToImportWorkoutsFrom) ||
-          _view.TrainingPlanToImportWorkoutsFrom.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+      if (string.IsNullOrEmpty(_view.PathToTrainingPlanToImportDataFrom) ||
+          _view.PathToTrainingPlanToImportDataFrom.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
       {
-        MessageBox.Show("Please enter a valid existing plan name to import data from");
-        return;
+        if (
+          MessageBox.Show("Using sample training data for workouts, categories, and paces, is that ok?",
+            "Sample training data", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+        {
+          return;
+        }
       }
 
-      NewTrainingPlanDataEntered(this, new NewTrainingPlanEventArgs(_view.NewTrainingPlanName, _view.NumberOfTrainingWeeks, _view.TrainingPlanToImportWorkoutsFrom, _view.StartOfTrainingPlan));
+      NewTrainingPlanDataEntered(this, new NewTrainingPlanEventArgs(_view.NewTrainingPlanName, _view.NumberOfTrainingWeeks, _view.PathToTrainingPlanToImportDataFrom, _view.StartOfTrainingPlan));
 
       _view.Close();
     }
@@ -64,7 +68,7 @@ namespace TrainingPlanner.Presenter
       }
 
       var planName = new DirectoryInfo(dlg.FileName).Parent.Name;
-      _view.TrainingPlanToImportWorkoutsFrom = planName;
+      _view.PathToTrainingPlanToImportDataFrom = planName;
     }
 
     public event EventHandler<NewTrainingPlanEventArgs> NewTrainingPlanDataEntered = (s, e) => { };

@@ -56,6 +56,11 @@ namespace TrainingPlanner.View.Interfaces
     void SetNewData(Data data);
 
     /// <summary>
+    /// Tells the MainForm to update the list of recent training plans.
+    /// </summary>
+    void UpdateRecentTrainingPlans();
+
+    /// <summary>
     /// Enables or disables the training-plan related menu entries.
     /// </summary>
     /// <param name="isEnbabled">True if the menu entrires should be enabled.</param>

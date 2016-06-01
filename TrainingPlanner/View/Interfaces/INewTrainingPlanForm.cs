@@ -8,7 +8,7 @@ namespace TrainingPlanner.View.Interfaces
 
     int NumberOfTrainingWeeks { get; }
 
-    string TrainingPlanToImportWorkoutsFrom { get; set; }
+    string PathToTrainingPlanToImportDataFrom { get; set; }
 
     DateTime StartOfTrainingPlan { get; }
 

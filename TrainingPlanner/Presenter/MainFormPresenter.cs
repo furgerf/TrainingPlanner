@@ -48,10 +48,11 @@ namespace TrainingPlanner.Presenter
 
       // automatically load last plan on startup
       var recentPlans = Misc.Default.LastTrainingPlans.Split(';');
-      if (recentPlans.Length > 0)
+      if (recentPlans.Length <= 0)
       {
-        LoadTrainingPlan(recentPlans[0]);
+        return;
       }
+      LoadTrainingPlan(recentPlans[0]);
     }
 
     private void OnNewPlanClick()
@@ -60,15 +61,17 @@ namespace TrainingPlanner.Presenter
       var presenter = new NewTrainingPlanFormPresenter(form);
       presenter.NewTrainingPlanDataEntered += (s, e) =>
       {
+        var newPlanDirectory = DataPersistence.GetTrainingPlanDirectory(e.Name);
+
         // we've received all information required to create the new plan
         // start by creating the directory
-        Directory.CreateDirectory(DataPersistence.ApplicationDataDirectory + Path.DirectorySeparatorChar + e.Name);
-
-        // copy workouts, categories, and paces
-        DataPersistence.CopyExistingTrainingPlanDataToNewPlan(e.OtherTrainingPlanToImportDataFrom, e.Name);
+        Directory.CreateDirectory(newPlanDirectory);
 
         // create and store new empty plan
         DataPersistence.CreateNewTrainingPlanFile(TrainingPlan.NewTrainingPlan(e.Name, e.TrainingWeeks, e.StartOfTrainingPlan));
+
+        // copy workouts, categories, and paces - plan must exist already
+        DataPersistence.CopyExistingTrainingPlanDataToNewPlan(e.OtherTrainingPlanToImportDataFrom, newPlanDirectory);
 
         // load the now newly-created plan
         LoadTrainingPlan(e.Name);
@@ -197,53 +200,71 @@ namespace TrainingPlanner.Presenter
 
     private void LoadTrainingPlan(string planName)
     {
-      // update recent training plans in settings - before actually loading the plan
-      var recentPlans = Misc.Default.LastTrainingPlans.Split(';').ToList();
-      if (recentPlans.Contains(planName))
+      try
       {
-        // the newly-loaded plan is already among the list of recent plans - remove it
-        recentPlans.Remove(planName);
-      }
-      else
-      {
-        while (recentPlans.Count >= 5)
+        // update recent training plans in settings - before actually loading the plan
+        var recentPlans = Misc.Default.LastTrainingPlans.Split(';').ToList();
+        if (recentPlans.Contains(planName))
         {
-          // the plan isn't already in the list but we may need to remove one
-          // to avoid having too many recent plans
-          recentPlans.RemoveAt(4);
+          // the newly-loaded plan is already among the list of recent plans - remove it
+          recentPlans.Remove(planName);
+        }
+        else
+        {
+          while (recentPlans.Count >= 5)
+          {
+            // the plan isn't already in the list but we may need to remove one
+            // to avoid having too many recent plans
+            recentPlans.RemoveAt(4);
+          }
+        }
+
+        // insert newly-loaded plan and save
+        recentPlans.Insert(0, planName);
+        Misc.Default.LastTrainingPlans = recentPlans.Aggregate((a, b) => a + ";" + b).TrimEnd(';');
+        Misc.Default.Save();
+
+        // load plan
+        var data = new Data(planName);
+        Data = data;
+        _view.SetNewData(data);
+        _view.UpdateWeeklyPlan(Data.TrainingPlan.WeeklyPlans);
+
+        // scroll to current week - this probably doesn't work
+        for (var i = 0; i < Data.TrainingPlan.WeeklyPlans.Length; i++)
+        {
+
+          if (Data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today ||
+              Data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
+          {
+            continue;
+          }
+
+          _view.SetWeekActivity(i, true);
+          //Task.Factory.StartNew(() =>
+          //{
+          //  Thread.Sleep(1);
+          //view.ScrollToWeek(i);
+          //});
+          break;
         }
       }
+      catch (Exception e)
+      {
+        MessageBox.Show(string.Format("Error while attempting to load plan {0} - {1}", planName,
+          e.Message));
 
-      // insert newly-loaded plan and save
-      recentPlans.Insert(0, planName);
+        RemoveRecentPlan(planName);
+        _view.UpdateRecentTrainingPlans();
+      }
+    }
+
+    private static void RemoveRecentPlan(string planName)
+    {
+      var recentPlans = Misc.Default.LastTrainingPlans.Split(';').ToList();
+      recentPlans.Remove(planName);
       Misc.Default.LastTrainingPlans = recentPlans.Aggregate((a, b) => a + ";" + b).TrimEnd(';');
       Misc.Default.Save();
-
-      // load plan
-      var data = new Data(planName);
-      Data = data;
-      _view.SetNewData(data);
-      _view.UpdateWeeklyPlan(Data.TrainingPlan.WeeklyPlans);
-
-      // scroll to current week - this probably doesn't work
-      for (var i = 0; i < Data.TrainingPlan.WeeklyPlans.Length; i++)
-      {
-
-        if (Data.TrainingPlan.WeeklyPlans[i].WeekStart > DateTime.Today || Data.TrainingPlan.WeeklyPlans[i].WeekEnd < DateTime.Today)
-        {
-          continue;
-        }
-
-        _view.SetWeekActivity(i, true);
-        //Task.Factory.StartNew(() =>
-        //{
-        //  Thread.Sleep(1);
-          //view.ScrollToWeek(i);
-        //});
-        break;
-      }
-
-      Logger.InfoFormat("Opened new training plan '{0}'", data.TrainingPlan.Name);
     }
   }
 }

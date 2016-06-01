@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TrainingPlanner.Model;
 using TrainingPlanner.View.Interfaces;
 
 namespace TrainingPlanner.View.Forms
@@ -26,10 +27,19 @@ namespace TrainingPlanner.View.Forms
 
     public int NumberOfTrainingWeeks { get { return (int) numTrainingWeeks.Value; } }
 
-    public string TrainingPlanToImportWorkoutsFrom
+    public string PathToTrainingPlanToImportDataFrom
     {
-      get { return txtPlanToImportWorkoutsFrom.Text; }
-      set { txtPlanToImportWorkoutsFrom.Text = value; }
+      get
+      {
+        return chkUseSampleData.Checked
+          ? DataPersistence.SampleDataDirectory
+          : DataPersistence.GetTrainingPlanDirectory(txtPlanToImportWorkoutsFrom.Text);
+      }
+      set
+      {
+        txtPlanToImportWorkoutsFrom.Text = value;
+        chkUseSampleData.Checked = false;
+      }
     }
 
     public DateTime StartOfTrainingPlan { get { return dtpStartOfTrainingPlan.SelectionStart; } }
@@ -71,6 +81,14 @@ namespace TrainingPlanner.View.Forms
       dtpStartOfTrainingPlan.SelectionEnd = dtpStartOfTrainingPlan.SelectionStart.AddDays(7);
 
       _updateDateRange = true;
+    }
+
+    private void chkUseSampleData_CheckedChanged(object sender, EventArgs e)
+    {
+      if (chkUseSampleData.Checked)
+      {
+        txtPlanToImportWorkoutsFrom.Text = "";
+      }
     }
   }
 }

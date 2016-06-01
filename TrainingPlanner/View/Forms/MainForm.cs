@@ -24,8 +24,7 @@ namespace TrainingPlanner.View.Forms
       {
         _data = value;
         Text = "Training Planner - " + (Data == null ? "<none>" : Data.TrainingPlan.Name);
-        openRecentPlanToolStripMenuItem.DropDownItems.Clear();
-        PopulateRecentPlans();
+        UpdateRecentTrainingPlans();
       }
     }
 
@@ -204,6 +203,12 @@ namespace TrainingPlanner.View.Forms
       {
         wc.Activate();
       }
+    }
+
+    public void UpdateRecentTrainingPlans()
+    {
+      openRecentPlanToolStripMenuItem.DropDownItems.Clear();
+      PopulateRecentPlans();
     }
 
     public void SetTrainingPlanMenusEnabled(bool isEnbabled)

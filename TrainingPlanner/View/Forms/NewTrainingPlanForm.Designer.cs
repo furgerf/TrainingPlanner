@@ -158,12 +158,15 @@
       // chkUseSampleData
       // 
       this.chkUseSampleData.AutoSize = true;
+      this.chkUseSampleData.Checked = true;
+      this.chkUseSampleData.CheckState = System.Windows.Forms.CheckState.Checked;
       this.chkUseSampleData.Location = new System.Drawing.Point(15, 64);
       this.chkUseSampleData.Name = "chkUseSampleData";
       this.chkUseSampleData.Size = new System.Drawing.Size(142, 17);
       this.chkUseSampleData.TabIndex = 12;
       this.chkUseSampleData.Text = "Use sample training data";
       this.chkUseSampleData.UseVisualStyleBackColor = true;
+      this.chkUseSampleData.CheckedChanged += new System.EventHandler(this.chkUseSampleData_CheckedChanged);
       // 
       // NewTrainingPlanForm
       // 

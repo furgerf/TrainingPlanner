@@ -13,14 +13,19 @@ namespace TrainingPlanner.Model
   /// </summary>
   public class DataPersistence
   {
-    // application root directory
-    private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
-    private const string ApplicationDataDirectoryLinux = "/data/data/training-planner-data";
     private static readonly bool IsLinux = !Environment.OSVersion.Platform.ToString().ToLower().StartsWith("win");
 
-    /// <summary>
-    /// The application working directory.
-    /// </summary>
+    // application directories
+    private const string SampleDataDirectoryWindows = @"C:\Users\Fabian\git\TrainingPlanner\sample-data";
+    private const string SampleDataDirectoryLinux = @"/win/Users/Fabian/git/TrainingPlanner/sample-data";
+
+    private const string ApplicationDataDirectoryWindows = @"D:\data\training-planner-data";
+    private const string ApplicationDataDirectoryLinux = @"/data/data/training-planner-data";
+
+    public static readonly string SampleDataDirectory = IsLinux
+      ? SampleDataDirectoryLinux
+      : SampleDataDirectoryWindows;
+
     public static readonly string ApplicationDataDirectory = IsLinux
       ? ApplicationDataDirectoryLinux
       : ApplicationDataDirectoryWindows;
@@ -94,6 +99,11 @@ namespace TrainingPlanner.Model
       _data.TrainingPlanModified += (s, e) => OnTrainingPlanChanged(data.TrainingPlan);
 
       Logger.Info("DataPersistence instantiated");
+    }
+
+    public static string GetTrainingPlanDirectory(string planName)
+    {
+      return ApplicationDataDirectory + Path.DirectorySeparatorChar + planName;
     }
 
     private string GetWorkoutPath(Workout workout)
@@ -209,14 +219,21 @@ namespace TrainingPlanner.Model
     /// Copies data associated with one training plan into the directory of another training plan.
     /// This associated data includes workouts, categories, and paces.
     /// </summary>
-    /// <param name="oldPlanName">Name of the plan from where to copy the data.</param>
-    /// <param name="newPlanName">Name of the plan where the data should be copied to.</param>
-    public static void CopyExistingTrainingPlanDataToNewPlan(string oldPlanName, string newPlanName)
+    /// <param name="oldPlanDirectory">Directory to the plan from where to copy the data.</param>
+    /// <param name="newPlanDirectory">Directory of the new plan where the data should be copied to.</param>
+    public static void CopyExistingTrainingPlanDataToNewPlan(string oldPlanDirectory, string newPlanDirectory)
     {
-      var oldPlanDirectory = ApplicationDataDirectory + Path.DirectorySeparatorChar + oldPlanName +
-                             Path.DirectorySeparatorChar;
-      var newPlanDirectory = ApplicationDataDirectory + Path.DirectorySeparatorChar + newPlanName +
-                             Path.DirectorySeparatorChar;
+      oldPlanDirectory = oldPlanDirectory + Path.DirectorySeparatorChar;
+      newPlanDirectory = newPlanDirectory + Path.DirectorySeparatorChar;
+
+      if (!oldPlanDirectory.StartsWith(SampleDataDirectory) && !File.Exists(oldPlanDirectory + TrainingPlanFileName))
+      {
+        throw new ArgumentException();
+      }
+      if (!File.Exists(newPlanDirectory + TrainingPlanFileName))
+      {
+        throw new ArgumentException();
+      }
 
       // workouts
       Directory.CreateDirectory(newPlanDirectory + WorkoutsDirectoryName);
