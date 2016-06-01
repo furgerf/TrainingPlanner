@@ -145,6 +145,7 @@
       this.Controls.Add(this.butAddStep);
       this.Controls.Add(this.txtName);
       this.Controls.Add(this.labName);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       this.Name = "EditWorkoutForm";
       this.Text = "EditWorkoutForm";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditWorkoutForm_FormClosing);

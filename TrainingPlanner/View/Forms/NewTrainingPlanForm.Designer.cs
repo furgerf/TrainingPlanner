@@ -39,6 +39,7 @@
       this.butCancel = new System.Windows.Forms.Button();
       this.label4 = new System.Windows.Forms.Label();
       this.dtpStartOfTrainingPlan = new System.Windows.Forms.MonthCalendar();
+      this.chkUseSampleData = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.numTrainingWeeks)).BeginInit();
       this.SuspendLayout();
       // 
@@ -92,24 +93,24 @@
       // label3
       // 
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(12, 69);
+      this.label3.Location = new System.Drawing.Point(12, 90);
       this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(108, 13);
+      this.label3.Size = new System.Drawing.Size(100, 13);
       this.label3.TabIndex = 4;
-      this.label3.Text = "Import workouts from:";
+      this.label3.Text = "Import training data:";
       // 
       // txtPlanToImportWorkoutsFrom
       // 
       this.txtPlanToImportWorkoutsFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.txtPlanToImportWorkoutsFrom.Enabled = false;
-      this.txtPlanToImportWorkoutsFrom.Location = new System.Drawing.Point(126, 66);
+      this.txtPlanToImportWorkoutsFrom.Location = new System.Drawing.Point(126, 87);
       this.txtPlanToImportWorkoutsFrom.Name = "txtPlanToImportWorkoutsFrom";
       this.txtPlanToImportWorkoutsFrom.Size = new System.Drawing.Size(130, 20);
       this.txtPlanToImportWorkoutsFrom.TabIndex = 5;
       // 
       // butSelectWorkouts
       // 
-      this.butSelectWorkouts.Location = new System.Drawing.Point(262, 64);
+      this.butSelectWorkouts.Location = new System.Drawing.Point(262, 85);
       this.butSelectWorkouts.Name = "butSelectWorkouts";
       this.butSelectWorkouts.Size = new System.Drawing.Size(50, 23);
       this.butSelectWorkouts.TabIndex = 6;
@@ -119,7 +120,7 @@
       // 
       // butOk
       // 
-      this.butOk.Location = new System.Drawing.Point(15, 275);
+      this.butOk.Location = new System.Drawing.Point(15, 296);
       this.butOk.Name = "butOk";
       this.butOk.Size = new System.Drawing.Size(75, 23);
       this.butOk.TabIndex = 7;
@@ -129,7 +130,7 @@
       // 
       // butCancel
       // 
-      this.butCancel.Location = new System.Drawing.Point(237, 274);
+      this.butCancel.Location = new System.Drawing.Point(237, 295);
       this.butCancel.Name = "butCancel";
       this.butCancel.Size = new System.Drawing.Size(75, 23);
       this.butCancel.TabIndex = 8;
@@ -140,7 +141,7 @@
       // label4
       // 
       this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(12, 98);
+      this.label4.Location = new System.Drawing.Point(12, 119);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(109, 13);
       this.label4.TabIndex = 9;
@@ -148,17 +149,29 @@
       // 
       // dtpStartOfTrainingPlan
       // 
-      this.dtpStartOfTrainingPlan.Location = new System.Drawing.Point(148, 99);
+      this.dtpStartOfTrainingPlan.Location = new System.Drawing.Point(148, 120);
       this.dtpStartOfTrainingPlan.Name = "dtpStartOfTrainingPlan";
       this.dtpStartOfTrainingPlan.ShowToday = false;
       this.dtpStartOfTrainingPlan.TabIndex = 11;
       this.dtpStartOfTrainingPlan.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.dtpStartOfTrainingPlan_DateChanged);
       // 
+      // chkUseSampleData
+      // 
+      this.chkUseSampleData.AutoSize = true;
+      this.chkUseSampleData.Location = new System.Drawing.Point(15, 64);
+      this.chkUseSampleData.Name = "chkUseSampleData";
+      this.chkUseSampleData.Size = new System.Drawing.Size(142, 17);
+      this.chkUseSampleData.TabIndex = 12;
+      this.chkUseSampleData.Text = "Use sample training data";
+      this.chkUseSampleData.UseVisualStyleBackColor = true;
+      // 
       // NewTrainingPlanForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(324, 309);
+      this.CancelButton = this.butCancel;
+      this.ClientSize = new System.Drawing.Size(324, 329);
+      this.Controls.Add(this.chkUseSampleData);
       this.Controls.Add(this.dtpStartOfTrainingPlan);
       this.Controls.Add(this.label4);
       this.Controls.Add(this.butCancel);
@@ -170,6 +183,7 @@
       this.Controls.Add(this.numTrainingWeeks);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.txtTrainingPlanName);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       this.Name = "NewTrainingPlanForm";
       this.Text = "Enter Data for new Training Plan";
       ((System.ComponentModel.ISupportInitialize)(this.numTrainingWeeks)).EndInit();
@@ -191,5 +205,6 @@
     private System.Windows.Forms.Button butCancel;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.MonthCalendar dtpStartOfTrainingPlan;
+    private System.Windows.Forms.CheckBox chkUseSampleData;
   }
 }
